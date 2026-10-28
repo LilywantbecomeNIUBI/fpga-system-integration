@@ -1,0 +1,34 @@
+{
+  "started_utc": "20261028T192926Z",
+  "exit_code": 0,
+  "source_sha256": {
+    "fpga/motor/at8236_pwm.sv": "d44b178072845044f17f9cddda658b2406c25d4930dd77b2fbd60443fb8883c2",
+    "fpga/motor/brushed_motor_top.sv": "eddf9a89b2bcc39404d167dbaca143155c10c7f3c73c1bae93ada8903bd5e657",
+    "fpga/motor/encoder_ab.sv": "bebe5d2526dffafa1cd3efca0b30a586167114864c0e15ddfe422faebf6483b0",
+    "fpga/motor/motor_core.sv": "13eccff43244d12e3dc2f8e453a8716998fc4c5a9ebdc3eaa63e9b4859ef0748",
+    "fpga/motor/motor_protocol.sv": "ffc307a70e0fdf8c5b4c3b9bd3e7f45305ddd7c530f47319aa99e173f69fe05c",
+    "fpga/motor/motor_telemetry.sv": "dec02f7c8f2efd99280f2789e1b96b4742d921c19c0c96bd8244e1d3cf1ca39a",
+    "fpga/motor/uart_byte.sv": "d88aa96614eac7f51ab4d37d547e4fd3560c7ea4bb7ec25e97ff686e7a7d8ac0",
+    "fpga/motor/wheel_control.sv": "3c24f6ecf0d68aa49ea85e66f09b051aac122e108a081cc88cd0eefd4922b7ab",
+    "build/motor/motor.cst": "c36a597ffc0d1c5ab9a284410bf898d05648dfe232e1214cb147ff07d396666c",
+    "build/motor/motor.sdc": "276ae8f91c55b1c3d1d14ac2a036eee27851a9784747aaacb002e6971c6ad47c"
+  },
+  "tool": "C:\\Gowin\\Gowin_V1.9.12.04_x64\\IDE\\bin\\gw_sh.exe",
+  "tool_sha256": "585c12968550a960d1021287742672ff9d6bbeaee5623f6811dfc1f907a4af41",
+  "programmed": false,
+  "hardware_tested": false,
+  "sources_unchanged": true,
+  "violations": {
+    "setup": 0,
+    "hold": 0
+  },
+  "timing_sha256": "e424426ea559624063cbac4f81bd7b3d600393d841c0d503bad8ae947d976d93",
+  "bitstream_sha256": "12e18819862419ea4d281d124b373b247fe5ba98bf27ae0c2b24bcf98cc5c1be",
+  "passed": true,
+  "legacy_outputs_grounded": {
+    "legacy_m1_disable": true,
+    "legacy_m2_disable": true
+  },
+  "netlist_sha256": "abc34ad4496e205790f87822463de9893307bceab88e88847842e3dc37f4fc25",
+  "fmax_mhz": 68.679
+}

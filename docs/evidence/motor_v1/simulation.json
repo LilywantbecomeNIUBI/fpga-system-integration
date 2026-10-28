@@ -1,0 +1,43 @@
+{
+  "utc": "2026-10-28T19:29:25.742257+00:00",
+  "cases": [
+    {
+      "case": "tb_core",
+      "passed": true,
+      "output": "PASS core: arm guard, dual commands, sequence/wrap, watchdog, async estop, stall, encoder faults\nE:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\tests\\tb_core.sv:61: $finish called at 53710000 (1ps)\n"
+    },
+    {
+      "case": "tb_encoder",
+      "passed": true,
+      "output": "PASS encoder: x4 directions, window boundaries, filter, invalid, polarity\nE:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\tests\\tb_encoder.sv:25: $finish called at 2240000 (1ps)\n"
+    },
+    {
+      "case": "tb_uart_system",
+      "passed": true,
+      "output": "PASS UART system: real serial commands, CRC rejection, partial timeout, telemetry CRC, replay, STOP\nE:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\tests\\tb_uart_system.sv:65: $finish called at 1812120000 (1ps)\n"
+    },
+    {
+      "case": "tb_wheel",
+      "passed": true,
+      "output": "PASS wheel: saturation, PWM duty, slew, reversal, disable, PI antiwindup and plant convergence\nE:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\tests\\tb_wheel.sv:35: $finish called at 70020000 (1ps)\n"
+    }
+  ],
+  "hardware_tested": false,
+  "source_sha256": {
+    "fpga/motor/at8236_pwm.sv": "d44b178072845044f17f9cddda658b2406c25d4930dd77b2fbd60443fb8883c2",
+    "fpga/motor/brushed_motor_top.sv": "eddf9a89b2bcc39404d167dbaca143155c10c7f3c73c1bae93ada8903bd5e657",
+    "fpga/motor/encoder_ab.sv": "bebe5d2526dffafa1cd3efca0b30a586167114864c0e15ddfe422faebf6483b0",
+    "fpga/motor/motor_core.sv": "13eccff43244d12e3dc2f8e453a8716998fc4c5a9ebdc3eaa63e9b4859ef0748",
+    "fpga/motor/motor_protocol.sv": "ffc307a70e0fdf8c5b4c3b9bd3e7f45305ddd7c530f47319aa99e173f69fe05c",
+    "fpga/motor/motor_telemetry.sv": "dec02f7c8f2efd99280f2789e1b96b4742d921c19c0c96bd8244e1d3cf1ca39a",
+    "fpga/motor/uart_byte.sv": "d88aa96614eac7f51ab4d37d547e4fd3560c7ea4bb7ec25e97ff686e7a7d8ac0",
+    "fpga/motor/wheel_control.sv": "3c24f6ecf0d68aa49ea85e66f09b051aac122e108a081cc88cd0eefd4922b7ab",
+    "tests/tb_core.sv": "87e54dac0baef744580dda196a5f0c83b6278f865c89c8d046c296e499b0dbb9",
+    "tests/tb_encoder.sv": "239032ec79477c4cfbed5aec298ceafabafd75e7f9e269497bf2f5cd230d6e65",
+    "tests/tb_uart_system.sv": "bf9b23fe17e31d700c66f43e057519e49483e05e8dee23d501ab45d380374d6f",
+    "tests/tb_wheel.sv": "b47368f6cd8f85a65174b9f1f8c63672352a38159a22fdf80d34523b8d5a22e0",
+    "tests/test_motor_protocol.py": "0659627e88f78e2e3ab6fa39e8aa627d797eb0c7ea0d1dc140cc2083b594f2cb",
+    "host/motor_console.py": "61c1dd4a3c1946d787910bc0998d5703ca349e901e45f01e1764cc7355f841ef",
+    "host/motor_protocol.py": "2c12735bf08350185edb54122ef473f9a1e67bfd57c5e52ef24e9c1707edab3b"
+  }
+}
