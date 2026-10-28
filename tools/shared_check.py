@@ -9,7 +9,7 @@ def check():
     original=(ROOT/'fpga/vision/src/vision/vision_lk_tracker.v').read_text(encoding='utf-8')
     tuned=(ROOT/'fpga/system/vision_tracker_timing.v').read_text(encoding='utf-8')
     original=re.sub(r' function present;.*?endfunction', '', original, count=1, flags=re.S)
-    tuned=re.sub(r' // Equivalent bank-parallel lookup.*?endfunction', '', tuned, count=1, flags=re.S)
+    tuned=re.sub(r' // A sealed bank.*?endfunction', '', tuned, count=1, flags=re.S)
     assert original==tuned,'LK timing implementation has unexpected algorithm changes'
     from build_system import prepare
     folder,sources=prepare()

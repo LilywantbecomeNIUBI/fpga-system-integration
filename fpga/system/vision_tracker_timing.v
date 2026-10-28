@@ -34,16 +34,9 @@ module vision_tracker #(
    end
   end
  end
- // Equivalent bank-parallel lookup avoids a wide tag mux before comparison.
- // Frozen upstream source remains in fpga/vision; this implementation is selected only here.
- function present;
- input [15:0] f; integer bank;
- begin
-  present=0;
-  for(bank=0;bank<HISTORY;bank=bank+1)
-   present=present | (sealed[bank] && tags[bank]==f && f[HB-1:0]==bank);
- end
- endfunction
+ // A sealed bank is written only with a frame ID whose low HB bits select that bank.
+ // Reset clears sealed, so those tag bits are redundant for every reachable lookup.
+ function present;input [15:0] f;begin present=sealed[f[HB-1:0]] && (tags[f[HB-1:0]] >> HB)==(f >> HB);end endfunction
  function [16:0] abs17;input signed [16:0] v;begin abs17=v<0 ? -v : v;end endfunction
  localparam IDLE=0,SEED_INIT=1,PAIR_INIT=2,POINT_INIT=3,POINT_START=4,POINT_WAIT=5,POINT_NEXT=6,
   SORT_INIT=7,SORT_STEP=8,MEDIAN=9,COUNT_INIT=10,COUNT_STEP=11,TRANSLATE=12,APPLY=13,

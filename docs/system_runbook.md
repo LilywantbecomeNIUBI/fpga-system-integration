@@ -99,4 +99,6 @@ Nano每次live启动创建独立记录目录：原始混合UART、原始雷达UA
 
 ## LK时序实现的来源
 
-`fpga/vision/src/vision/vision_lk_tracker.v` 保留冻结原件；系统构建选择 `fpga/system/vision_tracker_timing.v`。差异仅为 `present` 历史帧查询函数：将动态选择整组标签再比较，改为逐bank并行比较完整16位标签、有效位和bank索引后归并。历史深度、状态机、数值算法、帧格式和时钟均不改变。LK回归使用系统实际选择的实现，完整顶层使用同一构建文件清单。
+`fpga/vision/src/vision/vision_lk_tracker.v` 保留冻结原件；系统构建选择 `fpga/system/vision_tracker_timing.v`。差异仅为 `present` 历史帧查询函数：保留有效位和高位标签比较；有效bank的标签低HB位必然等于bank索引，因此不再重复比较这些低位。复位清空有效位，写入时以帧ID低位选择bank，这个不变量在每次查询时保持。历史深度、状态机、数值算法、帧格式和时钟均不改变。LK回归使用系统实际选择的实现，完整顶层使用同一构建文件清单。
+
+动态指标可从 `docs/dynamic_baseline.template.json` 和 `docs/dynamic_moving.template.json` 复制填写；模板故意为null，不能通过验收。记录相同配置标识、源码版本、原始日志路径及测量方法。IMU采集率由内部sample_seq及设备时间增量计算，100Hz串口上传率单独统计，不能混用；设备与主机时间也不能当作精确同步。控制周期/抖动和物理停车时间须用现场仪器或明确的板内测量依据记录，20Hz状态接收周期不能替代100Hz速度环周期。动态验收时另行归档这些测量证据。
