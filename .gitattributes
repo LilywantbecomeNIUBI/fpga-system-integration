@@ -1,2 +1,2 @@
 # Imported snapshots and provenance use exact file bytes.
-* -text
+* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

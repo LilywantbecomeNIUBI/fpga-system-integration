@@ -66,6 +66,16 @@ start_console.cmd --mode live --config config/pc.local.json
 
 实时入口只连接服务，不部署Nano、不改操作系统网络、不下载FPGA。PC不打开FPGA串口。Nano服务、PC服务和位流分别显式启停。
 
+FPGA两个图传目标默认未配置。接收器启动并确认网络连通后，在PC显式设置端点：
+
+```powershell
+python tools/configure_endpoints.py --config config/pc.local.json
+# 上面只打印计划；现场确认后才加 --apply 写入FPGA运行时端点：
+python tools/configure_endpoints.py --config config/pc.local.json --apply
+```
+
+此入口沿用原网络协议和AV归属保护；已有AV会话占用时先由操作者正常结束并释放，不能绕过保护。
+
 ## 遥控与接口
 
 页面先“申请控制并解锁”，网关通过STOP→CLEAR→ARM并逐步等待FPGA状态确认，才允许方向输入。20Hz心跳携带递增客户端序号；目标只保留最新一组，不排队。松开即STOP并撤销会话，下一次运动重新解锁。运动期间不支持更改增益或极性。
@@ -86,3 +96,7 @@ Nano每次live启动创建独立记录目录：原始混合UART、原始雷达UA
 按动力断开感知并发→悬空单轮→悬空双轮→落地低速→30分钟并发递增验收。先记录相同配置的静止基线，再记录运动窗口；保留原始日志、版本和哈希。通过`tools/evaluate_dynamic.py --baseline ... --moving ...`检查至少30分钟、四路吞吐≥静止基线90%、各保护通过、CRC与记录错误为0，以及预先填定的停车延迟和轮速误差限值。缺项或非有限数值会拒绝通过。
 
 当前没有本车上述实测结果，不能用仿真、历史单模块记录或STA代替。第二阶段先修复有效麦克风采样，再接入共享网口和语音，先支持语音STOP。
+
+## LK时序实现的来源
+
+`fpga/vision/src/vision/vision_lk_tracker.v` 保留冻结原件；系统构建选择 `fpga/system/vision_tracker_timing.v`。差异仅为 `present` 历史帧查询函数：将动态选择整组标签再比较，改为逐bank并行比较完整16位标签、有效位和bank索引后归并。历史深度、状态机、数值算法、帧格式和时钟均不改变。LK回归使用系统实际选择的实现，完整顶层使用同一构建文件清单。

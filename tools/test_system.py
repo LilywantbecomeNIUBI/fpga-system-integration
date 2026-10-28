@@ -26,7 +26,7 @@ def main():
         (data/('frame_%d.hex'%index)).write_text(''.join('%04x\n'%((red<<8)|v) for row in image for v in row))
     original=(ROOT/'tests/vision/tb_vision_lk_tracker.v').read_text(encoding='utf-8')
     bench=ROOT/'build/tests/tb_lk_adapted.v';bench.write_text(original.replace('tests/vision_lk','build/tests/vision_lk'),encoding='utf-8')
-    run('lk_compile',['iverilog','-g2012','-s','tb_vision_lk_tracker','-o','build/tests/lk.vvp',str(bench),'fpga/vision/src/vision/vision_lk_tracker.v','fpga/vision/src/optical_flow/flow_lk_patch.v','fpga/vision/src/vision/vision_divider.v'])
+    run('lk_compile',['iverilog','-g2012','-s','tb_vision_lk_tracker','-o','build/tests/lk.vvp',str(bench),'fpga/system/vision_tracker_timing.v','fpga/vision/src/optical_flow/flow_lk_patch.v','fpga/vision/src/vision/vision_divider.v'])
     record['cases']['lk']=run('lk',['vvp','build/tests/lk.vvp'])
     original=(ROOT/'vendor/vision/test_network_dual_original.py').read_text(encoding='utf-8')
     script=ROOT/'build/tests/dual_adapted.py'

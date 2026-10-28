@@ -23,17 +23,21 @@ def prepare():
     names={'clk50m','reset_n','uart_rx','uart_tx','legacy_m1_disable','legacy_m2_disable','imu_i2c_scl','imu_i2c_sda'}
     selected=[r for r in rows if r['group'] in ('chassis','camera','ethernet') or r['signal'] in names or r['signal'].startswith('led[')]
     cst=['// Integrated chassis/sensing candidate. Encoder inputs require verified 3.3V conditioning.']
+    original_ports=dict(re.findall(r'(IO_PORT "([^"]+)"[^;]+;)',(ROOT/'vendor/reference/robot.cst').read_text(encoding='utf-8')))
+    original_ports={signal:statement for statement,signal in original_ports.items()}
     for r in selected:
         pull='UP' if r['signal']=='uart_rx' else 'DOWN' if r['group']=='chassis' else 'NONE'
-        cst += [f'IO_LOC "{r["signal"]}" {r["ball"]};',f'IO_PORT "{r["signal"]}" IO_TYPE=LVCMOS33 PULL_MODE={pull} BANK_VCCIO=3.3;']
+        port=original_ports.get(r['signal']) if r['group']!='chassis' else None
+        cst += [f'IO_LOC "{r["signal"]}" {r["ball"]};',port or f'IO_PORT "{r["signal"]}" IO_TYPE=LVCMOS33 PULL_MODE={pull} BANK_VCCIO=3.3;']
+    cst+=re.findall(r'^CLOCK_LOC[^\n]+',(ROOT/'vendor/reference/robot.cst').read_text(encoding='utf-8'),re.M)
     (folder/'system.cst').write_text('\n'.join(cst)+'\n',encoding='utf-8')
     # Preserve the sensing candidate's clock/CDC constraints; no extra module-wide exceptions.
     sdc=(ROOT/'vendor/reference/robot.sdc').read_text(encoding='utf-8').replace('imu/core/reader/','imu/reader/')
     for pin in ('rx/rx_meta_s0/D','core/enc_l/ab_meta_0_s0/D','core/enc_l/ab_meta_1_s0/D','core/enc_r/ab_meta_0_s0/D','core/enc_r/ab_meta_1_s0/D'):
         sdc+=f'set_false_path -to [get_pins {{{pin}}}]\n'
     (folder/'system.sdc').write_text(sdc,encoding='utf-8')
-    sources=sorted((ROOT/'fpga/motor').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.sv'))
-    sources+=sorted(p for p in (ROOT/'fpga/vision/src').rglob('*.v') if p.name!='camera_perception_top.v')
+    sources=sorted((ROOT/'fpga/motor').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.v'))
+    sources+=sorted(p for p in (ROOT/'fpga/vision/src').rglob('*.v') if p.name not in ('camera_perception_top.v','vision_lk_tracker.v'))
     sources+=[ROOT/'fpga/imu'/name for name in ('imu_1khz_core.v','icm42688_fast_reader.v','imu_fast_i2c_master.v')]
     sources+=[folder/'system.cst',folder/'system.sdc']
     project=ET.Element('Project')
@@ -44,7 +48,7 @@ def prepare():
         ET.SubElement(files,'File',path=Path(os.path.relpath(p,folder)).as_posix(),type={'.v':'file.verilog','.sv':'file.verilog','.cst':'file.cst','.sdc':'file.sdc'}[p.suffix],enable='1')
     ET.ElementTree(project).write(folder/'system.gprj',encoding='utf-8',xml_declaration=True)
     tcl='set here [file dirname [file normalize [info script]]]\ncd $here\nopen_project system.gprj\n'
-    for k,v in [('top_module','system_top'),('verilog_std','sysv2017'),('output_base_name','system'),('max_fanout','16'),('replicate_resources','1'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option','3'),('route_option','2')]:
+    for k,v in [('top_module','system_top'),('verilog_std','v2001'),('output_base_name','system'),('max_fanout','16'),('replicate_resources','1'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option','3'),('route_option','2')]:
         tcl+=f'set_option -{k} {v}\n'
     (folder/'build.tcl').write_text(tcl+'run all\n',encoding='utf-8')
     return folder,sources
@@ -54,7 +58,7 @@ def main():
     folder,sources=prepare()
     if args.prepare_only: print(folder/'system.gprj');return
     if os.name=='nt':
-        active=subprocess.run(['powershell','-NoProfile','-Command','Get-Process gw_sh,gw_syn,gw_pnr -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Id'],capture_output=True,text=True)
+        active=subprocess.run(['powershell','-NoProfile','-Command','Get-Process gw_sh,gw_syn,gw_pnr -ErrorAction SilentlyContinue | Where-Object { -not $_.HasExited } | Select-Object -ExpandProperty Id'],capture_output=True,text=True)
         if active.stdout.strip(): raise SystemExit('Another Gowin build is running; left untouched.')
     exe=Path(os.environ.get('GOWIN_HOME','C:/Gowin/Gowin_V1.9.12.04_x64'))/'IDE/bin/gw_sh.exe'
     stamp=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')

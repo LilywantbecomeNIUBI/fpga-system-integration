@@ -55,4 +55,3 @@ class ImuState:
                     pitch_deg=self.pitch,roll_deg=self.roll,yaw_deg=None,
                     convention='sensor axes; roll about +X, pitch about +Y, upright +Z; yaw unavailable',
                     method='host complementary filter of decimated IMU; visualization only, no motor control'))
-

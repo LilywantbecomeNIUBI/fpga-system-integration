@@ -298,5 +298,15 @@
   "worktree_diff": {
     "path": "vendor/reference/sensing_worktree.diff",
     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "derived_implementations": {
+    "fpga/system/vision_tracker_timing.v": {
+      "source": "fpga/vision/src/vision/vision_lk_tracker.v",
+      "source_sha256": "c1b08a6df1759de95467610513d15ea771d56c7a8d43885730fd06c284046270",
+      "sha256": "51c243459e9dae6e55de80417b90e4ee0bfa293d6ea98bde6d9f5f665f2e21a2",
+      "change": "Equivalent present() bank-parallel full-tag lookup; all other source text unchanged",
+      "selected_by": "tools/build_system.py",
+      "regression": "tools/test_system.py LK replay and tools/test_full_top.py"
+    }
   }
 }

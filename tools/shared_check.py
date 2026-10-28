@@ -5,6 +5,12 @@ def check():
     manifest=json.loads((ROOT/'docs/integration_sources.json').read_text(encoding='utf-8'))
     for rel,row in manifest['files'].items():
         if not row.get('adapted'):assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()==row['sha256'],rel
+    # The timing implementation must differ only in the bank lookup function.
+    original=(ROOT/'fpga/vision/src/vision/vision_lk_tracker.v').read_text(encoding='utf-8')
+    tuned=(ROOT/'fpga/system/vision_tracker_timing.v').read_text(encoding='utf-8')
+    original=re.sub(r' function present;.*?endfunction', '', original, count=1, flags=re.S)
+    tuned=re.sub(r' // Equivalent bank-parallel lookup.*?endfunction', '', tuned, count=1, flags=re.S)
+    assert original==tuned,'LK timing implementation has unexpected algorithm changes'
     from build_system import prepare
     folder,sources=prepare()
     for p in sources:p.resolve().relative_to(ROOT);assert p.is_file(),p
