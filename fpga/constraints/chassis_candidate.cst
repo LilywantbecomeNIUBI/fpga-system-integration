@@ -1,0 +1,30 @@
+// Candidate chassis fragment; NOT a complete downloadable project.
+// ACG720 GW5AT-138B. Disconnect old FOC carrier wiring before use.
+// Encoder inputs require verified 3.3V conditioning. See docs/pin_plan_v0.md.
+// P7-1 OUT: AIN1 / D157B J4-4
+IO_LOC "left_in1" A13;
+IO_PORT "left_in1" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;
+// P7-2 OUT: AIN2 / D157B J4-3
+IO_LOC "left_in2" A14;
+IO_PORT "left_in2" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;
+// P7-3 OUT: BIN1 / D157B J4-2
+IO_LOC "right_in1" A15;
+IO_PORT "right_in1" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;
+// P7-4 OUT: BIN2 / D157B J4-1
+IO_LOC "right_in2" A16;
+IO_PORT "right_in2" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;
+// P7-13 IN: level shifter <- E1A / D157B J5-1
+IO_LOC "left_enc_a" C13;
+IO_PORT "left_enc_a" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;
+// P7-14 IN: level shifter <- E1B / D157B J5-2
+IO_LOC "left_enc_b" B13;
+IO_PORT "left_enc_b" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;
+// P7-15 IN: level shifter <- E2A / D157B J5-3
+IO_LOC "right_enc_a" D14;
+IO_PORT "right_enc_a" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;
+// P7-16 IN: level shifter <- E2B / D157B J5-4
+IO_LOC "right_enc_b" D15;
+IO_PORT "right_enc_b" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;
+// P7-20 IN: external safety status / external pulldown
+IO_LOC "estop_n" B16;
+IO_PORT "estop_n" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;

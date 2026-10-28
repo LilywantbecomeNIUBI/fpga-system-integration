@@ -1,0 +1,34 @@
+[
+  {
+    "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-robot\\fpga\\constraints\\robot.cst",
+    "sha256": "9019ebf41f1d7c489950ea9679ba1150a156bc1e3ad0bb48a0662d673002b36b"
+  },
+  {
+    "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-audio\\docs\\pins.csv",
+    "sha256": "cc1c12a6fe78a8442394e9d9f29e6ee8ec4b8225eeb915a27507f31a47b3482c"
+  },
+  {
+    "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-sensor\\docs\\hardware\\GPIO_40Pin_mapping.csv",
+    "sha256": "1df90aba8e002d321d0fad9f0ab11a86aca103ed69b8b0ceb2a8348a2eae6941"
+  },
+  {
+    "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-balance\\motor_control\\constraints\\motor_selftest.cst",
+    "sha256": "3ded2c781112aa3ab2680e568c030c7e02692bd85a280d0a5fa8392b0dc3294f"
+  },
+  {
+    "path": "D:\\活动\\比赛\\电赛\\FPGA\\硬件资料\\ACG720_硬件图纸\\ACG720-138&60K通用原理图.pdf",
+    "sha256": "47e4b849edc46ab16925aaa3d61b7bb4e766b24222a1dabf0b7ec3bf9ae3c9f4"
+  },
+  {
+    "path": "D:\\活动\\比赛\\电赛\\FPGA\\硬件资料\\【WHEELTEC】AT8236驱动模块附送资料\\【WHEELTEC】AT8236驱动模块附送资料_V2.8_2026.07.25\\1.用户手册与教程视频\\电机驱动模块使用手册—AT8236-2025.08.27.pdf",
+    "sha256": "56ec9aefff8635d37a1f39efac2e2b910c8ee8b6a983c2c162011fed76ea3178"
+  },
+  {
+    "path": "D:\\活动\\比赛\\电赛\\FPGA\\硬件资料\\【WHEELTEC】AT8236驱动模块附送资料\\【WHEELTEC】AT8236驱动模块附送资料_V2.8_2026.07.25\\5.原理图\\2.AT8236稳压模块原理图（D157B）.pdf",
+    "sha256": "c3b61368245dbe1389a981aee41eaa8ee9f55649f12b464a413a5968c74d679e"
+  },
+  {
+    "path": "D:\\活动\\比赛\\电赛\\FPGA\\硬件资料\\【WHEELTEC】AT8236驱动模块附送资料\\【WHEELTEC】AT8236驱动模块附送资料_V2.8_2026.07.25\\6.芯片手册\\AT8236芯片手册.PDF",
+    "sha256": "4b6ce3562984d8b8689313c2556c1e57dc67d37facb5843e4af6f71fe9f89bb1"
+  }
+]

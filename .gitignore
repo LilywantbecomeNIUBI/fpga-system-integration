@@ -1,0 +1,13 @@
+build/
+tmp/
+results/
+__pycache__/
+*.py[cod]
+*.fs
+*.vcd
+*.vvp
+*.log
+*.gprj.user
+.env
+*.key
+*.pem
