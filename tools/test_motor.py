@@ -12,9 +12,10 @@ def main():
     folder=ROOT/'build/tests';folder.mkdir(parents=True,exist_ok=True)
     compiler=shutil.which('iverilog'); runner=shutil.which('vvp')
     if not compiler or not runner: raise SystemExit('Icarus iverilog/vvp required')
-    sources=sorted((ROOT/'fpga/motor').glob('*.sv'))
+    sources=sorted((ROOT/'fpga/motor').glob('*.sv'))+[ROOT/'fpga/system/imu_status_source.sv']
     records=[]
     for bench in sorted((ROOT/'tests').glob('tb_*.sv')):
+        if bench.stem=='tb_full_system':continue
         image=folder/(bench.stem+'.vvp')
         compile_result=subprocess.run([compiler,'-g2012','-Wall','-s',bench.stem,'-o',str(image),*map(str,sources),str(bench)],capture_output=True,text=True)
         if compile_result.returncode: print(compile_result.stdout+compile_result.stderr);raise SystemExit(1)

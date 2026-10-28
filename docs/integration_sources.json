@@ -1,0 +1,302 @@
+{
+  "repository": "fpga-robot",
+  "head": "8c07906608fd95df9d43b6c4a66320e981fc2d57",
+  "status": "",
+  "files": {
+    "fpga/vision/constraints/camera_perception.cst": {
+      "source": "fpga/vision/constraints/camera_perception.cst",
+      "sha256": "c71c3030e95e801eafb264744ead2d538ea7f9036435385d2d111b6cc2da427b"
+    },
+    "fpga/vision/constraints/camera_perception.sdc": {
+      "source": "fpga/vision/constraints/camera_perception.sdc",
+      "sha256": "72b4e71936063cfde002f0c031d56d7508cddcb42c4c7410e8420937a1037ad7"
+    },
+    "fpga/vision/src/camera_perception_top.v": {
+      "source": "fpga/vision/src/camera_perception_top.v",
+      "sha256": "3b3a8f6abc6379ea9fa8ce41c492369d68a1059216ce53f36f98abb311661a0a"
+    },
+    "fpga/vision/src/camera_status_uart.v": {
+      "source": "fpga/vision/src/camera_status_uart.v",
+      "sha256": "584c610002950a783f42a0a79a9ba744c9f3370a7e8b134aa46505b590008711"
+    },
+    "fpga/vision/src/network_runtime_dual.v": {
+      "source": "fpga/vision/src/network_runtime_dual.v",
+      "sha256": "f0b31664f1a3f5bc787ea3d60d89b3fd5b897b11c5eaa36771fc5cb6c9c179ec"
+    },
+    "fpga/vision/src/ov5640_config.v": {
+      "source": "fpga/vision/src/ov5640_config.v",
+      "sha256": "16409ed98744ce01b95915ba906839efa91d7d6f530ebcf8ccb87210ad58e58e"
+    },
+    "fpga/vision/src/reset_sync.v": {
+      "source": "fpga/vision/src/reset_sync.v",
+      "sha256": "9032a61c45ada932d9b65aff7360bad58f3b4669914808cef6eeb01f65cfabb4"
+    },
+    "fpga/vision/src/rgmii_input.v": {
+      "source": "fpga/vision/src/rgmii_input.v",
+      "sha256": "e76d205b357be16230e495c533b378af0c0d549af67f4cd3b3f33149394da5a8"
+    },
+    "fpga/vision/src/rgmii_output.v": {
+      "source": "fpga/vision/src/rgmii_output.v",
+      "sha256": "137d0606f7c77058f04b333062e72af1062d1f961f888f2efe7ce093bb9c26d0"
+    },
+    "fpga/vision/src/camera_init/ov5640_init_table_rgb.v": {
+      "source": "fpga/vision/src/camera_init/ov5640_init_table_rgb.v",
+      "sha256": "ed5ae01f0f90d888b361c3c773afa01291bdc0703b66f948cc452458f820478e"
+    },
+    "fpga/vision/src/ethernet_pll/ethernet_pll.v": {
+      "source": "fpga/vision/src/ethernet_pll/ethernet_pll.v",
+      "sha256": "889ff793c4f4eb8d2de414e6a400831c9134140d0d566a32ff734abc5483fba2"
+    },
+    "fpga/vision/src/eth_udp_gmii/crc32_d8.v": {
+      "source": "fpga/vision/src/eth_udp_gmii/crc32_d8.v",
+      "sha256": "bc5f7b1ee9d60fa0ae75b1be7db055680c545e826ecafd86138c4f842d660f3d"
+    },
+    "fpga/vision/src/eth_udp_gmii/eth_udp_tx_gmii.v": {
+      "source": "fpga/vision/src/eth_udp_gmii/eth_udp_tx_gmii.v",
+      "sha256": "44f2e7f9dcd444f3300e72ac59a96eb7f28e19f06097274886316361412a74c2"
+    },
+    "fpga/vision/src/eth_udp_gmii/ip_checksum.v": {
+      "source": "fpga/vision/src/eth_udp_gmii/ip_checksum.v",
+      "sha256": "20e74286feb737da7bcc9ff72b19ef9ee85d96f3bf6882bfb66572b76c84f856"
+    },
+    "fpga/vision/src/mdio/mdio_bit_shift.v": {
+      "source": "fpga/vision/src/mdio/mdio_bit_shift.v",
+      "sha256": "470bf1ff074072ecd9977403651b18d8df125e5c0d670d35ce06cd5139796057"
+    },
+    "fpga/vision/src/mdio/phy_reg_config.v": {
+      "source": "fpga/vision/src/mdio/phy_reg_config.v",
+      "sha256": "2401a4a435482341b0dd78168a2ed4c5e9e91c5624a97d5dbc01176c061f2043"
+    },
+    "fpga/vision/src/optical_flow/flow_lk_patch.v": {
+      "source": "fpga/vision/src/optical_flow/flow_lk_patch.v",
+      "sha256": "2c18fa419b2cf8406cd61dbaf90a62fa4c60e5626233d5d843951377f9cd472d"
+    },
+    "fpga/vision/src/vision/camera_perception.v": {
+      "source": "fpga/vision/src/vision/camera_perception.v",
+      "sha256": "88d078ae03462406dfe9ad875c8c8cdaa65f081772433d15b65457dd7d116b07"
+    },
+    "fpga/vision/src/vision/vision_divider.v": {
+      "source": "fpga/vision/src/vision/vision_divider.v",
+      "sha256": "748b259b62a708b5f0686acf9ff8fb4fc8a47a51015382aaff88394a4687aab1"
+    },
+    "fpga/vision/src/vision/vision_dvp_capture.v": {
+      "source": "fpga/vision/src/vision/vision_dvp_capture.v",
+      "sha256": "ad62062adb45fb0ffee456520fb8a0de6f4f65ece7064b09c75532e1b6310a6c"
+    },
+    "fpga/vision/src/vision/vision_feature_grid.v": {
+      "source": "fpga/vision/src/vision/vision_feature_grid.v",
+      "sha256": "d2254c9d2fd406ceefe94c8bab087c279a3bafb36f66da85ae5280b0c99cd9b6"
+    },
+    "fpga/vision/src/vision/vision_frame_stream.v": {
+      "source": "fpga/vision/src/vision/vision_frame_stream.v",
+      "sha256": "e631430a19b0992dac60cd2dbbedd203b24409ea4f7d108ca4fe142dc3b33fdd"
+    },
+    "fpga/vision/src/vision/vision_lk_tracker.v": {
+      "source": "fpga/vision/src/vision/vision_lk_tracker.v",
+      "sha256": "c1b08a6df1759de95467610513d15ea771d56c7a8d43885730fd06c284046270"
+    },
+    "fpga/vision/src/vision/vision_mailbox.v": {
+      "source": "fpga/vision/src/vision/vision_mailbox.v",
+      "sha256": "0376dacbc4fe05a59e928f719fce302b9f70779aac5e61d1d20f1b540e15307a"
+    },
+    "fpga/vision/src/vision/vision_pixel_pipeline.v": {
+      "source": "fpga/vision/src/vision/vision_pixel_pipeline.v",
+      "sha256": "a5e18b6cef73052383afcad9656dacf2d36cf096279c2aac208d3885550bd71d"
+    },
+    "fpga/vision/src/vision/vision_result_core.v": {
+      "source": "fpga/vision/src/vision/vision_result_core.v",
+      "sha256": "7c1addd37aeee35ccd5e3e7ad883d7b868e17d81d170c89af23f2330e1b7ce10"
+    },
+    "fpga/vision/src/vision/vision_v23_bridge.v": {
+      "source": "fpga/vision/src/vision/vision_v23_bridge.v",
+      "sha256": "3bbb32b0379debd3e991d59753181a2b1fa83001f2de7a29cf882aeb15f1496b"
+    },
+    "fpga/vision/src/camera_init/i2c_control/i2c_bit_shift.v": {
+      "source": "fpga/vision/src/camera_init/i2c_control/i2c_bit_shift.v",
+      "sha256": "00ffafdc833bda4ea094bcff65ec74ac25c0cd4215559457482e29119540338a"
+    },
+    "fpga/vision/src/camera_init/i2c_control/i2c_control.v": {
+      "source": "fpga/vision/src/camera_init/i2c_control/i2c_control.v",
+      "sha256": "7d8106cd3e377afbfe03e1a959903a6ae409c061cd06da4d1c1650f550bad829"
+    },
+    "fpga/imu/icm42688_fast_reader.v": {
+      "source": "fpga/imu/icm42688_fast_reader.v",
+      "sha256": "e4d651fcfbb950e65c0404e18282f35288c79f56cc5abeebb1ae399cfb7e0340"
+    },
+    "fpga/imu/imu_1khz_400k_top.v": {
+      "source": "fpga/imu/imu_1khz_400k_top.v",
+      "sha256": "87895c1df1d8d04aae6892b48b830d9f4607b831c7c7b697f5d6f86a26927cdc"
+    },
+    "fpga/imu/imu_1khz_core.v": {
+      "source": "fpga/imu/imu_1khz_core.v",
+      "sha256": "b423c14c5ba2e9d690722b5afd50eb25c000090785b0d1d585d73bc1fe664452"
+    },
+    "fpga/imu/imu_1khz_top.v": {
+      "source": "fpga/imu/imu_1khz_top.v",
+      "sha256": "d57e9a7d3f70392d242cc3a3cc94bbd497bf5af1a0eb123ed859c2da0d5623ce"
+    },
+    "fpga/imu/imu_fast_i2c_master.v": {
+      "source": "fpga/imu/imu_fast_i2c_master.v",
+      "sha256": "06365187f02ac81bf336bae6fc54c1795e9f70dcad8078d292202f165afa3368"
+    },
+    "fpga/imu/imu_fast_uart_stream.v": {
+      "source": "fpga/imu/imu_fast_uart_stream.v",
+      "sha256": "da0a7f5bafed773774264dd25c4ac6d62e2c64ffc3b1115829989c138884e04b"
+    },
+    "vendor/vision/camera_protocol.py": {
+      "source": "vendor/vision/camera_protocol.py",
+      "sha256": "4e3824805df693bc68145daf2e19e5dd47fbf0e9c7729d05453209bd9bcd72a4"
+    },
+    "vendor/vision/camera_receiver.py": {
+      "source": "vendor/vision/camera_receiver.py",
+      "sha256": "ab7dfd631295792e2c1c4b4c6fc78a113cf03a63402415d209eaad0a9333f0b3"
+    },
+    "vendor/vision/lk_model.py": {
+      "source": "vendor/vision/lk_model.py",
+      "sha256": "cfdda57ad50036dd7798eab9965ca42897abf2b32de5cd5cb93280eb38c93aac"
+    },
+    "vendor/vision/network_control.py": {
+      "source": "vendor/vision/network_control.py",
+      "sha256": "d175bb40b3d76566c88d6d18385a4ae30349cd4d10d1e5b158e2c439476384a0"
+    },
+    "vendor/vision/test_network_dual_original.py": {
+      "source": "vendor/vision/test_network_dual_original.py",
+      "sha256": "96a809cecdd174f63f37ed3af0bed9bd51277341cf557d0fbddd9f40d9d699a6"
+    },
+    "vendor/vision/vision_dashboard.py": {
+      "source": "vendor/vision/vision_dashboard.py",
+      "sha256": "67cdb51d23c787a3a35545afc71660312fe6cbd73add2348aae3d3fe3e525a68"
+    },
+    "vendor/vision/vision_dashboard_common.py": {
+      "source": "vendor/vision/vision_dashboard_common.py",
+      "sha256": "22dfe363d723c244ec18083e62aa0c54187ea1adefe744cca39c7b1d6ff694fb"
+    },
+    "vendor/vision/vision_events.py": {
+      "source": "vendor/vision/vision_events.py",
+      "sha256": "ac27c1feeeb4e6f0729d9588e854491501956ebb480ff4d07994b5aeb9311032"
+    },
+    "vendor/vision/vision_feedback.py": {
+      "source": "vendor/vision/vision_feedback.py",
+      "sha256": "b186fce5084336eef230918628ffef1aebdac828143de5f1566671b25b87c181"
+    },
+    "vendor/vision/vision_models.py": {
+      "source": "vendor/vision/vision_models.py",
+      "sha256": "08d3fde8a541538a29e53f1975aced6970b984d974c5f87d70ac74fddc5b502f"
+    },
+    "vendor/vision/vision_protocol.py": {
+      "source": "vendor/vision/vision_protocol.py",
+      "sha256": "2ff4d75210596a9a110f05d02403009152c869203fa2b006b6cff43db1db4e8e"
+    },
+    "vendor/vision/vision_tensorrt.py": {
+      "source": "vendor/vision/vision_tensorrt.py",
+      "sha256": "40e821b7add73f445ca491e383677df0eb0c410f01f7514895a4886cbe535a8b"
+    },
+    "vendor/vision/vision_v23_protocol.py": {
+      "source": "vendor/vision/vision_v23_protocol.py",
+      "sha256": "acabba4b97504d5e64ff9b06bbdd078b9a82221162391856baafa6150b41af68"
+    },
+    "vendor/imu/constraints/imu_1khz.cst": {
+      "source": "vendor/imu/constraints/imu_1khz.cst",
+      "sha256": "bd4db5e909729b0824a0f9b6c61b5651b6a4091154f88e14f39714c4ad9b7723"
+    },
+    "vendor/imu/constraints/imu_1khz.sdc": {
+      "source": "vendor/imu/constraints/imu_1khz.sdc",
+      "sha256": "bacc97cd646279ccc0e69cd10ac8e35c4014003249433d6505d79035848d8452"
+    },
+    "vendor/imu/pc/imu_viewer.py": {
+      "source": "vendor/imu/pc/imu_viewer.py",
+      "sha256": "eb57728203d1376771ae76aa2343b1f708482d6dcbf3a0068171104f242d725b"
+    },
+    "vendor/notices/fpga-sensor/CONTRIBUTING.md": {
+      "source": "vendor/notices/fpga-sensor/CONTRIBUTING.md",
+      "sha256": "be55b0fa67dc6cfa576099c8162a7e27de48d503daffea0ec9efeb5a3f316a8b"
+    },
+    "vendor/notices/fpga-vision/CONTRIBUTING.md": {
+      "source": "vendor/notices/fpga-vision/CONTRIBUTING.md",
+      "sha256": "5ec5ad96d5de73841c7eaeca1217ef5802cecdd4828e1f2686260e05b472b1f5"
+    },
+    "tests/vision/tb_network_dual.v": {
+      "source": "tests/vision/tb_network_dual.v",
+      "sha256": "9c21cf4796ece5a485ec0179decd2497fc5eb49935259d2f2118554b5a105452"
+    },
+    "tests/vision/tb_vision_lk_tracker.v": {
+      "source": "tests/vision/tb_vision_lk_tracker.v",
+      "sha256": "33067132af51d752cf24faff32929e34d071bc0722fba534db0d98b50a397290"
+    },
+    "tests/vision/tb_vision_v23_network.v": {
+      "source": "tests/vision/tb_vision_v23_network.v",
+      "sha256": "cd991475f9fc5be23ad22fd1fb4d8f0c73b9fc5232c0cfb78b9dbb0182209e13"
+    },
+    "tests/imu/icm42688_model.sv": {
+      "source": "tests/imu/icm42688_model.sv",
+      "sha256": "ebd6dbbe22e8ecbe39e744b0f6abf6159d035fa68b33fee6958693f2eb6ebbd6"
+    },
+    "tests/imu/tb_fast_end_to_end.sv": {
+      "source": "tests/imu/tb_fast_end_to_end.sv",
+      "sha256": "02d3e28049067c2c6d0aa4f0c1cfe3d8de6a3f9905384ad243394faf7122196d"
+    },
+    "tests/imu/tb_fast_i2c_master.sv": {
+      "source": "tests/imu/tb_fast_i2c_master.sv",
+      "sha256": "324af9ec6127469a74ec6e0a42356e80995118c449068b1ba134fb6decab199f"
+    },
+    "tests/imu/tb_fast_reader.sv": {
+      "source": "tests/imu/tb_fast_reader.sv",
+      "sha256": "0f2b2913b92289a798de24f84f30d2b13586250c05a6ebb037a3db58a05a13d6"
+    },
+    "tests/imu/tb_fast_uart_stream.sv": {
+      "source": "tests/imu/tb_fast_uart_stream.sv",
+      "sha256": "4e7f4792c5607efa1e1b67daa4ad24706e8588a3b64392cbaf740ef774226467"
+    },
+    "vendor/reference/source_manifest.json": {
+      "source": "docs/source_manifest.json",
+      "sha256": "b881f54adf103db7d1bcb74ad211b7308c98ae02dd88d52c28a102ddabec18df"
+    },
+    "vendor/reference/validation_v1.md": {
+      "source": "docs/validation_v1.md",
+      "sha256": "35023f9d1594e7c95e646d12421cd5930e6ca66db14821d824ba1789947135bf"
+    },
+    "vendor/reference/robot.sdc": {
+      "source": "fpga/constraints/robot.sdc",
+      "sha256": "ddd4cacc92d38882c905acd9487cdb8134a4a1b779320fb0f5a034bbf5a59323"
+    },
+    "vendor/reference/robot.cst": {
+      "source": "fpga/constraints/robot.cst",
+      "sha256": "9019ebf41f1d7c489950ea9679ba1150a156bc1e3ad0bb48a0662d673002b36b"
+    },
+    "nano/vision/vision_dashboard_agent.py": {
+      "source": "nano/vision_dashboard_agent.py",
+      "sha256": "0c30395e5f9c67a33335bc252f8a1157564148f134857fc1ec3b792277387922"
+    },
+    "nano/vision/vision_dashboard_service.py": {
+      "source": "nano/vision_dashboard_service.py",
+      "sha256": "133a804b118f502d049068df33a9bca08407d23b5fb914468ee114284d884cf3"
+    },
+    "vendor/reference/sensing_dashboard.py": {
+      "source": "host/dashboard.py",
+      "sha256": "a9fffca2c7f5b41956915abd32f7a56fdee1c71ad60756f72d20b8a3a11acc5b"
+    },
+    "vendor/reference/sensing_index.html": {
+      "source": "host/index.html",
+      "sha256": "2e6f810653253ddb95928e61547a359a8bd4d8bbdb2ef332e2bc8d0607974ee3"
+    },
+    "tests/ethernet_pll_model.v": {
+      "source": "tests/ethernet_pll_model.v",
+      "sha256": "95f172cea05df401cfd746a7c9024df5ea2f5246466c785ee0729f9bf1466fec"
+    },
+    "host/sensing_base.py": {
+      "source": "host/dashboard.py",
+      "sha256": "a9fffca2c7f5b41956915abd32f7a56fdee1c71ad60756f72d20b8a3a11acc5b",
+      "adapted": true
+    },
+    "host/index.html": {
+      "source": "host/index.html",
+      "sha256": "2e6f810653253ddb95928e61547a359a8bd4d8bbdb2ef332e2bc8d0607974ee3",
+      "adapted": true
+    }
+  },
+  "remote": "https://github.com/LilywantbecomeNIUBI/fpga-robot.git",
+  "worktree_diff": {
+    "path": "vendor/reference/sensing_worktree.diff",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
