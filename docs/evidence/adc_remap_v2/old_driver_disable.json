@@ -1,0 +1,29 @@
+{
+  "board": "POWER_DRV8323HR_V1.01",
+  "manual_path": "D:\\\u6d3b\u52a8\\\u6bd4\u8d5b\\\u7535\u8d5b\\FPGA\\\u786c\u4ef6\u8d44\u6599\\DRV8323\\POWER_D..V1.pdf",
+  "manual_sha256": "59fb0f3c21b5dfae40e69faccde91230691d10362c0d472f21401d91fb821f49",
+  "documented_enable_pulldown": "R29=10kOhm; default low; R15=56Ohm series",
+  "enable_low_reference": "https://www.ti.com/document-viewer/DRV8323/datasheet",
+  "synthesized_grounded_outputs": {
+    "legacy_m1_disable": true,
+    "legacy_m2_disable": true,
+    "legacy_m1_pwm_disabled[0]": true,
+    "legacy_m1_pwm_disabled[1]": true,
+    "legacy_m1_pwm_disabled[2]": true,
+    "legacy_m1_pwm_disabled[3]": true,
+    "legacy_m1_pwm_disabled[4]": true,
+    "legacy_m1_pwm_disabled[5]": true,
+    "legacy_m2_pwm_disabled[0]": true,
+    "legacy_m2_pwm_disabled[1]": true,
+    "legacy_m2_pwm_disabled[2]": true,
+    "legacy_m2_pwm_disabled[3]": true,
+    "legacy_m2_pwm_disabled[4]": true,
+    "legacy_m2_pwm_disabled[5]": true,
+    "legacy_cal_disabled[0]": true,
+    "legacy_cal_disabled[1]": true
+  },
+  "physical_board_revision_verified": false,
+  "programmed": false,
+  "requires_adc_digital_disconnected": true,
+  "requires_carrier_lidar_ttl_disconnected": true
+}
