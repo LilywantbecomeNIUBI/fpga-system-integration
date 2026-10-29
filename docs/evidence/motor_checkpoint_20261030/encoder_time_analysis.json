@@ -1,0 +1,398 @@
+{
+  "frames": 1457,
+  "bad_crc": 0,
+  "changes": [
+    {
+      "packet": 5401,
+      "invalid_delta": 1,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5402,
+      "invalid_delta": 1,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5404,
+      "invalid_delta": 2,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5405,
+      "invalid_delta": 14,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5406,
+      "invalid_delta": 16,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5407,
+      "invalid_delta": 17,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5408,
+      "invalid_delta": 13,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5409,
+      "invalid_delta": 7,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5410,
+      "invalid_delta": 3,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5414,
+      "invalid_delta": 2,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5415,
+      "invalid_delta": 12,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5416,
+      "invalid_delta": 26,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5417,
+      "invalid_delta": 32,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5418,
+      "invalid_delta": 26,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5419,
+      "invalid_delta": 20,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5420,
+      "invalid_delta": 14,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5421,
+      "invalid_delta": 8,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5422,
+      "invalid_delta": 4,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5423,
+      "invalid_delta": 6,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5424,
+      "invalid_delta": 18,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5425,
+      "invalid_delta": 30,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5426,
+      "invalid_delta": 30,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5427,
+      "invalid_delta": 24,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5428,
+      "invalid_delta": 17,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5429,
+      "invalid_delta": 13,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5430,
+      "invalid_delta": 10,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5431,
+      "invalid_delta": 17,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5432,
+      "invalid_delta": 25,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5433,
+      "invalid_delta": 32,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5434,
+      "invalid_delta": 34,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5435,
+      "invalid_delta": 26,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5436,
+      "invalid_delta": 22,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5437,
+      "invalid_delta": 14,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5438,
+      "invalid_delta": 16,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5439,
+      "invalid_delta": 22,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5440,
+      "invalid_delta": 30,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5441,
+      "invalid_delta": 32,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5442,
+      "invalid_delta": 26,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5443,
+      "invalid_delta": 21,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5444,
+      "invalid_delta": 14,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5445,
+      "invalid_delta": 13,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5446,
+      "invalid_delta": 18,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5447,
+      "invalid_delta": 24,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5448,
+      "invalid_delta": 30,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5449,
+      "invalid_delta": 28,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5450,
+      "invalid_delta": 22,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5451,
+      "invalid_delta": 16,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5452,
+      "invalid_delta": 12,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5453,
+      "invalid_delta": 16,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5454,
+      "invalid_delta": 26,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5455,
+      "invalid_delta": 34,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5456,
+      "invalid_delta": 34,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5457,
+      "invalid_delta": 27,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5458,
+      "invalid_delta": 21,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5459,
+      "invalid_delta": 16,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5460,
+      "invalid_delta": 15,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5461,
+      "invalid_delta": 25,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5462,
+      "invalid_delta": 31,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5463,
+      "invalid_delta": 30,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5464,
+      "invalid_delta": 21,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5465,
+      "invalid_delta": 15,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5466,
+      "invalid_delta": 9,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5467,
+      "invalid_delta": 6,
+      "position_delta": 0,
+      "velocity": 0
+    },
+    {
+      "packet": 5468,
+      "invalid_delta": 2,
+      "position_delta": 0,
+      "velocity": 0
+    }
+  ],
+  "tail_after_last_error": {
+    "first_packet": 5468,
+    "last_packet": 6025,
+    "position_min": -16941,
+    "position_max": -8462,
+    "invalid_first": 2858,
+    "invalid_last": 2858
+  }
+}

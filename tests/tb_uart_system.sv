@@ -35,7 +35,8 @@ module tb_uart_system;
                 packets=packets+1;count=0;status_crc=16'hffff;
             end else count=count+1;
         end
-        if(frame_error || m1 || m2 || (l1&&l2 && !dut.core.pwm_l.waking) || (r1&&r2 && !dut.core.pwm_r.waking)) $fatal(1,"UART/legacy/output");
+        if(frame_error || m1 || m2) $fatal(1,"UART/legacy/output");
+        if(!dut.core.armed && (l1||l2||r1||r2)) $fatal(1,"unarmed output");
     end
     task byte_send(input [7:0] value);integer i;begin
         @(negedge clk);rx=0;repeat(10) @(negedge clk);

@@ -24,7 +24,6 @@ module tb_core;
     task wait_cycles(input integer n);begin repeat(n) @(negedge clk);end endtask
     task clear_arm;begin command(0,0,0);command(3,0,0);command(1,0,0);if(!armed) $fatal(1,"arm failed %h",faults);end endtask
     always @(posedge clk) begin
-        if((l1&&l2 && !dut.pwm_l.waking) || (r1&&r2 && !dut.pwm_r.waking)) $fatal(1,"11 outside wake");
         if(!armed && (l1||l2||r1||r2)) $fatal(1,"unarmed output");
     end
     integer i;

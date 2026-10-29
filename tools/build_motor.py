@@ -16,11 +16,18 @@ ROOT=Path(__file__).resolve().parents[1]
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def prepare():
-    folder=ROOT/'build/motor'; folder.mkdir(parents=True,exist_ok=True)
+def prepare(left_encoder_alt=False):
+    folder=ROOT/('build/motor_left_alt' if left_encoder_alt else 'build/motor'); folder.mkdir(parents=True,exist_ok=True)
     rows=list(csv.DictReader((ROOT/'hardware/pins.csv').open(encoding='utf-8-sig')))
+    if left_encoder_alt:
+        # Isolated diagnostic profile; hardware/pins.csv remains the active pin plan.
+        remap={'left_enc_a':('F16','31'), 'left_enc_b':('E17','32')}
+        for row in rows:
+            if row['signal'] in remap:
+                row['ball'],row['p7']=remap[row['signal']]
     names={'clk50m','reset_n','uart_rx','uart_tx','legacy_m1_disable','legacy_m2_disable'}
     selected=[r for r in rows if r['group'] in ('chassis','legacy_disabled') or r['signal'] in names or r['signal'].startswith('led[')]
+    assert len({r['ball'] for r in selected})==len(selected), 'Duplicate physical pin'
     cst=['// Standalone brushed motor candidate. Requires approved 3.3V input conditioning.']
     for r in selected:
         pull='UP' if r['signal']=='uart_rx' else 'DOWN' if r['group'] in ('chassis','legacy_disabled') else 'NONE'
@@ -46,8 +53,10 @@ def prepare():
     return folder,sources
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--prepare-only',action='store_true');args=parser.parse_args()
-    folder,sources=prepare()
+    parser=argparse.ArgumentParser();parser.add_argument('--prepare-only',action='store_true')
+    parser.add_argument('--left-encoder-alt',action='store_true',help='Isolated P7-31/F16, P7-32/E17 left encoder profile; disconnect old ENC1 module')
+    args=parser.parse_args()
+    folder,sources=prepare(args.left_encoder_alt)
     if args.prepare_only: print(folder/'motor.gprj');return
     if os.name=='nt':
         active=subprocess.run(['powershell','-NoProfile','-Command','Get-Process gw_sh,gw_syn,gw_pnr -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Id'],capture_output=True,text=True)
@@ -60,6 +69,8 @@ def main():
         result=subprocess.run([str(exe),str(folder/'build.tcl')],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
     timing=folder/'impl/pnr/motor_tr_content.html'; bit=folder/'impl/pnr/motor.fs'
     record=dict(started_utc=stamp,exit_code=result.returncode,source_sha256=hashes,tool=str(exe),tool_sha256=sha(exe),programmed=False,hardware_tested=False)
+    record['pin_profile']='left_encoder_p7_31_32' if args.left_encoder_alt else 'adc_remap_v2'
+    record['left_encoder_pins']={'a':{'p7':31,'ball':'F16'},'b':{'p7':32,'ball':'E17'}} if args.left_encoder_alt else {'a':{'p7':25,'ball':'B17'},'b':{'p7':26,'ball':'B18'}}
     record['sources_unchanged']=all(sha(ROOT/p)==h for p,h in hashes.items())
     if timing.exists() and result.returncode==0:
         content=timing.read_text(encoding='utf-8',errors='replace')

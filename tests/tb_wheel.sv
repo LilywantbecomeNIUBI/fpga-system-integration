@@ -9,7 +9,6 @@ module tb_wheel;
     wire in1,in2;
     wheel_control #(.REVERSE_TICKS(3)) dut(.clk(clk),.reset_n(reset_n),.tick(tick),.enable(enable),.motor_reverse(motor_reverse),.target(target),.velocity(velocity),.kp(kp),.ki(ki),.applied(applied));
     at8236_pwm #(.CLK_HZ(1000000),.PWM_HZ(10000)) pwm(.clk(clk),.reset_n(reset_n),.enable(enable),.command(applied),.in1(in1),.in2(in2));
-    always @(posedge clk) if(in1&&in2 && !pwm.waking) $fatal(1,"11 outside wake");
     task update;begin @(negedge clk);tick=1;@(negedge clk);tick=0;repeat(12) @(negedge clk);end endtask
     integer i,highs;
     initial begin
@@ -17,7 +16,7 @@ module tb_wheel;
         for(i=0;i<20;i=i+1) update();
         if(applied!=300) $fatal(1,"limit %d",applied);
         repeat(2000) @(negedge clk);highs=0;
-        repeat(100) begin @(negedge clk);if(in1) highs=highs+1;if(in2) $fatal(1,"wrong polarity");end
+        repeat(100) begin @(negedge clk);if(!in1 && in2) highs=highs+1;if(!in2) $fatal(1,"slow decay hold input");end
         if(highs!=30) $fatal(1,"PWM duty %d",highs);
         velocity=4;target=-200;repeat(20) update();
         if(applied!=0) $fatal(1,"reversal while moving");
