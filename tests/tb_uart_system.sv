@@ -3,6 +3,11 @@ module tb_uart_system;
     reg clk=0;always #5 clk=~clk;
     reg reset_n=0,estop_n=1,rx=1;
     wire l1,l2,r1,r2,tx,m1,m2;
+    always @(posedge clk) begin
+        if(dut.legacy_m1_disable!==1'b0 || dut.legacy_m2_disable!==1'b0 ||
+           dut.legacy_m1_pwm_disabled!==6'd0 || dut.legacy_m2_pwm_disabled!==6'd0 || dut.legacy_cal_disabled!==2'd0)
+            $fatal(1,"Old BLDC enables/PWM/CAL must stay low in all states");
+    end
     wire [7:0] led;
     brushed_motor_top #(.CLK_HZ(1000000),.BAUD(100000)) dut(
         .clk50m(clk),.reset_n(reset_n),.estop_n(estop_n),.uart_rx(rx),

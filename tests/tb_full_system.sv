@@ -6,6 +6,11 @@ module tb_full_system;
     always #10 clk=~clk;always #6 pclk=~pclk;always #4 rxc=~rxc;
     tri1 scl,sda,csda,mdio;
     wire tx,l1,l2,r1,r2,m1,m2;
+    always @(posedge clk) begin
+        if(dut.legacy_m1_disable!==1'b0 || dut.legacy_m2_disable!==1'b0 ||
+           dut.legacy_m1_pwm_disabled!==6'd0 || dut.legacy_m2_pwm_disabled!==6'd0 || dut.legacy_cal_disabled!==2'd0)
+            $fatal(1,"Old BLDC enables/PWM/CAL must stay low in all states");
+    end
     // Accelerate motor/UART counters by 10x; sensor and camera/network clocks stay unchanged.
     system_top #(.CLK_HZ(5000000)) dut(.clk50m(clk),.reset_n(reset_n),.estop_n(estop),.uart_rx(1'b1),
         .left_enc_a(1'b0),.left_enc_b(1'b0),.right_enc_a(1'b0),.right_enc_b(1'b0),

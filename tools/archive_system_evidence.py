@@ -1,10 +1,11 @@
 """Freeze successful offline results only when they match current source bytes."""
 from pathlib import Path
-import hashlib,json,re,shutil
+import argparse,hashlib,json,re,shutil
 ROOT=Path(__file__).resolve().parents[1]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
-    folder=ROOT/'docs/evidence/system_v1';folder.mkdir(parents=True,exist_ok=True)
+    ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path,default=ROOT/'docs/evidence/system_v1');a=ap.parse_args()
+    folder=a.output;folder.mkdir(parents=True,exist_ok=True)
     inputs={'build':ROOT/'build/system/result.json','tests':ROOT/'build/tests/system.json','full_top':ROOT/'build/tests/full_top_result.json'}
     for name,p in inputs.items():
         record=json.loads(p.read_text(encoding='utf-8'))
@@ -15,7 +16,10 @@ def main():
             timing=ROOT/'build/system/impl/pnr/system_tr_content.html';bit=ROOT/'build/system/impl/pnr/system.fs';net=ROOT/'build/system/impl/gwsynthesis/system.vg'
             if record['violations']!={'setup':0,'hold':0} or sha(timing)!=record['timing_sha256'] or sha(bit)!=record['bitstream_sha256']:raise SystemExit('Build artifact mismatch')
             text=net.read_text(encoding='utf-8',errors='replace')
-            record['legacy_outputs_grounded']={pin:bool(re.search(r'OBUF\s+'+pin+r'_obuf\s*\(\s*\.O\('+pin+r'\),\s*\.I\(GND\)',text)) for pin in ('legacy_m1_disable','legacy_m2_disable')}
+            grounded={}
+            for instance,pin in [('legacy_m1_disable','legacy_m1_disable'),('legacy_m2_disable','legacy_m2_disable')]+[(name+'_'+str(bit),name+'['+str(bit)+']') for name,width in [('legacy_m1_pwm_disabled',6),('legacy_m2_pwm_disabled',6),('legacy_cal_disabled',2)] for bit in range(width)]:
+                grounded[pin]=bool(re.search(r'OBUF\s+'+re.escape(instance)+r'_obuf\s*\(\s*\.O\('+re.escape(pin)+r'\),\s*\.I\(GND\)',text))
+            record['legacy_outputs_grounded']=grounded
             if not all(record['legacy_outputs_grounded'].values()):raise SystemExit('Legacy gate not grounded')
             record['netlist_sha256']=sha(net)
         (folder/(name+'.json')).write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')

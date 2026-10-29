@@ -5,6 +5,8 @@ module brushed_motor_top #(
     input wire left_enc_a,left_enc_b,right_enc_a,right_enc_b,
     output wire left_in1,left_in2,right_in1,right_in2,uart_tx,
     output wire legacy_m1_disable,legacy_m2_disable,
+    output wire [5:0] legacy_m1_pwm_disabled,legacy_m2_pwm_disabled,
+    output wire [1:0] legacy_cal_disabled,
     output wire [7:0] led
 );
     // Async assertion, two-clock release. Input CDC endpoints are in the SDC.
@@ -41,5 +43,6 @@ module brushed_motor_top #(
         .left_applied(left_applied),.right_applied(right_applied),.left_invalid(left_invalid),.right_invalid(right_invalid),
         .bad_frames(bad_frames),.rejected_commands(rejected_commands),.tx(uart_tx));
     assign legacy_m1_disable=0, legacy_m2_disable=0;
+    assign legacy_m1_pwm_disabled=0, legacy_m2_pwm_disabled=0, legacy_cal_disabled=0;
     assign led={faults[4:0],flags[0],armed,reset_sync};
 endmodule

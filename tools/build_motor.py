@@ -20,10 +20,10 @@ def prepare():
     folder=ROOT/'build/motor'; folder.mkdir(parents=True,exist_ok=True)
     rows=list(csv.DictReader((ROOT/'hardware/pins.csv').open(encoding='utf-8-sig')))
     names={'clk50m','reset_n','uart_rx','uart_tx','legacy_m1_disable','legacy_m2_disable'}
-    selected=[r for r in rows if r['group']=='chassis' or r['signal'] in names or r['signal'].startswith('led[')]
+    selected=[r for r in rows if r['group'] in ('chassis','legacy_disabled') or r['signal'] in names or r['signal'].startswith('led[')]
     cst=['// Standalone brushed motor candidate. Requires approved 3.3V input conditioning.']
     for r in selected:
-        pull='UP' if r['signal']=='uart_rx' else 'DOWN' if r['group']=='chassis' else 'NONE'
+        pull='UP' if r['signal']=='uart_rx' else 'DOWN' if r['group'] in ('chassis','legacy_disabled') else 'NONE'
         cst += [f'IO_LOC "{r["signal"]}" {r["ball"]};',f'IO_PORT "{r["signal"]}" IO_TYPE=LVCMOS33 PULL_MODE={pull} BANK_VCCIO=3.3;']
     (folder/'motor.cst').write_text('\n'.join(cst)+'\n',encoding='utf-8')
     # Only asynchronous first-stage data inputs are exempted. No internal logic exclusions.

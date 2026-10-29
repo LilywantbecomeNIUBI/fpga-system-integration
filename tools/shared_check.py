@@ -12,6 +12,8 @@ def check():
     assert len(pins)==len(dict(pins))==len(set(b for _,b in pins))
     ports=set(re.findall(r'\b(?:left|right)_enc_[ab]\b',(ROOT/'fpga/system/system_top.sv').read_text()))
     assert ports.issubset(dict(pins)) and 'm2_pwm_al' not in dict(pins)
+    assert all(name not in dict(pins) for name in ('adc_busy','adc_dout_a','lidar_uart_rx','lidar_uart_tx'))
+    assert len([name for name in dict(pins) if name.startswith(('legacy_m1_pwm_disabled[','legacy_m2_pwm_disabled[','legacy_cal_disabled['))])==14
     sdc=(folder/'system.sdc').read_text(encoding='utf-8')
     assert 'period 20 ' in sdc and 'period 11.9047 ' in sdc and 'period 8 ' in sdc
     assert 'multicycle' not in sdc

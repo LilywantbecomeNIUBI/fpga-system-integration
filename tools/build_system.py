@@ -21,13 +21,13 @@ def prepare():
     folder=ROOT/'build/system'; folder.mkdir(parents=True,exist_ok=True)
     rows=list(csv.DictReader((ROOT/'hardware/pins.csv').open(encoding='utf-8-sig')))
     names={'clk50m','reset_n','uart_rx','uart_tx','legacy_m1_disable','legacy_m2_disable','imu_i2c_scl','imu_i2c_sda'}
-    selected=[r for r in rows if r['group'] in ('chassis','camera','ethernet') or r['signal'] in names or r['signal'].startswith('led[')]
+    selected=[r for r in rows if r['group'] in ('chassis','legacy_disabled','camera','ethernet') or r['signal'] in names or r['signal'].startswith('led[')]
     cst=['// Integrated chassis/sensing candidate. Encoder inputs require verified 3.3V conditioning.']
     original_ports=dict(re.findall(r'(IO_PORT "([^"]+)"[^;]+;)',(ROOT/'vendor/reference/robot.cst').read_text(encoding='utf-8')))
     original_ports={signal:statement for statement,signal in original_ports.items()}
     for r in selected:
-        pull='UP' if r['signal']=='uart_rx' else 'DOWN' if r['group']=='chassis' else 'NONE'
-        port=original_ports.get(r['signal']) if r['group']!='chassis' else None
+        pull='UP' if r['signal']=='uart_rx' else 'DOWN' if r['group'] in ('chassis','legacy_disabled') else 'NONE'
+        port=original_ports.get(r['signal']) if r['group'] not in ('chassis','legacy_disabled') else None
         cst += [f'IO_LOC "{r["signal"]}" {r["ball"]};',port or f'IO_PORT "{r["signal"]}" IO_TYPE=LVCMOS33 PULL_MODE={pull} BANK_VCCIO=3.3;']
     cst+=re.findall(r'^CLOCK_LOC[^\n]+',(ROOT/'vendor/reference/robot.cst').read_text(encoding='utf-8'),re.M)
     (folder/'system.cst').write_text('\n'.join(cst)+'\n',encoding='utf-8')
