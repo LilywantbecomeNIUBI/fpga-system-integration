@@ -95,6 +95,22 @@ class ControlTests(unittest.TestCase):
         other=Control(clock=lambda:self.now);other.connect();other.ingest(self.status)
         with self.assertRaises(ValueError):other.request(dict(action='arm',lease=self.lease,sequence=1))
 
+class RecordingTests(unittest.TestCase):
+    def test_raw_indices_use_capture_time_and_exact_offsets(self):
+        from nano.gateway import Recorder
+        import tempfile
+        with tempfile.TemporaryDirectory() as temp:
+            path=Path(temp)/'record';recorder=Recorder(path)
+            before=time.monotonic()
+            recorder.put('uart',b'abc');recorder.put('lidar',b'xyz');recorder.put('uart',b'de')
+            recorder.put('control_event',dict(kind='stop'));recorder.close()
+            rows=[json.loads(line) for line in (path/'events.jsonl').read_text().splitlines()]
+            self.assertEqual((path/'fpga_uart.bin').read_bytes(),b'abcde')
+            self.assertEqual((path/'lidar_uart.bin').read_bytes(),b'xyz')
+            self.assertEqual([(r['kind'],r['data'].get('offset'),r['data'].get('length')) for r in rows[:3]],[('uart',0,3),('lidar',0,3),('uart',3,2)])
+            self.assertTrue(all(before<=r['monotonic']<=time.monotonic() and r['wall_time']>0 for r in rows))
+            self.assertEqual(rows[3]['data']['kind'],'stop')
+
 class HttpTests(unittest.TestCase):
     def test_actual_serial_worker_with_fake_device(self):
         class Device:

@@ -37,7 +37,7 @@ def prepare():
         sdc+=f'set_false_path -to [get_pins {{{pin}}}]\n'
     (folder/'system.sdc').write_text(sdc,encoding='utf-8')
     sources=sorted((ROOT/'fpga/motor').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.v'))
-    sources+=sorted(p for p in (ROOT/'fpga/vision/src').rglob('*.v') if p.name not in ('camera_perception_top.v','vision_lk_tracker.v'))
+    sources+=sorted(p for p in (ROOT/'fpga/vision/src').rglob('*.v') if p.name!='camera_perception_top.v')
     sources+=[ROOT/'fpga/imu'/name for name in ('imu_1khz_core.v','icm42688_fast_reader.v','imu_fast_i2c_master.v')]
     sources+=[folder/'system.cst',folder/'system.sdc']
     project=ET.Element('Project')
@@ -48,7 +48,7 @@ def prepare():
         ET.SubElement(files,'File',path=Path(os.path.relpath(p,folder)).as_posix(),type={'.v':'file.verilog','.sv':'file.verilog','.cst':'file.cst','.sdc':'file.sdc'}[p.suffix],enable='1')
     ET.ElementTree(project).write(folder/'system.gprj',encoding='utf-8',xml_declaration=True)
     tcl='set here [file dirname [file normalize [info script]]]\ncd $here\nopen_project system.gprj\n'
-    for k,v in [('top_module','system_top'),('verilog_std','v2001'),('output_base_name','system'),('max_fanout','16'),('replicate_resources','1'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option','3'),('route_option','2')]:
+    for k,v in [('top_module','system_top'),('verilog_std','v2001'),('output_base_name','system'),('max_fanout','16'),('replicate_resources','1'),('retiming_resource','bsram'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option','3'),('route_option','2')]:
         tcl+=f'set_option -{k} {v}\n'
     (folder/'build.tcl').write_text(tcl+'run all\n',encoding='utf-8')
     return folder,sources

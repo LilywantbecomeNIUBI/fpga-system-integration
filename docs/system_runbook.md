@@ -20,7 +20,7 @@ python tools/build_system.py
 python tools/prepare_nano.py
 ```
 
-`build/system/system.gprj`是统一工程，顶层`system_top`，位流为`build/system/impl/pnr/system.fs`。`build/system/result.json`必须为passed且与当前源码哈希一致。原`tools/build_motor.py`和独立电机入口继续可用。
+`build/system/system.gprj`是统一工程，顶层`system_top`，位流为`build/system/impl/pnr/system.fs`。`build/system/result.json`必须为passed且与当前源码哈希一致。这里的passed只检查构建、源码一致性及Setup/Hold；完整时序签核另看`docs/evidence/system_v1/timing_audit.json`，当前最小脉宽告警尚未解决，不能据此直接上板。原`tools/build_motor.py`和独立电机入口继续可用。
 
 完整数字顶层仿真需要本机Gowin原语库；CI运行协议、控制、UART、LK与双目标网络回归，不把Gowin仿真模型上传Git。完整顶层测试保持相机/网络及IMU时钟，使用缩小图像缓冲、处理后像素注入、行为传感器/PLL，并加速电机/UART计数器10倍；它验证并发与故障隔离，不能代替真实传感器、电气或实际周期验收。
 
@@ -91,14 +91,14 @@ IMU与雷达在本阶段仅观测；它们失效不自动改写手动运动指�
 
 标定配置默认confirmed=false，CPR、轮径、轮距和极性掩码为空，不猜测Xp28减速比。动力断开手转测得输出轴四倍频计数，再以悬空短时操作确认轮向与反馈符号，之后填入实测几何并确认。PI增益和保护阈值仍需实车整定。
 
-Nano每次live启动创建独立记录目录：原始混合UART、原始雷达UART、命令/异常及10Hz完整状态JSONL。磁盘写入使用有界队列；队列丢弃或磁盘错误明确计数，不能判为记录完整。PC另有显式状态录制和单帧保存。
+Nano每次live启动创建独立记录目录：原始混合UART、原始雷达UART、命令/异常及10Hz完整状态JSONL。events.jsonl为每段原始数据记录文件名、字节偏移、长度、入队时的主机monotonic和wall_time；控制撤销及电机故障变化单独成事件。时间戳是接收端观察时间，不代表设备精确同步。磁盘写入使用有界队列；队列丢弃或磁盘错误明确计数，不能判为记录完整。PC另有显式状态录制和单帧保存。
 
 按动力断开感知并发→悬空单轮→悬空双轮→落地低速→30分钟并发递增验收。先记录相同配置的静止基线，再记录运动窗口；保留原始日志、版本和哈希。通过`tools/evaluate_dynamic.py --baseline ... --moving ...`检查至少30分钟、四路吞吐≥静止基线90%、各保护通过、CRC与记录错误为0，以及预先填定的停车延迟和轮速误差限值。缺项或非有限数值会拒绝通过。
 
 当前没有本车上述实测结果，不能用仿真、历史单模块记录或STA代替。第二阶段先修复有效麦克风采样，再接入共享网口和语音，先支持语音STOP。
 
-## LK时序实现的来源
+## 综合实现
 
-`fpga/vision/src/vision/vision_lk_tracker.v` 保留冻结原件；系统构建选择 `fpga/system/vision_tracker_timing.v`。差异仅为 `present` 历史帧查询函数：保留有效位和高位标签比较；有效bank的标签低HB位必然等于bank索引，因此不再重复比较这些低位。复位清空有效位，写入时以帧ID低位选择bank，这个不变量在每次查询时保持。历史深度、状态机、数值算法、帧格式和时钟均不改变。LK回归使用系统实际选择的实现，完整顶层使用同一构建文件清单。
+视觉/LK使用冻结原件，数值算法与帧格式不变。构建启用Gowin支持的BSRAM寄存器重定时优化；不启用DSP重定时，不降低时钟，不增加整模块时序例外。
 
 动态指标可从 `docs/dynamic_baseline.template.json` 和 `docs/dynamic_moving.template.json` 复制填写；模板故意为null，不能通过验收。记录相同配置标识、源码版本、原始日志路径及测量方法。IMU采集率由内部sample_seq及设备时间增量计算，100Hz串口上传率单独统计，不能混用；设备与主机时间也不能当作精确同步。控制周期/抖动和物理停车时间须用现场仪器或明确的板内测量依据记录，20Hz状态接收周期不能替代100Hz速度环周期。动态验收时另行归档这些测量证据。

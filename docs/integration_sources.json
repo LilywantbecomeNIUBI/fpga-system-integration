@@ -298,15 +298,5 @@
   "worktree_diff": {
     "path": "vendor/reference/sensing_worktree.diff",
     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  "derived_implementations": {
-    "fpga/system/vision_tracker_timing.v": {
-      "source": "fpga/vision/src/vision/vision_lk_tracker.v",
-      "source_sha256": "c1b08a6df1759de95467610513d15ea771d56c7a8d43885730fd06c284046270",
-      "sha256": "a5fb7223b858a54fa3281c9231a06f2de69c9dfd4f7d179cedee4f11d1e33df1",
-      "change": "Equivalent present() lookup eliminates redundant bank-index tag bits; sealed bank tag always has matching low HB bits; all other text unchanged",
-      "selected_by": "tools/build_system.py",
-      "regression": "tools/test_system.py LK replay and tools/test_full_top.py"
-    }
   }
 }

@@ -15,7 +15,7 @@ class Recorder:
         self.path=Path(path);self.path.mkdir(parents=True,exist_ok=False);self.queue=queue.Queue(1024);self.drops=0;self.error=None
         self.thread=threading.Thread(target=self.run,daemon=True);self.thread.start()
     def put(self,kind,data):
-        try:self.queue.put_nowait((kind,data))
+        try:self.queue.put_nowait((kind,data,time.monotonic(),time.time()))
         except queue.Full:self.drops+=1
     def run(self):
         try:
@@ -23,9 +23,12 @@ class Recorder:
                 while True:
                     item=self.queue.get()
                     if item is None:break
-                    kind,data=item
-                    if kind in ('uart','lidar'):(uart if kind=='uart' else lidar).write(data)
-                    else:events.write(json.dumps(dict(monotonic=time.monotonic(),kind=kind,data=data),allow_nan=False)+'\n');events.flush()
+                    kind,data,received,wall=item
+                    if kind in ('uart','lidar'):
+                        stream=uart if kind=='uart' else lidar
+                        offset=stream.tell();stream.write(data)
+                        data=dict(offset=offset,length=len(data),file='fpga_uart.bin' if kind=='uart' else 'lidar_uart.bin')
+                    events.write(json.dumps(dict(monotonic=received,wall_time=wall,kind=kind,data=data),allow_nan=False)+'\n');events.flush()
         except OSError as exc:self.error=str(exc)
     def close(self):
         try:self.queue.put(None,timeout=1)
@@ -45,13 +48,17 @@ class Gateway:
         ports=[self.config.get('fpga_serial'),self.config.get('lidar_serial')]
         if not all(ports) or ports[0]==ports[1]:raise ValueError('Two distinct configured serial devices required')
         self.recorder=Recorder(Path(self.config.get('record_dir','runs/gateway'))/(time.strftime('%Y%m%d_%H%M%S')+'_'+os.urandom(4).hex()))
+        self.control.event_sink=lambda event:self.recorder.put('control_event',event)
         for target in (self.serial_loop,self.lidar_loop,self.record_loop):
             t=threading.Thread(target=target,daemon=True);self.threads.append(t);t.start()
     def ingest_uart(self,data):
         if self.recorder:self.recorder.put('uart',data)
         for kind,row in self.mixed.feed(data):
             if kind=='motor':
+                previous_faults=self.control.motor.get('faults') if self.control.motor else None
                 accepted=self.control.ingest(row)
+                if accepted and self.recorder and row['faults']!=previous_faults:
+                    self.recorder.put('motor_fault',dict(previous=previous_faults,current=row['faults'],packet_count=row.get('packet_count')))
                 if accepted:
                     with self.lock:
                         if accepted=='restart':self.odometry.reset_reference()

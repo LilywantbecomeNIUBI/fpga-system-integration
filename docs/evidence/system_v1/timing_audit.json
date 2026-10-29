@@ -1,0 +1,25 @@
+{
+  "scope": "Setup/Hold gate passed; full timing signoff remains OPEN",
+  "setup_hold_passed": true,
+  "full_timing_signoff_passed": false,
+  "worst_setup_slack_ns": 0.026,
+  "minimum_pulse_width": {
+    "slack_ns": -0.688,
+    "actual_ns": 0.212,
+    "required_ns": 0.9,
+    "clock": "eth125",
+    "type": "High Pulse Width"
+  },
+  "baseline_reference": {
+    "repository": "fpga-robot",
+    "path": "build/sensing_v1/impl/pnr/robot.tr",
+    "sha256": "7c3fde62deb7edb517838b7d75db70cda6ea2bf30bd025f1df7952cf28e8bd56",
+    "same_pulse_width_report": true
+  },
+  "open_items": [
+    "Resolve or obtain vendor-supported disposition for minimum pulse width; do not suppress the check",
+    "Audit PR1014 camera_pclk_d generic-route warning",
+    "Measure external RGMII/DVP timing assumptions and perform staged hardware acceptance"
+  ],
+  "hardware_tested": false
+}

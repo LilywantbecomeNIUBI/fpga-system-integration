@@ -9,10 +9,12 @@ class Control:
         self.owner=None;self.deadline=0;self.client_seq=-1;self.phase='offline';self.reason='not_connected'
         self.sequence=0;self.last_send=-1;self.phase_sent=-1;self.arm_sequence=None;self.stop_pending=False
         self.targets=[0,0];self.flags=1;self.kp=256;self.ki=0
+        self.event_sink=None
         self.calibration=Calibration((config or {}).get('calibration'));self.events=[]
     def event(self,kind):
         self.events.append(dict(monotonic=self.clock(),kind=kind,phase=self.phase,reason=self.reason))
         self.events=self.events[-100:]
+        if self.event_sink:self.event_sink(dict(self.events[-1]))
     def revoke(self,reason):
         with self.lock:
             self.owner=None;self.targets=[0,0];self.phase='stopped' if self.connected else 'offline'
