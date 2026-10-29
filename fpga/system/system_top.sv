@@ -1,7 +1,7 @@
 module system_top #(
     parameter integer CLK_HZ=50000000, BAUD=115200
 )(
-    input wire clk50m,reset_n,estop_n,uart_rx,
+    input wire clk50m,reset_n,uart_rx,
     input wire rgmii_rxc,rgmii_rxctl,input wire [3:0] rgmii_rxd,
     input wire camera_vsync,camera_href,camera_pclk,input wire [7:0] camera_data,
     output wire camera_sclk,camera_rst_n,camera_pwdn,inout wire camera_sdat,
@@ -33,7 +33,7 @@ module system_top #(
         .command_valid(command_valid),.opcode(opcode),.sequence_id(sequence_id),.flags(command_flags),
         .left_target(left_target),.right_target(right_target),.kp(kp),.ki(ki),.bad_frames(bad_frames));
     motor_core #(.CLK_HZ(CLK_HZ)) core(
-        .clk(clk50m),.reset_n(reset_sync),.estop_n(estop_n),
+        .clk(clk50m),.reset_n(reset_sync),
         .left_enc_a(left_enc_a),.left_enc_b(left_enc_b),.right_enc_a(right_enc_a),.right_enc_b(right_enc_b),
         .command_valid(command_valid),.opcode(opcode),.sequence_id(sequence_id),.command_flags(command_flags),
         .left_target(left_target),.right_target(right_target),.command_kp(kp),.command_ki(ki),

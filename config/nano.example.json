@@ -13,5 +13,6 @@
     "track_m": null,
     "motor_reverse_mask": null,
     "encoder_reverse_mask": null
-  }
+  },
+  "lidar_enabled": true
 }

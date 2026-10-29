@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 module tb_uart_system;
     reg clk=0;always #5 clk=~clk;
-    reg reset_n=0,estop_n=1,rx=1;
+    reg reset_n=0,rx=1;
     wire l1,l2,r1,r2,tx,m1,m2;
     always @(posedge clk) begin
         if(dut.legacy_m1_disable!==1'b0 || dut.legacy_m2_disable!==1'b0 ||
@@ -10,7 +10,7 @@ module tb_uart_system;
     end
     wire [7:0] led;
     brushed_motor_top #(.CLK_HZ(1000000),.BAUD(100000)) dut(
-        .clk50m(clk),.reset_n(reset_n),.estop_n(estop_n),.uart_rx(rx),
+        .clk50m(clk),.reset_n(reset_n),.uart_rx(rx),
         .left_enc_a(1'b0),.left_enc_b(1'b0),.right_enc_a(1'b0),.right_enc_b(1'b0),
         .left_in1(l1),.left_in2(l2),.right_in1(r1),.right_in2(r2),.uart_tx(tx),
         .legacy_m1_disable(m1),.legacy_m2_disable(m2),.led(led));
@@ -45,7 +45,7 @@ module tb_uart_system;
     task send(input [7:0] op,s,input signed [15:0] l,r,input corrupt);
         integer i;reg [15:0] crc;
         begin
-            frame[0]=8'ha5;frame[1]=8'h5a;frame[2]=1;frame[3]=op;frame[4]=s;frame[5]=0;
+            frame[0]=8'ha5;frame[1]=8'h5a;frame[2]=1;frame[3]=op;frame[4]=s;frame[5]=1;
             frame[6]=l[7:0];frame[7]=l[15:8];frame[8]=r[7:0];frame[9]=r[15:8];
             frame[10]=0;frame[11]=1;frame[12]=0;frame[13]=0;crc=16'hffff;
             for(i=0;i<14;i=i+1)crc=crc_byte(crc,frame[i]);

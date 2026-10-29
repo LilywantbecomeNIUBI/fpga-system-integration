@@ -2,7 +2,7 @@
 // Full production hierarchy, behavioral sensor/PLL, reduced frame buffer and
 // post-pixel injection. Camera SCCB/DVP electrical behavior is not modeled.
 module tb_full_system;
-    reg clk=0,reset_n=0,pclk=0,rxc=0,estop=1;
+    reg clk=0,reset_n=0,pclk=0,rxc=0;
     always #10 clk=~clk;always #6 pclk=~pclk;always #4 rxc=~rxc;
     tri1 scl,sda,csda,mdio;
     wire tx,l1,l2,r1,r2,m1,m2;
@@ -12,7 +12,7 @@ module tb_full_system;
             $fatal(1,"Old BLDC enables/PWM/CAL must stay low in all states");
     end
     // Accelerate motor/UART counters by 10x; sensor and camera/network clocks stay unchanged.
-    system_top #(.CLK_HZ(5000000)) dut(.clk50m(clk),.reset_n(reset_n),.estop_n(estop),.uart_rx(1'b1),
+    system_top #(.CLK_HZ(5000000)) dut(.clk50m(clk),.reset_n(reset_n),.uart_rx(1'b1),
         .left_enc_a(1'b0),.left_enc_b(1'b0),.right_enc_a(1'b0),.right_enc_b(1'b0),
         .rgmii_rxc(rxc),.rgmii_rxd(4'd0),.rgmii_rxctl(1'b0),.camera_pclk(pclk),.camera_vsync(1'b0),.camera_href(1'b0),.camera_data(8'd0),
         .camera_sdat(csda),.eth_mdio(mdio),.imu_i2c_scl(scl),.imu_i2c_sda(sda),.uart_tx(tx),
@@ -48,7 +48,7 @@ module tb_full_system;
     initial begin
         force GSR.GSRI=1'b1;
         force dut.command_valid=cmd;force dut.opcode=op;force dut.sequence_id=seq;
-        force dut.command_flags=0;force dut.left_target=target;force dut.right_target=target;
+        force dut.command_flags=1;force dut.left_target=target;force dut.right_target=target;
         force dut.kp=256;force dut.ki=0;
         file=$fopen("build/tests/full_system_uart.bin","wb");repeat(50)@(negedge clk);reset_n=1;
         wait(samples>=4);command(3,0);command(1,0);command(2,20);
@@ -70,7 +70,7 @@ module tb_full_system;
         if(!dut.armed || dut.left_applied!=20 || samples<8 || control_ticks<6 || bytes<48*2)$fatal(1,"concurrent operation");
         present=0;wait(dut.imu_fault || dut.imu_stale);
         if(!dut.armed)$fatal(1,"observation-only IMU failure disarmed manual drive");
-        #1;estop=0;#1;if(l1||l2||r1||r2)$fatal(1,"estop output");
+        command(0,0);#1;if(l1||l2||r1||r2)$fatal(1,"STOP output");
         $fclose(file);$display("PASS full production top: IMU=%0d control_ticks=%0d Ethernet_bytes=%0d camera stop/network reset/IMU fault isolated",samples,control_ticks,eth_bytes);$finish;
     end
     initial begin #100000000;$fatal(1,"full system timeout");end

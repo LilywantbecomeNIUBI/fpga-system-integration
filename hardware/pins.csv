@@ -53,7 +53,7 @@ board,uart_rx,J21,IN,,,reserved
 reserved_p7,imu_i2c_scl,F19,INOUT,39,,reserved
 reserved_p7,imu_i2c_sda,F20,INOUT,40,,reserved
 chassis,right_enc_b,D19,IN,36,level shifter <- E2B / D157B J5-4,candidate_adc_remap
-chassis,estop_n,F18,IN,37,external safety status / external pulldown,candidate_adc_remap
+reserved,p7_37_unused,F18,IN,37,unused no external permit required,closed_loop_only
 reserved_p7,lidar_moto_pwm,E18,OUT,38,,reserved
 reserved_p7,legacy_m1_disable,F13,OUT,7,,reserved
 reserved_p7,legacy_m2_disable,C15,OUT,18,,reserved

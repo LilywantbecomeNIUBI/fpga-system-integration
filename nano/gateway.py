@@ -45,11 +45,15 @@ class Gateway:
     def start(self):
         if not self.live:return
         import serial # Fail before opening listeners' device workers if dependency is missing.
+        lidar_enabled=self.config.get('lidar_enabled',True)
+        if not isinstance(lidar_enabled,bool):raise ValueError('lidar_enabled must be boolean')
         ports=[self.config.get('fpga_serial'),self.config.get('lidar_serial')]
-        if not all(ports) or ports[0]==ports[1]:raise ValueError('Two distinct configured serial devices required')
+        if not ports[0] or (lidar_enabled and (not ports[1] or ports[0]==ports[1])):raise ValueError('Configure FPGA serial and, when enabled, a distinct lidar serial')
         self.recorder=Recorder(Path(self.config.get('record_dir','runs/gateway'))/(time.strftime('%Y%m%d_%H%M%S')+'_'+os.urandom(4).hex()))
         self.control.event_sink=lambda event:self.recorder.put('control_event',event)
-        for target in (self.serial_loop,self.lidar_loop,self.record_loop):
+        targets=[self.serial_loop,self.record_loop]
+        if lidar_enabled:targets.append(self.lidar_loop)
+        for target in targets:
             t=threading.Thread(target=target,daemon=True);self.threads.append(t);t.start()
     def ingest_uart(self,data):
         if self.recorder:self.recorder.put('uart',data)
@@ -108,7 +112,7 @@ class Gateway:
     def state(self):
         with self.lock:
             age=time.monotonic()-self.lidar_time if self.lidar_time is not None else None
-            lidar=dict(online=age is not None and age<.5,age_ms=age*1000 if age is not None else None,error=self.lidar_error,
+            lidar=dict(enabled=self.config.get('lidar_enabled',True),online=self.config.get('lidar_enabled',True) and age is not None and age<.5,age_ms=age*1000 if age is not None else None,error=self.lidar_error,
                 frames=self.lidar_frames_base+self.lidar.frames,scans=self.lidar_scans_base+self.lidar.scans,bad_crc=self.lidar_crc_base+self.lidar.bad_crc,
                 connections=self.lidar_connections,scan=self.lidar.last_scan if age is not None and age<.5 else None)
             odometry=self.odometry.snapshot()

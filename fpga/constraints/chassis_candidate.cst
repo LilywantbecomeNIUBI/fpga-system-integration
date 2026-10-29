@@ -3,9 +3,7 @@
 // P7-36 level shifter <- E2B / D157B J5-4
 IO_LOC "right_enc_b" D19;
 IO_PORT "right_enc_b" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;
-// P7-37 external safety status / external pulldown
-IO_LOC "estop_n" F18;
-IO_PORT "estop_n" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;
+// P7-37/F18 unused; no external permit input
 // P7-21 AIN1 / D157B J4-4
 IO_LOC "left_in1" D17;
 IO_PORT "left_in1" IO_TYPE=LVCMOS33 PULL_MODE=DOWN BANK_VCCIO=3.3;

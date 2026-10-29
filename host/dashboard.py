@@ -1,6 +1,6 @@
 """PC console: local UI + existing video services + authenticated Nano gateway client."""
 from pathlib import Path
-import argparse,json,os,secrets,sys,threading,time,urllib.request
+import argparse,json,os,secrets,sys,threading,time,urllib.request,urllib.error
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from urllib.parse import urlsplit,parse_qs
 ROOT=Path(__file__).resolve().parents[1]
@@ -15,10 +15,15 @@ class GatewayClient:
         if not self.live or not self.url or len(self.token)<24:raise ValueError('Live gateway URL/token not configured')
         body=json.dumps(payload,allow_nan=False).encode('utf-8') if payload is not None else None
         req=urllib.request.Request(self.url+path,data=body,headers={'X-Session-Token':self.token,'Content-Type':'application/json'})
-        with urllib.request.urlopen(req,timeout=.12) as response:
-            raw=response.read(2*1024*1024+1)
-            if len(raw)>2*1024*1024:raise ValueError('Gateway response too large')
-            return json.loads(raw.decode('utf-8'))
+        try:
+            with urllib.request.urlopen(req,timeout=.12) as response:
+                raw=response.read(2*1024*1024+1)
+                if len(raw)>2*1024*1024:raise ValueError('Gateway response too large')
+                return json.loads(raw.decode('utf-8'))
+        except urllib.error.HTTPError as exc:
+            try:detail=json.loads(exc.read(2048).decode('utf-8')).get('error',str(exc))
+            except (ValueError,UnicodeError):detail=str(exc)
+            raise ValueError(detail) from exc
     def poll(self):
         try:
             data=self.request('/api/state')
@@ -60,8 +65,7 @@ class Session(sensing_base.Session):
         return state
     def close(self):self.gateway.release();super().close()
 
-def make_server(session,port,token):
-    html=(ROOT/'host/index.html').read_bytes()
+def make_server(session,port,token,page='index.html'):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self,*args):pass
         def send(self,value,status=200,kind='application/json'):
@@ -72,7 +76,8 @@ def make_server(session,port,token):
             except (BrokenPipeError,ConnectionResetError):pass
         def do_GET(self):
             url=urlsplit(self.path)
-            if url.path=='/':self.send(html,kind='text/html; charset=utf-8')
+            if url.path=='/':self.send((ROOT/'host'/page).read_bytes(),kind='text/html; charset=utf-8')
+            elif url.path=='/motor':self.send((ROOT/'host/motor_tuner.html').read_bytes(),kind='text/html; charset=utf-8')
             elif url.path in ('/api/state','/health'):self.send(session.state())
             elif url.path in ('/camera.jpg','/infer.jpg'):
                 image=session.image(url.path=='/infer.jpg',parse_qs(url.query).get('key',[''])[0])

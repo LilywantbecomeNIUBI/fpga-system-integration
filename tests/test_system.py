@@ -91,6 +91,20 @@ class ControlTests(unittest.TestCase):
         self.arm();row=dict(self.status);row['packet_count']=(row['packet_count']+100)&65535
         self.assertEqual(self.control.ingest(row),'restart');self.assertIsNone(self.control.owner)
         self.assertEqual(self.control.phase,'stopped')
+    def test_closed_only_and_timed_test_cannot_extend_or_rearm(self):
+        with self.assertRaises(ValueError):self.request('arm',flags=0)
+        self.arm()
+        self.request('test',duration_ms=100,left=20,right=0)
+        deadline=self.control.test_until
+        for _ in range(8):self.step()
+        self.assertEqual(self.control.targets,[20,0]);self.assertEqual(self.control.test_until,deadline)
+        with self.assertRaises(ValueError):self.request('test',duration_ms=5000,left=30,right=0)
+        for _ in range(4):self.step(keep=False)
+        self.assertIsNone(self.control.owner);self.assertEqual(self.control.targets,[0,0])
+        self.assertEqual(self.control.reason,'timed_test_complete')
+    def test_permille_api_removed(self):
+        self.arm()
+        with self.assertRaises(ValueError):self.request('heartbeat',held=True,units='permille',left=20,right=0)
     def test_gateway_restart_old_lease_rejected(self):
         other=Control(clock=lambda:self.now);other.connect();other.ingest(self.status)
         with self.assertRaises(ValueError):other.request(dict(action='arm',lease=self.lease,sequence=1))
@@ -178,6 +192,17 @@ class HttpTests(unittest.TestCase):
             req=urllib.request.Request(url+'/api/control',data=b'{"action":"claim"}',headers={'X-Session-Token':'a'*24})
             with self.assertRaises(urllib.error.HTTPError):urllib.request.urlopen(req)
         finally:server.shutdown();server.server_close();gateway.close();worker.join()
+    def test_lidar_can_be_disabled_without_opening_its_serial(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as temp,patch.dict(sys.modules,{'serial':types.SimpleNamespace()}):
+            gateway=Gateway(dict(fpga_serial='TEST_ONLY',lidar_enabled=False,record_dir=temp),live=True)
+            with patch.object(gateway,'serial_loop') as fpga,patch.object(gateway,'lidar_loop') as lidar,patch.object(gateway,'record_loop'):
+                gateway.start()
+                for thread in gateway.threads:thread.join(1)
+                self.assertTrue(fpga.called);self.assertFalse(lidar.called)
+                self.assertFalse(gateway.state()['lidar']['enabled'])
+                gateway.close()
+
     def test_nano_python36_syntax(self):
         for folder in ('nano','shared'):
             for path in (ROOT/folder).rglob('*.py'):ast.parse(path.read_text(encoding='utf-8'),feature_version=(3,6))

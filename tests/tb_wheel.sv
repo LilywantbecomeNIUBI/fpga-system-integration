@@ -1,13 +1,13 @@
 `timescale 1ns/1ps
 module tb_wheel;
     reg clk=0;always #5 clk=~clk;
-    reg reset_n=0,tick=0,enable=0,closed=0,motor_reverse=0;
+    reg reset_n=0,tick=0,enable=0,motor_reverse=0;
     reg signed [15:0] target=0;
     reg signed [31:0] velocity=0;
-    reg [15:0] kp=256,ki=64;
+    reg [15:0] kp=256,ki=0;
     wire signed [15:0] applied;
     wire in1,in2;
-    wheel_control #(.REVERSE_TICKS(3)) dut(.clk(clk),.reset_n(reset_n),.tick(tick),.enable(enable),.closed_loop(closed),.motor_reverse(motor_reverse),.target(target),.velocity(velocity),.kp(kp),.ki(ki),.applied(applied));
+    wheel_control #(.REVERSE_TICKS(3)) dut(.clk(clk),.reset_n(reset_n),.tick(tick),.enable(enable),.motor_reverse(motor_reverse),.target(target),.velocity(velocity),.kp(kp),.ki(ki),.applied(applied));
     at8236_pwm #(.CLK_HZ(1000000),.PWM_HZ(10000)) pwm(.clk(clk),.reset_n(reset_n),.enable(enable),.command(applied),.in1(in1),.in2(in2));
     always @(posedge clk) if(in1&&in2 && !pwm.waking) $fatal(1,"11 outside wake");
     task update;begin @(negedge clk);tick=1;@(negedge clk);tick=0;repeat(12) @(negedge clk);end endtask
@@ -24,7 +24,7 @@ module tb_wheel;
         velocity=0;repeat(3) update();if(applied!=0) $fatal(1,"quiet interval");
         repeat(15) update();if(applied!=-200) $fatal(1,"reverse release");
         enable=0;#1;if(in1||in2) $fatal(1,"disable latency");update();
-        closed=1;enable=1;target=100;velocity=0;
+        enable=1;ki=64;target=100;velocity=0;
         repeat(30) update();if(applied!=300) $fatal(1,"PI saturation");
         velocity=200;repeat(50) update();if(applied!=0) $fatal(1,"reverse waits feedback stop");
         velocity=0;target=0;repeat(30) update();if(applied!=0 || dut.integral!=0) $fatal(1,"PI zero reset");

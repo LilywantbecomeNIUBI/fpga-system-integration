@@ -82,7 +82,7 @@ python tools/configure_endpoints.py --config config/pc.local.json --apply
 
 - Nano `GET /api/state`：运动状态、IMU、完整雷达扫描、健康状态、记录与标定状态。
 - Nano `POST /api/control`：`claim`返回独占lease；`arm`提供lease、递增sequence、flags和Q8增益；`heartbeat`提供lease、sequence、held和目标；`release`只撤销匹配lease；`stop`为鉴权后的紧急软件停机。
-- 目标单位为`counts`（闭环计数/10ms）或`permille`（显式开环调试）；物理单位`physical`使用`v`（m/s）、`w`（rad/s），只在实测标定确认且极性匹配时开放，初始上限0.15m/s、0.5rad/s。这些上限不是已实车验证的安全速度。
+- 目标单位为`counts`（仅闭环计数/10ms；开环及permille入口已删除）；物理单位`physical`使用`v`（m/s）、`w`（rad/s），只在实测标定确认且极性匹配时开放，初始上限0.15m/s、0.5rad/s。这些上限不是已实车验证的安全速度。
 - 超过200ms没有有效控制心跳或新电机状态、会话释放、FPGA故障、串口断开，网关撤销控制权并尝试STOP。重复或旧遥测不刷新状态期限。FPGA自身250ms看门狗不依赖Nano线程或HTTP。
 
 IMU与雷达在本阶段仅观测；它们失效不自动改写手动运动指令。姿态显示仅为传感器轴互补滤波，不是车体定位。标定后提供编码器二维里程计，断连时重建计数参考，不执行SLAM或IMU航向融合。
@@ -102,3 +102,11 @@ Nano每次live启动创建独立记录目录：原始混合UART、原始雷达UA
 视觉/LK使用冻结原件，数值算法与帧格式不变。构建启用Gowin支持的BSRAM寄存器重定时优化；不启用DSP重定时，不降低时钟，不增加整模块时序例外。
 
 动态指标可从 `docs/dynamic_baseline.template.json` 和 `docs/dynamic_moving.template.json` 复制填写；模板故意为null，不能通过验收。记录相同配置标识、源码版本、原始日志路径及测量方法。IMU采集率由内部sample_seq及设备时间增量计算，100Hz串口上传率单独统计，不能混用；设备与主机时间也不能当作精确同步。控制周期/抖动和物理停车时间须用现场仪器或明确的板内测量依据记录，20Hz状态接收周期不能替代100Hz速度环周期。动态验收时另行归档这些测量证据。
+
+## 分步联调：暂不接雷达
+
+配置`lidar_enabled: false`时，只要求FPGA串口，不打开雷达串口；雷达状态明确标记enabled=false。默认仍为true，启用时必须使用两个不同串口。PC临时持有FPGA串口的阶段仅用于分链路诊断，不代表Nano独占串口的最终链路已通过。移交Nano之前必须先关闭PC串口进程。
+
+本车后续实物照片显示D157B 1.1，电机插座的编码器供电脚丝印为3V3；用户确认编码器采用3.3V供电，客服说明编码器支持3.3～5V。若AB也在3.3V域且没有5V上拉，可直接接FPGA，无须额外转换模块。旧资料原理图的5V供电标注不能替代本板电压确认；采用5V信号时仍需适当转换，不能并联两路电源输出。
+
+专用轮速调参页为 `/motor`，`test` 动作需已显式 ARM，传入 `left/right` 与 `duration_ms`（100..5000）。网关计时到期 STOP/释放控制；持续 heartbeat 不延长截止时间。P7-37/F18 不再连接许可线，不接29→37跳线。先断开12V手转验证编码器；实际转动前重新确认供电、双轮悬空、人员与接线。下载和运动分开执行，禁止自动转动。

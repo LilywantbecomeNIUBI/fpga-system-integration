@@ -9,6 +9,7 @@ class Control:
         self.owner=None;self.deadline=0;self.client_seq=-1;self.phase='offline';self.reason='not_connected'
         self.sequence=0;self.last_send=-1;self.phase_sent=-1;self.arm_sequence=None;self.stop_pending=False
         self.targets=[0,0];self.flags=1;self.kp=256;self.ki=0
+        self.test_until=None
         self.event_sink=None
         self.calibration=Calibration((config or {}).get('calibration'));self.events=[]
     def event(self,kind):
@@ -17,7 +18,7 @@ class Control:
         if self.event_sink:self.event_sink(dict(self.events[-1]))
     def revoke(self,reason):
         with self.lock:
-            self.owner=None;self.targets=[0,0];self.phase='stopped' if self.connected else 'offline'
+            self.test_until=None;self.owner=None;self.targets=[0,0];self.phase='stopped' if self.connected else 'offline'
             self.reason=reason;self.stop_pending=True;self.event('stop')
     def connect(self):
         with self.lock:
@@ -37,6 +38,7 @@ class Control:
             return 'restart' if restarted else 'sample'
     def fresh(self,now):return self.connected and self.motor_time is not None and now-self.motor_time<.2
     def expire(self,now):
+        if self.test_until is not None and now>=self.test_until:self.revoke('timed_test_complete')
         if self.owner and (now>=self.deadline or not self.fresh(now)):self.revoke('control_or_motor_timeout')
     def request(self,data):
         with self.lock:
@@ -58,8 +60,17 @@ class Control:
                 flags=data.get('flags',1);kp=data.get('kp',256);ki=data.get('ki',0)
                 if any(isinstance(x,bool) or not isinstance(x,int) for x in (flags,kp,ki)) or not 0<=flags<=31:raise ValueError('Invalid configuration')
                 command(1,0,flags,0,0,kp,ki)
-                if flags&1 and kp==0:raise ValueError('Closed loop Kp must be positive')
+                if not flags&1 or kp==0:raise ValueError('Closed loop Kp must be positive')
                 self.flags,self.kp,self.ki=flags,kp,ki;self.phase='stop_ack';self.phase_sent=-1;self.targets=[0,0]
+            elif action=='test':
+                if self.phase!='active':raise ValueError('Test requires explicit ARM acknowledgement')
+                duration=data.get('duration_ms')
+                if isinstance(duration,bool) or not isinstance(duration,int) or not 100<=duration<=5000:raise ValueError('Test duration must be 100..5000 ms')
+                if self.test_until is not None:raise ValueError('Test already running')
+                targets=[data.get('left',0),data.get('right',0)]
+                if any(isinstance(x,bool) or not isinstance(x,int) for x in targets):raise ValueError('Integer wheel targets required')
+                command(2,0,self.flags,*targets,self.kp,self.ki)
+                self.targets=targets;self.test_until=now+duration/1000;self.event('timed_test_started')
             elif action=='heartbeat':
                 held=data.get('held',False)
                 if not isinstance(held,bool):raise ValueError('held must be boolean')
@@ -72,13 +83,12 @@ class Control:
                         d=self.calibration.data
                         if not self.calibration.valid or (self.flags&30) != ((d['motor_reverse_mask']<<1)|(d['encoder_reverse_mask']<<3)):raise ValueError('Control polarities do not match calibration')
                         targets=self.calibration.targets(data.get('v'),data.get('w'))
-                    elif units in ('counts','permille'):
-                        if (units=='counts') != bool(self.flags&1):raise ValueError('Units do not match mode')
+                    elif units=='counts':
                         targets=[data.get('left',0),data.get('right',0)]
                         if any(isinstance(x,bool) or not isinstance(x,int) for x in targets):raise ValueError('Integer wheel targets required')
                         command(2,0,self.flags,targets[0],targets[1],self.kp,self.ki)
                     else:raise ValueError('Unsupported units')
-                self.targets=targets
+                if self.test_until is None:self.targets=targets
             else:raise ValueError('Unsupported action')
             self.client_seq=seq;self.deadline=now+.2
             return dict(phase=self.phase,targets=self.targets)
@@ -111,6 +121,7 @@ class Control:
     def snapshot(self):
         with self.lock:
             now=self.clock()
-            return dict(connected=self.connected,motor_fresh=self.fresh(now),motor_age_ms=(now-self.motor_time)*1000 if self.motor_time is not None else None,
+            return dict(timed_test_supported=True,connected=self.connected,motor_fresh=self.fresh(now),motor_age_ms=(now-self.motor_time)*1000 if self.motor_time is not None else None,
                 motor=dict(self.motor) if self.motor else None,phase=self.phase,reason=self.reason,owned=bool(self.owner),targets=list(self.targets),
+                test_remaining_ms=max(0,(self.test_until-now)*1000) if self.test_until is not None else None,
                 flags=self.flags,kp=self.kp,ki=self.ki,physical_control_enabled=self.calibration.valid)

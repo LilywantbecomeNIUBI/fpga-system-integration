@@ -3,7 +3,7 @@ import struct
 
 COMMAND_HEADER=b'\xa5\x5a'
 STATUS_HEADER=b'\xc3\x3c'
-FAULT_NAMES={0:'estop_or_power_on',1:'command_timeout',2:'encoder_invalid',3:'encoder_speed_limit',4:'no_encoder_motion'}
+FAULT_NAMES={0:'power_on_requires_clear',1:'command_timeout',2:'encoder_invalid',3:'encoder_speed_limit',4:'no_encoder_motion'}
 
 def crc16(data):
     crc=0xffff
@@ -13,10 +13,11 @@ def crc16(data):
             crc=((crc<<1)^0x1021)&0xffff if crc&0x8000 else (crc<<1)&0xffff
     return crc
 
-def command(opcode,sequence,flags=0,left=0,right=0,kp=256,ki=0):
+def command(opcode,sequence,flags=1,left=0,right=0,kp=256,ki=0):
     if opcode not in (0,1,2,3):raise ValueError('opcode must be STOP=0 ARM=1 DRIVE=2 CLEAR=3')
     if not 0<=flags<=31 or not 0<=kp<=4096 or not 0<=ki<=1024:raise ValueError('invalid flags/gains')
-    bound=1024 if flags&1 else 1000
+    if opcode in (1,2) and (not flags&1 or kp==0):raise ValueError('Speed loop with positive Kp required')
+    bound=1024
     if not -bound<=left<=bound or not -bound<=right<=bound:raise ValueError('target exceeds command range')
     if opcode in (1,3) and (left or right):raise ValueError('ARM/CLEAR require zero targets')
     payload=COMMAND_HEADER+struct.pack('<BBBBhhHH',1,opcode,sequence&255,flags,left,right,kp,ki)
