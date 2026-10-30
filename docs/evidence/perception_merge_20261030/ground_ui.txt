@@ -1,0 +1,1 @@
+PASS ground UI: explicit ARM, continuous heartbeat, no overlapping direction, STOP/blur release, polarity guard

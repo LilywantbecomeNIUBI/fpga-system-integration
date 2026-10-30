@@ -1,0 +1,1 @@
+PASS tuner zero: stopped/fresh/ownership guards, relative counters, wrap, retained faults and raw totals, no control commands

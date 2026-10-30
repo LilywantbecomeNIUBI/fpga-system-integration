@@ -54,7 +54,8 @@ def main():
     grounded = {pin:bool(re.search(r'OBUF\s+\S+\s*\(\s*\.O\('+re.escape(pin)+r'\),\s*\.I\(GND\)', text)) for pin in pins}
     if not all(grounded.values()):
         raise SystemExit('Legacy outputs not grounded')
-    shutil.copyfile(ROOT/'build/system/impl/pnr/system.rpt.txt', OUT/'pnr_report.txt')
+    report=(ROOT/'build/system/impl/pnr/system.rpt.txt').read_text(encoding='utf-8',errors='replace')
+    (OUT/'pnr_report.txt').write_text('\n'.join(line.rstrip() for line in report.splitlines()).rstrip()+'\n',encoding='utf-8')
     shutil.copyfile(timing, OUT/'timing.html')
     attempts = []
     for folder in sorted((ROOT/'build/system').glob('attempt_20261030*')):

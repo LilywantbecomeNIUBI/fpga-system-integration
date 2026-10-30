@@ -1,0 +1,1 @@
+PASS perception UI: mixed-state rendering, stale clearing and no motion side effects
