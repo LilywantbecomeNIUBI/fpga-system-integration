@@ -16,9 +16,10 @@ ROOT=Path(__file__).resolve().parents[1]
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def prepare(left_encoder_alt=False,pwm_limit=300):
+def prepare(left_encoder_alt=False,pwm_limit=300,with_imu=False):
     if not 300<=pwm_limit<=1000 or pwm_limit%50:raise ValueError('PWM limit must be 300..1000 per-mille in steps of 50')
     folder=ROOT/('build/motor_left_alt' if left_encoder_alt else 'build/motor') if pwm_limit==300 else ROOT/('build/motor_left_alt' if left_encoder_alt else 'build')/('motor_pwm_%d'%pwm_limit)
+    if with_imu:folder=folder.parent/(folder.name+'_imu')
     folder.mkdir(parents=True,exist_ok=True)
     rows=list(csv.DictReader((ROOT/'hardware/pins.csv').open(encoding='utf-8-sig')))
     if left_encoder_alt:
@@ -28,6 +29,7 @@ def prepare(left_encoder_alt=False,pwm_limit=300):
             if row['signal'] in remap:
                 row['ball'],row['p7']=remap[row['signal']]
     names={'clk50m','reset_n','uart_rx','uart_tx','legacy_m1_disable','legacy_m2_disable'}
+    if with_imu:names.update(('imu_i2c_scl','imu_i2c_sda'))
     selected=[r for r in rows if r['group'] in ('chassis','legacy_disabled') or r['signal'] in names or r['signal'].startswith('led[')]
     assert len({r['ball'] for r in selected})==len(selected), 'Duplicate physical pin'
     cst=['// Standalone brushed motor candidate. Requires approved 3.3V input conditioning.']
@@ -42,19 +44,21 @@ def prepare(left_encoder_alt=False,pwm_limit=300):
         sdc+=f'set_false_path -to [get_pins {{{pin}}}]\n'
     (folder/'motor.sdc').write_text(sdc,encoding='utf-8')
     sources=sorted((ROOT/'fpga/motor').glob('*.sv'))+[folder/'motor.cst',folder/'motor.sdc']
-    if pwm_limit!=300:
+    if with_imu:
+        sources+=[ROOT/'fpga/system/imu_status_source.sv']+[ROOT/'fpga/imu'/n for n in ('imu_1khz_core.v','icm42688_fast_reader.v','imu_fast_i2c_master.v')]
+    if pwm_limit!=300 or with_imu:
         original=ROOT/'fpga/motor/brushed_motor_top.sv'
         candidate=folder/'brushed_motor_top.sv'
         content=original.read_text(encoding='utf-8')
         assert content.count('PWM_LIMIT=300')==1
-        candidate.write_text(content.replace('PWM_LIMIT=300',f'PWM_LIMIT={pwm_limit}'),encoding='utf-8')
+        candidate.write_text(content.replace('PWM_LIMIT=300',f'PWM_LIMIT={pwm_limit}').replace('IMU_ENABLED=0','IMU_ENABLED='+str(int(with_imu))),encoding='utf-8')
         sources=[candidate if p==original else p for p in sources]
     project=ET.Element('Project')
     ET.SubElement(project,'Template').text='FPGA'; ET.SubElement(project,'Version').text='5'
     ET.SubElement(project,'Device',name='GW5AT-138B',pn='GW5AT-LV138PG484AC1/I0').text='gw5at138b-012'
     files=ET.SubElement(project,'FileList')
     for p in sources:
-        ET.SubElement(files,'File',path=Path(os.path.relpath(p,folder)).as_posix(),type={'.sv':'file.verilog','.cst':'file.cst','.sdc':'file.sdc'}[p.suffix],enable='1')
+        ET.SubElement(files,'File',path=Path(os.path.relpath(p,folder)).as_posix(),type={'.sv':'file.verilog','.v':'file.verilog','.cst':'file.cst','.sdc':'file.sdc'}[p.suffix],enable='1')
     ET.ElementTree(project).write(folder/'motor.gprj',encoding='utf-8',xml_declaration=True)
     tcl='set here [file dirname [file normalize [info script]]]\ncd $here\nopen_project motor.gprj\n'
     for k,v in [('top_module','brushed_motor_top'),('verilog_std','sysv2017'),('output_base_name','motor'),('max_fanout','32'),('replicate_resources','1'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1')]:
@@ -65,9 +69,10 @@ def prepare(left_encoder_alt=False,pwm_limit=300):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--left-encoder-alt',action='store_true',help='Isolated P7-31/F16, P7-32/E17 left encoder profile; disconnect old ENC1 module')
+    parser.add_argument('--with-imu',action='store_true',help='Add ICM42688 I2C on P7-39/40 and mixed UART telemetry')
     parser.add_argument('--pwm-limit',type=int,default=300,help='Compile-time applied-PWM limit per mille; default 300')
     args=parser.parse_args()
-    folder,sources=prepare(args.left_encoder_alt,args.pwm_limit)
+    folder,sources=prepare(args.left_encoder_alt,args.pwm_limit,args.with_imu)
     if args.prepare_only: print(folder/'motor.gprj');return
     if os.name=='nt':
         active=subprocess.run(['powershell','-NoProfile','-Command','Get-Process gw_sh,gw_syn,gw_pnr -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Id'],capture_output=True,text=True)
@@ -83,6 +88,7 @@ def main():
     record['pin_profile']='left_encoder_p7_31_32' if args.left_encoder_alt else 'adc_remap_v2'
     record['encoder_pull_mode']='UP'
     record['pwm_limit_per_mille']=args.pwm_limit
+    record['imu_enabled']=args.with_imu
     record['left_encoder_pins']={'a':{'p7':31,'ball':'F16'},'b':{'p7':32,'ball':'E17'}} if args.left_encoder_alt else {'a':{'p7':25,'ball':'B17'},'b':{'p7':26,'ball':'B18'}}
     record['sources_unchanged']=all(sha(ROOT/p)==h for p,h in hashes.items())
     if timing.exists() and result.returncode==0:

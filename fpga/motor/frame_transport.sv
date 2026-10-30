@@ -29,13 +29,14 @@ module frame_crc #(parameter HIGH_FIRST=0)(
 endmodule
 
 // Complete 48-byte packet ownership; one physical UART; newest pending snapshot wins.
-module frame_uart_mux #(parameter CLK_HZ=50000000,BAUD=115200)(
+module frame_uart_mux #(parameter CLK_HZ=50000000,BAUD=115200,AUX_ENABLED=0)(
     input wire clk,reset_n,motor_valid,imu_valid,
     input wire [383:0] motor_frame,imu_frame,
-    output wire tx,output reg [15:0] imu_drops
+    input wire aux_valid,input wire [383:0] aux_frame,
+    output wire tx,output reg [15:0] aux_drops,output reg [15:0] imu_drops
 );
     reg [383:0] motor_pending,imu_pending,active;
-    reg have_motor,have_imu;
+    reg have_motor,have_imu,have_aux;reg [383:0] aux_pending;
     reg [1:0] state;
     reg [5:0] index;
     reg start;
@@ -45,9 +46,13 @@ module frame_uart_mux #(parameter CLK_HZ=50000000,BAUD=115200)(
     always @(posedge clk or negedge reset_n)begin
         if(!reset_n)begin
             motor_pending<=0;imu_pending<=0;active<=0;have_motor<=0;have_imu<=0;
-            state<=0;index<=0;start<=0;data<=0;imu_drops<=0;
+            state<=0;index<=0;start<=0;data<=0;imu_drops<=0;aux_drops<=0;have_aux<=0;aux_pending<=0;
         end else begin
             start<=0;
+            if(AUX_ENABLED && aux_valid)begin
+                aux_pending<=aux_frame;have_aux<=1;
+                if(have_aux && !(state==0 && !have_motor && !have_imu) && aux_drops!=16'hffff)aux_drops<=aux_drops+16'd1;
+            end
             if(motor_valid)begin motor_pending<=motor_frame;have_motor<=1;end
             if(imu_valid)begin
                 imu_pending<=imu_frame;have_imu<=1;
@@ -56,6 +61,7 @@ module frame_uart_mux #(parameter CLK_HZ=50000000,BAUD=115200)(
             case(state)
                 0: if(have_motor)begin active<=motor_pending;have_motor<=motor_valid;index<=0;state<=1;end
                    else if(have_imu)begin active<=imu_pending;have_imu<=imu_valid;index<=0;state<=1;end
+                   else if(AUX_ENABLED && have_aux)begin active<=aux_pending;have_aux<=aux_valid;index<=0;state<=1;end
                 1: if(!busy)begin data<=active[index*8+:8];start<=1;state<=2;end
                 2: if(busy)state<=3;
                 3: if(!busy)begin

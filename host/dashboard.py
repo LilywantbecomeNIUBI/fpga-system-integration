@@ -94,6 +94,7 @@ def make_server(session,port,token,page='index.html'):
             if url.path=='/':self.send((ROOT/'host'/page).read_bytes(),kind='text/html; charset=utf-8')
             elif url.path in ('/motor','/tuning'):self.send((ROOT/'host/motor_tuner.html').read_bytes(),kind='text/html; charset=utf-8')
             elif url.path=='/home':self.send((ROOT/'host/home.html').read_bytes(),kind='text/html; charset=utf-8')
+            elif url.path=='/imu':self.send((ROOT/'host/imu.html').read_bytes(),kind='text/html; charset=utf-8')
             elif url.path in ('/api/state','/health'):self.send(session.state())
             elif url.path in ('/camera.jpg','/infer.jpg'):
                 image=session.image(url.path=='/infer.jpg',parse_qs(url.query).get('key',[''])[0])

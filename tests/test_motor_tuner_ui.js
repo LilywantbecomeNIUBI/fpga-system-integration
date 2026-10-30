@@ -7,7 +7,7 @@ const motor={left_position:100,right_position:-200,left_invalid:5681,right_inval
 let state={gateway:{online:true},control:{motor_fresh:true,timed_test_supported:true,phase:'stopped',owned:false,motor}};
 const context=vm.createContext({document:{getElementById:element,addEventListener(){}},window:{addEventListener(){}},setInterval(){},setTimeout(){},Date,console,
     fetch:async(url)=>{calls.push(url);return {ok:true,json:async()=>JSON.parse(JSON.stringify(state))}}});
-const script=html.match(/<script>([\s\S]*)<\/script>/)[1].replace(/poll\(\);\s*$/, '');
+const script=html.match(/<script>([\s\S]*?)<\/script>/)[1].replace(/poll\(\);\s*$/, '');
 vm.runInContext(script,context);
 const evaluate=code=>vm.runInContext(code,context);
 (async()=>{

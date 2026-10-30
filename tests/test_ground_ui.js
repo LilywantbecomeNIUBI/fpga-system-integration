@@ -4,7 +4,7 @@ const elements=new Map(),calls=[],listeners={},intervals=[];
 const element=id=>{if(!elements.has(id))elements.set(id,{value:'4',textContent:'',disabled:false});return elements.get(id)};
 const ctx=vm.createContext({document:{getElementById:element,addEventListener(){}},window:{addEventListener(name,fn){listeners[name]=fn}},setInterval(fn,ms){intervals.push({fn,ms})},setTimeout(){},Date,console,
  fetch:async(url,opts)=>{if(opts)calls.push(JSON.parse(opts.body));return {ok:true,json:async()=>({})}}});
-vm.runInContext(html.match(/<script>([\s\S]*)<\/script>/)[1].replace(/poll\(\);\s*$/,''),ctx);
+vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1].replace(/poll\(\);\s*$/,''),ctx);
 const run=s=>vm.runInContext(s,ctx),evt={preventDefault(){},button:0};
 (async()=>{
  assert.match(run("connectionSummary({gateway:{online:true,data:{serial_error:'Permission denied'}},control:{connected:false}})"),/权限/);

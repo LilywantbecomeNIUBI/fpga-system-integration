@@ -1,7 +1,8 @@
 module brushed_motor_top #(
-    parameter integer CLK_HZ=50000000, BAUD=115200, PWM_LIMIT=300
+    parameter integer CLK_HZ=50000000, BAUD=115200, PWM_LIMIT=300, IMU_ENABLED=0
 )(
     input wire clk50m,reset_n,uart_rx,
+    inout wire imu_i2c_scl,imu_i2c_sda,
     input wire left_enc_a,left_enc_b,right_enc_a,right_enc_b,
     output wire left_in1,left_in2,right_in1,right_in2,uart_tx,
     output wire legacy_m1_disable,legacy_m2_disable,
@@ -45,11 +46,34 @@ module brushed_motor_top #(
         .left_encoder_levels(left_encoder_levels),.right_encoder_levels(right_encoder_levels),
         .left_encoder_trace(left_encoder_trace),.right_encoder_trace(right_encoder_trace),
         .left_encoder_trace_count(left_encoder_trace_count),.right_encoder_trace_count(right_encoder_trace_count));
-    motor_telemetry #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.ENCODER_DIAGNOSTICS(1),.ENCODER_B_MASK(1),.ENCODER_RECOVERY_MASK(1)) telemetry(
+    wire [383:0] imu_frame;wire imu_valid;wire [15:0] imu_drops;
+    generate if(IMU_ENABLED) begin : with_imu
+    wire imu_ready,imu_fault,imu_sample_valid,imu_stale,imu_temperature_valid;
+    wire signed [15:0] ax,ay,az,gx,gy,gz,temperature_raw;
+    wire [31:0] sample_seq,timestamp_us,now_us;
+    wire [7:0] who_am_i,last_error;
+    wire [15:0] error_count,invalid_count,observe_to_commit_us,sample_interval_us;
+    imu_1khz_core imu(.clk(clk50m),.rst_n(reset_sync),.imu_i2c_scl(imu_i2c_scl),.imu_i2c_sda(imu_i2c_sda),
+        .ready(imu_ready),.fault(imu_fault),.sample_valid(imu_sample_valid),.sample_stale(imu_stale),.temperature_valid(imu_temperature_valid),
+        .ax(ax),.ay(ay),.az(az),.gx(gx),.gy(gy),.gz(gz),.temperature_raw(temperature_raw),
+        .sample_seq(sample_seq),.timestamp_us(timestamp_us),.now_us(now_us),.who_am_i(who_am_i),.last_error(last_error),
+        .error_count(error_count),.invalid_count(invalid_count),.observe_to_commit_us(observe_to_commit_us),.sample_interval_us(sample_interval_us),
+        .commit_timestamp_us(),.sample_age_us());
+    imu_status_source #(.CLK_HZ(CLK_HZ),.DECIMATION(20)) imu_status(.clk(clk50m),.reset_n(reset_sync),.sample_valid(imu_sample_valid),
+        .ready(imu_ready),.fault(imu_fault),.sample_stale(imu_stale),.temperature_valid(imu_temperature_valid),
+        .ax(ax),.ay(ay),.az(az),.gx(gx),.gy(gy),.gz(gz),.temperature_raw(temperature_raw),.sample_seq(sample_seq),
+        .timestamp_us(timestamp_us),.now_us(now_us),.who_am_i(who_am_i),.last_error(last_error),.error_count(error_count),
+        .invalid_count(invalid_count),.observe_to_commit_us(observe_to_commit_us),.sample_interval_us(sample_interval_us),
+        .drop_count(imu_drops),.frame(imu_frame),.valid(imu_valid));
+    end else begin : no_imu
+        assign imu_frame=0;assign imu_valid=0;assign imu_i2c_scl=1'bz;assign imu_i2c_sda=1'bz;
+    end endgenerate
+    motor_telemetry #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.ENCODER_DIAGNOSTICS(1),.ENCODER_B_MASK(1),.ENCODER_RECOVERY_MASK(1),.IMU_ENABLED(IMU_ENABLED)) telemetry(
         .clk(clk50m),.reset_n(reset_sync),.armed(armed),.flags(flags),.last_sequence(last_sequence),.faults(faults),
         .left_position(left_position),.right_position(right_position),.left_velocity(left_velocity),.right_velocity(right_velocity),
         .left_applied(left_applied),.right_applied(right_applied),.left_invalid(left_invalid),.right_invalid(right_invalid),
         .bad_frames(bad_frames),.rejected_commands(rejected_commands),.tx(uart_tx),
+        .imu_frame(imu_frame),.imu_valid(imu_valid),.imu_drops(imu_drops),
         .left_encoder_diagnostics(left_encoder_diagnostics),.right_encoder_diagnostics(right_encoder_diagnostics),
         .left_encoder_levels(left_encoder_levels),.right_encoder_levels(right_encoder_levels),
         .left_encoder_trace(left_encoder_trace),.right_encoder_trace(right_encoder_trace),
