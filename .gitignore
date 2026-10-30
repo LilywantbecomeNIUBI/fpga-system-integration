@@ -18,3 +18,4 @@ config/pc.local.json
 config/nano.local.json
 .playwright-cli/
 .deps/
+output/

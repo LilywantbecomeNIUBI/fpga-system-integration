@@ -14,7 +14,8 @@ import uuid
 from urllib.parse import urlsplit,parse_qs
 import cv2
 from vision_dashboard_common import Capture,create_detector,PROFILE,select_feedback,jpeg
-from vision_v23_protocol import model_detection,parse_event
+from vision_v23_protocol import model_detection
+from shared.perception import PerceptionEvents
 from vision_protocol import parse_status
 from vision_models import MODEL_IDS,model_paths,resolve_model
 
@@ -50,6 +51,7 @@ def main():
     capture=StaticCapture(args.offline_image) if args.offline_image else Capture(args.bind,source=args.fpga,encode_preview=False)
     stop=threading.Event();lock=threading.Lock()
     session=uuid.uuid4().hex;state=dict(result=None,event=None,event_stamp=None,error=None,inferences=0,model='正在加载模型')
+    perception=PerceptionEvents()
     completed=deque(maxlen=120)
     semantics=events=None
     if not args.offline_image:
@@ -61,8 +63,9 @@ def main():
             try:
                 payload,peer=events.recvfrom(2048)
                 if peer!=(args.fpga,6202):continue
-                event=parse_event(payload)
-                with lock:state.update(event=event,event_stamp=time.monotonic())
+                with lock:
+                    kind,event=perception.ingest(payload)
+                    if kind=='tracking':state.update(event=event,event_stamp=time.monotonic())
             except socket.timeout:continue
             except (ValueError,OSError):
                 if stop.is_set():break
@@ -110,6 +113,7 @@ def main():
             event=dict(state['event']) if state['event'] else None
             if result:result['age_ms']=(now-result.pop('finished'))*1000
             return dict(profile=PROFILE,session=session,capture=capture.status(),result=result,event=event,
+                        flow=perception.flow_snapshot(now),
                         event_age_ms=(now-state['event_stamp'])*1000 if state['event_stamp'] else None,
                         error=state['error'],model=state['model'],backend=args.backend,
                         model_id=args.model,

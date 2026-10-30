@@ -2,20 +2,20 @@
 // Company: 武汉芯路恒科技有限公司
 // Engineer: Max
 // Web: www.corecourse.cn
-// 
+//
 // Create Date: 2020/07/20 00:00:00
 // Design Name: eth_udp_tx_gmii
 // Module Name: eth_udp_tx_gmii
 // Project Name: eth_udp_tx_gmii
 // Target Devices: XC7A35T-2FGG484I
 // Tool Versions: Vivado 2018.3
-// 
-// Dependencies: 
-// 
+//
+// Dependencies:
+//
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 module eth_udp_tx_gmii(
@@ -33,7 +33,7 @@ module eth_udp_tx_gmii(
   src_port,
 
   data_length,
-  
+
   payload_req_o,
   payload_dat_i,
 
@@ -56,7 +56,7 @@ module eth_udp_tx_gmii(
   input [15:0]   src_port;
 
   input [15:0]   data_length;
-  
+
   output         payload_req_o;
   input     [7:0]payload_dat_i;
 
@@ -99,7 +99,7 @@ module eth_udp_tx_gmii(
   reg  [15:0] src_port_reg;
   reg  [31:0] dst_ip_reg;
   reg  [31:0] src_ip_reg;
-  reg  [15:0] data_length_reg; 
+  reg  [15:0] data_length_reg;
   reg  [15:0] IP_total_len_reg;
   reg  [15:0] udp_length_reg;
 
@@ -129,7 +129,7 @@ module eth_udp_tx_gmii(
   wire [31:0] crc_result;
 
   reg  [7:0]  gmii_txd_renewcrc;
-  reg         gmii_txen_renewcrc; 
+  reg         gmii_txen_renewcrc;
 
   assign gmii_tx_clk = clk125m;
 
@@ -158,7 +158,7 @@ module eth_udp_tx_gmii(
 
     .checksum       (IP_check_sum   )
   );
-  
+
   //����̫������Դ/Ŀ�Ĳ����Ĵ�
   always@(posedge clk125m or posedge reset_p)
   if(reset_p)
@@ -192,7 +192,7 @@ module eth_udp_tx_gmii(
   begin
     data_length_reg  <= data_length;
     IP_total_len_reg <= IP_total_len;
-    udp_length_reg   <= udp_length; 
+    udp_length_reg   <= udp_length;
   end
 
   always@(posedge clk125m or posedge reset_p)
@@ -247,7 +247,7 @@ module eth_udp_tx_gmii(
           next_state = TX_CRC;
         else
           next_state = TX_FILL_DATA;
-        
+
       TX_CRC:
         if(cnt_crc == 2'd3)
           next_state = IDLE;
@@ -322,122 +322,80 @@ module eth_udp_tx_gmii(
   else
     cnt_crc <= 5'd0;
 
-  //tx_data,tx_en
-  always@(posedge clk125m or posedge reset_p)
-  if(reset_p)
-  begin
-    tx_en   <= 1'b0;
-    tx_data <= 8'h00;
-  end
-  else
-  begin
-    case(curr_state)
-      IDLE:
-      begin
-        tx_en   <= 1'b0;
-        tx_data <= 8'h00;
-      end
-
-      TX_PREAMBLE:
-      begin
-        tx_en <= 1'b1;
-        if(cnt_preamble <= 4'd6)
-          tx_data <= 8'h55;
-        else
-          tx_data <= 8'hd5;
-      end
-
-      TX_ETH_HEADER:
-      begin
-        tx_en <= 1'b1;
+  // Parallel byte selection avoids a deep priority mux on live video data.
+  reg [7:0] tx_eth_header;
+  always @* begin
         case(cnt_eth_header)
-          4'd0:   tx_data <= dst_mac_reg[47:40];
-          4'd1:   tx_data <= dst_mac_reg[39:32];
-          4'd2:   tx_data <= dst_mac_reg[31:24];
-          4'd3:   tx_data <= dst_mac_reg[23:16];
-          4'd4:   tx_data <= dst_mac_reg[15:8];
-          4'd5:   tx_data <= dst_mac_reg[7:0];
-          4'd6:   tx_data <= src_mac_reg[47:40];
-          4'd7:   tx_data <= src_mac_reg[39:32];
-          4'd8:   tx_data <= src_mac_reg[31:24];
-          4'd9:   tx_data <= src_mac_reg[23:16];
-          4'd10:  tx_data <= src_mac_reg[15:8];
-          4'd11:  tx_data <= src_mac_reg[7:0];
-          4'd12:  tx_data <= ETH_type[15:8];
-          4'd13:  tx_data <= ETH_type[7:0];
-          default:tx_data <= 8'h00;
+          4'd0:   tx_eth_header = dst_mac_reg[47:40];
+          4'd1:   tx_eth_header = dst_mac_reg[39:32];
+          4'd2:   tx_eth_header = dst_mac_reg[31:24];
+          4'd3:   tx_eth_header = dst_mac_reg[23:16];
+          4'd4:   tx_eth_header = dst_mac_reg[15:8];
+          4'd5:   tx_eth_header = dst_mac_reg[7:0];
+          4'd6:   tx_eth_header = src_mac_reg[47:40];
+          4'd7:   tx_eth_header = src_mac_reg[39:32];
+          4'd8:   tx_eth_header = src_mac_reg[31:24];
+          4'd9:   tx_eth_header = src_mac_reg[23:16];
+          4'd10:  tx_eth_header = src_mac_reg[15:8];
+          4'd11:  tx_eth_header = src_mac_reg[7:0];
+          4'd12:  tx_eth_header = ETH_type[15:8];
+          4'd13:  tx_eth_header = ETH_type[7:0];
+          default:tx_eth_header = 8'h00;
         endcase
-      end
-
-      TX_IP_HEADER:
-      begin
-        tx_en <= 1'b1;
-        case(cnt_ip_header)
-          5'd0:   tx_data <= {IP_ver,IP_hdr_len};
-          5'd1:   tx_data <= IP_tos;
-          5'd2:   tx_data <= IP_total_len_reg[15:8];
-          5'd3:   tx_data <= IP_total_len_reg[7:0];
-          5'd4:   tx_data <= IP_id[15:8];
-          5'd5:   tx_data <= IP_id[7:0];
-          5'd6:   tx_data <= {IP_rsv,IP_df,IP_mf,IP_frag_offset[12:8]};
-          5'd7:   tx_data <= IP_frag_offset[7:0];
-          5'd8:   tx_data <= IP_ttl;
-          5'd9:   tx_data <= IP_protocol;
-          5'd10:  tx_data <= IP_check_sum[15:8];
-          5'd11:  tx_data <= IP_check_sum[7:0];
-          5'd12:  tx_data <= src_ip_reg[31:24];
-          5'd13:  tx_data <= src_ip_reg[23:16];
-          5'd14:  tx_data <= src_ip_reg[15:8];
-          5'd15:  tx_data <= src_ip_reg[7:0];
-          5'd16:  tx_data <= dst_ip_reg[31:24];
-          5'd17:  tx_data <= dst_ip_reg[23:16];
-          5'd18:  tx_data <= dst_ip_reg[15:8];
-          5'd19:  tx_data <= dst_ip_reg[7:0];
-          default:tx_data <= 8'h00; 
-        endcase
-      end
-
-      TX_UDP_HEADER:
-      begin
-        tx_en <= 1'b1;
-        case(cnt_udp_header)
-          4'd0:   tx_data <= src_port_reg[15:8];
-          4'd1:   tx_data <= src_port_reg[7:0];
-          4'd2:   tx_data <= dst_port_reg[15:8];
-          4'd3:   tx_data <= dst_port_reg[7:0];
-          4'd4:   tx_data <= udp_length_reg[15:8];
-          4'd5:   tx_data <= udp_length_reg[7:0];
-          4'd6:   tx_data <= udp_check_sum[15:8];
-          4'd7:   tx_data <= udp_check_sum[7:0];
-          default:tx_data <= 8'h00; 
-        endcase
-      end
-
-      TX_DATA:
-      begin
-        tx_en <= 1'b1;
-        tx_data <= payload_dat_i;
-      end
-
-      TX_FILL_DATA:
-      begin
-        tx_en <= 1'b1;
-        tx_data <= 8'h00;
-      end
-
-      TX_CRC:
-      begin
-        tx_en <= 1'b1;
-        tx_data <= 8'h00;
-      end
-
-      default:
-      begin
-        tx_en   <= 1'b0;
-        tx_data <= 8'h00;
-      end
-    endcase
   end
+  reg [7:0] tx_ip_header;
+  always @* begin
+        case(cnt_ip_header)
+          5'd0:   tx_ip_header = {IP_ver,IP_hdr_len};
+          5'd1:   tx_ip_header = IP_tos;
+          5'd2:   tx_ip_header = IP_total_len_reg[15:8];
+          5'd3:   tx_ip_header = IP_total_len_reg[7:0];
+          5'd4:   tx_ip_header = IP_id[15:8];
+          5'd5:   tx_ip_header = IP_id[7:0];
+          5'd6:   tx_ip_header = {IP_rsv,IP_df,IP_mf,IP_frag_offset[12:8]};
+          5'd7:   tx_ip_header = IP_frag_offset[7:0];
+          5'd8:   tx_ip_header = IP_ttl;
+          5'd9:   tx_ip_header = IP_protocol;
+          5'd10:  tx_ip_header = IP_check_sum[15:8];
+          5'd11:  tx_ip_header = IP_check_sum[7:0];
+          5'd12:  tx_ip_header = src_ip_reg[31:24];
+          5'd13:  tx_ip_header = src_ip_reg[23:16];
+          5'd14:  tx_ip_header = src_ip_reg[15:8];
+          5'd15:  tx_ip_header = src_ip_reg[7:0];
+          5'd16:  tx_ip_header = dst_ip_reg[31:24];
+          5'd17:  tx_ip_header = dst_ip_reg[23:16];
+          5'd18:  tx_ip_header = dst_ip_reg[15:8];
+          5'd19:  tx_ip_header = dst_ip_reg[7:0];
+          default:tx_ip_header = 8'h00;
+        endcase
+  end
+  reg [7:0] tx_udp_header;
+  always @* begin
+        case(cnt_udp_header)
+          4'd0:   tx_udp_header = src_port_reg[15:8];
+          4'd1:   tx_udp_header = src_port_reg[7:0];
+          4'd2:   tx_udp_header = dst_port_reg[15:8];
+          4'd3:   tx_udp_header = dst_port_reg[7:0];
+          4'd4:   tx_udp_header = udp_length_reg[15:8];
+          4'd5:   tx_udp_header = udp_length_reg[7:0];
+          4'd6:   tx_udp_header = udp_check_sum[15:8];
+          4'd7:   tx_udp_header = udp_check_sum[7:0];
+          default:tx_udp_header = 8'h00;
+        endcase
+  end
+
+  wire [7:0] next_tx_data=({8{curr_state==TX_PREAMBLE}} & (cnt_preamble<=6 ? 8'h55 : 8'hd5)) |
+      ({8{curr_state==TX_ETH_HEADER}} & tx_eth_header) |
+      ({8{curr_state==TX_IP_HEADER}} & tx_ip_header) |
+      ({8{curr_state==TX_UDP_HEADER}} & tx_udp_header) |
+      ({8{curr_state==TX_DATA}} & payload_dat_i);
+  always @(posedge clk125m or posedge reset_p)
+    if(reset_p)begin tx_en<=0;tx_data<=0;end
+    else begin
+      tx_en<=curr_state==TX_PREAMBLE || curr_state==TX_ETH_HEADER || curr_state==TX_IP_HEADER ||
+             curr_state==TX_UDP_HEADER || curr_state==TX_DATA || curr_state==TX_FILL_DATA || curr_state==TX_CRC;
+      tx_data<=next_tx_data;
+    end
 
   //payload_req_o
   assign payload_req_o = (curr_state == TX_DATA) ? 1'b1 : 1'b0;
@@ -447,16 +405,16 @@ module eth_udp_tx_gmii(
     crc_init <= 1'b0;
   else if (tx_en_pulse && (curr_state == IDLE))
     crc_init <= 1'b1;
-  else 
+  else
     crc_init <= 1'b0;
 
   always@(posedge clk125m or posedge reset_p)
   if(reset_p)
     crc_en_temp <= 1'b0;
-  else if (curr_state == TX_ETH_HEADER || curr_state == TX_IP_HEADER || 
+  else if (curr_state == TX_ETH_HEADER || curr_state == TX_IP_HEADER ||
            curr_state == TX_UDP_HEADER || curr_state == TX_FILL_DATA || curr_state == TX_DATA)
     crc_en_temp <= 1'b1;
-  else 
+  else
     crc_en_temp <= 1'b0;
 
   always@(posedge clk125m or posedge reset_p)
@@ -464,7 +422,7 @@ module eth_udp_tx_gmii(
     crc_en <= 1'b0;
   else if (crc_en_temp)
     crc_en <= 1'b1;
-  else 
+  else
     crc_en <= 1'b0;
 
   always@(posedge clk125m or posedge reset_p)

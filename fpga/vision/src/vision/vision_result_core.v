@@ -18,6 +18,7 @@ module vision_result_core #(
     reg frame_seen, sequence_seen;
     reg [15:0] current_frame, last_frame;
     reg [31:0] idle_cycles, frame_idle_cycles, accepted, rejected;
+    reg idle_due,frame_due,frame_expired;
     // reason: 0 reset/query, 1 accepted, 2 no matching target, 3 malformed,
     // 4 stale/future/unavailable, 5 duplicate/out of order, 6 timeout, 7 stream lost.
     reg [7:0] reason;
@@ -54,15 +55,19 @@ module vision_result_core #(
             target_x<=0;target_y<=0;target_width<=0;target_height<=0;
             frame_seen<=0;sequence_seen<=0;current_frame<=0;last_frame<=0;
             idle_cycles<=0;frame_idle_cycles<=0;accepted<=0;rejected<=0;reason<=0;
+            idle_due<=0;frame_due<=0;frame_expired<=0;
             candidate<=0;state<=0;result_done<=0;accepted_pulse<=0;query_sample<=0;bad_sample<=0;ready_sample<=0;
             fresh_sample<=0;ordered_sample<=0;match_sample<=0;age_sample<=0;order_sample<=0;
             last_age_sample<=0;direction_sample<=0;
         end else begin
             result_done<=0;accepted_pulse<=0;
-            if(frame_idle_cycles<TIMEOUT_CYCLES)frame_idle_cycles<=frame_idle_cycles+1'b1;
-            if(frame_tick)begin current_frame<=frame_id;frame_seen<=1;frame_idle_cycles<=0;end
-            if(idle_cycles<TIMEOUT_CYCLES)idle_cycles<=idle_cycles+1'b1;
-            if(target_valid && (idle_cycles>=TIMEOUT_CYCLES-1 || (!frame_tick && frame_idle_cycles>=TIMEOUT_CYCLES-1)))begin
+            idle_due<=idle_cycles>=TIMEOUT_CYCLES-2;
+            frame_due<=frame_idle_cycles>=TIMEOUT_CYCLES-2;
+            frame_expired<=frame_idle_cycles>=TIMEOUT_CYCLES-1;
+            if(!frame_expired)frame_idle_cycles<=frame_idle_cycles+1'b1;
+            if(frame_tick)begin current_frame<=frame_id;frame_seen<=1;frame_idle_cycles<=0;frame_due<=0;frame_expired<=0;end
+            if(!idle_due)idle_cycles<=idle_cycles+1'b1;
+            if(target_valid && (idle_due || (!frame_tick && frame_due)))begin
                 target_valid<=0;target_direction<=0;reason<=6;
             end
             if(sequence_seen && (!last_age[15] && last_age>MAX_AGE_FRAMES))begin
@@ -75,7 +80,7 @@ module vision_result_core #(
                 0:if(result_valid)begin candidate<=result_payload;state<=1;end
                 1:begin
                     query_sample<=query;bad_sample<=malformed;
-                    ready_sample<=stream_ready && frame_seen && frame_idle_cycles<TIMEOUT_CYCLES;
+                    ready_sample<=stream_ready && frame_seen && !frame_expired;
                     age_sample<=current_frame-fid;order_sample<=fid-last_frame;last_age_sample<=last_age;
                     match_sample<=target_match;
                     direction_sample<=triple_sum_x < IMAGE_WIDTH*2 ? 1 : triple_sum_x >= IMAGE_WIDTH*4 ? 3 : 2;
@@ -94,7 +99,7 @@ module vision_result_core #(
                     else if(!stream_ready || !ready_sample || !fresh_sample)begin rejected<=rejected+1'b1;reason<=4;end
                     else if(!ordered_sample)begin rejected<=rejected+1'b1;reason<=5;end
                     else begin
-                    accepted<=accepted+1'b1;sequence_seen<=1;last_frame<=fid;idle_cycles<=0;accepted_pulse<=1;
+                    accepted<=accepted+1'b1;sequence_seen<=1;last_frame<=fid;idle_cycles<=0;idle_due<=0;accepted_pulse<=1;
                     target_valid<=match_sample;reason<=match_sample ? 1 : 2;
                     target_class<=class_id;target_confidence<=confidence;
                     target_x<=flags[0] ? sum_x[16:1] : 0;target_y<=flags[0] ? sum_y[16:1] : 0;

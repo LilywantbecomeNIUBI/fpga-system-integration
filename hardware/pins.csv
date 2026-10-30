@@ -75,12 +75,12 @@ chassis,left_in1,D17,OUT,21,AIN1 / D157B J4-4,candidate_adc_remap
 chassis,left_in2,C17,OUT,22,AIN2 / D157B J4-3,candidate_adc_remap
 chassis,right_in1,E16,OUT,23,BIN1 / D157B J4-2,candidate_adc_remap
 chassis,right_in2,D16,OUT,24,BIN2 / D157B J4-1,candidate_adc_remap
-chassis,left_enc_a,B17,IN,25,level shifter <- E1A / D157B J5-1,candidate_adc_remap
-chassis,left_enc_b,B18,IN,26,level shifter <- E1B / D157B J5-2,candidate_adc_remap
+chassis,left_enc_a,F16,IN,31,level shifter <- E1A / D157B J5-1,validated_encoder_profile
+chassis,left_enc_b,E17,IN,32,level shifter <- E1B / D157B J5-2,validated_encoder_profile
 chassis,right_enc_a,C18,IN,27,level shifter <- E2A / D157B J5-3,candidate_adc_remap
 spare_p7,spare_p7_28,C19,UNASSIGNED,28,ENC1_CS_N (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_31,F16,UNASSIGNED,31,ENC1_CLK (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_32,E17,UNASSIGNED,32,ENC1_DO (old connection; disconnect before reuse),reserved
+spare_p7,spare_p7_25,B17,UNASSIGNED,25,Old ADC remap endpoint; disconnected before validated encoder profile,reserved
+spare_p7,spare_p7_26,B18,UNASSIGNED,26,Old ADC remap endpoint; disconnected before validated encoder profile,reserved
 spare_p7,spare_p7_33,D20,UNASSIGNED,33,ENC2_CS_N (old connection; disconnect before reuse),reserved
 spare_p7,spare_p7_34,C20,UNASSIGNED,34,ENC2_CLK (old connection; disconnect before reuse),reserved
 spare_p7,spare_p7_35,E19,UNASSIGNED,35,ENC2_DO (old connection; disconnect before reuse),reserved

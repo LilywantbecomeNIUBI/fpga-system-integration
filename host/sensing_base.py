@@ -13,13 +13,14 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit, parse_qs
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT/'vendor/vision'))
 sys.path.insert(0, str(ROOT/'.deps'))
 import cv2
 import numpy as np
 from vision_dashboard_common import Capture, jpeg
 from vision_dashboard import NanoResults
-from vision_v23_protocol import parse_event
+from shared.perception import PerceptionEvents
 spec = importlib.util.spec_from_file_location('imu_protocol', ROOT/'vendor/imu/pc/imu_viewer.py')
 imu_protocol = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(imu_protocol)
@@ -87,7 +88,7 @@ class Session:
         self.imu = ImuState()
         self.capture=self.nano=None
         self.threads=[]
-        self.event=None;self.event_stamp=None;self.event_error=None
+        self.event=None;self.event_stamp=None;self.event_error=None;self.perception=PerceptionEvents()
         self.video_error=None
         self.frame_lock=threading.Lock()
         self.demo_image=None
@@ -139,11 +140,13 @@ class Session:
                     try:data,peer=sock.recvfrom(2048)
                     except socket.timeout:continue
                     if peer!=(self.config.get('fpga','192.168.50.30'),6202):continue
-                    try:event=parse_event(data)
+                    try:
+                        with self.frame_lock:
+                            kind,event=self.perception.ingest(data)
+                            if kind=='tracking':self.event,self.event_stamp=event,time.monotonic()
+                            self.event_error=None
                     except ValueError as exc:
                         self.event_error=str(exc);continue
-                    with self.frame_lock:
-                        self.event,self.event_stamp,self.event_error=event,time.monotonic(),None
         except Exception as exc:self.event_error=str(exc)
 
     def replay_loop(self, path):
@@ -175,6 +178,7 @@ class Session:
         with self.frame_lock:
             event=dict(self.event) if self.event else None
             event_age=(now-self.event_stamp)*1000 if self.event_stamp is not None else None
+            flow=self.perception.flow_snapshot(now, self.mode if self.mode=='live' else 'idle')
         nano=self.nano.state() if self.nano else dict(online=False,error='Nano not connected',data=None)
         data=nano.get('data') or {}
         result=data.get('result') or {}
@@ -184,13 +188,25 @@ class Session:
         if event is None and data.get('event'):
             event=data['event'];event_age=data.get('event_age_ms')
             if not nano.get('online'):event_age=None
+        if event_age is not None and self.event_stamp is None:
+            event_age+=(nano.get('poll_age_ms') or 0)
+        # A cached Nano snapshot must age locally even while HTTP is offline.
+        if not flow['packets'] and data.get('flow'):
+            flow=json.loads(json.dumps(data['flow']))
+            c=flow['control'];age=c.get('age_ms')
+            age=age+(nano.get('poll_age_ms') or 0) if age is not None else None
+            c['age_ms']=age
+            fresh=bool(nano.get('online') and age is not None and 0<=age<200 and c.get('fresh') and self.mode=='live')
+            c['fresh']=fresh
+            if not fresh:c.update(confident=False,state='unknown',stop_request=True,steer=0,speed_limit=0)
+            flow.update(observe_only=True,automatic_control_enabled=False)
         tracking=dict(event=event,age_ms=event_age,error=self.event_error,
             fresh=event_age is not None and event_age<500)
         with self.record_lock:
             recording=dict(active=self.recording,error=self.record_error,path=str(self.out) if self.out else None,
                 contents='10Hz PC status JSONL; raw serial streams are recorded on Nano; frames only on explicit save')
         return dict(profile=PROFILE,mode=self.mode,simulation=self.mode=='demo',replay=self.mode=='replay',
-            motor_outputs_enabled=False,pc=pc,nano=nano,imu=self.imu.snapshot(),tracking=tracking,recording=recording)
+            motor_outputs_enabled=False,pc=pc,nano=nano,imu=self.imu.snapshot(),tracking=tracking,flow=flow,recording=recording)
 
     def image(self, inference=False, key=None):
         if inference:

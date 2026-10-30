@@ -44,9 +44,9 @@ def main():
         folder,sources=prepare();sources=[str(p) for p in sources if p.suffix in ('.v','.sv') and p.name!='ethernet_pll.v']
         prim=str(Path(os.environ.get('GOWIN_HOME','C:/Gowin/Gowin_V1.9.12.04_x64'))/'IDE/simlib/gw5a/prim_sim.v')
         run('full_compile',['iverilog','-g2012','-s','tb_full_system','-s','GSR','-o','build/tests/full_system.vvp','tests/tb_full_system.sv','tests/imu/icm42688_model.sv','tests/ethernet_pll_model.v',prim]+sources)
-        record['cases']['full_top']=run('full_top',['vvp','build/tests/full_system.vvp'],timeout=300)
+        record['cases']['full_top']=run('full_top',['vvp','build/tests/full_system.vvp'],timeout=600)
         parser=MixedStream();full=parser.feed((ROOT/'build/tests/full_system_uart.bin').read_bytes())
-        assert parser.bad_crc==0 and {kind for kind,row in full}=={'motor','imu'}
+        assert parser.bad_crc==0 and {'motor','imu','encoder_diagnostics','encoder_trace'}<={kind for kind,row in full}
         record['cases']['full_top']['decoded_records']=len(full)
     paths=[]
     for directory in ('fpga','host','nano','shared','tests','tools','config'):

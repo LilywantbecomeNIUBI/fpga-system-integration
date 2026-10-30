@@ -26,18 +26,19 @@ def prepare():
     original_ports=dict(re.findall(r'(IO_PORT "([^"]+)"[^;]+;)',(ROOT/'vendor/reference/robot.cst').read_text(encoding='utf-8')))
     original_ports={signal:statement for statement,signal in original_ports.items()}
     for r in selected:
-        pull='UP' if r['signal']=='uart_rx' else 'DOWN' if r['group'] in ('chassis','legacy_disabled') else 'NONE'
+        pull='UP' if r['signal']=='uart_rx' or r['signal'] in ('left_enc_a','left_enc_b','right_enc_a','right_enc_b') else 'DOWN' if r['group'] in ('chassis','legacy_disabled') else 'NONE'
         port=original_ports.get(r['signal']) if r['group'] not in ('chassis','legacy_disabled') else None
         cst += [f'IO_LOC "{r["signal"]}" {r["ball"]};',port or f'IO_PORT "{r["signal"]}" IO_TYPE=LVCMOS33 PULL_MODE={pull} BANK_VCCIO=3.3;']
     cst+=re.findall(r'^CLOCK_LOC[^\n]+',(ROOT/'vendor/reference/robot.cst').read_text(encoding='utf-8'),re.M)
     (folder/'system.cst').write_text('\n'.join(cst)+'\n',encoding='utf-8')
     # Preserve the sensing candidate's clock/CDC constraints; no extra module-wide exceptions.
     sdc=(ROOT/'vendor/reference/robot.sdc').read_text(encoding='utf-8').replace('imu/core/reader/','imu/reader/')
-    for pin in ('rx/rx_meta_s0/D','core/enc_l/ab_meta_0_s0/D','core/enc_l/ab_meta_1_s0/D','core/enc_r/ab_meta_0_s0/D','core/enc_r/ab_meta_1_s0/D'):
+    for pin in ('chassis/rx/rx_meta_s0/D','chassis/core/enc_l/ab_meta_0_s0/D','chassis/core/enc_l/ab_meta_1_s0/D','chassis/core/enc_r/ab_meta_0_s0/D','chassis/core/enc_r/ab_meta_1_s0/D'):
         sdc+=f'set_false_path -to [get_pins {{{pin}}}]\n'
     (folder/'system.sdc').write_text(sdc,encoding='utf-8')
-    sources=sorted((ROOT/'fpga/motor').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.v'))
+    sources=sorted((ROOT/'fpga/control').glob('*.sv'))+sorted((ROOT/'fpga/motor').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.v'))
     sources+=sorted(p for p in (ROOT/'fpga/vision/src').rglob('*.v') if p.name!='camera_perception_top.v')
+    sources+=sorted((ROOT/'fpga/vision/src').rglob('*.sv'))
     sources+=[ROOT/'fpga/imu'/name for name in ('imu_1khz_core.v','icm42688_fast_reader.v','imu_fast_i2c_master.v')]
     sources+=[folder/'system.cst',folder/'system.sdc']
     project=ET.Element('Project')
@@ -48,7 +49,7 @@ def prepare():
         ET.SubElement(files,'File',path=Path(os.path.relpath(p,folder)).as_posix(),type={'.v':'file.verilog','.sv':'file.verilog','.cst':'file.cst','.sdc':'file.sdc'}[p.suffix],enable='1')
     ET.ElementTree(project).write(folder/'system.gprj',encoding='utf-8',xml_declaration=True)
     tcl='set here [file dirname [file normalize [info script]]]\ncd $here\nopen_project system.gprj\n'
-    for k,v in [('top_module','system_top'),('verilog_std','v2001'),('output_base_name','system'),('max_fanout','16'),('replicate_resources','1'),('retiming_resource','bsram'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option','3'),('route_option','2')]:
+    for k,v in [('top_module','system_top'),('verilog_std','sysv2017'),('output_base_name','system'),('max_fanout','32'),('replicate_resources','1'),('retiming_resource','bsram'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option','2'),('route_option','1')]:
         tcl+=f'set_option -{k} {v}\n'
     (folder/'build.tcl').write_text(tcl+'run all\n',encoding='utf-8')
     return folder,sources
@@ -72,6 +73,7 @@ def main():
         result=subprocess.run([str(exe),str(folder/'build.tcl')],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
     timing=folder/'impl/pnr/system_tr_content.html'; bit=folder/'impl/pnr/system.fs'
     record=dict(started_utc=stamp,exit_code=result.returncode,source_sha256=hashes,options=options,tool=str(exe),tool_sha256=sha(exe),programmed=False,hardware_tested=False)
+    record.update(pwm_limit_per_mille=350, left_encoder_profile='P7-31/F16, P7-32/E17', avoidance_mode='observe_only')
     record['sources_unchanged']=all(sha(ROOT/p)==h for p,h in hashes.items())
     if timing.exists() and result.returncode==0:
         content=timing.read_text(encoding='utf-8',errors='replace')

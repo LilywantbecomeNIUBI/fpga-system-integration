@@ -39,8 +39,8 @@ module ip_checksum(
 );
 
   reg  [31:0]suma;
-  wire [16:0]sumb;
-  wire [15:0]sumc;
+  reg [16:0]sumb;
+  reg [15:0]sumc;
 
   always@(posedge clk or posedge reset_p)
   if(reset_p)
@@ -52,8 +52,11 @@ module ip_checksum(
   else
     suma <= suma;
 
-  assign sumb = suma[31:16]+suma[15:0];
-  assign sumc = sumb[16]+sumb[15:0];
+  // Header bytes begin after preamble + Ethernet header (22 clocks).
+  // Fold carries in two registers rather than chaining into the byte mux.
+  always @(posedge clk or posedge reset_p)
+    if(reset_p)begin sumb<=0;sumc<=0;end
+    else begin sumb<=suma[31:16]+suma[15:0];sumc<=sumb[16]+sumb[15:0];end
 
   assign checksum = ~sumc;
 

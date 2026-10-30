@@ -23,7 +23,8 @@ def prepare(left_encoder_alt=False,pwm_limit=300,with_imu=False):
     folder.mkdir(parents=True,exist_ok=True)
     rows=list(csv.DictReader((ROOT/'hardware/pins.csv').open(encoding='utf-8-sig')))
     if left_encoder_alt:
-        # Isolated diagnostic profile; hardware/pins.csv remains the active pin plan.
+        # Compatibility flag retained for existing commissioning commands.
+        # This tested profile is now also the active hardware/pins.csv plan.
         remap={'left_enc_a':('F16','31'), 'left_enc_b':('E17','32')}
         for row in rows:
             if row['signal'] in remap:
@@ -85,11 +86,13 @@ def main():
         result=subprocess.run([str(exe),str(folder/'build.tcl')],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
     timing=folder/'impl/pnr/motor_tr_content.html'; bit=folder/'impl/pnr/motor.fs'
     record=dict(started_utc=stamp,exit_code=result.returncode,source_sha256=hashes,tool=str(exe),tool_sha256=sha(exe),programmed=False,hardware_tested=False)
-    record['pin_profile']='left_encoder_p7_31_32' if args.left_encoder_alt else 'adc_remap_v2'
+    locations=dict(re.findall(r'IO_LOC "([^"]+)" (\w+);',(folder/'motor.cst').read_text(encoding='utf-8')))
+    p7_by_ball={r['ball']:int(r['p7']) for r in csv.DictReader((ROOT/'hardware/pins.csv').open(encoding='utf-8-sig')) if r['p7']}
+    record['pin_profile']='left_encoder_p7_31_32' if (locations['left_enc_a'],locations['left_enc_b'])==('F16','E17') else 'inventory'
     record['encoder_pull_mode']='UP'
     record['pwm_limit_per_mille']=args.pwm_limit
     record['imu_enabled']=args.with_imu
-    record['left_encoder_pins']={'a':{'p7':31,'ball':'F16'},'b':{'p7':32,'ball':'E17'}} if args.left_encoder_alt else {'a':{'p7':25,'ball':'B17'},'b':{'p7':26,'ball':'B18'}}
+    record['left_encoder_pins']={phase:dict(ball=locations['left_enc_'+phase],p7=p7_by_ball[locations['left_enc_'+phase]]) for phase in ('a','b')}
     record['sources_unchanged']=all(sha(ROOT/p)==h for p,h in hashes.items())
     if timing.exists() and result.returncode==0:
         content=timing.read_text(encoding='utf-8',errors='replace')

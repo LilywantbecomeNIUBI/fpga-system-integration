@@ -1,5 +1,5 @@
 module system_top #(
-    parameter integer CLK_HZ=50000000, BAUD=115200
+    parameter integer CLK_HZ=50000000, BAUD=115200, PWM_LIMIT=350
 )(
     input wire clk50m,reset_n,uart_rx,
     input wire rgmii_rxc,rgmii_rxctl,input wire [3:0] rgmii_rxd,
@@ -20,34 +20,14 @@ module system_top #(
         if(!reset_n) begin reset_meta<=0; reset_sync<=0; end
         else begin reset_meta<=1; reset_sync<=reset_meta; end
     end
-    wire [7:0] byte_data,opcode,sequence_id,command_flags,flags,last_sequence;
-    wire byte_valid,framing_error,command_valid,armed;
-    wire signed [15:0] left_target,right_target,left_applied,right_applied;
-    wire [15:0] kp,ki,faults;
-    wire signed [31:0] left_position,right_position,left_velocity,right_velocity;
-    wire [31:0] left_invalid,right_invalid,bad_frames,rejected_commands;
-    uart_rx_byte #(.CLK_HZ(CLK_HZ),.BAUD(BAUD)) rx(
-        .clk(clk50m),.reset_n(reset_sync),.rx(uart_rx),.data(byte_data),.valid(byte_valid),.framing_error(framing_error));
-    motor_protocol #(.CLK_HZ(CLK_HZ)) protocol(
-        .clk(clk50m),.reset_n(reset_sync),.byte_valid(byte_valid),.framing_error(framing_error),.byte_data(byte_data),
-        .command_valid(command_valid),.opcode(opcode),.sequence_id(sequence_id),.flags(command_flags),
-        .left_target(left_target),.right_target(right_target),.kp(kp),.ki(ki),.bad_frames(bad_frames));
-    motor_core #(.CLK_HZ(CLK_HZ)) core(
-        .clk(clk50m),.reset_n(reset_sync),
+    wire [383:0] imu_frame;wire imu_valid;wire [15:0] imu_drops;
+    // Only the auxiliary framed telemetry crosses this boundary. IMU/perception
+    // health never bypasses manual ARM, STOP, command lease or wheel watchdog.
+    brushed_chassis #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.PWM_LIMIT(PWM_LIMIT)) chassis(
+        .clk50m(clk50m),.reset_n(reset_n),.uart_rx(uart_rx),.uart_tx(uart_tx),
         .left_enc_a(left_enc_a),.left_enc_b(left_enc_b),.right_enc_a(right_enc_a),.right_enc_b(right_enc_b),
-        .command_valid(command_valid),.opcode(opcode),.sequence_id(sequence_id),.command_flags(command_flags),
-        .left_target(left_target),.right_target(right_target),.command_kp(kp),.command_ki(ki),
         .left_in1(left_in1),.left_in2(left_in2),.right_in1(right_in1),.right_in2(right_in2),
-        .armed(armed),.faults(faults),.flags(flags),.last_sequence(last_sequence),
-        .left_position(left_position),.right_position(right_position),.left_velocity(left_velocity),.right_velocity(right_velocity),
-        .left_applied(left_applied),.right_applied(right_applied),.left_invalid(left_invalid),.right_invalid(right_invalid),
-        .rejected_commands(rejected_commands));
-    wire [383:0] motor_frame,imu_frame;wire motor_valid,imu_valid;wire [15:0] imu_drops;
-    motor_status_source #(.CLK_HZ(CLK_HZ)) telemetry(
-        .clk(clk50m),.reset_n(reset_sync),.armed(armed),.flags(flags),.last_sequence(last_sequence),.faults(faults),
-        .left_position(left_position),.right_position(right_position),.left_velocity(left_velocity),.right_velocity(right_velocity),
-        .left_applied(left_applied),.right_applied(right_applied),.left_invalid(left_invalid),.right_invalid(right_invalid),
-        .bad_frames(bad_frames),.rejected_commands(rejected_commands),.frame(motor_frame),.valid(motor_valid));
+        .auxiliary_frame(imu_frame),.auxiliary_valid(imu_valid),.auxiliary_drops(imu_drops),.led(led));
     wire [31:0] network_debug;
     wire [7:0] camera_led;
     camera_perception camera(.clk50m(clk50m),.reset_n(reset_n),.rgmii_rxc(rgmii_rxc),.rgmii_rxd(rgmii_rxd),.rgmii_rxctl(rgmii_rxctl),
@@ -66,15 +46,12 @@ module system_top #(
         .sample_seq(sample_seq),.timestamp_us(timestamp_us),.now_us(now_us),.who_am_i(who_am_i),.last_error(last_error),
         .error_count(error_count),.invalid_count(invalid_count),.observe_to_commit_us(observe_to_commit_us),.sample_interval_us(sample_interval_us),
         .commit_timestamp_us(),.sample_age_us());
-    imu_status_source #(.CLK_HZ(CLK_HZ)) imu_status(.clk(clk50m),.reset_n(reset_sync),.sample_valid(imu_sample_valid),
+    imu_status_source #(.CLK_HZ(CLK_HZ),.DECIMATION(20)) imu_status(.clk(clk50m),.reset_n(reset_sync),.sample_valid(imu_sample_valid),
         .ready(imu_ready),.fault(imu_fault),.sample_stale(imu_stale),.temperature_valid(imu_temperature_valid),
         .ax(ax),.ay(ay),.az(az),.gx(gx),.gy(gy),.gz(gz),.temperature_raw(temperature_raw),.sample_seq(sample_seq),
         .timestamp_us(timestamp_us),.now_us(now_us),.who_am_i(who_am_i),.last_error(last_error),.error_count(error_count),
         .invalid_count(invalid_count),.observe_to_commit_us(observe_to_commit_us),.sample_interval_us(sample_interval_us),
         .drop_count(imu_drops),.frame(imu_frame),.valid(imu_valid));
-    frame_uart_mux #(.CLK_HZ(CLK_HZ),.BAUD(BAUD)) sender(.clk(clk50m),.reset_n(reset_sync),
-        .motor_valid(motor_valid),.motor_frame(motor_frame),.imu_valid(imu_valid),.imu_frame(imu_frame),.tx(uart_tx),.imu_drops(imu_drops));
     assign legacy_m1_disable=0, legacy_m2_disable=0;
     assign legacy_m1_pwm_disabled=0, legacy_m2_pwm_disabled=0, legacy_cal_disabled=0;
-    assign led={faults[4:0],flags[0],armed,reset_sync};
 endmodule

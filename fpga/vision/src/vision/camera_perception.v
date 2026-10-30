@@ -42,11 +42,34 @@ module camera_perception(
         .feature_valid(fv),.feature_address(fa),.feature(feature),.seed_valid(seed_valid),.seed_data(seed),.status_valid(perception_valid),.status_payload(perception_payload));
     vision_mailbox observation_mailbox(.src_clk(camera_pclk),.src_rst_n(cap_rst_n),.src_valid(perception_valid),.src_data(perception_payload),
         .dst_clk(clk125),.dst_rst_n(eth_rst_stream),.dst_valid(observation_valid),.dst_data(observation_payload));
-    wire event_valid,event_ready;wire [255:0] event_payload;wire [3:0] vision_led;
+    wire event_valid,event_ready,tracker_event_valid,tracker_event_ready;wire [255:0] event_payload,tracker_event_payload;wire [3:0] vision_led;
     wire endpoint_ready;
-    vision_v23_bridge bridge(.clk(clk125),.rst_n(eth_rst_stream),.stream_ready(endpoint_ready),.semantic_update(semantic_update),
+    // Local observer availability may lag one TX clock (8 ns). Network admission
+    // and packet mux still use the current endpoint, never this delayed status.
+    reg observer_ready;
+    always @(posedge clk125 or negedge eth_rst_stream)begin
+        if(!eth_rst_stream)observer_ready<=0;else observer_ready<=endpoint_ready;
+    end
+    vision_v23_bridge bridge(.clk(clk125),.rst_n(eth_rst_stream),.stream_ready(observer_ready),.semantic_update(semantic_update),
         .semantic_valid(semantic_target),.semantic_payload(semantic_payload),.observation_valid(observation_valid),.observation_payload(observation_payload),
-        .event_ready(event_ready),.event_valid(event_valid),.event_payload(event_payload),.led(vision_led));
+        .event_ready(tracker_event_ready),.event_valid(tracker_event_valid),.event_payload(tracker_event_payload),.led(vision_led));
+    // One camera/feature pipeline fans out to ROI LK and environment flow.
+    wire flow_obs_valid,flow_observation_valid,flow_event_valid,flow_event_ready;
+    wire [255:0] flow_obs,flow_observation,flow_event_payload;
+    flow_observer flow_sensor(.camera_pclk(camera_pclk),.cap_rst_n(cap_rst_n),
+        .ov(ov),.os(os),.oe(oe),.og(og),.ox(ox),.oy(oy),.ofid(ofid),.luma(luma),
+        .event_valid(flow_obs_valid),.event_payload(flow_obs));
+    vision_mailbox flow_mailbox(.src_clk(camera_pclk),.src_rst_n(cap_rst_n),
+        .src_valid(flow_obs_valid),.src_data(flow_obs),.dst_clk(clk125),.dst_rst_n(eth_rst_stream),
+        .dst_valid(flow_observation_valid),.dst_data(flow_observation));
+    flow_event_bridge flow_bridge(.clk(clk125),.rst_n(eth_rst_stream),.stream_ready(observer_ready),
+        .observation_valid(flow_observation_valid),.observation_payload(flow_observation),
+        .event_ready(flow_event_ready),.event_valid(flow_event_valid),.event_payload(flow_event_payload),
+        .stop_request(),.steer(),.speed_limit(),.control_state());
+    event_packet_mux event_mux(.clk(clk125),.rst_n(eth_rst_stream),
+        .a_valid(tracker_event_valid),.a_payload(tracker_event_payload),.a_ready(tracker_event_ready),
+        .b_valid(flow_event_valid),.b_payload(flow_event_payload),.b_ready(flow_event_ready),
+        .out_valid(event_valid),.out_payload(event_payload),.out_ready(event_ready && endpoint_ready));
     generate if(1)begin:runtime_network
         wire [7:0] rx_data;wire rx_valid,rx_error,rx_rst_n,network_rst_n,cache2,enabled2,result_valid,result_done;
         wire [255:0] result_payload,status;

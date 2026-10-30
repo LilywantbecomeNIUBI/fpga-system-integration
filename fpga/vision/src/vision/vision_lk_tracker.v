@@ -38,14 +38,14 @@ module vision_tracker #(
  function [16:0] abs17;input signed [16:0] v;begin abs17=v<0 ? -v : v;end endfunction
  localparam IDLE=0,SEED_INIT=1,PAIR_INIT=2,POINT_INIT=3,POINT_START=4,POINT_WAIT=5,POINT_NEXT=6,
   SORT_INIT=7,SORT_STEP=8,MEDIAN=9,COUNT_INIT=10,COUNT_STEP=11,TRANSLATE=12,APPLY=13,
-  ROI_INIT=14,ROI_REQ=15,ROI_WAIT=16,ROI_TAKE=17,DIV_START=18,DIV_WAIT=19,PUBLISH=20,INVALID=21,POINT_CHECK=22;
+  ROI_INIT=14,ROI_REQ=15,ROI_WAIT=16,ROI_TAKE=17,DIV_START=18,DIV_WAIT=19,PUBLISH=20,INVALID=21,POINT_CHECK=22,FB_CHECK=23;
  reg [4:0] state;reg pending_seed;reg [256:0] held_seed;
  reg active,tracking_allowed,track_ok,observation_ok,force_yolo,history_miss,scene_change;
  reg have_report;reg [15:0] reported_fid,semantic_fid,job_fid,tracked_fid;
  reg [15:0] class_id,confidence,x1,y1,x2,y2,track_confidence,red_ratio;reg [7:0] reason;
  reg [3:0] point_index;reg [4:0] good_count,sort_i,sort_j,inlier_count,count_index;
  reg [15:0] point_x,point_y,last_point_x,last_row_y;
- reg reverse,patch_start;reg [1:0] iteration;
+ reg reverse,patch_start;reg fb_good;reg [1:0] iteration;
  reg signed [15:0] seed_u,seed_v,forward_u,forward_v,median_u,median_v;
  reg signed [15:0] sort_u[0:15],sort_v[0:15],values_u[0:15],values_v[0:15];
  reg signed [31:0] remainder_x,remainder_y,shift_x,shift_y;
@@ -55,9 +55,10 @@ module vision_tracker #(
  wire signed [16:0] reverse_x=$signed({1'b0,point_x})+(($signed(forward_u)+17'sd64)>>>7);
  wire signed [16:0] reverse_y=$signed({1'b0,point_y})+(($signed(forward_v)+17'sd64)>>>7);
  wire [15:0] center_x=reverse ? reverse_x[15:0] : point_x,center_y=reverse ? reverse_y[15:0] : point_y;
+ reg [15:0] patch_center_x,patch_center_y;
  wire patch_busy,patch_done,patch_good,lk_read,lk_current;wire signed [15:0] pu,pv;wire [15:0] lk_address;
  flow_lk_patch #(.WIDTH(GRID_W),.HEIGHT(GRID_H)) lk(.clk(clk),.rst_n(rst_n),.start(patch_start),.coarse(1'b0),
-  .center_x(center_x),.center_y(center_y),.initial_u(seed_u),.initial_v(seed_v),.busy(patch_busy),.done(patch_done),
+  .center_x(patch_center_x),.center_y(patch_center_y),.initial_u(seed_u),.initial_v(seed_v),.busy(patch_busy),.done(patch_done),
   .valid(patch_good),.u(pu),.v(pv),.read_enable(lk_read),.read_current(lk_current),.read_address(lk_address),.read_data(read_word[7:0]));
  wire [15:0] selected_fid=(lk_current ^ reverse) ? job_fid : previous_fid;
  reg [AB+HB-1:0] roi_address;
@@ -85,7 +86,8 @@ module vision_tracker #(
    have_report<=0;reported_fid<=0;semantic_fid<=0;job_fid<=0;tracked_fid<=0;
    class_id<=0;confidence<=0;x1<=0;y1<=0;x2<=0;y2<=0;track_confidence<=0;red_ratio<=0;reason<=1;
    point_index<=0;good_count<=0;sort_i<=0;sort_j<=0;inlier_count<=0;count_index<=0;
-   point_x<=0;point_y<=0;last_point_x<=0;last_row_y<=0;reverse<=0;patch_start<=0;iteration<=0;
+   point_x<=0;point_y<=0;last_point_x<=0;last_row_y<=0;reverse<=0;patch_start<=0;fb_good<=0;iteration<=0;
+   patch_center_x<=0;patch_center_y<=0;
    seed_u<=0;seed_v<=0;forward_u<=0;forward_v<=0;median_u<=0;median_v<=0;
    remainder_x<=0;remainder_y<=0;shift_x<=0;shift_y<=0;roi_address<=0;
    rx0<=0;ry0<=0;rxmax<=0;rymax<=0;rx<=0;ry<=0;red_sum<=0;roi_cells<=0;
@@ -129,18 +131,25 @@ module vision_tracker #(
      else state<=POINT_START;
      last_point_x<=point_x;
     end
-    POINT_START:if(!patch_busy)begin patch_start<=1;state<=POINT_WAIT;end
+    POINT_START:if(!patch_busy)begin
+     patch_center_x<=center_x;patch_center_y<=center_y;
+     patch_start<=1;state<=POINT_WAIT;
+    end
     POINT_WAIT:if(patch_done)begin
      if(!patch_good)state<=POINT_NEXT;
      else if(iteration!=ITERATIONS-1)begin seed_u<=pu;seed_v<=pv;iteration<=iteration+1'b1;state<=POINT_START;end
      else if(!reverse)begin forward_u<=pu;forward_v<=pv;reverse<=1;iteration<=0;seed_u<=-pu;seed_v<=-pv;state<=POINT_START;end
      else begin
-      if(abs17(fb_u)<=FB_LIMIT && abs17(fb_v)<=FB_LIMIT)begin
-       sort_u[good_count[3:0]]<=forward_u;values_u[good_count[3:0]]<=forward_u;
-       sort_v[good_count[3:0]]<=forward_v;values_v[good_count[3:0]]<=forward_v;good_count<=good_count+1'b1;
-      end
-      state<=POINT_NEXT;
+      // Separate tensor result arithmetic from the wide point-cache write enable.
+      fb_good<=abs17(fb_u)<=FB_LIMIT && abs17(fb_v)<=FB_LIMIT;state<=FB_CHECK;
      end
+    end
+    FB_CHECK:begin
+     if(fb_good)begin
+      sort_u[good_count[3:0]]<=forward_u;values_u[good_count[3:0]]<=forward_u;
+      sort_v[good_count[3:0]]<=forward_v;values_v[good_count[3:0]]<=forward_v;good_count<=good_count+1'b1;
+     end
+     state<=POINT_NEXT;
     end
     POINT_NEXT:begin
      if(point_index[1:0]==3)last_row_y<=point_y;
@@ -196,7 +205,7 @@ module vision_tracker #(
     end
    endcase
    if(state!=IDLE && state!=SEED_INIT && state!=INVALID && state!=PUBLISH &&
-     (!present(job_fid) || (((state>=PAIR_INIT && state<=APPLY) || state==POINT_CHECK) && !present(previous_fid))))begin history_miss<=1;reason<=5;state<=INVALID;end
+     (!present(job_fid) || (((state>=PAIR_INIT && state<=APPLY) || state==POINT_CHECK || state==FB_CHECK) && !present(previous_fid))))begin history_miss<=1;reason<=5;state<=INVALID;end
   end
  end
 endmodule

@@ -2,9 +2,10 @@ from pathlib import Path
 import hashlib,json,re,xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
 def check():
-    manifest=json.loads((ROOT/'docs/integration_sources.json').read_text(encoding='utf-8'))
-    for rel,row in manifest['files'].items():
-        if not row.get('adapted'):assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()==row['sha256'],rel
+    for name in ('integration_sources.json','perception_sources.json'):
+        manifest=json.loads((ROOT/'docs'/name).read_text(encoding='utf-8'))
+        for rel,row in manifest['files'].items():
+            if not row.get('adapted'):assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()==row['sha256'],rel
     from build_system import prepare
     folder,sources=prepare()
     for p in sources:p.resolve().relative_to(ROOT);assert p.is_file(),p
@@ -14,6 +15,7 @@ def check():
     assert ports.issubset(dict(pins)) and 'm2_pwm_al' not in dict(pins)
     assert all(name not in dict(pins) for name in ('adc_busy','adc_dout_a','lidar_uart_rx','lidar_uart_tx'))
     assert len([name for name in dict(pins) if name.startswith(('legacy_m1_pwm_disabled[','legacy_m2_pwm_disabled[','legacy_cal_disabled['))])==14
+    assert dict(pins)['left_enc_a']=='F16' and dict(pins)['left_enc_b']=='E17'
     sdc=(folder/'system.sdc').read_text(encoding='utf-8')
     assert 'period 20 ' in sdc and 'period 11.9047 ' in sdc and 'period 8 ' in sdc
     assert 'multicycle' not in sdc

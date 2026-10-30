@@ -131,6 +131,16 @@ module network_runtime_dual #(
     assign cache_hit=found;assign target_mac=found_mac;
     assign cache2_hit=found2;assign target2_mac=found2_mac;
     reg [31:0] second_count,retry_count,retry_count2;
+    reg arp_due0,arp_due1;
+    // Retry reductions must not sit in front of the full dispatch priority tree.
+    // A registered request may be one clock old; dispatch rechecks availability.
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)begin arp_due0<=0;arp_due1<=0;end
+        else begin
+            arp_due0<=enabled && (!found || refresh_due) && retry_count==0;
+            arp_due1<=enabled2 && (!found2 || refresh2_due) && retry_count2==0;
+        end
+    end
     reg [2:0] attempts,attempts2;
     reg learn;reg [31:0] learned_ip;reg [47:0] learned_mac;
     always @(posedge clk or negedge rst_n)begin
@@ -365,8 +375,7 @@ module network_runtime_dual #(
                 S_IDLE:begin
                     action<=arp_reply_pending ? A_REPLY : control_pending ? A_CONTROL : vision_pending ? A_VISION :
                         EVENT_ENABLE && event_pending && enabled2 && found2 ? A_EVENT :
-                        enabled && (!found || refresh_due) && retry_count==0 ? A_ARP0 :
-                        enabled2 && (!found2 || refresh2_due) && retry_count2==0 ? A_ARP1 : video_pending ? A_VIDEO : A_NONE;
+                        arp_due0 ? A_ARP0 : arp_due1 ? A_ARP1 : video_pending ? A_VIDEO : A_NONE;
                     send_state<=S_DISPATCH;
                 end
                 S_DISPATCH:begin
@@ -387,18 +396,21 @@ module network_runtime_dual #(
                     end
                     A_EVENT:begin
                         event_pending<=0;
+                        // Snapshot data unconditionally; only a valid destination
+                        // permits udp_start. This removes wide destination enables.
+                        send_mac<=found2_mac;send_ip<=target2_ip;send_port<=EVENT_PORT;send_source_port<=EVENT_PORT;send_length<=32;
+                        send_control_payload<=event_buffer;sending_video<=0;control_index<=0;
                         if(enabled2 && found2)begin
-                            send_mac<=found2_mac;send_ip<=target2_ip;send_port<=EVENT_PORT;send_source_port<=EVENT_PORT;send_length<=32;
-                            send_control_payload<=event_buffer;sending_video<=0;control_index<=0;udp_start<=1;send_state<=S_UDP;
+                            udp_start<=1;send_state<=S_UDP;
                         end
                     end
-                    A_ARP0:begin
+                    A_ARP0:if(arp_due0 && enabled && (!found || refresh_due))begin
                         arp_send_mac<=48'hffffffffffff;arp_target_mac<=0;arp_target_ip<=target_ip;arp_opcode<=1;
                         arp_body<={48'hffffffffffff,LOCAL_MAC,16'h0806,16'h0001,16'h0800,8'd6,8'd4,16'd1,LOCAL_MAC,LOCAL_IP,48'd0,target_ip,144'd0};
                         arp_index<=0;arp_crc<=32'hffffffff;send_state<=S_ARP;arp_requests<=arp_requests+1'b1;
                         retry_count<=attempts<3?CLK_HZ/2:CLK_HZ*2;if(attempts<3)attempts<=attempts+1'b1;
                     end
-                    A_ARP1:begin
+                    A_ARP1:if(arp_due1 && enabled2 && (!found2 || refresh2_due))begin
                         arp_send_mac<=48'hffffffffffff;arp_target_mac<=0;arp_target_ip<=target2_ip;arp_opcode<=1;
                         arp_body<={48'hffffffffffff,LOCAL_MAC,16'h0806,16'h0001,16'h0800,8'd6,8'd4,16'd1,LOCAL_MAC,LOCAL_IP,48'd0,target2_ip,144'd0};
                         arp_index<=0;arp_crc<=32'hffffffff;send_state<=S_ARP;arp_requests<=arp_requests+1'b1;

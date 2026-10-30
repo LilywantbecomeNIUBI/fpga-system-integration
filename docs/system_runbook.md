@@ -1,10 +1,10 @@
 # 第一阶段系统集成：使用与验收
 
-本阶段为有刷底盘遥控与感知并发候选。音频、自主跟随、避障、SLAM、FOC和平衡环不在本固件内。原模块与无刷工程保留。软件构建和打包不会连接硬件；本文部署及运动步骤尚待现场执行。
+本阶段为有刷底盘遥控与感知并发候选。环境光流和避障状态以观测形式接入；自动跟随/避障运动、音频、SLAM、FOC和平衡环不在本固件内。最新架构见 [2026-10-30合并说明](PERCEPTION_MERGE_20261030.md)。原模块与无刷工程保留。软件构建和打包不会连接硬件；本文部署及运动步骤尚待现场执行。
 
 ## 链路和供电
 
-- FPGA：ACG720 GW5AT-138B，D157B双路控制和3.3V调理后的AB编码器，IMU接F19/F20，摄像头和PHY保持原连接。D157B使用P7-21~27及36/37，必须拔下旧ADC数字连接并释放载板雷达TTL接口；详见引脚表。旧无刷使能F13/C15、全部PWM和CAL固定低，电机机械及相线可保留，建议断开旧驱动动力电源支路。急停既有硬件断能回路，又向P7-37/F18提供状态。
+- FPGA：ACG720 GW5AT-138B，D157B双路控制和3.3V调理后的AB编码器，IMU接F19/F20，摄像头和PHY保持原连接。D157B控制使用P7-21~24，左编码器31/32，右编码器27/36，必须拔下旧ADC数字连接并释放载板雷达TTL接口；详见引脚表。旧无刷使能F13/C15、全部PWM和CAL固定低，电机机械及相线可保留，建议断开旧驱动动力电源支路。软件STOP和独立看门狗保留；当前无P7-37外部许可输入，不能把它视为急停状态输入。
 - Nano：一个USB串口连接FPGA，一个USB串口连接STL-27L。端口使用`/dev/serial/by-id/`稳定路径，不能让旧查看器和网关同时占用。雷达只接收，不发送启动/调速命令。
 - FPGA与Nano通过以太网传输图像；PC通过无线访问Nano网关。保留PC/Nano双目标图传时，PC图传接收地址必须在FPGA的192.168.50.x同一二层网段，通常通过交换机/AP桥接；仅把PC接到另一个无线子网不会自动收到FPGA图像。不要假定Nano会路由或转发视频。
 - FPGA及Nano沿用各自供电，D157B电机VM接12V；模块5V/3.3V输出不与其他电源输出并联。
@@ -15,6 +15,7 @@
 python -m pip install -r requirements.txt
 python tools/shared_check.py
 python tools/test_system.py
+python tools/test_perception.py
 python tools/test_full_top.py
 python tools/build_system.py
 python tools/prepare_nano.py
@@ -24,7 +25,7 @@ python tools/prepare_nano.py
 
 完整数字顶层仿真需要本机Gowin原语库；CI运行协议、控制、UART、LK与双目标网络回归，不把Gowin仿真模型上传Git。完整顶层测试保持相机/网络及IMU时钟，使用缩小图像缓冲、处理后像素注入、行为传感器/PLL，并加速电机/UART计数器10倍；它验证并发与故障隔离，不能代替真实传感器、电气或实际周期验收。
 
-来源固定在`docs/integration_sources.json`；`vendor/reference/source_manifest.json`保留上一级模块来源。不可修改的快照逐字节检查，允许修改的上位机适配文件明确标记adapted。构建不从相邻仓库隐式复制文件。
+来源固定在`docs/integration_sources.json`及`docs/perception_sources.json`；`vendor/reference/source_manifest.json`保留上一级模块来源。不可修改的快照逐字节检查，允许修改的上位机适配文件明确标记adapted。构建不从相邻仓库隐式复制文件。
 
 ## PC先看离线页面
 

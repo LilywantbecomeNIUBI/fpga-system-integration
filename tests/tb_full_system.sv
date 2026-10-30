@@ -20,6 +20,9 @@ module tb_full_system;
     defparam dut.imu.POWERUP_US=100;
     defparam dut.imu.RESET_US=1200;
     defparam dut.imu.STARTUP_US=500;
+    // Shorten only telemetry decimation for the digital fixture. The separate
+    // motor+IMU bench covers the production DECIMATION=20, 50Hz stream.
+    defparam dut.imu_status.DECIMATION=4;
     defparam dut.camera.stream.WIDTH=16;
     defparam dut.camera.stream.ACTIVE_HEIGHT=8;
     defparam dut.camera.stream.CANVAS_HEIGHT=16;
@@ -40,16 +43,16 @@ module tb_full_system;
     end endtask
     always @(posedge clk)begin
         if(dut.imu_sample_valid)samples=samples+1;
-        if(dut.core.control_tick)control_ticks=control_ticks+1;
+        if(dut.chassis.core.control_tick)control_ticks=control_ticks+1;
         if(byte_valid)begin $fwrite(file,"%c",byte_data);bytes=bytes+1;end
         if(reset_n && (m1||m2||framing_error))$fatal(1,"legacy/UART fault");
     end
-    always @(posedge dut.camera.clk125)if(dut.camera.tx_valid)begin eth_bytes=eth_bytes+1;if(dut.left_applied!=0)moving_bytes=moving_bytes+1;end
+    always @(posedge dut.camera.clk125)if(dut.camera.tx_valid)begin eth_bytes=eth_bytes+1;if(dut.chassis.left_applied!=0)moving_bytes=moving_bytes+1;end
     initial begin
         force GSR.GSRI=1'b1;
-        force dut.command_valid=cmd;force dut.opcode=op;force dut.sequence_id=seq;
-        force dut.command_flags=1;force dut.left_target=target;force dut.right_target=target;
-        force dut.kp=256;force dut.ki=0;
+        force dut.chassis.command_valid=cmd;force dut.chassis.opcode=op;force dut.chassis.sequence_id=seq;
+        force dut.chassis.command_flags=1;force dut.chassis.left_target=target;force dut.chassis.right_target=target;
+        force dut.chassis.kp=256;force dut.chassis.ki=0;
         file=$fopen("build/tests/full_system_uart.bin","wb");repeat(50)@(negedge clk);reset_n=1;
         wait(samples>=4);command(3,0);command(1,0);command(2,20);
         force dut.camera.cam_done=1;force dut.camera.phy_init=1;
@@ -64,12 +67,12 @@ module tb_full_system;
         if(eth_bytes<500 || moving_bytes<500)$fatal(1,"no concurrent traffic %d moving %d",eth_bytes,moving_bytes);
         force pclk=0;force dut.camera.phy_init=0;
         #2000000;
-        if(!dut.armed || dut.imu_fault || !dut.imu_ready)$fatal(1,"network/camera reset coupled to motor or IMU");
+        if(!dut.chassis.armed || dut.imu_fault || !dut.imu_ready)$fatal(1,"network/camera reset coupled to motor or IMU");
         force dut.camera.phy_init=1;
         #6000000;
-        if(!dut.armed || dut.left_applied!=20 || samples<8 || control_ticks<6 || bytes<48*2)$fatal(1,"concurrent operation");
+        if(!dut.chassis.armed || dut.chassis.left_applied!=20 || samples<8 || control_ticks<6 || bytes<48*2)$fatal(1,"concurrent operation");
         present=0;wait(dut.imu_fault || dut.imu_stale);
-        if(!dut.armed)$fatal(1,"observation-only IMU failure disarmed manual drive");
+        if(!dut.chassis.armed)$fatal(1,"observation-only IMU failure disarmed manual drive");
         command(0,0);#1;if(l1||l2||r1||r2)$fatal(1,"STOP output");
         $fclose(file);$display("PASS full production top: IMU=%0d control_ticks=%0d Ethernet_bytes=%0d camera stop/network reset/IMU fault isolated",samples,control_ticks,eth_bytes);$finish;
     end

@@ -1,16 +1,16 @@
 # fpga-system-integration
 
-**2026-10-30 有刷接续：先读 [当前交接](docs/MOTOR_HANDOFF_20261030.md)。四路编码器已改内部上拉，手转约1500计数/圈；双轮架空1秒PI初步候选Kp4096/Ki128。[无线调参与前后带载短测](docs/WIRELESS_TUNING_20261030.md)已实现，Nano UART移交和无线/下地实测尚待完成。**
+**2026-10-30 感知合并：IMU、YOLO/多点LK、独立金字塔光流/避障观测已按模块边界接入。架构与复用接口见 [本轮合并说明](docs/PERCEPTION_MERGE_20261030.md)。轮速控制保留显式ARM/心跳；感知暂不触发自动运动。既有电机与IMU上板记录见 [当前交接](docs/MOTOR_HANDOFF_20261030.md) 和 [IMU记录](docs/MOTOR_IMU_20261030.md)。**
 
 两轮差速驱动 + 万向轮的 FPGA 系统集成工程。阶段目标是完成系统动态验证；不依赖车体自平衡。
 
-当前接线采用ADC接口复用版：D157B用P7-21~27及36/37。先拔下旧ADC数字连接、释放载板雷达TTL接口；旧无刷电机和UVW线可保留，所有旧驱动EN/PWM/CAL由新顶层固定低，建议断开旧驱动动力支路。此前复用P7-1~4/13~16的接线表已作废。详见[当前引脚表](docs/pin_plan_v0.md)。
+当前接线采用已验证的编码器配置：D157B电机控制用P7-21~24，右编码器用P7-27/36，左编码器用P7-31/32（F16/E17），输入内部上拉。先拔下旧ADC数字连接、释放载板雷达TTL接口；旧无刷电机和UVW线可保留，所有旧驱动EN/PWM/CAL由新顶层固定低，建议断开旧驱动动力支路。此前复用P7-1~4/13~16及左轮P7-25/26的接线表已作废。详见[当前引脚表](docs/pin_plan_v0.md)。
 
 底盘：两台 WHEELTEC MG513Xp28-12V 有刷减速电机、AT8236 D157B 双路驱动（带稳压、电机 6Pin 插座）、AB 相编码器。用户于 2026-10-29 确认驱动板为 D157B；电机完整规格及实际 PCB 修订版待确认。FPGA 暂按现有 ACG720 / GW5AT-LV138PG484AC1/I0（GW5AT-138B）。
 
-第一阶段统一顶层已接入D157B双轮控制、摄像头/YOLO反馈/LK双目标图传及1kHz IMU。Nano网关独占FPGA串口并接STL-27L，PC状态台提供显式遥控和感知观测。音频留待第二阶段。本车动态验收尚未进行；详细离线结论见[系统验证记录](docs/system_validation.md)。
+第一阶段统一顶层已接入D157B双轮控制、摄像头/YOLO反馈/LK双目标图传、独立光流/避障观测及1kHz IMU。Nano网关独占FPGA串口并接STL-27L，PC状态台提供显式遥控和感知观测。音频留待第二阶段。独立电机带载前后转停已由用户确认；合并候选的感知并发动态验收待做；详细离线结论见[系统验证记录](docs/system_validation.md)。
 
-默认 `start_console.cmd` 打开离线页面；`python tools/test_system.py` 执行可移植回归，`python tools/test_full_top.py` 执行本机完整数字顶层仿真，`python tools/build_system.py` 构建统一工程，`python tools/prepare_nano.py` 只准备代码包。这些命令不会部署Nano、下载板卡或启动电机。实机配置与启动见[系统运行说明](docs/system_runbook.md)。
+默认 `start_console.cmd` 打开离线页面；`python tools/test_system.py` 执行可移植回归，`python tools/test_perception.py` 检查环境光流/事件合并，`python tools/test_full_top.py` 执行本机完整数字顶层仿真，`python tools/build_system.py` 构建统一工程，`python tools/prepare_nano.py` 只准备代码包。这些命令不会部署Nano、下载板卡或启动电机。实机配置与启动见[系统运行说明](docs/system_runbook.md)。
 
 - [引脚分配与接线条件](docs/pin_plan_v0.md)
 - [完整引脚清单](hardware/pins.csv)
@@ -28,4 +28,4 @@
 
 当前有刷独立/集成电机路径仅支持轮速 PI，已取消 `estop_n` / P7-37 外部许可依赖，不接 P7-29→37 跳线。保留上电锁定、显式 STOP、250ms FPGA 看门狗、200ms 网关失联停车、限幅和编码器保护。
 
-运行 `python host/motor_tuner.py` 可打开默认离线的 `http://127.0.0.1:8874/`。实际连接时加 `--live --token-file <本机session_token.json>`，复用唯一网关而不打开 COM20。先更新/重启网关，再连接专用调参台；原视觉/IMU状态台保留。用法见 `docs/motor_v1.md`。新固件下载与实际转动分开执行，未完成编码器反馈可靠性和实车轮速闭环验收。
+运行 `python host/motor_tuner.py` 可打开默认离线的 `http://127.0.0.1:8874/`。实际连接时加 `--live --token-file <本机session_token.json>`，复用唯一网关而不打开 COM20。先更新/重启网关，再连接专用调参台；原视觉/IMU状态台保留并增加光流观测。用法见 `docs/motor_v1.md`。新固件下载与实际转动分开执行，独立电机/IMU的上板结果不能代替合并候选验收。

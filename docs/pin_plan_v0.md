@@ -1,4 +1,4 @@
-# 引脚方案 V1：ADC接口复用 — 2026-10-29
+# 当前引脚方案：已验证编码器映射 — 2026-10-30
 
 按现有 ACG720（138K）开发板设计，P7 对应关系已核对开发板通用原理图第 11 页及现有 GPIO 映射。用户于 2026-10-29 确认驱动板为 D157B（带稳压、电机 6Pin 插座）。后续实物照片显示D157B 1.1，两个电机插座编码器供电脚均标3V3，用户确认编码器3.3V供电；实际AB波形及转接线尚未测量确认。
 
@@ -12,8 +12,8 @@
 | 左轮控制 2 | left_in2 | 22 | C17 | OUT | AIN2 / D157B J4-3 |
 | 右轮控制 1 | right_in1 | 23 | E16 | OUT | BIN1 / D157B J4-2 |
 | 右轮控制 2 | right_in2 | 24 | D16 | OUT | BIN2 / D157B J4-1 |
-| 左编码器 A | left_enc_a | 25 | B17 | IN | level shifter <- E1A / D157B J5-1 |
-| 左编码器 B | left_enc_b | 26 | B18 | IN | level shifter <- E1B / D157B J5-2 |
+| 左编码器 A | left_enc_a | 31 | F16 | IN | level shifter <- E1A / D157B J5-1 |
+| 左编码器 B | left_enc_b | 32 | E17 | IN | level shifter <- E1B / D157B J5-2 |
 | 右编码器 A | right_enc_a | 27 | C18 | IN | level shifter <- E2A / D157B J5-3 |
 | 右编码器 B | right_enc_b | 36 | D19 | IN | level shifter <- E2B / D157B J5-4 |
 | 未使用预留 | p7_37_unused | 37 | F18 | — | 无外部许可依赖，不接29→37跳线 |
@@ -21,7 +21,7 @@
 
 本车使用 D157B，左电机接 Motor_A 6Pin 插座，右电机接 Motor_B 6Pin 插座。用户确认使用防呆排线直连，本阶段不要求重新排线。表中 FPGA 侧 J4/J5 针号按所附 D157B 原理图定义，接线时核对实物丝印和修订版。万向轮无需电气引脚。
 
-**本版取代此前复用无刷PWM的引脚方案，旧位流不能按新表接线。** 拔下AD7606模块与载板之间的数字接口连接，使ADC_BUSY/DOUT等旧输出和新信号完全断开；从载板/FPGA侧引线。ADC只有7根独立GPIO，额外使用P7-36/37原雷达UART两根线；当前STL-27L改走Nano USB，载板雷达TTL接口不能仍接雷达或USB转串口的输出。ADC接口中两个CONVST针脚为同一网络，不能当成两根GPIO。
+**本版取代此前复用无刷PWM的引脚方案，旧位流不能按新表接线。** 拔下AD7606模块与载板之间的数字接口连接，使ADC_BUSY/DOUT等旧输出和新信号完全断开；从载板/FPGA侧引线。ADC只有7根独立GPIO，右编码器B额外使用P7-36原雷达UART；P7-37不使用；当前STL-27L改走Nano USB，载板雷达TTL接口不能仍接雷达或USB转串口的输出。ADC接口中两个CONVST针脚为同一网络，不能当成两根GPIO。
 
 现有POWER_DRV8323HR_V1.01说明书注明DRV_EN板载R29=10kΩ下拉、默认低；芯片ENABLE低时进入休眠。此依据适用于该版本，实物仍需核对。旧无刷电机机械安装、UVW相线和驱动信号线可以保留，不再与新D157B信号复用。新顶层固定两路DRV_EN、全部12路PWM、两路CAL为0。建议断开旧驱动动力电源支路，并在配置/重启期间确认DRV_EN保持低；固件禁用不是物理断能。不要将EN直接短接地后再允许旧固件把同一GPIO推高。再次下载旧平衡固件前必须恢复接线检查。
 
@@ -33,11 +33,11 @@
 |22|ADC_BUSY|J_ADC_DIG1-12|AIN2|
 |23|ADC_CS_N|J_ADC_DIG1-11|BIN1|
 |24|ADC_SCLK|J_ADC_DIG1-10|BIN2|
-|25|ADC_DOUT_A|J_ADC_DIG1-22|E1A，经3.3V调理|
-|26|ADC_DOUT_B|J_ADC_DIG1-23|E1B，经3.3V调理|
+|25|ADC_DOUT_A|J_ADC_DIG1-22|当前未使用，左编码器已改P7-31|
+|26|ADC_DOUT_B|J_ADC_DIG1-23|当前未使用，左编码器已改P7-32|
 |27|ADC_RESET|J_ADC_DIG1-9|E2A，经3.3V调理|
 |36|LIDAR_UART_RX|J_LIDAR_CORE1-1|E2B，经3.3V调理|
-|37|LIDAR_UART_TX|J_LIDAR_CORE1-2|急停状态，低停机|
+|37|LIDAR_UART_TX|J_LIDAR_CORE1-2|当前未使用；无外部许可输入|
 
 接口端点来自现有Carrier_Hall_RevB映射；实物版本和插头观察方向未现场核验，不按排线颜色猜针号。
 
@@ -62,11 +62,11 @@
 
 完整球号清单见 `hardware/pins.csv`；摄像头和 RGMII 从既有 fpga-robot 约束预留，音频从 fpga-audio 预留。统一顶层已集成视觉/网口/IMU；音频仍预留。引脚检查不能证明电气兼容。
 
-- P7-36 D19 / P7-37 F18 已用于右编码器B/急停状态；FPGA雷达UART不再可用。P7-38 E18仅预留。
+- P7-36 D19 已用于右编码器B；P7-37 F18未使用；FPGA雷达UART不再可用。P7-38 E18仅预留。
 - P7-39 F19 / P7-40 F20：IMU I2C SCL/SDA，外部上拉到 3.3V。
-- P7-21~27 已用于D157B，不能同时连接外部ADC；P7-28/31/32/33/34/35 保留备用，不沿用旧 MT6701 SPI 协议。
+- P7-21~24/27/31/32 已用于D157B，不能同时连接旧外设；P7-25/26/28/33/34/35 保留备用，不沿用旧 MT6701 SPI 协议。
 - P7-7 F13、P7-18 C15 保留为旧驱动关闭输出，两种新顶层均固定低；全部旧PWM和CAL也固定低。旧驱动建议断开动力电源，机械及相线可保留。
-- 板载 UART TX M15 / RX J21，50MHz 时钟 Y18、复位 F15；实际 UART 双向通路需要验证。
+- 板载 UART TX M15 / RX J21，50MHz 时钟 Y18、复位 F15；UART双向通路已在电机/IMU独立候选验证，集成候选需另行验收。
 - 摄像头使用原 P4 接口，网口使用板载 PHY，音频保留原板载接口，Nano/PC 优先沿用以太网。
 
 未来仅能有一个集成顶层和统一引脚所有权；不能拼接多个旧 CST，旧无刷端口仅可作为固定低的禁用输出，不能实例化旧FOC控制；旧ADC和载板雷达UART不能再占用新信号。
