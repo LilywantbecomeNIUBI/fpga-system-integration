@@ -9,7 +9,7 @@ module flow_avoidance_top #(parameter WIDTH=160,HEIGHT=90,PYRAMID=0)(
     output [15:0] left_valid,center_valid,right_valid,left_risk,center_risk,right_risk
 );
     wire pair_begin;
-    flow_pipeline #(.WIDTH(WIDTH),.HEIGHT(HEIGHT),.PYRAMID(PYRAMID)) flow(.clk(clk),.rst_n(rst_n),.frame_start(frame_start),.frame_end(frame_end),
+    flow_pipeline #(.WIDTH(WIDTH),.HEIGHT(HEIGHT),.PYRAMID(PYRAMID),.OUTPUT_DRAIN_CYCLES(4)) flow(.clk(clk),.rst_n(rst_n),.frame_start(frame_start),.frame_end(frame_end),
         .frame_good(frame_good),.pixel_valid(pixel_valid),.frame_id(frame_id),.x(x),.y(y),.luma(luma),
         .busy(busy),.frame_done(frame_done),.sample_valid(sample_valid),.sample_good(sample_good),.history_lost(history_lost),.pair_begin(pair_begin),
         .result_id(result_id),.flow_x(flow_x),.flow_y(flow_y),.flow_u(flow_u),.flow_v(flow_v),.cycles(cycles),.dropped_frames(dropped_frames));

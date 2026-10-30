@@ -1,0 +1,9 @@
+IO_LOC "clk50m" Y18;
+IO_LOC "reset_n" F15;
+IO_LOC "led" M22;
+IO_PORT "clk50m" IO_TYPE=LVCMOS33;
+IO_PORT "reset_n" IO_TYPE=LVCMOS33;
+IO_PORT "led" IO_TYPE=LVCMOS33;
+IO_LOC "camera_pclk" B1;
+IO_PORT "camera_pclk" IO_TYPE=LVCMOS33;
+CLOCK_LOC "pixel_clk" BUFG = CLK;

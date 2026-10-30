@@ -1,0 +1,16 @@
+[
+  {
+    "id": "PR1014-B1",
+    "scope": {
+      "device": "GW5AT-LV138PG484AC1/I0",
+      "port": "camera_pclk",
+      "ball": "B1",
+      "clock_period_ns": 11.9047
+    },
+    "status": "accepted_configuration_exception",
+    "reason": "Existing fixed B1 non-GCLK wiring; global spine still has generic ingress.",
+    "physical_issue_fixed": false,
+    "hardware_validation": false,
+    "authorization": "User explicitly requested B1 limited-configuration waiver; raw warnings retained."
+  }
+]

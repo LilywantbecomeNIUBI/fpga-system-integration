@@ -1,0 +1,8 @@
+{
+  "pc_unix": 1793378864.3935034,
+  "nano": {
+    "unix": 1793335693.9486964,
+    "monotonic": 952.031424323
+  },
+  "note": "Clocks are not synchronized; raw event order and FPGA frame IDs used for epoch boundaries."
+}

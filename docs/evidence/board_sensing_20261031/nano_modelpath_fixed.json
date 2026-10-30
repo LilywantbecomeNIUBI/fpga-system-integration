@@ -1,0 +1,133 @@
+{
+  "profile": "fpga_yolo_dashboard_v1",
+  "session": "d53cb5b72cdc42ffb1e00faf39845ab4",
+  "capture": {
+    "frames": 478,
+    "packets": 153378,
+    "bad": 0,
+    "missing_frames": 103,
+    "fps": 24.67062425280096,
+    "frame_id": 21174,
+    "age_ms": 26.822969000022567,
+    "error": null
+  },
+  "result": null,
+  "event": {
+    "frame_id": 21175,
+    "semantic_frame_id": 20449,
+    "class_id": 0,
+    "confidence": 0,
+    "x1": 0,
+    "y1": 0,
+    "x2": 0,
+    "y2": 0,
+    "red_permille": 0,
+    "track_confidence": 0,
+    "semantic_age": 726,
+    "target_valid": false,
+    "track_valid": false,
+    "semantic_valid": false,
+    "red": false,
+    "force_yolo": true,
+    "history_miss": false,
+    "scene_change": false,
+    "bad_frame": false,
+    "reason": 2,
+    "direction": "none"
+  },
+  "flow": {
+    "epoch": "f880a06f22b4",
+    "stage": 2,
+    "frame_id": 2197,
+    "newest_frame_id": 2197,
+    "field_status": {
+      "kind": "status",
+      "stage": 2,
+      "frame_id": 2197,
+      "state": "unknown",
+      "stop_request": true,
+      "confident": false,
+      "stale": true,
+      "hazard": 0,
+      "valid_counts": [
+        24,
+        29,
+        47
+      ],
+      "risk_counts": [
+        0,
+        1,
+        0
+      ],
+      "steer": 0,
+      "speed_limit": 0,
+      "cycles": 1601521074,
+      "dropped_frames": 18983
+    },
+    "vectors": [],
+    "received": 0,
+    "valid": 0,
+    "invalid": 0,
+    "missing": 190,
+    "expected": 190,
+    "image_key": null,
+    "control": {
+      "state": "unknown",
+      "stop_request": true,
+      "steer": 0,
+      "speed_limit": 0,
+      "hazard": 0,
+      "fresh": false,
+      "confident": false,
+      "age_ms": 9370.544215000109,
+      "frame_id": 2197,
+      "valid_counts": [
+        24,
+        29,
+        47
+      ],
+      "risk_counts": [
+        0,
+        1,
+        0
+      ]
+    },
+    "cycles": 1601521074,
+    "dropped_frames": 18983,
+    "fps": 0.0,
+    "packets": 269,
+    "bad": 0,
+    "duplicates": 0,
+    "late": 0,
+    "ignored_source": 0,
+    "restarts": 0,
+    "video": {
+      "frames": 0,
+      "fps": 0.0,
+      "frame_id": null,
+      "age_ms": null,
+      "bad": 0,
+      "missing_frames": 0
+    },
+    "history": [
+      {
+        "frame_id": 2197,
+        "ratios": [
+          0.0,
+          0.034482758620689655,
+          0.0
+        ]
+      }
+    ],
+    "observe_only": true,
+    "automatic_control_enabled": false
+  },
+  "event_age_ms": 11.833646000013687,
+  "error": null,
+  "model": "\u6b63\u5728\u52a0\u8f7d\u6a21\u578b",
+  "backend": "tensorrt",
+  "model_id": "yolov8n",
+  "inference_fps": 0,
+  "offline": false,
+  "inferences": 0
+}

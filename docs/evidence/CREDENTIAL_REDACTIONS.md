@@ -1,0 +1,1 @@
+Local credential configurations are excluded from version control. Sensitive values found in historical JSON reports were redacted before publication; affected historical byte hashes no longer identify the sanitized report. Original private files remain local.

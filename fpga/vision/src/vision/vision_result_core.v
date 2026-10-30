@@ -41,6 +41,11 @@ module vision_result_core #(
         (flags[0] ? (confidence>1000 || x1>=x2 || y1>=y2 || x2>IMAGE_WIDTH || y2>IMAGE_HEIGHT)
                   : candidate[159:48]!=0);
     wire [15:0] last_age=current_frame-last_frame;
+    reg [15:0] last_age_r;
+    // An acceptance epoch replaces the wide last-frame equality tag. The
+    // result FSM accepts at most once per four cycles; this pipeline is one
+    // cycle deep, so a one-bit epoch cannot wrap while a tag is in flight.
+    reg acceptance_epoch,age_epoch;
     wire [16:0] sum_x={1'b0,x1}+{1'b0,x2}, sum_y={1'b0,y1}+{1'b0,y2};
     wire [18:0] triple_sum_x={2'd0,sum_x}+{1'd0,sum_x,1'b0};
     wire [15:0] box_width=x2-x1, box_height=y2-y1;
@@ -58,9 +63,10 @@ module vision_result_core #(
             idle_due<=0;frame_due<=0;frame_expired<=0;
             candidate<=0;state<=0;result_done<=0;accepted_pulse<=0;query_sample<=0;bad_sample<=0;ready_sample<=0;
             fresh_sample<=0;ordered_sample<=0;match_sample<=0;age_sample<=0;order_sample<=0;
-            last_age_sample<=0;direction_sample<=0;
+            last_age_sample<=0;direction_sample<=0;last_age_r<=0;acceptance_epoch<=0;age_epoch<=0;
         end else begin
             result_done<=0;accepted_pulse<=0;
+            last_age_r<=last_age;age_epoch<=acceptance_epoch;
             idle_due<=idle_cycles>=TIMEOUT_CYCLES-2;
             frame_due<=frame_idle_cycles>=TIMEOUT_CYCLES-2;
             frame_expired<=frame_idle_cycles>=TIMEOUT_CYCLES-1;
@@ -70,7 +76,10 @@ module vision_result_core #(
             if(target_valid && (idle_due || (!frame_tick && frame_due)))begin
                 target_valid<=0;target_direction<=0;reason<=6;
             end
-            if(sequence_seen && (!last_age[15] && last_age>MAX_AGE_FRAMES))begin
+            // The tag prevents an old sequence's pipelined expiry from clearing
+            // a result accepted in the meantime. Wall-clock deadlines below
+            // retain their original exact cycle; frame-age expiry gains a beat.
+            if(sequence_seen && age_epoch==acceptance_epoch && !last_age_r[15] && last_age_r>MAX_AGE_FRAMES)begin
                 sequence_seen<=0;target_valid<=0;target_direction<=0;reason<=4;
             end
             if(!stream_ready)begin
@@ -99,7 +108,7 @@ module vision_result_core #(
                     else if(!stream_ready || !ready_sample || !fresh_sample)begin rejected<=rejected+1'b1;reason<=4;end
                     else if(!ordered_sample)begin rejected<=rejected+1'b1;reason<=5;end
                     else begin
-                    accepted<=accepted+1'b1;sequence_seen<=1;last_frame<=fid;idle_cycles<=0;idle_due<=0;accepted_pulse<=1;
+                    accepted<=accepted+1'b1;sequence_seen<=1;last_frame<=fid;acceptance_epoch<=!acceptance_epoch;idle_cycles<=0;idle_due<=0;accepted_pulse<=1;
                     target_valid<=match_sample;reason<=match_sample ? 1 : 2;
                     target_class<=class_id;target_confidence<=confidence;
                     target_x<=flags[0] ? sum_x[16:1] : 0;target_y<=flags[0] ? sum_y[16:1] : 0;

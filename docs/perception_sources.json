@@ -57,7 +57,8 @@
     },
     "fpga/vision/src/optical_flow/camera_flow.v": {
       "source": "src/optical_flow/camera_flow.v",
-      "sha256": "d489fa0b05a4d8342e34960490addeaab688b9b41bfb7203d02ec1919f438c4a"
+      "sha256": "d489fa0b05a4d8342e34960490addeaab688b9b41bfb7203d02ec1919f438c4a",
+      "adapted": true
     },
     "fpga/vision/src/optical_flow/camera_flow_v0_top.v": {
       "source": "src/optical_flow/camera_flow_v0_top.v",
@@ -73,11 +74,13 @@
     },
     "fpga/vision/src/optical_flow/flow_avoidance.v": {
       "source": "src/optical_flow/flow_avoidance.v",
-      "sha256": "f8502b5bde77ad2d39f3b78f24b34d183b05d54021afce6920b842e31d350064"
+      "sha256": "f8502b5bde77ad2d39f3b78f24b34d183b05d54021afce6920b842e31d350064",
+      "adapted": true
     },
     "fpga/vision/src/optical_flow/flow_avoidance_top.v": {
       "source": "src/optical_flow/flow_avoidance_top.v",
-      "sha256": "3a4c870287e18945f7624f54fb76ba2dda31ecd90f757b4c944ac20fda6ea048"
+      "sha256": "3a4c870287e18945f7624f54fb76ba2dda31ecd90f757b4c944ac20fda6ea048",
+      "adapted": true
     },
     "fpga/vision/src/optical_flow/flow_event_bridge.v": {
       "source": "src/optical_flow/flow_event_bridge.v",
@@ -98,15 +101,18 @@
     },
     "fpga/vision/src/optical_flow/flow_grid_pyramid.v": {
       "source": "src/optical_flow/flow_grid_pyramid.v",
-      "sha256": "77ff37d35b4aa6a956476cbf07cc51a2f83b6bf45ae932dd8c91c23f53c7a73f"
+      "sha256": "77ff37d35b4aa6a956476cbf07cc51a2f83b6bf45ae932dd8c91c23f53c7a73f",
+      "adapted": true
     },
     "fpga/vision/src/optical_flow/flow_lk_patch.v": {
       "source": "src/optical_flow/flow_lk_patch.v",
-      "sha256": "2c18fa419b2cf8406cd61dbaf90a62fa4c60e5626233d5d843951377f9cd472d"
+      "sha256": "2c18fa419b2cf8406cd61dbaf90a62fa4c60e5626233d5d843951377f9cd472d",
+      "adapted": true
     },
     "fpga/vision/src/optical_flow/flow_pipeline.v": {
       "source": "src/optical_flow/flow_pipeline.v",
-      "sha256": "353914b84838c643b9d0dbe7f55ed68a23098bd46c3d7ce6fc8336e56006c9ab"
+      "sha256": "353914b84838c643b9d0dbe7f55ed68a23098bd46c3d7ce6fc8336e56006c9ab",
+      "adapted": true
     },
     "fpga/vision/src/optical_flow/flow_v2_core.v": {
       "source": "src/optical_flow/flow_v2_core.v",
@@ -135,7 +141,8 @@
     },
     "fpga/vision/src/vision/vision_divider.v": {
       "source": "src/vision/vision_divider.v",
-      "sha256": "748b259b62a708b5f0686acf9ff8fb4fc8a47a51015382aaff88394a4687aab1"
+      "sha256": "748b259b62a708b5f0686acf9ff8fb4fc8a47a51015382aaff88394a4687aab1",
+      "adapted": true
     },
     "fpga/vision/src/vision/vision_dvp_capture.v": {
       "source": "src/vision/vision_dvp_capture.v",
@@ -252,7 +259,8 @@
     },
     "tests/vision/tb_flow_avoidance.v": {
       "source": "sim/optical_flow/tb_flow_avoidance.v",
-      "sha256": "70dc053ac2d3610ea60031db0daedda8814c76af5fb503947ab287675f898d56"
+      "sha256": "70dc053ac2d3610ea60031db0daedda8814c76af5fb503947ab287675f898d56",
+      "adapted": true
     },
     "tests/vision/tb_flow_events.v": {
       "source": "sim/optical_flow/tb_flow_events.v",

@@ -14,7 +14,7 @@ module tb_frame_payload;
     integer k,row,col,word_value,expected;reg [7:0] held;
     initial begin
         repeat(4)@(negedge wr_clk);rst=1;fs=1;@(negedge wr_clk);fs=0;
-        for(k=0;k<128;k=k+1)begin pv=1;pixel=k;@(negedge wr_clk);end
+        for(k=0;k<128;k=k+1)begin pv=1;pixel=(k*257)^16'h5a3c;@(negedge wr_clk);end
         pv=0;fe=1;@(negedge wr_clk);fe=0;
     end
     initial begin
@@ -23,8 +23,11 @@ module tb_frame_payload;
             if(length!=48 || fid!=42 || first!=(row==0))$fatal(1,"frame metadata");
             for(col=0;col<48;col=col+1)begin
                 if(col%5==0)begin
-                    read=0;held=payload;@(negedge rd_clk);
-                    if(payload!==held)$fatal(1,"payload changed under stall");
+                    read=0;held=payload;
+                    repeat(1+col%7)begin
+                        @(negedge rd_clk);
+                        if(payload!==held)$fatal(1,"payload changed under stall");
+                    end
                 end
                 if(col<16)begin
                     case(col)
@@ -32,7 +35,7 @@ module tb_frame_payload;
                         4:expected=42;6:expected=row;10,12,14:expected=16;default:expected=0;
                     endcase
                 end else begin
-                    word_value=(row>=4 && row<12) ? (row-4)*16+(col-16)/2 : 16'h738e;
+                    word_value=(row>=4 && row<12) ? (((row-4)*16+(col-16)/2)*257)^16'h5a3c : 16'h738e;
                     expected=col[0] ? (word_value>>8)&255 : word_value&255;
                 end
                 if(payload!==expected[7:0])$fatal(1,"pixel/header mismatch row=%0d byte=%0d got=%h expected=%h",row,col,payload,expected);

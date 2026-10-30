@@ -29,7 +29,7 @@ module camera_flow #(parameter STAGE=2)(
     wire signed [15:0] fu,fv;wire [31:0] cycles,drops;wire [2:0] state,hazard;
     wire stop;wire signed [1:0] steer;wire [7:0] speed;wire [15:0] nl,nc,nr,rl,rc,rr;
     wire flow_pixel=ov && !ox[0] && !oy[0];
-    flow_pipeline #(.PYRAMID(STAGE==2)) flow(.clk(camera_pclk),.rst_n(cap_rst_n),.frame_start(os),.frame_end(oe),.frame_good(og),
+    flow_pipeline #(.PYRAMID(STAGE==2),.OUTPUT_DRAIN_CYCLES(STAGE>0 ? 4 : 0)) flow(.clk(camera_pclk),.rst_n(cap_rst_n),.frame_start(os),.frame_end(oe),.frame_good(og),
         .pixel_valid(flow_pixel),.frame_id(ofid),.x(ox>>1),.y(oy>>1),.luma(luma),.busy(busy),.frame_done(flow_done),
         .sample_valid(sv),.sample_good(sg),.history_lost(lost),.pair_begin(pair_begin),.result_id(result_id),
         .flow_x(fx),.flow_y(fy),.flow_u(fu),.flow_v(fv),.cycles(cycles),.dropped_frames(drops));
@@ -44,7 +44,7 @@ module camera_flow #(parameter STAGE=2)(
     end endgenerate
     wire obs_valid,observation_valid;wire [255:0] obs,observation;
     flow_event_source #(.STAGE(STAGE)) event_source(.clk(camera_pclk),.rst_n(cap_rst_n),.frame_begin(pair_begin),.sample_valid(sv),.sample_good(sg),
-        .status_valid(status_valid),.frame_id(result_id),.x(fx),.y(fy),.u(fu),.v(fv),.state(state),.hazard(hazard),.stop_request(stop),.steer(steer),.speed_limit(speed),
+        .status_valid(status_valid),.frame_id(status_valid ? status_id : result_id),.x(fx),.y(fy),.u(fu),.v(fv),.state(state),.hazard(hazard),.stop_request(stop),.steer(steer),.speed_limit(speed),
         .left_valid(nl),.center_valid(nc),.right_valid(nr),.left_risk(rl),.center_risk(rc),.right_risk(rr),.cycles(cycles),.dropped_frames(drops),
         .event_valid(obs_valid),.event_payload(obs));
     vision_mailbox observation_mailbox(.src_clk(camera_pclk),.src_rst_n(cap_rst_n),.src_valid(obs_valid),.src_data(obs),

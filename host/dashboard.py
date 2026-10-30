@@ -96,6 +96,28 @@ def make_server(session,port,token,page='index.html'):
             elif url.path=='/home':self.send((ROOT/'host/home.html').read_bytes(),kind='text/html; charset=utf-8')
             elif url.path=='/imu':self.send((ROOT/'host/imu.html').read_bytes(),kind='text/html; charset=utf-8')
             elif url.path in ('/api/state','/health'):self.send(session.state())
+            elif url.path in ('/camera.mjpg','/infer.mjpg'):
+                if url.path=='/infer.mjpg' and session.mode=='live' and session.config.get('nano_url'):
+                    # The browser receives latest inference frames directly; metadata
+                    # polling must not cap video at the NanoResults polling rate.
+                    self.send_response(302)
+                    self.send_header('Location',session.config['nano_url'].rstrip('/')+'/infer.mjpg')
+                    self.send_header('Cache-Control','no-store');self.send_header('Content-Length','0')
+                    self.end_headers();return
+                if not hasattr(session,'stream_image'):
+                    self.send(dict(error='No video source'),503);return
+                self.send_response(200);self.send_header('Content-Type','multipart/x-mixed-replace; boundary=frame')
+                self.send_header('Cache-Control','no-store');self.end_headers();last=None
+                self.connection.settimeout(1)
+                try:
+                    while not session.stop.is_set():
+                        item=session.stream_image(url.path=='/infer.mjpg')
+                        if item and item[0]!=last:
+                            key,encoded=item;last=key
+                            self.wfile.write(b'--frame\r\nContent-Type: image/jpeg\r\nContent-Length: '+str(len(encoded)).encode()+
+                                b'\r\nX-Frame-Key: '+str(key).encode()+b'\r\n\r\n'+encoded+b'\r\n');self.wfile.flush()
+                        session.stop.wait(1/60.)
+                except (BrokenPipeError,ConnectionResetError,ConnectionAbortedError,TimeoutError,OSError):pass
             elif url.path in ('/camera.jpg','/infer.jpg'):
                 image=session.image(url.path=='/infer.jpg',parse_qs(url.query).get('key',[''])[0])
                 self.send(image if image else dict(error='No fresh frame'),200 if image else 503,'image/jpeg' if image else 'application/json')

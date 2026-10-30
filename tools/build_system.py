@@ -1,6 +1,7 @@
 """Build the integrated system candidate; never programs a board."""
 import argparse
 import csv
+import html
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -31,8 +32,11 @@ def prepare():
         cst += [f'IO_LOC "{r["signal"]}" {r["ball"]};',port or f'IO_PORT "{r["signal"]}" IO_TYPE=LVCMOS33 PULL_MODE={pull} BANK_VCCIO=3.3;']
     cst+=re.findall(r'^CLOCK_LOC[^\n]+',(ROOT/'vendor/reference/robot.cst').read_text(encoding='utf-8'),re.M)
     (folder/'system.cst').write_text('\n'.join(cst)+'\n',encoding='utf-8')
-    # Preserve the sensing candidate's clock/CDC constraints; no extra module-wide exceptions.
+    # Bind generated clocks to their PLL output pins. Preserve actual PLL ratios
+    # and the existing CDC exceptions; no clock is relaxed to hide a data path.
     sdc=(ROOT/'vendor/reference/robot.sdc').read_text(encoding='utf-8').replace('imu/core/reader/','imu/reader/')
+    sdc=sdc.replace('[get_nets {camera/clk50}]','[get_pins {camera/pll/PLL_inst/CLKOUT0}]')
+    sdc=sdc.replace('[get_nets {camera/clk125}]','[get_pins {camera/pll/PLL_inst/CLKOUT1}]')
     for pin in ('chassis/rx/rx_meta_s0/D','chassis/core/enc_l/ab_meta_0_s0/D','chassis/core/enc_l/ab_meta_1_s0/D','chassis/core/enc_r/ab_meta_0_s0/D','chassis/core/enc_r/ab_meta_1_s0/D'):
         sdc+=f'set_false_path -to [get_pins {{{pin}}}]\n'
     (folder/'system.sdc').write_text(sdc,encoding='utf-8')
@@ -49,7 +53,9 @@ def prepare():
         ET.SubElement(files,'File',path=Path(os.path.relpath(p,folder)).as_posix(),type={'.v':'file.verilog','.sv':'file.verilog','.cst':'file.cst','.sdc':'file.sdc'}[p.suffix],enable='1')
     ET.ElementTree(project).write(folder/'system.gprj',encoding='utf-8',xml_declaration=True)
     tcl='set here [file dirname [file normalize [info script]]]\ncd $here\nopen_project system.gprj\n'
-    for k,v in [('top_module','system_top'),('verilog_std','sysv2017'),('output_base_name','system'),('max_fanout','32'),('replicate_resources','1'),('retiming_resource','bsram'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option','2'),('route_option','1')]:
+    profile=ROOT/'config/pnr.json'
+    place=json.loads(profile.read_text())['place_option'] if profile.exists() else 2
+    for k,v in [('top_module','system_top'),('verilog_std','sysv2017'),('output_base_name','system'),('max_fanout','32'),('replicate_resources','1'),('timing_driven','1'),('retiming_resource','bsram'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option',str(place)),('route_option','1')]:
         tcl+=f'set_option -{k} {v}\n'
     (folder/'build.tcl').write_text(tcl+'run all\n',encoding='utf-8')
     return folder,sources
@@ -82,8 +88,23 @@ def main():
             match=re.search(r'Numbers of '+kind+r' Violated Endpoints</td>\s*<td[^>]*>(\d+)',content)
             record['violations'][kind.lower()]=int(match[1]) if match else None
         record['timing_sha256']=sha(timing)
+        table=re.search(r'name="MIN_PULSE_WIDTH_TABLE".*?<table[^>]*>(.*?)</table>',content,re.S)
+        record['reported_min_pulse_width']=[]
+        if table:
+            for row in re.findall(r'<tr>(.*?)</tr>',table[1],re.S):
+                cells=[html.unescape(re.sub(r'<[^>]+>','',c)).strip() for c in re.findall(r'<td[^>]*>(.*?)</td>',row,re.S)]
+                if len(cells)==7:
+                    record['reported_min_pulse_width'].append(dict(slack_ns=float(cells[1]),actual_ns=float(cells[2]),required_ns=float(cells[3]),kind=cells[4],clock=cells[5],object=cells[6]))
+        record['pulse_width_passed']=bool(record['reported_min_pulse_width']) and all(p['slack_ns']>=0 for p in record['reported_min_pulse_width'])
+    pnr_log=folder/'impl/pnr/system.log'
+    if result.returncode==0 and pnr_log.exists():
+        record['clock_route_warnings']=[line for line in pnr_log.read_text(encoding='utf-8',errors='replace').splitlines() if 'PR1014' in line]
+        record['clock_routing_passed']=not record['clock_route_warnings']
     if result.returncode==0 and bit.exists(): record['bitstream_sha256']=sha(bit)
-    record['passed']=result.returncode==0 and record.get('violations')=={'setup':0,'hold':0} and record['sources_unchanged'] and 'bitstream_sha256' in record
+    record['setup_hold_passed']=result.returncode==0 and record.get('violations')=={'setup':0,'hold':0}
+    record['passed']=record['setup_hold_passed'] and record.get('pulse_width_passed',False) and record.get('clock_routing_passed',False) and record['sources_unchanged'] and 'bitstream_sha256' in record
+    for src,name in ((timing,'timing.html'),(folder/'impl/pnr/system.tr','timing.txt'),(folder/'impl/pnr/system.rpt.txt','pnr_report.txt'),(pnr_log,'pnr.log'),(folder/'system.sdc','system.sdc'),(folder/'system.cst','system.cst')):
+        if result.returncode==0 and src.exists():shutil.copyfile(src,attempt/name)
     for p in (attempt/'result.json',folder/'result.json'):p.write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({k:v for k,v in record.items() if k!='source_sha256'},indent=2))
     raise SystemExit(0 if record['passed'] else 1)

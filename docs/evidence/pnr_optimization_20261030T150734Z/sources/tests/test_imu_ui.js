@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const elements=new Map(),element=id=>{if(!elements.has(id))elements.set(id,{textContent:''});return elements.get(id)};
+const html=fs.readFileSync('host/imu.html','utf8');
+const ctx=vm.createContext({document:{getElementById:element},location:{host:'127.0.0.1:8874'}});
+vm.runInContext(html.match(/<script>([\s\S]*)<\/script>/)[1].replace(/poll\(\);\s*$/,''),ctx);
+const render=s=>vm.runInContext('render('+JSON.stringify(s)+')',ctx);
+render({});assert.match(element('status').textContent,/离线/);assert.equal(element('axes').textContent,'—');
+const state={gateway:{online:true,data:{imu:{online:true,healthy:true,frame:{ax_g:1,ay_g:0,az_g:0,gx_dps:0,gy_dps:0,gz_dps:3,who_am_i:71},attitude:{valid:true,pitch_deg:2,roll_deg:3}}}}};
+render(state);assert.match(element('axes').textContent,/1.000/);assert.match(element('attitude').textContent,/2.00/);
+state.gateway.online=false;render(state);assert.equal(element('attitude').textContent,'—');assert.equal(element('axes').textContent,'—');
+state.gateway.online=true;state.gateway.data.imu.online=false;render(state);assert.equal(element('axes').textContent,'—');assert.match(element('status').textContent,/等待IMU/);
+console.log('PASS IMU UI: fresh values, stale/offline clearing, no control requests');

@@ -19,3 +19,5 @@ config/nano.local.json
 .playwright-cli/
 .deps/
 output/
+
+docs/evidence/**/config/local*.json

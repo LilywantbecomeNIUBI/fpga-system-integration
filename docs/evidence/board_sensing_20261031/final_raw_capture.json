@@ -1,0 +1,10 @@
+{
+  "remote_raw_path": "/home/liwei/robot_sensing_board_20261031_002906/observation/raw_events.jsonl",
+  "size_at_capture": 91911373,
+  "offset_read": 87911373,
+  "complete_line_bytes": 3999927,
+  "tail_sha256": "876cbf19ffeb6f2bb5ef98ed5a1375a64b7944b28b58beaf62acc565b45e80f6",
+  "launcher_sha256": "0c6b360c1ae044fa0ad576a2cd7e50b4de4b32ff1f017b2b87330eef112c43d0",
+  "pc_capture_unix": 1793379200.705331,
+  "clock_note": "Nano and PC wall clocks unsynchronized. Analysis uses order, Nano-local intervals and FPGA frame IDs."
+}

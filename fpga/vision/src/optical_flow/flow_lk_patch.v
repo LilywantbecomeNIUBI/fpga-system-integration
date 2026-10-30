@@ -7,7 +7,7 @@ module flow_lk_patch #(parameter WIDTH=160,HEIGHT=90,STEP_LIMIT=512,FLOW_LIMIT=2
     input signed [15:0] initial_u,initial_v,
     output reg busy,done,valid,output reg signed [15:0] u,v,
     output reg read_enable,read_current,output reg [15:0] read_address,
-    input [7:0] read_data
+    input [7:0] read_data,output [39:0] debug_status,output reg [11:0] debug_fault
 );
     localparam IDLE=0,CHECK=1,REQUEST=2,WAIT_RAM=3,LATCH=4,MIX_X=5,MIX_Y=6,
         GRADIENT=7,PRODUCTS=8,ACCUMULATE=9,MATRIX=10,DIFFERENCES=11,
@@ -36,17 +36,36 @@ module flow_lk_patch #(parameter WIDTH=160,HEIGHT=90,STEP_LIMIT=512,FLOW_LIMIT=2
     reg [49:0] trace_square;
     wire [24:0] trace_value={1'b0,axx[23:0]}+{1'b0,ayy[23:0]};
     reg div_start;reg [63:0] dividend,divisor;
-    wire div_done;wire [63:0] quotient;
+    wire div_done,div_busy;wire [7:0] div_count;wire [63:0] quotient;
     reg signed [16:0] du,dv;
     reg range_ok;
-    wire [15:0] image_width=PYRAMID && coarse ? WIDTH/2 : WIDTH;
-    wire [15:0] image_height=PYRAMID && coarse ? HEIGHT/2 : HEIGHT;
+    // A patch owns its scale from start through done. Keep this control local
+    // to address arithmetic rather than routing the grid's scale across DSPs.
+    reg coarse_q;
+    reg [4:0] debug_previous_state;
+    reg [15:0] debug_wait;
+    wire [7:0] debug_state=state;
+    // Observation only. No watchdog/recovery is inserted into the solver.
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)begin debug_previous_state<=IDLE;debug_wait<=0;end
+        else begin
+            debug_previous_state<=state;
+            if(state!=debug_previous_state || state==IDLE)debug_wait<=0;
+            else if(debug_wait!=16'hffff)debug_wait<=debug_wait+1'b1;
+        end
+    end
+    assign debug_status={debug_state,div_count,
+        coarse_q,range_ok,valid,done,busy,div_start,div_done,div_busy,debug_wait};
+    always @(posedge clk or negedge rst_n)
+        if(!rst_n)coarse_q<=0;else if(start && state==IDLE)coarse_q<=coarse;
+    wire [15:0] image_width=PYRAMID && coarse_q ? WIDTH/2 : WIDTH;
+    wire [15:0] image_height=PYRAMID && coarse_q ? HEIGHT/2 : HEIGHT;
     wire signed [17:0] result_u=$signed(seed_u)+$signed(du);
     wire signed [17:0] result_v=$signed(seed_v)+$signed(dv);
     wire signed [8:0] diff_x=$signed({1'b0,pr})-$signed({1'b0,pl});
     wire signed [8:0] diff_y=$signed({1'b0,pb})-$signed({1'b0,pt});
     vision_divider #(.WIDTH(64)) divide(.clk(clk),.rst_n(rst_n),.start(div_start),
-        .numerator(dividend),.denominator(divisor),.busy(),.done(div_done),.quotient(quotient));
+        .numerator(dividend),.denominator(divisor),.busy(div_busy),.done(div_done),.quotient(quotient),.debug_count(div_count));
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
             state<=IDLE;busy<=0;done<=0;valid<=0;u<=0;v<=0;read_enable<=0;read_current<=0;read_address<=0;
@@ -55,10 +74,16 @@ module flow_lk_patch #(parameter WIDTH=160,HEIGHT=90,STEP_LIMIT=512,FLOW_LIMIT=2
             mix_top<=0;mix_bottom<=0;mix_total<=0;gx<=0;gy<=0;gt<=0;xx<=0;yy<=0;xy<=0;xt<=0;yt<=0;
             axx<=0;ayy<=0;axy<=0;axt<=0;ayt<=0;d0<=0;d1<=0;nu0<=0;nu1<=0;nv0<=0;nv1<=0;
             det<=0;nu<=0;nv<=0;trace_square<=0;div_start<=0;dividend<=0;divisor<=0;du<=0;dv<=0;range_ok<=0;
+            debug_fault<=0;
         end else begin
             done<=0;read_enable<=0;div_start<=0;
             case(state)
-                IDLE:if(start)begin
+                IDLE:if(busy)begin
+                    // Captured on hardware: state=IDLE, busy=1, no done.
+                    // Abort this inconsistent in-flight patch through FINISH.
+                    if(!debug_fault[11])debug_fault<={1'b1,1'b1,5'd0,debug_previous_state};
+                    range_ok<=0;state<=FINISH;
+                end else if(start)begin
                     busy<=1;valid<=0;u<=0;v<=0;cx<=$signed({1'b0,center_x});cy<=$signed({1'b0,center_y});
                     seed_u<=initial_u;seed_v<=initial_v;fx<=initial_u[6:0];fy<=initial_v[6:0];
                     sx<=$signed({1'b0,center_x})-2;sy<=$signed({1'b0,center_y})-2;
@@ -152,7 +177,13 @@ module flow_lk_patch #(parameter WIDTH=160,HEIGHT=90,STEP_LIMIT=512,FLOW_LIMIT=2
                     if(range_ok && result_u>=-FLOW_LIMIT && result_u<=FLOW_LIMIT && result_v>=-FLOW_LIMIT && result_v<=FLOW_LIMIT)begin u<=result_u[15:0];v<=result_v[15:0];end
                     else begin u<=0;v<=0;end
                 end
-                default:state<=IDLE;
+                // Preserve the one-start/one-done contract on an illegal FSM
+                // encoding. IDLE alone strands the grid in WAIT_PATCH forever.
+                // Retain the first observed code until explicit reset.
+                default:begin
+                    if(!debug_fault[11])debug_fault<={1'b1,1'b0,state,debug_previous_state};
+                    range_ok<=0;state<=FINISH;
+                end
             endcase
         end
     end

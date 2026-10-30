@@ -1,0 +1,17 @@
+{
+  "result_frame": 0,
+  "current_frame": 16514,
+  "class_id": 0,
+  "confidence": 0,
+  "center_x": 0,
+  "center_y": 0,
+  "age_frames": 65535,
+  "accepted": 0,
+  "rejected": 0,
+  "target_valid": false,
+  "frame_seen": true,
+  "sequence_seen": false,
+  "stream_ready": true,
+  "reason": 7,
+  "direction": "none"
+}

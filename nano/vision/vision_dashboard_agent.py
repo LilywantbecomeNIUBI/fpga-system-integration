@@ -16,6 +16,8 @@ import cv2
 from vision_dashboard_common import Capture,create_detector,PROFILE,select_feedback,jpeg
 from vision_v23_protocol import model_detection
 from shared.perception import PerceptionEvents
+from shared.live_capture import Capture
+from shared.capture_process import CaptureProcess
 from vision_protocol import parse_status
 from vision_models import MODEL_IDS,model_paths,resolve_model
 
@@ -43,12 +45,16 @@ def main():
     ap.add_argument('--backend',choices=('tensorrt','opencv'),default='tensorrt')
     ap.add_argument('--model',choices=MODEL_IDS,default='yolov3-tiny')
     ap.add_argument('--engine',type=Path)
+    ap.add_argument('--capture-buffer-kib',type=int,default=4096)
+    ap.add_argument('--capture-process',action='store_true',help='Isolate UDP assembly from inference Python GIL')
     ap.add_argument('--offline-image',type=Path,help='One static inference; never opens FPGA sockets')
     ap.add_argument('--token',required=True);ap.add_argument('--out',type=Path,required=True);args=ap.parse_args()
     resolve_model(args.model,args.backend)
     if args.engine is None:args.engine=Path(model_paths(Path(__file__).resolve().parent,args.model_dir,args.model)['engine'])
     args.out.mkdir(parents=True,exist_ok=True)
-    capture=StaticCapture(args.offline_image) if args.offline_image else Capture(args.bind,source=args.fpga,encode_preview=False)
+    if not 128<=args.capture_buffer_kib<=8192:ap.error('capture-buffer-kib must be 128..8192')
+    capture_class=CaptureProcess if args.capture_process else Capture
+    capture=StaticCapture(args.offline_image) if args.offline_image else capture_class(args.bind,source=args.fpga,encode_preview=False,buffer_kib=args.capture_buffer_kib)
     stop=threading.Event();lock=threading.Lock()
     session=uuid.uuid4().hex;state=dict(result=None,event=None,event_stamp=None,error=None,inferences=0,model='正在加载模型')
     perception=PerceptionEvents()
@@ -124,6 +130,24 @@ def main():
         def log_message(self,*args):pass
         def do_GET(self):
             parsed=urlsplit(self.path)
+            if parsed.path=='/infer.mjpg':
+                self.send_response(200)
+                self.send_header('Content-Type','multipart/x-mixed-replace; boundary=frame')
+                self.send_header('Cache-Control','no-store');self.end_headers()
+                self.connection.settimeout(1);last=None
+                try:
+                    while not stop.is_set():
+                        with lock:
+                            result=state['result']
+                            item=(result['sequence'],result['jpeg_b64']) if result and time.monotonic()-result['finished']<.5 else None
+                        if item and item[0]!=last:
+                            last=item[0];encoded=base64.b64decode(item[1])
+                            self.wfile.write(b'--frame\r\nContent-Type: image/jpeg\r\nContent-Length: '+str(len(encoded)).encode()+
+                                b'\r\nX-Frame-Key: '+(session+'-'+str(last)).encode()+b'\r\n\r\n'+encoded+b'\r\n')
+                            self.wfile.flush()
+                        stop.wait(.005)
+                except (OSError,ValueError):pass
+                return
             if parsed.path not in ('/health','/api/result'):
                 self.send_error(404);return
             data=snapshot();result=data.get('result')

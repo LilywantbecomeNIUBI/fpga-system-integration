@@ -20,7 +20,10 @@ module tb_flow_avoidance;
                 if(recede)begin u=-u;v=-v;end
                 @(negedge clk);sv=0;
             end
-            repeat(3)@(negedge clk);fd=1;@(negedge clk);fd=0;repeat(2)@(negedge clk);
+            repeat(3)@(negedge clk);fd=1;@(negedge clk);fd=0;
+            // Completion follows the drained arithmetic pipeline, not a fixed
+            // number of cycles assumed by the old unpipelined implementation.
+            wait(status);@(negedge clk);
         end
     endtask
     initial begin

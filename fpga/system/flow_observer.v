@@ -9,10 +9,11 @@ module flow_observer #(parameter STAGE=2)(
     wire signed [15:0] fu,fv;wire [31:0] cycles,drops;wire [2:0] state,hazard;
     wire stop;wire signed [1:0] steer;wire [7:0] speed;wire [15:0] nl,nc,nr,rl,rc,rr;
     wire flow_pixel=ov && !ox[0] && !oy[0];
-    flow_pipeline #(.PYRAMID(STAGE==2)) flow(.clk(camera_pclk),.rst_n(cap_rst_n),.frame_start(os),.frame_end(oe),.frame_good(og),
+    wire [143:0] debug_status;
+    flow_pipeline #(.PYRAMID(STAGE==2),.OUTPUT_DRAIN_CYCLES(STAGE>0 ? 4 : 0)) flow(.clk(camera_pclk),.rst_n(cap_rst_n),.frame_start(os),.frame_end(oe),.frame_good(og),
         .pixel_valid(flow_pixel),.frame_id(ofid),.x(ox>>1),.y(oy>>1),.luma(luma),.busy(busy),.frame_done(flow_done),
         .sample_valid(sv),.sample_good(sg),.history_lost(lost),.pair_begin(pair_begin),.result_id(result_id),
-        .flow_x(fx),.flow_y(fy),.flow_u(fu),.flow_v(fv),.cycles(cycles),.dropped_frames(drops));
+        .flow_x(fx),.flow_y(fy),.flow_u(fu),.flow_v(fv),.cycles(cycles),.dropped_frames(drops),.debug_status(debug_status));
     generate if(STAGE>0)begin:avoidance
         flow_avoidance safety(.clk(camera_pclk),.rst_n(cap_rst_n),.frame_begin(pair_begin),.frame_done(flow_done),.invalidate(lost),
             .sample_valid(sv),.sample_good(sg),.frame_id(result_id),.x(fx),.y(fy),.u(fu),.v(fv),
@@ -24,8 +25,22 @@ module flow_observer #(parameter STAGE=2)(
     end endgenerate
     wire obs_valid;wire [255:0] obs;
     flow_event_source #(.STAGE(STAGE)) event_source(.clk(camera_pclk),.rst_n(cap_rst_n),.frame_begin(pair_begin),.sample_valid(sv),.sample_good(sg),
-        .status_valid(status_valid),.frame_id(result_id),.x(fx),.y(fy),.u(fu),.v(fv),.state(state),.hazard(hazard),.stop_request(stop),.steer(steer),.speed_limit(speed),
+        .status_valid(status_valid),.frame_id(status_valid ? status_id : result_id),.x(fx),.y(fy),.u(fu),.v(fv),.state(state),.hazard(hazard),.stop_request(stop),.steer(steer),.speed_limit(speed),
         .left_valid(nl),.center_valid(nc),.right_valid(nr),.left_risk(rl),.center_risk(rc),.right_risk(rr),.cycles(cycles),.dropped_frames(drops),
         .event_valid(obs_valid),.event_payload(obs));
-    assign event_valid=obs_valid;assign event_payload=obs;
+    // Approximately 10Hz diagnostic packets share the existing immutable CDC.
+    // Ordinary observations win; diagnostics never alter solver control.
+    reg [22:0] debug_timer;reg debug_pending;
+    localparam [7:0] DEBUG_STAGE=STAGE;
+    wire debug_send=debug_pending && !obs_valid;
+    always @(posedge camera_pclk or negedge cap_rst_n)begin
+        if(!cap_rst_n)begin debug_timer<=0;debug_pending<=0;end
+        else begin
+            debug_timer<=debug_timer+1'b1;
+            if(&debug_timer)debug_pending<=1;
+            else if(debug_send)debug_pending<=0;
+        end
+    end
+    assign event_valid=obs_valid || debug_send;
+    assign event_payload=debug_send ? {32'h4f464447,8'd1,DEBUG_STAGE,debug_status,cycles,drops} : obs;
 endmodule

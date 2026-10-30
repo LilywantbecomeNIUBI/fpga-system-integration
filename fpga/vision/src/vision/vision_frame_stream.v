@@ -7,8 +7,8 @@ module vision_frame_stream #(
     input wr_clk,wr_rst_n,frame_start,frame_end,frame_good,
     input [15:0] frame_id,pixel,input pixel_valid,
     input rd_clk,rd_rst_n,payload_read,tx_done,
-    output [7:0] payload_data,output [15:0] payload_length,packet_frame_id,
-    output packet_first,output reg tx_start,output reg [31:0] dropped_frames
+    output reg [7:0] payload_data,output [15:0] payload_length,packet_frame_id,
+    output reg packet_first,output reg tx_start,output reg [31:0] dropped_frames
 );
     localparam AB=$clog2(WIDTH*ACTIVE_HEIGHT),TOTAL=WIDTH*ACTIVE_HEIGHT;
     localparam TOP=(CANVAS_HEIGHT-ACTIVE_HEIGHT)/2;
@@ -39,37 +39,45 @@ module vision_frame_stream #(
     localparam CB=$clog2(WIDTH);
     reg [2:0] state;reg [4:0] gap;reg [15:0] fid,row,index;
     reg [AB-1:0] frame_address;reg [15:0] ram_word,cached_word;
-    reg [15:0] line_ram[0:(1<<CB)-1];reg [15:0] line_word;
+    reg [15:0] line_ram[0:(1<<CB)-1];reg [15:0] line_word,line_ram_dout_r;
     reg [CB:0] fill_count;reg [CB-1:0] fill_index0,fill_index1,word_index;
     reg [1:0] fill_valid;reg central,pixel_phase;
     wire fill_request=state==FILL;
-    wire [CB-1:0] line_prefetch=word_index+(payload_read && pixel_phase && index[0]);
+    // Keep the next word at the RAM output throughout both byte phases. The
+    // extra output register advances only after the current high byte is read,
+    // so even a stall between the two bytes cannot replace the current pixel.
+    wire [CB-1:0] line_prefetch=word_index+pixel_phase;
     always @(posedge rd_clk)begin
         ram_word<=ram[{rptr[0],frame_address}];cached_word<=ram_word;
         if(fill_valid[1])line_ram[fill_index1]<=cached_word;
         line_word<=line_ram[line_prefetch];
+        if(!pixel_phase || (payload_read && index[0]))line_ram_dout_r<=line_word;
     end
-    assign packet_frame_id=fid;assign packet_first=row==0;assign payload_length=16+WIDTH*2;
+    assign packet_frame_id=fid;assign payload_length=16+WIDTH*2;
     reg [7:0] header;
+    wire [15:0] next_index=index+1'b1;
+    wire next_phase=pixel_phase || index==15;
+    wire [15:0] next_word=pixel_phase && index[0] ? line_word : line_ram_dout_r;
     always @*begin
-        case(index[3:0])
+        case(next_index[3:0])
             0:header="C";1:header="V";2:header=2;3:header=1;
             4:header=fid[7:0];5:header=fid[15:8];6:header=row[7:0];7:header=row[15:8];
             8:header=0;9:header=0;10:header=IMAGE_W[7:0];11:header=IMAGE_W[15:8];
             12:header=IMAGE_W[7:0];13:header=IMAGE_W[15:8];14:header=IMAGE_H[7:0];15:header=IMAGE_H[15:8];
         endcase
     end
-    // Decode selectors in parallel: BSRAM output crosses a single byte-select
-    // layer before the UDP selector, rather than three nested pixel/header muxes.
-    assign payload_data=({8{!pixel_phase}} & header) |
-        ({8{pixel_phase && central && !index[0]}} & line_word[7:0]) |
-        ({8{pixel_phase && central && index[0]}} & line_word[15:8]) |
-        ({8{pixel_phase && !central && !index[0]}} & PAD_PIXEL[7:0]) |
-        ({8{pixel_phase && !central && index[0]}} & PAD_PIXEL[15:8]);
+    // The RAM output register separates the BSRAM read from the UDP byte mux.
+    // One-byte lookahead stage. Consume replaces the byte; a stall retains it.
+    // LOAD primes byte zero before the receiver sees tx_start.
+    always @(posedge rd_clk)
+        if(state==LOAD)payload_data<="C";
+        else if(payload_read)payload_data<=!next_phase ? header : central ?
+            (next_index[0] ? next_word[15:8] : next_word[7:0]) :
+            (next_index[0] ? PAD_PIXEL[15:8] : PAD_PIXEL[7:0]);
     always @(posedge rd_clk or negedge rd_rst_n)begin
         if(!rd_rst_n)begin
             rptr<=0;rgray<=0;ws0<=0;ws1<=0;state<=IDLE;gap<=0;fid<=0;row<=0;index<=0;frame_address<=0;
-            tx_start<=0;central<=0;pixel_phase<=0;fill_count<=0;fill_index0<=0;fill_index1<=0;fill_valid<=0;word_index<=0;
+            tx_start<=0;packet_first<=0;central<=0;pixel_phase<=0;fill_count<=0;fill_index0<=0;fill_index1<=0;fill_valid<=0;word_index<=0;
         end
         else begin
             ws0<=wgray;ws1<=ws0;tx_start<=0;
@@ -81,6 +89,7 @@ module vision_frame_stream #(
             end
             case(state)
                 IDLE:if(!empty)begin
+                    packet_first<=1;
                     fid<=descriptors[rptr[0]];row<=0;index<=0;word_index<=0;pixel_phase<=0;central<=TOP==0;frame_address<=0;fill_count<=0;
                     state<=TOP==0 ? FILL : LOAD;
                 end
@@ -91,6 +100,7 @@ module vision_frame_stream #(
                 GAP:if(gap==15)begin
                     if(row==CANVAS_HEIGHT-1)begin rptr<=rn;rgray<=rn^(rn>>1);state<=IDLE;end
                     else begin
+                        packet_first<=0;
                         row<=row+1'b1;index<=0;word_index<=0;pixel_phase<=0;fill_count<=0;
                         central<=row>=TOP-1 && row<TOP+ACTIVE_HEIGHT-1;
                         state<=row>=TOP-1 && row<TOP+ACTIVE_HEIGHT-1 ? FILL : LOAD;

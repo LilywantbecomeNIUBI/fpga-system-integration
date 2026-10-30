@@ -1,0 +1,16 @@
+{
+  "started_utc": "2026-10-30T16:29:06.960444+00:00",
+  "bitstream": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\build\\pnr_compare_20261030T150734Z\\selected\\system.fs",
+  "bitstream_sha256": "2cdcd3b5ef230803076bee9ee2459d907492653605ee032888d4a11317610fd4",
+  "evidence": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\docs\\evidence\\pnr_optimization_20261030T150734Z",
+  "source_identity_verified": true,
+  "experimental": true,
+  "timing_signoff": false,
+  "mpw_status": "unresolved_not_waived",
+  "min_pulse_slack_ns": -0.688,
+  "motor_power_off_confirmed": true,
+  "operation": "SRAM Program",
+  "flash_written": false,
+  "motion_commands_sent": false,
+  "download_confirmed": true
+}

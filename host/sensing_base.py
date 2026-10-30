@@ -21,6 +21,7 @@ import numpy as np
 from vision_dashboard_common import Capture, jpeg
 from vision_dashboard import NanoResults
 from shared.perception import PerceptionEvents
+from shared.live_capture import Capture
 spec = importlib.util.spec_from_file_location('imu_protocol', ROOT/'vendor/imu/pc/imu_viewer.py')
 imu_protocol = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(imu_protocol)
@@ -218,6 +219,19 @@ class Session:
             return item[3] if item and time.monotonic()-item[2]<.5 else None
         with self.frame_lock:
             return self.demo_image[0] if self.demo_image and time.monotonic()-self.demo_image[1]<.5 else None
+
+    def stream_image(self, inference=False):
+        """Newest encoded frame only; a slow viewer never builds a frame queue."""
+        if inference:
+            if not self.nano:return None
+            status=self.nano.state();result=(status.get('data') or {}).get('result') or {}
+            if not status['online'] or result.get('age_ms',float('inf'))+(status.get('poll_age_ms') or 0)>=500:return None
+            key=result.get('key');cached=self.nano.exact(key)
+            return (key,cached[0]) if cached else None
+        if self.capture:
+            item=self.capture.frame()
+            return (item[0],item[3]) if item and time.monotonic()-item[2]<.5 and item[3] else None
+        return None
 
     def record(self, enabled):
         with self.record_lock:

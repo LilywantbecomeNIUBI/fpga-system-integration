@@ -1,0 +1,43 @@
+{
+  "bitstream_sha256": "2cdcd3b5ef230803076bee9ee2459d907492653605ee032888d4a11317610fd4",
+  "sram_programmed": true,
+  "flash_written": false,
+  "motion_commands_sent": false,
+  "started_unix": 1793378699.8695781,
+  "finished_unix": 1793378711.0432482,
+  "purpose": "Repeat optical-flow stall using identical bitstream",
+  "endpoints": [
+    {
+      "board_ip": "192.168.50.30",
+      "local_ip": "192.168.50.10",
+      "target_ip": "192.168.50.10",
+      "target_port": 6104,
+      "enabled": true,
+      "arp_valid": false,
+      "target_mac": "00:00:00:00:00:00",
+      "arp_requests": 0,
+      "received_small_frames": 6,
+      "error": 0,
+      "request_id": 300331002,
+      "slot": 0,
+      "supported_slots": 2,
+      "perception_events": true
+    },
+    {
+      "board_ip": "192.168.50.30",
+      "local_ip": "192.168.50.10",
+      "target_ip": "192.168.50.20",
+      "target_port": 6102,
+      "enabled": true,
+      "arp_valid": false,
+      "target_mac": "00:00:00:00:00:00",
+      "arp_requests": 1,
+      "received_small_frames": 8,
+      "error": 0,
+      "request_id": 2408873286,
+      "slot": 1,
+      "supported_slots": 2,
+      "perception_events": true
+    }
+  ]
+}

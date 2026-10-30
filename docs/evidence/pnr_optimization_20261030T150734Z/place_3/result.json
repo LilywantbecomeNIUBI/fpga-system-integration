@@ -1,0 +1,18 @@
+{
+  "place_option": 3,
+  "route_option": 1,
+  "timing_driven": 1,
+  "setup": 405,
+  "hold": 0,
+  "wns_ns": -0.669,
+  "min_pulse_slack_ns": -0.688,
+  "clock_route_warnings": [
+    "WARN  (PR1014) : Generic routing resource will be used to clock signal 'camera_pclk_d' by the specified constraint. And then it may lead to the excessive delay or skew"
+  ],
+  "netlist_sha256": "b9c3a2c67225e634851c83d90145bf7781cf1bf16c50a76a4373364cc95a27ed",
+  "bitstream_sha256": "5834d810b130fd8f610faf8e737408abb74099d75bf350f9dc8ec1f72e7a1c98",
+  "tool_result": {
+    "exit_code": 0,
+    "cli_terminated_after_completed_outputs": false
+  }
+}

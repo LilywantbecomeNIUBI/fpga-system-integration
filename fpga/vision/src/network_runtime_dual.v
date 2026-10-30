@@ -130,7 +130,10 @@ module network_runtime_dual #(
     end
     assign cache_hit=found;assign target_mac=found_mac;
     assign cache2_hit=found2;assign target2_mac=found2_mac;
-    reg [31:0] second_count,retry_count,retry_count2;
+    localparam SECOND_BITS=CLK_HZ<2 ? 1 : $clog2(CLK_HZ);
+    reg [SECOND_BITS-1:0] second_count;reg second_tick;
+    localparam RETRY_BITS=$clog2(CLK_HZ*2+1);
+    reg [RETRY_BITS-1:0] retry_count,retry_count2;
     reg arp_due0,arp_due1;
     // Retry reductions must not sit in front of the full dispatch priority tree.
     // A registered request may be one clock old; dispatch rechecks availability.
@@ -145,12 +148,15 @@ module network_runtime_dual #(
     reg learn;reg [31:0] learned_ip;reg [47:0] learned_mac;
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
-            cache_valid0<=0;cache_valid1<=0;second_count<=0;
+            cache_valid0<=0;cache_valid1<=0;second_count<=0;second_tick<=CLK_HZ==1;
             cache_ip0<=0;cache_ip1<=0;cache_mac0<=0;cache_mac1<=0;cache_age0<=0;cache_age1<=0;
             learn_pending<=0;learn_match0<=0;learn_match1<=0;
         end else begin
             learn_pending<=learn;learn_match0<=learned_ip==target_ip;learn_match1<=learned_ip==target2_ip;
-            if(second_count==CLK_HZ-1)begin
+            // Predict the terminal count by a beat; cache expiry still occurs
+            // on the original CLK_HZ-th edge rather than one cycle later.
+            second_tick<=CLK_HZ==1 || (!second_tick && second_count==CLK_HZ-2);
+            if(second_tick)begin
                 second_count<=0;
                 if(cache_valid0)begin if(cache_age0<=1)cache_valid0<=0;else cache_age0<=cache_age0-1'b1;end
                 if(cache_valid1)begin if(cache_age1<=1)cache_valid1<=0;else cache_age1<=cache_age1-1'b1;end

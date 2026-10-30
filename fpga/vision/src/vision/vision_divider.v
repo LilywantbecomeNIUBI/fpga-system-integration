@@ -1,8 +1,9 @@
 // Bounded WIDTH-cycle unsigned restoring divider; default preserves the vision API.
 module vision_divider #(parameter WIDTH=32)(input clk,rst_n,start,input [WIDTH-1:0] numerator,denominator,
-    output reg busy,done,output reg [WIDTH-1:0] quotient);
+    output reg busy,done,output reg [WIDTH-1:0] quotient,output [7:0] debug_count);
     reg [WIDTH-1:0] n,d;reg [WIDTH:0] remainder;reg [$clog2(WIDTH)-1:0] count;
     wire [WIDTH:0] trial={remainder[WIDTH-1:0],n[WIDTH-1]};
+    assign debug_count=count;
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin busy<=0;done<=0;quotient<=0;n<=0;d<=0;remainder<=0;count<=0;end
         else begin

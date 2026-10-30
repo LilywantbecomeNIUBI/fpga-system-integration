@@ -1,0 +1,24 @@
+{
+  "flow_event_bridge": {
+    "data_register_count": 770,
+    "primitive_types": [
+      "DFFRE"
+    ],
+    "asynchronous_clear_data_registers": []
+  },
+  "vision_v23_bridge": {
+    "data_register_count": 368,
+    "primitive_types": [
+      "DFFRE",
+      "DFFSE"
+    ],
+    "asynchronous_clear_data_registers": []
+  },
+  "event_packet_mux": {
+    "data_register_count": 216,
+    "primitive_types": [
+      "DFFRE"
+    ],
+    "asynchronous_clear_data_registers": []
+  }
+}

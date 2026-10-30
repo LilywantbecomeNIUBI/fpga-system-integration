@@ -1,0 +1,21 @@
+{
+  "system.json": {
+    "passed": true,
+    "inputs": 170,
+    "later_source_changes": [
+      "host/dashboard.py",
+      "host/index.html",
+      "nano/vision/vision_dashboard_agent.py"
+    ]
+  },
+  "perception_result.json": {
+    "passed": true,
+    "inputs": 37,
+    "later_source_changes": []
+  },
+  "full_top_result.json": {
+    "passed": true,
+    "inputs": 62,
+    "later_source_changes": []
+  }
+}

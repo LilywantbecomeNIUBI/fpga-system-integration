@@ -1,0 +1,20 @@
+[
+  {
+    "kind": "camera",
+    "resolved_url": "http://127.0.0.1:8875/camera.mjpg",
+    "frames": 173,
+    "distinct_keys": 173,
+    "fps": 30.003323740296477,
+    "seconds": 5.732698199999504,
+    "jpeg_bytes_mean": 17296.156069364162
+  },
+  {
+    "kind": "infer",
+    "resolved_url": "http://192.168.50.20:8766/infer.mjpg",
+    "frames": 142,
+    "distinct_keys": 142,
+    "fps": 24.58845037586864,
+    "seconds": 5.734399599999961,
+    "jpeg_bytes_mean": 17296.077464788734
+  }
+]

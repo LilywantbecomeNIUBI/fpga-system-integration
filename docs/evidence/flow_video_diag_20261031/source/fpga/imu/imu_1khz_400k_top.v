@@ -1,0 +1,45 @@
+`timescale 1ns/1ps
+module imu_1khz_400k_top(
+    input clk50m, input reset_n, inout imu_i2c_scl, inout imu_i2c_sda,
+    output uart_tx, output [7:0] led,
+    output m1_pwm_ah, m1_pwm_al, m1_pwm_bh, m1_pwm_bl, m1_pwm_ch, m1_pwm_cl,
+    output m2_pwm_ah, m2_pwm_al, m2_pwm_bh, m2_pwm_bl, m2_pwm_ch, m2_pwm_cl,
+    output m1_drv_en, m2_drv_en, m1_cal, m2_cal, lidar_moto_pwm,
+    output adc_convst, adc_cs_n, adc_sclk, adc_reset,
+    output enc1_cs_n, enc1_clk, enc2_cs_n, enc2_clk, lidar_uart_tx
+);
+    imu_1khz_top #(.I2C_HZ(400000)) board(
+        .clk50m(clk50m),
+        .reset_n(reset_n),
+        .imu_i2c_scl(imu_i2c_scl),
+        .imu_i2c_sda(imu_i2c_sda),
+        .uart_tx(uart_tx),
+        .led(led),
+        .m1_pwm_ah(m1_pwm_ah),
+        .m1_pwm_al(m1_pwm_al),
+        .m1_pwm_bh(m1_pwm_bh),
+        .m1_pwm_bl(m1_pwm_bl),
+        .m1_pwm_ch(m1_pwm_ch),
+        .m1_pwm_cl(m1_pwm_cl),
+        .m2_pwm_ah(m2_pwm_ah),
+        .m2_pwm_al(m2_pwm_al),
+        .m2_pwm_bh(m2_pwm_bh),
+        .m2_pwm_bl(m2_pwm_bl),
+        .m2_pwm_ch(m2_pwm_ch),
+        .m2_pwm_cl(m2_pwm_cl),
+        .m1_drv_en(m1_drv_en),
+        .m2_drv_en(m2_drv_en),
+        .m1_cal(m1_cal),
+        .m2_cal(m2_cal),
+        .lidar_moto_pwm(lidar_moto_pwm),
+        .adc_convst(adc_convst),
+        .adc_cs_n(adc_cs_n),
+        .adc_sclk(adc_sclk),
+        .adc_reset(adc_reset),
+        .enc1_cs_n(enc1_cs_n),
+        .enc1_clk(enc1_clk),
+        .enc2_cs_n(enc2_cs_n),
+        .enc2_clk(enc2_clk),
+        .lidar_uart_tx(lidar_uart_tx)
+    );
+endmodule

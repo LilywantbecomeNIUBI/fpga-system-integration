@@ -1,0 +1,10 @@
+UNCONN8292736  0                       192.168.50.20:6102          0.0.0.0:*    
+UNCONN0        0                           127.0.0.1:53            0.0.0.0:*    
+--
+UNCONN0        0                       192.168.50.20:6202          0.0.0.0:*    
+UNCONN0        0                             0.0.0.0:68            0.0.0.0:*    
+Udp: InDatagrams NoPorts InErrors OutDatagrams RcvbufErrors SndbufErrors InCsumErrors IgnoredMulti
+Udp: 26270882 121954 1782426 98822 1782426 85 0 184
+UdpLite: InDatagrams NoPorts InErrors OutDatagrams RcvbufErrors SndbufErrors InCsumErrors IgnoredMulti
+UdpLite: 0 0 0 0 0 0 0 0
+25238  133 35.7 /usr/bin/python3 /home/liwei/robot_sensing_board_20261031_002906/launcher.py

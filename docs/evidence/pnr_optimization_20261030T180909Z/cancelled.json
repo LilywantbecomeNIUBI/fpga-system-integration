@@ -1,0 +1,6 @@
+{
+  "compiler_pid": 40236,
+  "reports_valid_for_download": false,
+  "gowin_pid": 45540,
+  "reason": "Superseded: add direct IDLE/busy invariant handling matching captured hardware state"
+}

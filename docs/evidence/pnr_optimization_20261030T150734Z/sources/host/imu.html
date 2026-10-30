@@ -1,0 +1,17 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IMU与连接状态</title>
+<style>body{margin:0;background:#101724;color:#e8eef7;font:16px system-ui}main{max-width:1000px;margin:auto;padding:24px}a{color:#78c7ff}nav{display:flex;gap:24px;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}section{background:#1a2638;border:1px solid #36465b;border-radius:12px;padding:20px;margin-top:20px}h1{font-size:26px}h2{font-size:19px}p{line-height:1.8}.value{font-size:23px;color:#8bded0}small{color:#b4c5da}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style>
+<main><h1>IMU与连接状态</h1><nav><a href="/home">上位机入口</a><a href="/motor">轮速调参 / 行驶</a><a href="http://127.0.0.1:8872/">视觉状态台</a></nav>
+<p id="status" role="status">读取状态中…</p><div class="grid"><section><h2>姿态 · 传感器坐标系</h2><p id="attitude" class="value">—</p><small>俯仰/横滚为主机互补滤波估算；航向角尚不可用。当前仅显示，不参与运动控制。</small></section><section><h2>加速度 / 角速度</h2><p id="axes">—</p><small>X / Y / Z顺序；加速度含重力。</small></section><section><h2>采样与链路</h2><pre id="health">—</pre></section><section><h2>当前端口</h2><p id="ports">—</p><small>电机和IMU共用Nano上的FPGA串口115200波特率，PC不另占串口。IMU接口：P7-39/F19 SCL、P7-40/F20 SDA；需3.3V逻辑与共地。</small></section></div>
+<p><small>电机专用固件不会产生IMU数据；须加载电机＋IMU候选并通过静态检查。IMU过期时清空读数，恢复后不会自动解锁电机。</small></p></main>
+<script>
+'use strict';const $=id=>document.getElementById(id);
+function render(s){const online=!!s.gateway?.online,d=s.gateway?.data||{},imu=d.imu||{},f=imu.frame||{},a=imu.attitude||{},stats=imu.statistics||{},fresh=online&&imu.online&&imu.healthy;
+ $('status').textContent=!online?'Nano网关离线':!imu.online?'网关在线 · 等待IMU数据（检查固件、供电及I²C接线）':!imu.healthy?'IMU已连接 · 传感器未就绪或报告故障':'IMU在线 · 数据新鲜';
+ const num=(x,n=2)=>Number.isFinite(x)?x.toFixed(n):'—';
+ $('attitude').textContent=fresh&&a.valid?'俯仰 '+num(a.pitch_deg)+'° / 横滚 '+num(a.roll_deg)+'°':'—';
+ $('axes').textContent=fresh?'加速度：'+['ax_g','ay_g','az_g'].map(k=>num(f[k],3)).join(' / ')+' g；角速度：'+['gx_dps','gy_dps','gz_dps'].map(k=>num(f[k])).join(' / ')+' °/s':'—';
+ $('health').textContent='数据年龄：'+(online?num(imu.age_ms,0):'—')+' ms\n观测帧率：'+(online?num(stats.observed_rate_hz,1):'—')+' Hz\nIMU CRC错误：'+(online?(stats.crc_failures??'—'):'—')+'\nUART CRC错误：'+(online?(d.uart_bad_crc??'—'):'—')+'\nWHO_AM_I：'+(fresh?'0x'+Number(f.who_am_i).toString(16):'—')+'\n传感器错误：'+(online?(f.error_count??'—'):'—');
+ const url=s.connection?.gateway_url||'未配置';$('ports').textContent='当前页面：'+location.host+' /imu；电机：同端口 /motor；Nano网关：'+url+'；视觉状态台：127.0.0.1:8872。';
+}
+async function poll(){try{const r=await fetch('/api/state');if(!r.ok)throw Error('状态请求失败');render(await r.json())}catch(e){render({});$('status').textContent='连接不可用：'+e.message}finally{setTimeout(poll,200)}}poll();
+</script></html>
