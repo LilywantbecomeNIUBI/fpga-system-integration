@@ -12,6 +12,7 @@ module flow_event_bridge #(parameter CLK_HZ=125000000,TIMEOUT_MS=100,STAGE=2)(
     wire status_in=observation_valid && observation_payload[255:224]==32'h4f465354;
     wire vector_in=observation_valid && observation_payload[255:224]==32'h4f464c57;
     wire expiring=!expired && deadline_due;
+    wire pending=status_dirty || status_in || expiring || ready_d!=stream_ready || vector_dirty || vector_in;
     wire [255:0] selected=status_in ? observation_payload : latest;
     wire usable=stream_ready && (have_status || status_in) && (!(expired || expiring) || status_in) && selected[201];
     reg [255:0] masked;
@@ -40,12 +41,13 @@ module flow_event_bridge #(parameter CLK_HZ=125000000,TIMEOUT_MS=100,STAGE=2)(
             if(ready_d!=stream_ready)status_dirty<=1;
             if(status_in)begin latest<=observation_payload;have_status<=1;expired<=0;age<=0;deadline_due<=0;status_dirty<=1;end
             if(vector_in)begin vector<=observation_payload;vector_dirty<=1;end
-            if(event_valid && event_ready)event_valid<=0;
+            // Keep ready-to-valid logic independent of the wide payload enable.
+            event_valid<=(event_valid && !event_ready) || pending;
             if(!event_valid || event_ready)begin
                 if(status_dirty || status_in || expiring || ready_d!=stream_ready)begin
-                    event_payload<=masked;event_valid<=1;status_dirty<=0;
+                    event_payload<=masked;status_dirty<=0;
                 end else if(vector_dirty || vector_in)begin
-                    event_payload<=vector_in ? observation_payload : vector;event_valid<=1;vector_dirty<=0;
+                    event_payload<=vector_in ? observation_payload : vector;vector_dirty<=0;
                 end
             end
         end

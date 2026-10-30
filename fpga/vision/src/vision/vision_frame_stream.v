@@ -59,8 +59,13 @@ module vision_frame_stream #(
             12:header=IMAGE_W[7:0];13:header=IMAGE_W[15:8];14:header=IMAGE_H[7:0];15:header=IMAGE_H[15:8];
         endcase
     end
-    wire [15:0] selected=central ? line_word : PAD_PIXEL;
-    assign payload_data=!pixel_phase ? header : index[0] ? selected[15:8] : selected[7:0];
+    // Decode selectors in parallel: BSRAM output crosses a single byte-select
+    // layer before the UDP selector, rather than three nested pixel/header muxes.
+    assign payload_data=({8{!pixel_phase}} & header) |
+        ({8{pixel_phase && central && !index[0]}} & line_word[7:0]) |
+        ({8{pixel_phase && central && index[0]}} & line_word[15:8]) |
+        ({8{pixel_phase && !central && !index[0]}} & PAD_PIXEL[7:0]) |
+        ({8{pixel_phase && !central && index[0]}} & PAD_PIXEL[15:8]);
     always @(posedge rd_clk or negedge rd_rst_n)begin
         if(!rd_rst_n)begin
             rptr<=0;rgray<=0;ws0<=0;ws1<=0;state<=IDLE;gap<=0;fid<=0;row<=0;index<=0;frame_address<=0;

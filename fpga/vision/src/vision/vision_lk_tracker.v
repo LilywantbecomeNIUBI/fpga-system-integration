@@ -38,7 +38,7 @@ module vision_tracker #(
  function [16:0] abs17;input signed [16:0] v;begin abs17=v<0 ? -v : v;end endfunction
  localparam IDLE=0,SEED_INIT=1,PAIR_INIT=2,POINT_INIT=3,POINT_START=4,POINT_WAIT=5,POINT_NEXT=6,
   SORT_INIT=7,SORT_STEP=8,MEDIAN=9,COUNT_INIT=10,COUNT_STEP=11,TRANSLATE=12,APPLY=13,
-  ROI_INIT=14,ROI_REQ=15,ROI_WAIT=16,ROI_TAKE=17,DIV_START=18,DIV_WAIT=19,PUBLISH=20,INVALID=21,POINT_CHECK=22,FB_CHECK=23;
+  ROI_INIT=14,ROI_REQ=15,ROI_WAIT=16,ROI_TAKE=17,DIV_START=18,DIV_WAIT=19,PUBLISH=20,INVALID=21,POINT_CHECK=22,FB_CHECK=23,SORT_READ=24,SORT_COMPARE=25;
  reg [4:0] state;reg pending_seed;reg [256:0] held_seed;
  reg active,tracking_allowed,track_ok,observation_ok,force_yolo,history_miss,scene_change;
  reg have_report;reg [15:0] reported_fid,semantic_fid,job_fid,tracked_fid;
@@ -48,6 +48,7 @@ module vision_tracker #(
  reg reverse,patch_start;reg fb_good;reg [1:0] iteration;
  reg signed [15:0] seed_u,seed_v,forward_u,forward_v,median_u,median_v;
  reg signed [15:0] sort_u[0:15],sort_v[0:15],values_u[0:15],values_v[0:15];
+ reg signed [15:0] sort_au,sort_bu,sort_av,sort_bv;reg swap_u,swap_v;
  reg signed [31:0] remainder_x,remainder_y,shift_x,shift_y;
  wire [15:0] previous_fid=job_fid-16'd1;
  wire [15:0] candidate_x=(x1+(((point_index[1:0]*2+1)*(x2-x1))>>3))/SCALE;
@@ -88,6 +89,7 @@ module vision_tracker #(
    point_index<=0;good_count<=0;sort_i<=0;sort_j<=0;inlier_count<=0;count_index<=0;
    point_x<=0;point_y<=0;last_point_x<=0;last_row_y<=0;reverse<=0;patch_start<=0;fb_good<=0;iteration<=0;
    patch_center_x<=0;patch_center_y<=0;
+   sort_au<=0;sort_bu<=0;sort_av<=0;sort_bv<=0;swap_u<=0;swap_v<=0;
    seed_u<=0;seed_v<=0;forward_u<=0;forward_v<=0;median_u<=0;median_v<=0;
    remainder_x<=0;remainder_y<=0;shift_x<=0;shift_y<=0;roi_address<=0;
    rx0<=0;ry0<=0;rxmax<=0;rymax<=0;rx<=0;ry<=0;red_sum<=0;roi_cells<=0;
@@ -156,10 +158,16 @@ module vision_tracker #(
      if(point_index==15)begin if(good_count<MIN_POINTS)begin reason<=8;state<=INVALID;end else state<=SORT_INIT;end
      else begin point_index<=point_index+1'b1;state<=POINT_INIT;end
     end
-    SORT_INIT:begin sort_i<=0;sort_j<=0;state<=SORT_STEP;end
+    SORT_INIT:begin sort_i<=0;sort_j<=0;state<=SORT_READ;end
+    SORT_READ:begin
+     sort_au<=sort_u[sort_j];sort_bu<=sort_u[sort_j+1'b1];
+     sort_av<=sort_v[sort_j];sort_bv<=sort_v[sort_j+1'b1];state<=SORT_COMPARE;
+    end
+    SORT_COMPARE:begin swap_u<=sort_au>sort_bu;swap_v<=sort_av>sort_bv;state<=SORT_STEP;end
     SORT_STEP:begin
-     if(sort_u[sort_j]>sort_u[sort_j+1'b1])begin sort_u[sort_j]<=sort_u[sort_j+1'b1];sort_u[sort_j+1'b1]<=sort_u[sort_j];end
-     if(sort_v[sort_j]>sort_v[sort_j+1'b1])begin sort_v[sort_j]<=sort_v[sort_j+1'b1];sort_v[sort_j+1'b1]<=sort_v[sort_j];end
+     if(swap_u)begin sort_u[sort_j]<=sort_bu;sort_u[sort_j+1'b1]<=sort_au;end
+     if(swap_v)begin sort_v[sort_j]<=sort_bv;sort_v[sort_j+1'b1]<=sort_av;end
+     state<=SORT_READ;
      if(sort_j==good_count-sort_i-2)begin sort_j<=0;if(sort_i==good_count-2)state<=MEDIAN;else sort_i<=sort_i+1'b1;end
      else sort_j<=sort_j+1'b1;
     end
@@ -205,7 +213,7 @@ module vision_tracker #(
     end
    endcase
    if(state!=IDLE && state!=SEED_INIT && state!=INVALID && state!=PUBLISH &&
-     (!present(job_fid) || (((state>=PAIR_INIT && state<=APPLY) || state==POINT_CHECK || state==FB_CHECK) && !present(previous_fid))))begin history_miss<=1;reason<=5;state<=INVALID;end
+     (!present(job_fid) || (((state>=PAIR_INIT && state<=APPLY) || state==POINT_CHECK || state==FB_CHECK || state==SORT_READ || state==SORT_COMPARE) && !present(previous_fid))))begin history_miss<=1;reason<=5;state<=INVALID;end
   end
  end
 endmodule

@@ -147,7 +147,8 @@
     },
     "fpga/vision/src/vision/vision_frame_stream.v": {
       "source": "src/vision/vision_frame_stream.v",
-      "sha256": "e631430a19b0992dac60cd2dbbedd203b24409ea4f7d108ca4fe142dc3b33fdd"
+      "sha256": "e631430a19b0992dac60cd2dbbedd203b24409ea4f7d108ca4fe142dc3b33fdd",
+      "adapted": true
     },
     "fpga/vision/src/vision/vision_lk_tracker.v": {
       "source": "src/vision/vision_lk_tracker.v",

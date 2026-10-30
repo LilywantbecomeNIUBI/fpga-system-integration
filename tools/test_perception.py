@@ -49,6 +49,9 @@ def main():
                     'tests/vision/tb_perception_deadlines.v','fpga/vision/src/vision/vision_v23_bridge.v',
                     'fpga/vision/src/vision/vision_result_core.v'],cwd=ROOT,check=True)
     subprocess.run(['vvp','build/tests/perception_deadlines.vvp'],cwd=ROOT,check=True)
+    subprocess.run(['iverilog','-g2012','-s','tb_frame_payload','-o','build/tests/frame_payload.vvp',
+                    'tests/vision/tb_frame_payload.v','fpga/vision/src/vision/vision_frame_stream.v'],cwd=ROOT,check=True)
+    subprocess.run(['vvp','build/tests/frame_payload.vvp'],cwd=ROOT,check=True)
     sys.path.insert(0, str(ROOT/'vendor/vision'))
     from optical_flow_protocol import parse_packet
     from vision_v23_protocol import parse_event
@@ -60,6 +63,7 @@ def main():
     inputs+=oracle_inputs
     inputs += [ROOT/'tests/vision/tb_perception_deadlines.v',ROOT/'fpga/vision/src/vision/vision_v23_bridge.v',
                ROOT/'fpga/vision/src/vision/vision_result_core.v']
+    inputs += [ROOT/'tests/vision/tb_frame_payload.v',ROOT/'fpga/vision/src/vision/vision_frame_stream.v']
     record=dict(passed=True,hardware_tested=False,oracle_reused=args.events_only,
         optical_flow_oracle=oracle,decoded_tracking_packets=len(targets),decoded_flow_status_packets=len(statuses),
         source_sha256={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs if p.is_file()})
