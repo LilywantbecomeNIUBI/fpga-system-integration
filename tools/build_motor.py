@@ -29,8 +29,9 @@ def prepare(left_encoder_alt=False):
     selected=[r for r in rows if r['group'] in ('chassis','legacy_disabled') or r['signal'] in names or r['signal'].startswith('led[')]
     assert len({r['ball'] for r in selected})==len(selected), 'Duplicate physical pin'
     cst=['// Standalone brushed motor candidate. Requires approved 3.3V input conditioning.']
+    encoder_inputs={'left_enc_a','left_enc_b','right_enc_a','right_enc_b'}
     for r in selected:
-        pull='UP' if r['signal']=='uart_rx' else 'DOWN' if r['group'] in ('chassis','legacy_disabled') else 'NONE'
+        pull='UP' if r['signal']=='uart_rx' or r['signal'] in encoder_inputs else 'DOWN' if r['group'] in ('chassis','legacy_disabled') else 'NONE'
         cst += [f'IO_LOC "{r["signal"]}" {r["ball"]};',f'IO_PORT "{r["signal"]}" IO_TYPE=LVCMOS33 PULL_MODE={pull} BANK_VCCIO=3.3;']
     (folder/'motor.cst').write_text('\n'.join(cst)+'\n',encoding='utf-8')
     # Only asynchronous first-stage data inputs are exempted. No internal logic exclusions.
@@ -70,6 +71,7 @@ def main():
     timing=folder/'impl/pnr/motor_tr_content.html'; bit=folder/'impl/pnr/motor.fs'
     record=dict(started_utc=stamp,exit_code=result.returncode,source_sha256=hashes,tool=str(exe),tool_sha256=sha(exe),programmed=False,hardware_tested=False)
     record['pin_profile']='left_encoder_p7_31_32' if args.left_encoder_alt else 'adc_remap_v2'
+    record['encoder_pull_mode']='UP'
     record['left_encoder_pins']={'a':{'p7':31,'ball':'F16'},'b':{'p7':32,'ball':'E17'}} if args.left_encoder_alt else {'a':{'p7':25,'ball':'B17'},'b':{'p7':26,'ball':'B18'}}
     record['sources_unchanged']=all(sha(ROOT/p)==h for p,h in hashes.items())
     if timing.exists() and result.returncode==0:

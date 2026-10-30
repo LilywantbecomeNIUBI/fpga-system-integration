@@ -1,5 +1,17 @@
 # 有刷电机调参接续入口（2026-10-30）
 
+> Nano移交已完成：CH340稳定路径/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0；192.168.50.20:8873网关PID19035，PC8874已连接该网关，纯PC串口服务已退出。Nano Python3.6.9启动兼容已修复为shared/imu_protocol.py无GUI解析器，冻结vendor未改，41项Python测试通过；Nano31个源码文件哈希校验及IMU解析smoke通过。持续约20Hz、CRC0，FPGA累计bad_frames=5但观察无新增，左右diagonal无新增，未ARM/零速度零输出。未重载SRAM，D4/A2和旧计数连续。当前仅PC有线→Nano网关已验证，PC仍BIT-Mobile校园Wi-Fi，纯无线和下地未验收。本次未发送运动指令。12V最后按移交要求关闭，尚未收到再次恢复的确认。当前设备liwei ACL重插可能失效。证据hardware/wireless_tuning_20261030.json。
+
+> 当前接续：COM12已恢复，上拉4840e1cb…静态99帧CRC0；手转每圈约1500计数，左右独立diagonal新增0；双轮±8目标、1秒初步PI候选Kp4096/Ki128，详见MOTOR_PULLUP_PI_20261030.md。随后用户电池掉电、开始向Nano移交UART；当前板上状态须用新鲜遥测重新确认。PC串口网关已关闭，8874已改连接Nano 192.168.50.20:8873，新主页/home、调参/motor、前后按住短测默认4/最多1秒。Nano独立代码部署在/home/liwei/robot_motor_ground_20261030，30文件及28个pyserial源文件哈希校验；尚未启动网关，Nano尚未检测到CH340，PC仍列COM12。未作无线或下地验收。详见WIRELESS_TUNING_20261030.md；不要用下面旧状态启动运动。
+
+> 09:01最新：用户示波器报告FPGA编码器输入Vmax约2.2V，要求四路AB内部上拉。tools/build_motor.py已将四路DOWN改UP，其余约束与归档逐行一致；候选Setup/Hold0/0，SHA256 `4840e1cb55d889e5d31af4e5b1a8b21ed4bb25e033cee34e16b07c649ac2d415`已SRAM Program Finished，Flash未写，但静态仍0帧/0UART字节，一圈验证未做。左D4/右A2控制算法未改。证据hardware/encoder_pullup_20261030.json；最后下载尝试以runs/commissioning/last_motor_sram_attempt.json核对，active_motor_sram.json仅为上次静态成功记录。12V最后确认OFF，未发ARM/DRIVE。
+
+> 08:55最新：7ffbafff…恢复候选已上板并完成左轮双向与1秒PI比较。左轮初始候选Kp4096/Ki128（Q8），±8目标末段约+7.17/−7；右轮仅正向短测，反向和PI未完成。之后COM13丢失数据，用户断12V后重载同一位流成功但静态0帧，当前无新鲜遥测，未ARM/DRIVE；12V最后确认OFF。不要用旧静态成功记录或旧串口快照启动。详见[当前结果与阻断](ENCODER_RECOVERY_20261030.md)，参数摘要hardware/tuning_progress_20261030.json。
+
+> 08:40后续接续：有序AB记录版621cb4a0…已写SRAM；两方向实录分别213/110跃迁，均完整、无CRC错误，固定A/B各在一个方向抵消。方向连续性候选已通过9组RTL（含实录回放）与38项Python测试及Setup/Hold0/0，候选SHA256 `7ffbafff2425a15cadd8e39d38b74f8e251c5ce5ccde4ae1270746a97589c20c`，等待现场断12V后下载，尚未宣称上板。详见[有序实录与恢复候选](ENCODER_RECOVERY_20261030.md)。当前STOP、未ARM、零输出，PI尚未整定；实际已下载身份以runs/commissioning/active_motor_sram.json核对。
+
+> 后续会话更新：A相双边沿、每边沿±2的位流已下载SRAM，SHA256 `980b3747fe091b2bcc55a48c2e1c8f73132bc6b90f3f713be8069b0e0298fb1c`；按用户明确授权invalid固定0，不能再用此值判断信号质量。已做动力短测，左轮物理反向转动与净计数不匹配，PI仍未整定。最新过程、保护语义、flags3候选和停止状态见[本次解码与实测记录](ENCODER_A_EDGE_20261030.md)。下文的旧固件哈希、PID和“尚未动力测试”为此前封存状态。
+
 当前工作仓库：`E:/Gowin_project/fpga_project/team_repos/fpga-system-integration`，分支`codex/system-integration-v1`。用户准备在另一个对话继续速度PI调参。本记录描述实际已下载的独立电机固件；不要把旧无刷fpga-balance/FOC工程或视觉系统集成固件当作当前底盘入口。
 
 ## 当前进度与边界

@@ -62,12 +62,21 @@ class Control:
                 command(1,0,flags,0,0,kp,ki)
                 if not flags&1 or kp==0:raise ValueError('Closed loop Kp must be positive')
                 self.flags,self.kp,self.ki=flags,kp,ki;self.phase='stop_ack';self.phase_sent=-1;self.targets=[0,0]
-            elif action=='test':
+            elif action in ('test','ground_test'):
                 if self.phase!='active':raise ValueError('Test requires explicit ARM acknowledgement')
                 duration=data.get('duration_ms')
-                if isinstance(duration,bool) or not isinstance(duration,int) or not 100<=duration<=5000:raise ValueError('Test duration must be 100..5000 ms')
+                limit=1000 if action=='ground_test' else 5000
+                if isinstance(duration,bool) or not isinstance(duration,int) or not 100<=duration<=limit:raise ValueError('Test duration must be 100..%d ms'%limit)
                 if self.test_until is not None:raise ValueError('Test already running')
-                targets=[data.get('left',0),data.get('right',0)]
+                if action=='ground_test':
+                    if self.flags!=3:raise ValueError('Ground test requires left motor reversed, encoders unchanged (flags3)')
+                    speed=data.get('speed');direction=data.get('direction')
+                    if isinstance(speed,bool) or not isinstance(speed,int) or not 1<=speed<=8:raise ValueError('Ground speed must be 1..8 counts/10ms')
+                    if direction not in ('forward','backward'):raise ValueError('Invalid ground direction')
+                    sign=1 if direction=='forward' else -1
+                    # Vehicle-forward hand-turn observations: left negative, right positive.
+                    targets=[-sign*speed,sign*speed]
+                else:targets=[data.get('left',0),data.get('right',0)]
                 if any(isinstance(x,bool) or not isinstance(x,int) for x in targets):raise ValueError('Integer wheel targets required')
                 command(2,0,self.flags,*targets,self.kp,self.ki)
                 self.targets=targets;self.test_until=now+duration/1000;self.event('timed_test_started')
@@ -121,7 +130,7 @@ class Control:
     def snapshot(self):
         with self.lock:
             now=self.clock()
-            return dict(timed_test_supported=True,connected=self.connected,motor_fresh=self.fresh(now),motor_age_ms=(now-self.motor_time)*1000 if self.motor_time is not None else None,
+            return dict(timed_test_supported=True,ground_test_supported=True,connected=self.connected,motor_fresh=self.fresh(now),motor_age_ms=(now-self.motor_time)*1000 if self.motor_time is not None else None,
                 motor=dict(self.motor) if self.motor else None,phase=self.phase,reason=self.reason,owned=bool(self.owner),targets=list(self.targets),
                 test_remaining_ms=max(0,(self.test_until-now)*1000) if self.test_until is not None else None,
                 flags=self.flags,kp=self.kp,ki=self.ki,physical_control_enabled=self.calibration.valid)

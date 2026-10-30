@@ -21,6 +21,7 @@ def main():
     ap.add_argument('--power-off-confirmed', action='store_true')
     ap.add_argument('--verify-stop', action='store_true', help='Require direct UART STOP acknowledgement before SRAM download')
     ap.add_argument('--left-encoder-alt', action='store_true')
+    ap.add_argument('--expected-bitstream-sha256', help='Explicit reviewed candidate SHA256; default retains the archived left-alt identity')
     args = ap.parse_args()
     if not args.power_off_confirmed and not args.verify_stop:
         ap.error('Confirm motor VM disconnected, or request direct STOP verification')
@@ -34,7 +35,12 @@ def main():
     assert sha(bit) == build['bitstream_sha256'], 'Bitstream mismatch'
     if args.left_encoder_alt:
         assert build['pin_profile'] == 'left_encoder_p7_31_32'
-        assert sha(bit) == 'be049edb9456adf52f59454b9aff5829289c93f32b4ee524b8d79c6b81ddd78c'
+        expected = args.expected_bitstream_sha256 or 'be049edb9456adf52f59454b9aff5829289c93f32b4ee524b8d79c6b81ddd78c'
+        assert re.fullmatch(r'[0-9a-fA-F]{64}', expected), 'Invalid expected candidate SHA256'
+        assert sha(bit) == expected.lower(), 'Candidate differs from explicitly expected SHA256'
+    elif args.expected_bitstream_sha256:
+        assert re.fullmatch(r'[0-9a-fA-F]{64}', args.expected_bitstream_sha256), 'Invalid expected candidate SHA256'
+        assert sha(bit) == args.expected_bitstream_sha256.lower(), 'Candidate differs from explicitly expected SHA256'
     folder = ROOT / 'runs/commissioning' / ('speed_static_' + datetime.now().strftime('%Y%m%d_%H%M%S'))
     folder.mkdir(parents=True)
     cli = 'C:/Gowin/Gowin_V1.9.12.04_x64/Programmer/bin/programmer_cli.exe'
@@ -42,6 +48,7 @@ def main():
                   motion_commands_sent=False, serial_port=args.port,
                   pin_profile=build.get('pin_profile','adc_remap_v2'),
                   motor_power_off_confirmed=args.power_off_confirmed)
+    record['encoder_pull_mode']=build.get('encoder_pull_mode','archived_default')
 
     def run(options):
         result = subprocess.run([cli, *options], capture_output=True, timeout=55)
@@ -98,11 +105,13 @@ def main():
                       last=motors[-1] if motors else None)
         assert len(motors) >= 80 and parser.bad_crc == 0, 'Telemetry check failed'
         record['static_passed'] = True
+        (ROOT/'runs/commissioning/active_motor_sram.json').write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')
     except Exception as exc:
         record['error'] = str(exc)
         raise
     finally:
         (folder / 'result.json').write_text(json.dumps(record, indent=2)+'\n', encoding='utf-8')
+        (ROOT/'runs/commissioning/last_motor_sram_attempt.json').write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')
         print(json.dumps(dict(folder=str(folder), **record), indent=2), flush=True)
 
 

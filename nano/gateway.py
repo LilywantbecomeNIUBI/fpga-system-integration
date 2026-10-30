@@ -42,6 +42,8 @@ class Gateway:
         self.lock=threading.RLock();self.lidar_time=None;self.lidar_error=None;self.serial_error=None;self.threads=[];self.recorder=None
         self.serial_connections=0;self.lidar_connections=0;self.uart_crc_base=0
         self.lidar_frames_base=0;self.lidar_scans_base=0;self.lidar_crc_base=0
+        self.encoder_diagnostics={}
+        self.encoder_traces={}
     def start(self):
         if not self.live:return
         import serial # Fail before opening listeners' device workers if dependency is missing.
@@ -67,6 +69,12 @@ class Gateway:
                     with self.lock:
                         if accepted=='restart':self.odometry.reset_reference()
                         self.odometry.update(row)
+            elif kind=='encoder_diagnostics':
+                with self.lock:
+                    self.encoder_diagnostics[row['axis']]=dict(row,received_monotonic=time.monotonic())
+            elif kind=='encoder_trace':
+                with self.lock:
+                    self.encoder_traces[row['axis']]=dict(row,received_monotonic=time.monotonic())
             else:self.imu.feed(b'',rows=[row])
     def serial_loop(self):
         import serial
@@ -74,6 +82,7 @@ class Gateway:
             try:
                 with serial.Serial(self.config['fpga_serial'],115200,timeout=.005,write_timeout=.05,exclusive=True) as stream:
                     self.uart_crc_base+=self.mixed.bad_crc;self.mixed=MixedStream();self.serial_connections+=1;self.control.connect()
+                    with self.lock:self.encoder_diagnostics={};self.encoder_traces={}
                     with self.lock:self.odometry.reset_reference()
                     while not self.stop.is_set():
                         # Check deadlines before any potentially blocking serial operation.
@@ -117,7 +126,14 @@ class Gateway:
                 connections=self.lidar_connections,scan=self.lidar.last_scan if age is not None and age<.5 else None)
             odometry=self.odometry.snapshot()
         control=self.control.snapshot();odometry['valid']=odometry['valid'] and control['motor_fresh']
+        with self.lock:
+            encoder_diagnostics={str(axis):dict(row,age_ms=(time.monotonic()-row['received_monotonic'])*1000)
+                                 for axis,row in self.encoder_diagnostics.items()}
+            encoder_traces={str(axis):dict(row,age_ms=(time.monotonic()-row['received_monotonic'])*1000)
+                            for axis,row in self.encoder_traces.items()}
         return dict(profile='system_integration_v1',mode='live' if self.live else 'offline',control=control,imu=self.imu.snapshot(),lidar=lidar,
+            encoder_diagnostics=encoder_diagnostics,
+            encoder_traces=encoder_traces,
             odometry=odometry,serial_error=self.serial_error,serial_connections=self.serial_connections,uart_bad_crc=self.uart_crc_base+self.mixed.bad_crc,recording=dict(active=bool(self.recorder),drops=self.recorder.drops if self.recorder else 0,error=self.recorder.error if self.recorder else None))
     def record_loop(self):
         while not self.stop.wait(.1):
@@ -138,7 +154,7 @@ def make_server(gateway,bind,port,token):
             body=json.dumps(value,allow_nan=False).encode('utf-8');self.send_response(status)
             self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(body)));self.send_header('Cache-Control','no-store');self.end_headers()
             try:self.wfile.write(body)
-            except (BrokenPipeError,ConnectionResetError):pass
+            except (BrokenPipeError,ConnectionResetError,ConnectionAbortedError):pass
         def authorized(self):return hmac.compare_digest(self.headers.get('X-Session-Token',''),token)
         def do_GET(self):
             if not self.authorized():self.reply(dict(error='Forbidden'),403)

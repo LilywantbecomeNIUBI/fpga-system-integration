@@ -10,13 +10,16 @@ import sensing_base
 class GatewayClient:
     def __init__(self,url=None,token='',live=False):
         self.url=url.rstrip('/') if url else None;self.token=token;self.live=live
-        self.lock=threading.Lock();self.data=None;self.received=None;self.error=None;self.lease=None
+        self.lock=threading.Lock();self.transport_lock=threading.RLock();self.data=None;self.received=None;self.error=None;self.lease=None
+        self.opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
     def request(self,path,payload=None):
+        with self.transport_lock:return self._request(path,payload)
+    def _request(self,path,payload=None):
         if not self.live or not self.url or len(self.token)<24:raise ValueError('Live gateway URL/token not configured')
         body=json.dumps(payload,allow_nan=False).encode('utf-8') if payload is not None else None
         req=urllib.request.Request(self.url+path,data=body,headers={'X-Session-Token':self.token,'Content-Type':'application/json'})
         try:
-            with urllib.request.urlopen(req,timeout=.12) as response:
+            with self.opener.open(req,timeout=.12) as response:
                 raw=response.read(2*1024*1024+1)
                 if len(raw)>2*1024*1024:raise ValueError('Gateway response too large')
                 return json.loads(raw.decode('utf-8'))
@@ -25,13 +28,18 @@ class GatewayClient:
             except (ValueError,UnicodeError):detail=str(exc)
             raise ValueError(detail) from exc
     def poll(self):
+        with self.transport_lock:self._poll()
+    def _poll(self):
         try:
             data=self.request('/api/state')
             if data.get('profile')!='system_integration_v1':raise ValueError('Unexpected gateway profile')
             with self.lock:self.data=data;self.received=time.monotonic();self.error=None
         except Exception as exc:
-            with self.lock:self.error=str(exc)
+            self.release()
+            with self.lock:self.error=str(exc);self.data=None;self.received=None
     def control(self,data):
+        with self.transport_lock:return self._control(data)
+    def _control(self,data):
         result=self.request('/api/control',data)
         if data.get('action')=='claim':self.lease=result['lease']
         elif data.get('action') in ('stop','release'):self.lease=None
@@ -41,10 +49,17 @@ class GatewayClient:
             age=time.monotonic()-self.received if self.received is not None else None
             return dict(online=age is not None and age<.3 and self.error is None,age_ms=age*1000 if age is not None else None,error=self.error,data=self.data)
     def release(self):
-        if self.lease:
-            try:self.control(dict(action='release',lease=self.lease))
-            except Exception:pass
-            self.lease=None
+        with self.transport_lock:
+            if self.lease:
+                try:self.control(dict(action='release',lease=self.lease))
+                except Exception:pass
+                self.lease=None
+
+    def reconnect(self,url):
+        with self.transport_lock:
+            self.release()
+            self.url=url;self.lease=None
+            with self.lock:self.data=None;self.received=None;self.error='Reconnecting'
 
 class Session(sensing_base.Session):
     def __init__(self,mode='offline',config=None,out=None,replay=None):
@@ -73,11 +88,12 @@ def make_server(session,port,token,page='index.html'):
             self.send_response(status);self.send_header('Content-Type',kind);self.send_header('Content-Length',str(len(body)))
             self.send_header('Cache-Control','no-store');self.send_header('X-Content-Type-Options','nosniff');self.end_headers()
             try:self.wfile.write(body)
-            except (BrokenPipeError,ConnectionResetError):pass
+            except (BrokenPipeError,ConnectionResetError,ConnectionAbortedError):pass
         def do_GET(self):
             url=urlsplit(self.path)
             if url.path=='/':self.send((ROOT/'host'/page).read_bytes(),kind='text/html; charset=utf-8')
-            elif url.path=='/motor':self.send((ROOT/'host/motor_tuner.html').read_bytes(),kind='text/html; charset=utf-8')
+            elif url.path in ('/motor','/tuning'):self.send((ROOT/'host/motor_tuner.html').read_bytes(),kind='text/html; charset=utf-8')
+            elif url.path=='/home':self.send((ROOT/'host/home.html').read_bytes(),kind='text/html; charset=utf-8')
             elif url.path in ('/api/state','/health'):self.send(session.state())
             elif url.path in ('/camera.jpg','/infer.jpg'):
                 image=session.image(url.path=='/infer.jpg',parse_qs(url.query).get('key',[''])[0])
@@ -88,6 +104,10 @@ def make_server(session,port,token,page='index.html'):
             browser=host in ('127.0.0.1:%d'%self.server.server_port,'localhost:%d'%self.server.server_port) and origin=='http://'+str(host)
             if not browser and self.headers.get('X-Session-Token')!=token:self.send(dict(error='Forbidden'),403);return
             try:
+                if self.path=='/api/connection' and hasattr(session,'configure_connection'):
+                    self.connection.settimeout(.15);size=int(self.headers.get('Content-Length','0'))
+                    if not 0<size<=2048:raise ValueError('Invalid body size')
+                    self.send(session.configure_connection(json.loads(self.rfile.read(size).decode('utf-8'))));return
                 if self.path=='/api/control':
                     self.connection.settimeout(.15);size=int(self.headers.get('Content-Length','0'))
                     if not 0<size<=2048:raise ValueError('Invalid body size')

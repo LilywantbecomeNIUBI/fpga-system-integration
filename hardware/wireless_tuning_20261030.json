@@ -1,0 +1,48 @@
+{
+  "gateway": "192.168.50.20:8873",
+  "serial_path": "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0",
+  "samples": 30,
+  "unique_packets": 30,
+  "motor_packet_delta": 100,
+  "all_fresh": true,
+  "all_stopped_zero_output": true,
+  "uart_crc_errors": 0,
+  "fpga_bad_frames_initial": 5,
+  "fpga_bad_frames_final": 5,
+  "fpga_bad_frames_delta": 0,
+  "passive_diagonal_delta": {
+    "1": 0,
+    "2": 0
+  },
+  "roundtrip_ms_mean": 29.26300666683043,
+  "roundtrip_ms_max": 232.03559999819845,
+  "ground_test_supported": true,
+  "motion_commands_sent": false,
+  "pc_wifi_only_verified": false,
+  "deployment_directory": "/home/liwei/robot_motor_ground_20261030",
+  "nano_python": "3.6.9",
+  "gateway_pid": 19035,
+  "python_unit_tests_passed": 41,
+  "pc_client": {
+    "gateway_host": "192.168.50.20",
+    "frontend_gateway_online": true,
+    "motor_fresh": true,
+    "phase": "stopped",
+    "armed": false,
+    "pwm": [
+      0,
+      0
+    ],
+    "velocities": [
+      0,
+      0
+    ],
+    "ground_test_supported": true,
+    "stop_reason": "operator_stop",
+    "motion_commands_sent": false
+  },
+  "uart_permissions": "Per-device ACL for liwei on /dev/ttyUSB0; replug/reboot may require restoring permission",
+  "motor_power_last_user_instruction": "12V OFF, FPGA logic retained during transfer; no later explicit power-on",
+  "fpga_firmware_evidence": "Fresh D4 left/A2 right telemetry and counters continuous with previous UP candidate; no new SRAM download",
+  "status": "Nano gateway UART and PC network client verified stopped; PC still Ethernet to router; WiFi-only and ground movement untested"
+}

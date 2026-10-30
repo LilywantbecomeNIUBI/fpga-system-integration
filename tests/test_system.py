@@ -58,8 +58,8 @@ class ControlTests(unittest.TestCase):
             elif op==1:self.status.update(armed=True,last_sequence=frame[4])
             elif op==2:self.status['last_sequence']=frame[4]
         self.packet_count+=1;self.status['packet_count']=self.packet_count;self.control.ingest(self.status)
-    def arm(self):
-        self.request('arm')
+    def arm(self,**kw):
+        self.request('arm',**kw)
         for _ in range(20):
             self.step()
             if self.control.phase=='active':return
@@ -105,6 +105,41 @@ class ControlTests(unittest.TestCase):
     def test_permille_api_removed(self):
         self.arm()
         with self.assertRaises(ValueError):self.request('heartbeat',held=True,units='permille',left=20,right=0)
+    def test_continuous_counts_heartbeat_runs_past_one_second_and_times_out(self):
+        self.arm(flags=3,kp=4096,ki=128)
+        for _ in range(150):
+            self.request('heartbeat',held=True,left=-4,right=4)
+            self.step(keep=False)
+        self.assertEqual(self.control.phase,'active')
+        self.assertEqual(self.control.targets,[-4,4])
+        self.assertIsNone(self.control.test_until)
+        self.now+=.201
+        packets=self.control.poll()
+        self.assertEqual(packets[0][3],0)
+        self.assertIsNone(self.control.owner)
+        self.assertEqual(self.control.targets,[0,0])
+    def test_ground_mapping_limits_deadline_and_release(self):
+        self.arm(flags=3,kp=4096,ki=128)
+        for kw in (dict(speed=0),dict(speed=9),dict(speed=True),dict(duration_ms=1001),dict(direction='turn')):
+            data=dict(speed=4,direction='forward',duration_ms=1000);data.update(kw)
+            deadline=self.control.deadline
+            with self.assertRaises(ValueError):self.request('ground_test',**data)
+            self.assertEqual(self.control.deadline,deadline)
+        self.request('ground_test',speed=4,direction='forward',duration_ms=100)
+        self.assertEqual(self.control.targets,[-4,4]);deadline=self.control.test_until
+        for _ in range(8):self.step()
+        self.assertEqual(self.control.test_until,deadline)
+        for _ in range(4):self.step(keep=False)
+        self.assertIsNone(self.control.owner);self.assertEqual(self.control.targets,[0,0])
+        self.lease=self.control.request(dict(action='claim'))['lease'];self.pcseq=0
+        self.arm(flags=3)
+        self.request('ground_test',speed=8,direction='backward',duration_ms=1000)
+        self.assertEqual(self.control.targets,[8,-8])
+        self.request('release');self.assertEqual(self.control.targets,[0,0]);self.assertIsNone(self.control.test_until)
+    def test_ground_requires_correct_polarity_and_explicit_arm(self):
+        with self.assertRaises(ValueError):self.request('ground_test',speed=4,direction='forward',duration_ms=1000)
+        self.arm()
+        with self.assertRaises(ValueError):self.request('ground_test',speed=4,direction='forward',duration_ms=1000)
     def test_gateway_restart_old_lease_rejected(self):
         other=Control(clock=lambda:self.now);other.connect();other.ingest(self.status)
         with self.assertRaises(ValueError):other.request(dict(action='arm',lease=self.lease,sequence=1))

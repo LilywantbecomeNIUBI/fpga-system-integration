@@ -1,11 +1,33 @@
 """Mixed motor V1 / IMU v2 UART and STL-27L read-only stream decoders."""
 from pathlib import Path
-import importlib.util,struct,sys
+import struct,sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'host'))
 from motor_protocol import crc16,decode_status
-spec=importlib.util.spec_from_file_location('imu_protocol',str(ROOT/'vendor/imu/pc/imu_viewer.py'))
-imu_protocol=importlib.util.module_from_spec(spec);spec.loader.exec_module(imu_protocol)
+ENCODER_COUNTER_NAMES=('sync_a_edges','sync_b_edges','filtered_a_edges','filtered_b_edges',
+                       'a_positive','a_negative','b_positive','b_negative','diagonal')
+ENCODER_MODES={0xa2:'a_edge_x2_scaled4',0xb2:'b_edge_x2_scaled4',0xd4:'quadrature_continuity_x4'}
+
+def decode_encoder_diagnostics(frame):
+    if len(frame)!=48 or frame[:3]!=b'\xc3\x3c\x02' or frame[3] not in (1,2) or frame[6] not in ENCODER_MODES:
+        raise ValueError('Invalid encoder diagnostic identity')
+    if crc16(frame[:46])!=struct.unpack_from('<H',frame,46)[0]:raise ValueError('Encoder diagnostic CRC mismatch')
+    row=dict(zip(ENCODER_COUNTER_NAMES,struct.unpack_from('<9I',frame,8)))
+    row.update(axis=frame[3],sequence=struct.unpack_from('<H',frame,4)[0],mode=ENCODER_MODES[frame[6]],
+               synchronized_ab=(frame[7]>>2)&3,filtered_ab=frame[7]&3)
+    return row
+
+def decode_encoder_trace(frame):
+    if len(frame)!=48 or frame[:3]!=b'\xc3\x3c\x03' or frame[3] not in (1,2) or frame[6] not in ENCODER_MODES:
+        raise ValueError('Invalid encoder trace identity')
+    if crc16(frame[:46])!=struct.unpack_from('<H',frame,46)[0]:raise ValueError('Encoder trace CRC mismatch')
+    count=struct.unpack_from('<I',frame,40)[0]
+    packed=int.from_bytes(frame[8:40],'little')
+    transitions=[(packed>>(4*i))&15 for i in reversed(range(min(count,64)))]
+    return dict(axis=frame[3],sequence=struct.unpack_from('<H',frame,4)[0],event_count=count,
+                mode=ENCODER_MODES[frame[6]],
+                transitions=transitions,synchronized_ab=(frame[7]>>2)&3,filtered_ab=frame[7]&3)
+from shared import imu_protocol
 
 class MixedStream:
     def __init__(self):self.buffer=bytearray();self.bad_crc=0;self.discarded=0
@@ -13,7 +35,7 @@ class MixedStream:
         self.buffer.extend(data);rows=[]
         while len(self.buffer)>=3:
             header=bytes(self.buffer[:3])
-            if header not in (b'\xc3\x3c\x01',b'\xa5\x5a\x02'):
+            if header not in (b'\xc3\x3c\x01',b'\xc3\x3c\x02',b'\xc3\x3c\x03',b'\xa5\x5a\x02'):
                 del self.buffer[0];self.discarded+=1;continue
             if len(self.buffer)<48:break
             frame=bytes(self.buffer[:48]);motor=header[0]==0xc3
@@ -21,7 +43,13 @@ class MixedStream:
             if crc16(frame[:46])!=expected:
                 self.bad_crc+=1;del self.buffer[0];continue
             del self.buffer[:48]
-            if motor:rows.append(('motor',decode_status(frame)))
+            if header==b'\xc3\x3c\x03':
+                try:rows.append(('encoder_trace',decode_encoder_trace(frame)))
+                except ValueError:self.discarded+=48
+            elif header==b'\xc3\x3c\x02':
+                try:rows.append(('encoder_diagnostics',decode_encoder_diagnostics(frame)))
+                except ValueError:self.discarded+=48
+            elif motor:rows.append(('motor',decode_status(frame)))
             else:
                 decoded=imu_protocol.Parser().feed(frame)
                 if decoded:rows.append(('imu',decoded[0]))

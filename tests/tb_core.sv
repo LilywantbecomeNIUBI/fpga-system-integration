@@ -45,10 +45,10 @@ module tb_core;
         clear_arm();command(2,300,300);wait_cycles(1800);
         if(armed || !faults[4]) $fatal(1,"stall");
         clear_arm();command(2,0,0);
-        // Deliberately impossible diagonal AB transitions, >8 in one window.
-        @(negedge clk);while(!dut.sample_tick) @(negedge clk);
-        for(i=0;i<9;i=i+1) begin {a,b}=~{a,b};wait_cycles(9);end
-        wait_cycles(120);if(armed || !faults[2]) $fatal(1,"encoder invalid trip %h",faults);
+        // Legacy invalid reporting is disabled in the selected A-edge mode.
+        // Stay below the separate overspeed threshold in this test.
+        for(i=0;i<12;i=i+1) begin {a,b}=~{a,b};wait_cycles(40);end
+        wait_cycles(120);if(!armed || faults!=0 || li!=0) $fatal(1,"A-edge diagonal handling %h",faults);
         clear_arm();command(2,0,0);
         while(!dut.sample_tick) @(negedge clk);
         for(i=0;i<4;i=i+1) begin {a,b}=0;wait_cycles(7);{a,b}=1;wait_cycles(7);{a,b}=3;wait_cycles(7);{a,b}=2;wait_cycles(7);end

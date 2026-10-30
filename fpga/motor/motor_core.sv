@@ -2,7 +2,8 @@ module motor_core #(
     parameter integer CLK_HZ=50000000, CONTROL_HZ=100, PWM_HZ=10000,
     parameter integer FILTER_CYCLES=8, WATCHDOG_MS=250,
     parameter integer PWM_LIMIT=300, MAX_COUNTS=4096, STALL_TICKS=50,
-    parameter integer REVERSE_TICKS=10
+    parameter integer REVERSE_TICKS=10, LEFT_ENCODER_B=0, RIGHT_ENCODER_B=0,
+    LEFT_ENCODER_RECOVERY=0, RIGHT_ENCODER_RECOVERY=0
 )(
     input wire clk, reset_n,
     input wire left_enc_a, left_enc_b, right_enc_a, right_enc_b,
@@ -17,7 +18,11 @@ module motor_core #(
     output wire signed [31:0] left_position,right_position,left_velocity,right_velocity,
     output wire signed [15:0] left_applied,right_applied,
     output wire [31:0] left_invalid,right_invalid,
-    output reg [31:0] rejected_commands
+    output reg [31:0] rejected_commands,
+    output wire [287:0] left_encoder_diagnostics,right_encoder_diagnostics,
+    output wire [3:0] left_encoder_levels,right_encoder_levels,
+    output wire [255:0] left_encoder_trace,right_encoder_trace,
+    output wire [31:0] left_encoder_trace_count,right_encoder_trace_count
 );
     localparam integer WINDOW=CLK_HZ/CONTROL_HZ;
     localparam integer WATCHDOG_CYCLES=(CLK_HZ/1000)*WATCHDOG_MS;
@@ -39,12 +44,18 @@ module motor_core #(
             else divider<=divider+1;
         end
     end
-    encoder_ab #(.FILTER_CYCLES(FILTER_CYCLES)) enc_l(
+    encoder_ab #(.FILTER_CYCLES(FILTER_CYCLES),.COUNT_B_EDGES(LEFT_ENCODER_B),
+        .RECOVER_DIAGONALS(LEFT_ENCODER_RECOVERY),.RECOVERY_MAX_GAP_CYCLES(CLK_HZ/100)) enc_l(
         .clk(clk),.reset_n(reset_n),.a(left_enc_a),.b(left_enc_b),.sample_tick(sample_tick),
-        .reverse(flags[3]),.position(left_position),.velocity(left_velocity),.invalid_count(left_invalid));
-    encoder_ab #(.FILTER_CYCLES(FILTER_CYCLES)) enc_r(
+        .reverse(flags[3]),.position(left_position),.velocity(left_velocity),.invalid_count(left_invalid),
+        .diagnostics(left_encoder_diagnostics),.diagnostic_levels(left_encoder_levels),
+        .transition_trace(left_encoder_trace),.transition_count(left_encoder_trace_count));
+    encoder_ab #(.FILTER_CYCLES(FILTER_CYCLES),.COUNT_B_EDGES(RIGHT_ENCODER_B),
+        .RECOVER_DIAGONALS(RIGHT_ENCODER_RECOVERY),.RECOVERY_MAX_GAP_CYCLES(CLK_HZ/100)) enc_r(
         .clk(clk),.reset_n(reset_n),.a(right_enc_a),.b(right_enc_b),.sample_tick(sample_tick),
-        .reverse(flags[4]),.position(right_position),.velocity(right_velocity),.invalid_count(right_invalid));
+        .reverse(flags[4]),.position(right_position),.velocity(right_velocity),.invalid_count(right_invalid),
+        .diagnostics(right_encoder_diagnostics),.diagnostic_levels(right_encoder_levels),
+        .transition_trace(right_encoder_trace),.transition_count(right_encoder_trace_count));
     wheel_control #(.PWM_LIMIT(PWM_LIMIT),.REVERSE_TICKS(REVERSE_TICKS)) wheel_l(
         .clk(clk),.reset_n(reset_n),.tick(control_tick),.enable(enable),
         .motor_reverse(flags[1]),.target(request_l),.velocity(left_velocity),.kp(kp),.ki(ki),.applied(left_applied));
