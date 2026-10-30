@@ -11,6 +11,16 @@ const run=s=>vm.runInContext(s,ctx),evt={preventDefault(){},button:0};
  assert.match(run("connectionSummary({gateway:{online:true,data:{}},control:{connected:true,motor_fresh:false}})"),/等待FPGA/);
  assert.match(run("connectionSummary({gateway:{online:false,error:'timeout'}})"),/自动重连/);
  assert.match(run("connectionSummary({gateway:{online:true},control:{connected:true,motor_fresh:true}})"),/遥测正常/);
+ assert.ok(Math.abs(run('speedUnits(8).cms')-10.8908545324)<1e-6);
+ element('speedMode').value='road';element('roadSpeed').value='8';
+ assert.equal(run('selectedGroundSpeed()'),8);
+ element('roadSpeed').value='9';assert.throws(()=>run('selectedGroundSpeed()'));
+ element('roadSpeed').value='4';element('speedMode').value='counts';
+ element('speedMode').onchange();assert.equal(element('groundSpeed').value,'4');
+ element('groundSpeed').value='6';element('speedMode').value='road';
+ element('speedMode').onchange();assert.equal(element('roadSpeed').value,'6');
+ assert.equal(calls.length,0,'Changing speed never sends motion');
+ element('roadSpeed').value='4';
 
  await element('forward').onclick(evt);assert.equal(calls.length,0,'No automatic claim/ARM');
  run("groundSupported=true;lease='lease';active=true;config={flags:3}");

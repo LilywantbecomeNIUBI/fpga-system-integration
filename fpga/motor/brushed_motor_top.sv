@@ -1,5 +1,5 @@
 module brushed_motor_top #(
-    parameter integer CLK_HZ=50000000, BAUD=115200
+    parameter integer CLK_HZ=50000000, BAUD=115200, PWM_LIMIT=300
 )(
     input wire clk50m,reset_n,uart_rx,
     input wire left_enc_a,left_enc_b,right_enc_a,right_enc_b,
@@ -31,7 +31,7 @@ module brushed_motor_top #(
         .clk(clk50m),.reset_n(reset_sync),.byte_valid(byte_valid),.framing_error(framing_error),.byte_data(byte_data),
         .command_valid(command_valid),.opcode(opcode),.sequence_id(sequence_id),.flags(command_flags),
         .left_target(left_target),.right_target(right_target),.kp(kp),.ki(ki),.bad_frames(bad_frames));
-    motor_core #(.CLK_HZ(CLK_HZ),.LEFT_ENCODER_B(1),.LEFT_ENCODER_RECOVERY(1)) core(
+    motor_core #(.CLK_HZ(CLK_HZ),.PWM_LIMIT(PWM_LIMIT),.LEFT_ENCODER_B(1),.LEFT_ENCODER_RECOVERY(1)) core(
         .clk(clk50m),.reset_n(reset_sync),
         .left_enc_a(left_enc_a),.left_enc_b(left_enc_b),.right_enc_a(right_enc_a),.right_enc_b(right_enc_b),
         .command_valid(command_valid),.opcode(opcode),.sequence_id(sequence_id),.command_flags(command_flags),

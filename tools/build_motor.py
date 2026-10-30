@@ -16,8 +16,10 @@ ROOT=Path(__file__).resolve().parents[1]
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def prepare(left_encoder_alt=False):
-    folder=ROOT/('build/motor_left_alt' if left_encoder_alt else 'build/motor'); folder.mkdir(parents=True,exist_ok=True)
+def prepare(left_encoder_alt=False,pwm_limit=300):
+    if not 300<=pwm_limit<=1000 or pwm_limit%50:raise ValueError('PWM limit must be 300..1000 per-mille in steps of 50')
+    folder=ROOT/('build/motor_left_alt' if left_encoder_alt else 'build/motor') if pwm_limit==300 else ROOT/('build/motor_left_alt' if left_encoder_alt else 'build')/('motor_pwm_%d'%pwm_limit)
+    folder.mkdir(parents=True,exist_ok=True)
     rows=list(csv.DictReader((ROOT/'hardware/pins.csv').open(encoding='utf-8-sig')))
     if left_encoder_alt:
         # Isolated diagnostic profile; hardware/pins.csv remains the active pin plan.
@@ -40,6 +42,13 @@ def prepare(left_encoder_alt=False):
         sdc+=f'set_false_path -to [get_pins {{{pin}}}]\n'
     (folder/'motor.sdc').write_text(sdc,encoding='utf-8')
     sources=sorted((ROOT/'fpga/motor').glob('*.sv'))+[folder/'motor.cst',folder/'motor.sdc']
+    if pwm_limit!=300:
+        original=ROOT/'fpga/motor/brushed_motor_top.sv'
+        candidate=folder/'brushed_motor_top.sv'
+        content=original.read_text(encoding='utf-8')
+        assert content.count('PWM_LIMIT=300')==1
+        candidate.write_text(content.replace('PWM_LIMIT=300',f'PWM_LIMIT={pwm_limit}'),encoding='utf-8')
+        sources=[candidate if p==original else p for p in sources]
     project=ET.Element('Project')
     ET.SubElement(project,'Template').text='FPGA'; ET.SubElement(project,'Version').text='5'
     ET.SubElement(project,'Device',name='GW5AT-138B',pn='GW5AT-LV138PG484AC1/I0').text='gw5at138b-012'
@@ -56,8 +65,9 @@ def prepare(left_encoder_alt=False):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--left-encoder-alt',action='store_true',help='Isolated P7-31/F16, P7-32/E17 left encoder profile; disconnect old ENC1 module')
+    parser.add_argument('--pwm-limit',type=int,default=300,help='Compile-time applied-PWM limit per mille; default 300')
     args=parser.parse_args()
-    folder,sources=prepare(args.left_encoder_alt)
+    folder,sources=prepare(args.left_encoder_alt,args.pwm_limit)
     if args.prepare_only: print(folder/'motor.gprj');return
     if os.name=='nt':
         active=subprocess.run(['powershell','-NoProfile','-Command','Get-Process gw_sh,gw_syn,gw_pnr -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Id'],capture_output=True,text=True)
@@ -72,6 +82,7 @@ def main():
     record=dict(started_utc=stamp,exit_code=result.returncode,source_sha256=hashes,tool=str(exe),tool_sha256=sha(exe),programmed=False,hardware_tested=False)
     record['pin_profile']='left_encoder_p7_31_32' if args.left_encoder_alt else 'adc_remap_v2'
     record['encoder_pull_mode']='UP'
+    record['pwm_limit_per_mille']=args.pwm_limit
     record['left_encoder_pins']={'a':{'p7':31,'ball':'F16'},'b':{'p7':32,'ball':'E17'}} if args.left_encoder_alt else {'a':{'p7':25,'ball':'B17'},'b':{'p7':26,'ball':'B18'}}
     record['sources_unchanged']=all(sha(ROOT/p)==h for p,h in hashes.items())
     if timing.exists() and result.returncode==0:
