@@ -1,0 +1,83 @@
+{
+  "pc": {
+    "frames": 2708,
+    "packets": 866560,
+    "bad": 0,
+    "missing_frames": 2,
+    "fps": 29.998288063832675,
+    "frame_id": 4352,
+    "age_ms": 3.9290999993681908,
+    "error": null,
+    "receive_buffer_bytes": 4194304,
+    "queue_ms_last": null,
+    "queue_ms_p50": null,
+    "queue_ms_p95": null,
+    "decode_ms": 1.0799000010592863,
+    "epoch_resets": 0,
+    "catchup_events": 0,
+    "catchup_packets": 0,
+    "online": true
+  },
+  "flow": {
+    "state": "unknown",
+    "stop_request": true,
+    "steer": 0,
+    "speed_limit": 0,
+    "hazard": 0,
+    "fresh": false,
+    "confident": false,
+    "age_ms": 5.1794999999401625,
+    "frame_id": 4351,
+    "valid_counts": [
+      14,
+      27,
+      41
+    ],
+    "risk_counts": [
+      0,
+      2,
+      0
+    ]
+  },
+  "diagnostic": {
+    "frame_id": 4350,
+    "point_x": 8,
+    "point_y": 80,
+    "patch_state": 0,
+    "divider_count": 63,
+    "patch_flags": 0,
+    "iteration": 0,
+    "patch_wait_cycles": 0,
+    "grid_wait_cycles": 0,
+    "patch_starts": 99,
+    "patch_completions": 99,
+    "cycles": 853246,
+    "dropped_frames": 5,
+    "stage": 2,
+    "grid_busy": false,
+    "grid_state": 0,
+    "illegal_state_seen": true,
+    "first_illegal_state": 18,
+    "first_fault_state": 18,
+    "fault_idle_busy": false,
+    "previous_fault_state": 27,
+    "divider_busy": false,
+    "divider_done": false,
+    "divider_start": false,
+    "patch_busy": false,
+    "patch_done": false,
+    "age_ms": 49.26129999876139
+  },
+  "event_receiver": {
+    "packets": 467189,
+    "bad": 0,
+    "queue_ms": 0.15664100646972656,
+    "receive_buffer_bytes": 2097152,
+    "pid": 10212,
+    "relay_stale_drops": 0,
+    "relay_errors": 0
+  },
+  "motor_outputs_enabled": false,
+  "flow_epoch": "c40a9d6b6a8d",
+  "nano_flow_epoch": "2f7ba0a5ba7b"
+}

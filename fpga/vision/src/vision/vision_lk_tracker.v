@@ -7,7 +7,7 @@ module vision_tracker #(
  parameter MAX_SAD=1024,MIN_MARGIN=32,MIN_TEXTURE=16,
  parameter MIN_POINTS=4,FB_LIMIT=96,CONSENSUS_LIMIT=128,ITERATIONS=3
 )(
- input clk,rst_n,frame_start,frame_end,frame_good,input [15:0] frame_id,
+ input clk,rst_n,invalidate,frame_start,frame_end,frame_good,input [15:0] frame_id,
  input feature_valid,input [15:0] feature_address,feature,
  input seed_valid,input [256:0] seed_data,
  output reg status_valid,output reg [255:0] status_payload
@@ -32,6 +32,7 @@ module vision_tracker #(
     latest_fid<=write_fid;have_frame<=1;latest_good<=frame_good && feature_count==CELLS;
     if(frame_good && feature_count==CELLS)begin tags[write_fid[HB-1:0]]<=write_fid;sealed[write_fid[HB-1:0]]<=1;end
    end
+   if(invalidate)begin sealed<=0;have_frame<=0;latest_good<=0;feature_count<=0;end
   end
  end
  function present;input [15:0] f;begin present=sealed[f[HB-1:0]] && tags[f[HB-1:0]]==f;end endfunction
@@ -39,7 +40,7 @@ module vision_tracker #(
  localparam IDLE=0,SEED_INIT=1,PAIR_INIT=2,POINT_INIT=3,POINT_START=4,POINT_WAIT=5,POINT_NEXT=6,
   SORT_INIT=7,SORT_STEP=8,MEDIAN=9,COUNT_INIT=10,COUNT_STEP=11,TRANSLATE=12,APPLY=13,
   ROI_INIT=14,ROI_REQ=15,ROI_WAIT=16,ROI_TAKE=17,DIV_START=18,DIV_WAIT=19,PUBLISH=20,INVALID=21,POINT_CHECK=22,FB_CHECK=23,SORT_READ=24,SORT_COMPARE=25;
- reg [4:0] state;reg pending_seed;reg [256:0] held_seed;
+ reg [4:0] state /* synthesis syn_preserve=1 syn_maxfan=100000 */;reg pending_seed;reg [256:0] held_seed;
  reg active,tracking_allowed,track_ok,observation_ok,force_yolo,history_miss,scene_change;
  reg have_report;reg [15:0] reported_fid,semantic_fid,job_fid,tracked_fid;
  reg [15:0] class_id,confidence,x1,y1,x2,y2,track_confidence,red_ratio;reg [7:0] reason;
@@ -98,14 +99,14 @@ module vision_tracker #(
    status_valid<=0;divide_start<=0;patch_start<=0;
    if(seed_valid)begin held_seed<=seed_data;pending_seed<=1;end
    case(state)
-    IDLE:if(pending_seed)begin
+    IDLE:if(pending_seed && !patch_busy)begin
      pending_seed<=seed_valid;semantic_fid<=held_seed[207:192];job_fid<=held_seed[207:192];
      class_id<=held_seed[159:144];confidence<=held_seed[143:128];
      x1<=held_seed[127:112];y1<=held_seed[111:96];x2<=held_seed[95:80];y2<=held_seed[79:64];
      active<=held_seed[256];tracking_allowed<=0;track_ok<=0;observation_ok<=0;
      force_yolo<=0;history_miss<=0;scene_change<=0;red_ratio<=0;track_confidence<=0;
      remainder_x<=0;remainder_y<=0;state<=SEED_INIT;
-    end else if(have_frame && (!have_report || latest_fid!=reported_fid))begin
+    end else if(!patch_busy && have_frame && (!have_report || latest_fid!=reported_fid))begin
      if(active && tracking_allowed && !latest_age[15] && latest_age<=MAX_SEMANTIC_FRAMES)begin job_fid<=tracked_fid+1'b1;state<=PAIR_INIT;end
      else begin
       job_fid<=latest_fid;observation_ok<=0;track_ok<=0;force_yolo<=1;
@@ -214,6 +215,10 @@ module vision_tracker #(
    endcase
    if(state!=IDLE && state!=SEED_INIT && state!=INVALID && state!=PUBLISH &&
      (!present(job_fid) || (((state>=PAIR_INIT && state<=APPLY) || state==POINT_CHECK || state==FB_CHECK || state==SORT_READ || state==SORT_COMPARE) && !present(previous_fid))))begin history_miss<=1;reason<=5;state<=INVALID;end
+   if(invalidate)begin
+   active<=0;tracking_allowed<=0;track_ok<=0;observation_ok<=0;pending_seed<=0;
+   history_miss<=1;force_yolo<=1;reason<=5;status_valid<=0;patch_start<=0;state<=INVALID;
+   end
   end
  end
 endmodule

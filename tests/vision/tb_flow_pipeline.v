@@ -6,7 +6,7 @@ module tb_flow_pipeline #(parameter WIDTH=64,HEIGHT=48,PYRAMID=0);
     localparam TOTAL=WIDTH*HEIGHT,POINTS=((WIDTH-16)/8+1)*((HEIGHT-16)/8+1);
     reg [7:0] a[0:TOTAL-1],b[0:TOTAL-1];reg [1023:0] base,filename;
     integer out,status_log,ix,iy,count=0;
-    flow_pipeline #(.WIDTH(WIDTH),.HEIGHT(HEIGHT),.PYRAMID(PYRAMID)) dut(.clk(clk),.rst_n(rst_n),.frame_start(fs),.frame_end(fe),.frame_good(fg),
+    flow_pipeline #(.WIDTH(WIDTH),.HEIGHT(HEIGHT),.PYRAMID(PYRAMID)) dut(.clk(clk),.rst_n(rst_n),.invalidate(1'b0),.frame_start(fs),.frame_end(fe),.frame_good(fg),
         .pixel_valid(pv),.frame_id(fid),.x(x),.y(y),.luma(luma),.busy(busy),.frame_done(done),
         .sample_valid(sv),.sample_good(good),.history_lost(lost),.pair_begin(pair_begin),.result_id(rid),.flow_x(fx),.flow_y(fy),.flow_u(u),.flow_v(v),
         .cycles(cycles),.dropped_frames(drops));

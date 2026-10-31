@@ -1,0 +1,187 @@
+{
+  "setup": 0,
+  "hold": 0,
+  "wns_ns": 0.018,
+  "cam_wns_reported_ns": 0.092,
+  "bitstream_sha256": "f4bc87aa3a861bb4f577556455cf95395e1a2042c61acf7d62967a3a3616840b",
+  "netlist_sha256": "0d35d3d9370f8f6df383e46c02489cd3933f1d1ca3faa4342d5385d5bbf7ebb7",
+  "paths": [
+    {
+      "slack": 0.018,
+      "source": "camera/runtime_network.net/retry_count_3_s0/Q",
+      "sink": "camera/runtime_network.net/retry_count_9_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.092,
+      "source": "camera/tracker/x2_5_s0/Q",
+      "sink": "camera/tracker/remainder_x_28_s0/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.099,
+      "source": "camera/tracker/x2_5_s0/Q",
+      "sink": "camera/tracker/remainder_y_24_s0/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.146,
+      "source": "camera/runtime_network.net/retry_count_3_s0/Q",
+      "sink": "camera/runtime_network.net/retry_count_18_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.169,
+      "source": "camera/runtime_network.net/parse_state_1_s1/Q",
+      "sink": "camera/runtime_network.net/vision_reply_35_s0/CE",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.169,
+      "source": "camera/runtime_network.net/parse_state_1_s1/Q",
+      "sink": "camera/runtime_network.net/vision_reply_36_s0/CE",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.169,
+      "source": "camera/runtime_network.net/parse_state_1_s1/Q",
+      "sink": "camera/runtime_network.net/vision_reply_37_s0/CE",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.169,
+      "source": "camera/runtime_network.net/parse_state_1_s1/Q",
+      "sink": "camera/runtime_network.net/vision_reply_38_s0/CE",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.169,
+      "source": "camera/runtime_network.net/parse_state_1_s1/Q",
+      "sink": "camera/runtime_network.net/vision_reply_39_s0/CE",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.169,
+      "source": "camera/runtime_network.net/parse_state_1_s1/Q",
+      "sink": "camera/runtime_network.net/vision_reply_40_s0/CE",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.18,
+      "source": "camera/runtime_network.net/parse_state_1_s1/Q",
+      "sink": "camera/runtime_network.net/vision_peer_port_9_s0/CE",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.18,
+      "source": "camera/runtime_network.net/parse_state_1_s1/Q",
+      "sink": "camera/runtime_network.net/vision_peer_port_10_s0/CE",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.186,
+      "source": "camera/runtime_network.net/retry_count_3_s0/Q",
+      "sink": "camera/runtime_network.net/retry_count_13_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.193,
+      "source": "camera/runtime_network.net/retry_count2_2_s0/Q",
+      "sink": "camera/runtime_network.net/retry_count2_13_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.198,
+      "source": "camera/stream/rgray_0_s0/Q",
+      "sink": "camera/stream/index_3_s1/CE",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.198,
+      "source": "camera/flow_mailbox/dst_data_235_s0/Q",
+      "sink": "camera/flow_bridge/slot1_80_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.214,
+      "source": "camera/runtime_network.net/retry_count_3_s0/Q",
+      "sink": "camera/runtime_network.net/retry_count_14_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.216,
+      "source": "camera/runtime_network.net/retry_count2_2_s0/Q",
+      "sink": "camera/runtime_network.net/retry_count2_10_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.232,
+      "source": "camera/runtime_network.net/retry_count_3_s0/Q",
+      "sink": "camera/runtime_network.net/retry_count_21_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.237,
+      "source": "camera/runtime_network.net/retry_count_3_s0/Q",
+      "sink": "camera/runtime_network.net/retry_count_15_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.259,
+      "source": "camera/runtime_network.net/retry_count_3_s0/Q",
+      "sink": "camera/runtime_network.net/retry_count_5_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.268,
+      "source": "camera/flow_mailbox/dst_data_235_s0/Q",
+      "sink": "camera/flow_bridge/slot0_129_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.281,
+      "source": "camera/tracker/x2_5_s0/Q",
+      "sink": "camera/tracker/x1_15_s0/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.288,
+      "source": "camera/runtime_network.net/retry_count_3_s0/Q",
+      "sink": "camera/runtime_network.net/retry_count_17_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.289,
+      "source": "camera/tracker/x2_5_s0/Q",
+      "sink": "camera/tracker/remainder_x_26_s0/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    }
+  ],
+  "mpw_status": "unresolved",
+  "timing_signoff": false
+}

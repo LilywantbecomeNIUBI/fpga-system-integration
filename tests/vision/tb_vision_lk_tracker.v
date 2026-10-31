@@ -4,7 +4,7 @@ module tb_vision_lk_tracker;
  always #6 clk=~clk;
  reg [15:0] fid=0,addr=0,feature=0;reg [256:0] seed=0;
  wire valid;wire [255:0] status;
- vision_tracker dut(.clk(clk),.rst_n(rst),.frame_start(fs),.frame_end(fe),.frame_good(fg),
+ vision_tracker dut(.clk(clk),.rst_n(rst),.invalidate(1'b0),.frame_start(fs),.frame_end(fe),.frame_good(fg),
  .frame_id(fid),.feature_valid(fv),.feature_address(addr),.feature(feature),.seed_valid(sv),.seed_data(seed),.status_valid(valid),.status_payload(status));
  reg [15:0] words[0:3599];integer n,k,timeout,log;reg [4095:0] path,folder;reg [15:0] expected_seed;
  task frame;input [15:0] f;input integer index;input good;

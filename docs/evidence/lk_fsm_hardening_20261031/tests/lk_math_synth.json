@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "cases": 5,
+  "netlist_sha256": "0d35d3d9370f8f6df383e46c02489cd3933f1d1ca3faa4342d5385d5bbf7ebb7",
+  "rtl_sha256": "3d1af9f1ff4e8b824156f1e7a76be1cf1b10d3adac71d66b0de70ff394c9e7d9",
+  "hardware_tested": false
+}

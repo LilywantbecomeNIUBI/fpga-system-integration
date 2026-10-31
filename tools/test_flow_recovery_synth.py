@@ -13,17 +13,25 @@ def main():
         ('flow_lk_patch_0','debug_status_59','debug_status_60','debug_status_61','debug_status_55','debug_status_142')]:
         body=net.split('module '+module+' (')[1].split('endmodule')[0]
         inputs=re.findall(r'^input (?:\[(\d+):(\d+)\] )?(\w+);',body,re.M)
-        assert inputs and 'input camera_pclk_d;' in body and 'input n17_6;' in body
+        clock=re.search(r'\bDFF\w*\s+state_\w+\s*\(.*?\.CLK\((\w+)\)',body,re.S)[1]
+        clear=re.search(r'\bDFF\w*\s+state_\w+\s*\(.*?\.CLEAR\((\w+)\)',body,re.S)[1]
+        if module=='flow_lk_patch' and 'output patch_busy_3;' in body:busy='patch_busy_3'
+        assert inputs and clock in ('clk50','camera_pclk_d')
         for name in [busy,done,valid]+([seen,kind] if seen else []):
             assert re.search(r'^output '+name+r';',body,re.M),(module,name)
         connections=[]
         for high,low,name in inputs:
             width=int(high)-int(low)+1 if high else 1
-            value='clk' if name=='camera_pclk_d' else '~rst_n' if name=='n17_6' else str(width)+"'d0"
+            value='clk' if name==clock else '~rst_n' if name==clear else 'rst_n' if name in ('cap_rst_n','sys_rst_n') else str(width)+"'d0"
             connections.append('.'+name+'('+value+')')
         connections.extend('.'+name+'('+wire+')' for name,wire in [(busy,'busy'),(done,'done'),(valid,'valid')])
         if seen:connections.extend(['.'+seen+'(seen)','.'+kind+'(kind)'])
         fault_check=' || !seen || !kind' if seen else ''
+        busy_cells=re.findall(r'\bDFFCE\s+((?:busy_s|busy_)\w+)\s*\(',body)
+        assert busy_cells,(module,busy)
+        # Inject all synthesis copies of the busy flag, not just an output alias.
+        force_busy=''.join('force dut.'+cell+".Q_reg=1'b1;" for cell in busy_cells)
+        release_busy=''.join('release dut.'+cell+'.Q_reg;' for cell in busy_cells)
         bench=folder/('flow_recovery_'+module+'.v');image=bench.with_suffix('.vvp')
         bench.write_text('''`timescale 1ns/1ps
 module tb_flow_recovery_synth;
@@ -36,7 +44,14 @@ initial begin
 force GSR.GSRI=1'b1;
 repeat(8)@(negedge clk);rst_n=1;
 repeat(3)@(negedge clk);
-force dut.'''+busy+'''=1'b1;@(negedge clk);release dut.'''+busy+''';
+// The candidate uses Gray WAIT_RAM=2, LATCH=6. Exercise the actual
+// preserved state bank, not a separate behavioral FSM model.
+force dut.state=5'd2;@(negedge clk);release dut.state;
+#1;
+if(dut.state!==5'd6)$fatal(1,"Synthesized WAIT_RAM did not enter LATCH");
+rst_n=0;repeat(4)@(negedge clk);rst_n=1;
+repeat(3)@(negedge clk);
+'''+force_busy+'''@(negedge clk);'''+release_busy+'''
 repeat(8)@(negedge clk);
 if(busy || valid || completions!=1'''+fault_check+''')
 $fatal(1,"Synthesized guard missing busy=%b valid=%b count=%0d",busy,valid,completions);

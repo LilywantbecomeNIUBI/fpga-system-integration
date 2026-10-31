@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "hardware_tested": false,
+  "cases": [
+    {
+      "write_half_ns": 5.95235,
+      "read_half_ns": 10.0,
+      "passed": true,
+      "seconds": 59.2762948999989,
+      "log": "stable_cdc_0.txt"
+    },
+    {
+      "write_half_ns": 5.0,
+      "read_half_ns": 10.31,
+      "passed": true,
+      "seconds": 55.35808619999807,
+      "log": "stable_cdc_1.txt"
+    },
+    {
+      "write_half_ns": 8.173,
+      "read_half_ns": 9.71,
+      "passed": true,
+      "seconds": 73.10709470000074,
+      "log": "stable_cdc_2.txt"
+    }
+  ],
+  "source_sha256": {
+    "tests/vision/tb_stable_frame_cdc.v": "d514f1a6a413eb2318f7c453821ecfb9f92a465668cea6483b9482b0fdff2b28",
+    "fpga/vision/src/vision/vision_frame_cdc.v": "141047aa0ae534833cd98f5165b41c343baa2e2e3042929eb557f1ae0c4fa774",
+    "fpga/vision/src/vision/vision_async_fifo.v": "021c50eddec79c698f47ff604dc061d5094906318a32900a6399af0d2f66ae67",
+    "fpga/vision/src/vision/vision_feature_grid.v": "d2254c9d2fd406ceefe94c8bab087c279a3bafb36f66da85ae5280b0c99cd9b6",
+    "fpga/vision/src/vision/vision_lk_tracker.v": "cc5a33182398420430e200311fc7abb0d5043b87a9c7a1ed7bbf35f9b832c08c",
+    "fpga/vision/src/vision/vision_divider.v": "2c9e663073b90e12f65555c32560f801de1b9ca8256dedff13acf40575904cee",
+    "fpga/vision/src/optical_flow/flow_frame_store.v": "b42161ab13a03b3732a226418dd79cbfbcf93174281aa5ef25ded72dbc7f935e",
+    "fpga/vision/src/optical_flow/frame_memory.sv": "85058b008fac54a1b559913335762ebc535e60da4df2e3988ce419e7f9ec6d73",
+    "fpga/vision/src/optical_flow/flow_lk_patch.v": "3d1af9f1ff4e8b824156f1e7a76be1cf1b10d3adac71d66b0de70ff394c9e7d9"
+  }
+}

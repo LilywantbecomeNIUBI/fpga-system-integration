@@ -4,6 +4,7 @@ import base64
 from collections import deque
 from http.server import BaseHTTPRequestHandler,HTTPServer
 import json
+import ipaddress
 from pathlib import Path
 import signal
 import socket
@@ -18,6 +19,7 @@ from vision_v23_protocol import model_detection
 from shared.perception import PerceptionEvents
 from shared.live_capture import Capture
 from shared.capture_process import CaptureProcess
+from shared.perception_process import PerceptionProcess
 from vision_protocol import parse_status
 from vision_models import MODEL_IDS,model_paths,resolve_model
 
@@ -47,8 +49,14 @@ def main():
     ap.add_argument('--engine',type=Path)
     ap.add_argument('--capture-buffer-kib',type=int,default=4096)
     ap.add_argument('--capture-process',action='store_true',help='Isolate UDP assembly from inference Python GIL')
+    ap.add_argument('--events-process',action='store_true',help='Isolate event reception and parsing from inference Python GIL')
+    ap.add_argument('--event-relay',help='Forward validated events independently of HTTP to this IPv4 host')
     ap.add_argument('--offline-image',type=Path,help='One static inference; never opens FPGA sockets')
     ap.add_argument('--token',required=True);ap.add_argument('--out',type=Path,required=True);args=ap.parse_args()
+    if args.event_relay:
+        if not args.events_process:ap.error('event-relay requires events-process')
+        try:args.event_relay=str(ipaddress.IPv4Address(args.event_relay))
+        except ValueError:ap.error('event-relay must be an IPv4 address')
     resolve_model(args.model,args.backend)
     if args.engine is None:args.engine=Path(model_paths(Path(__file__).resolve().parent,args.model_dir,args.model)['engine'])
     args.out.mkdir(parents=True,exist_ok=True)
@@ -59,10 +67,13 @@ def main():
     session=uuid.uuid4().hex;state=dict(result=None,event=None,event_stamp=None,error=None,inferences=0,model='正在加载模型')
     perception=PerceptionEvents()
     completed=deque(maxlen=120)
-    semantics=events=None
+    semantics=events=event_process=None
     if not args.offline_image:
         semantics=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);semantics.bind((args.bind,0));semantics.connect((args.fpga,6201));semantics.settimeout(.2)
-        events=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);events.bind((args.bind,6202));events.settimeout(.1)
+        if args.events_process:event_process=PerceptionProcess(args.bind,args.fpga,args.out/'raw_events_process.jsonl',
+            (args.event_relay,6204) if args.event_relay else None)
+        else:
+            events=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);events.bind((args.bind,6202));events.settimeout(.1)
 
     def receive_events():
         while not stop.is_set():
@@ -115,12 +126,15 @@ def main():
     def snapshot():
         now=time.monotonic()
         with lock:
+            external=event_process.snapshot(now) if event_process else None
             result=dict(state['result']) if state['result'] else None
-            event=dict(state['event']) if state['event'] else None
+            event=external['event'] if external else dict(state['event']) if state['event'] else None
             if result:result['age_ms']=(now-result.pop('finished'))*1000
             return dict(profile=PROFILE,session=session,capture=capture.status(),result=result,event=event,
-                        flow=perception.flow_snapshot(now),
-                        event_age_ms=(now-state['event_stamp'])*1000 if state['event_stamp'] else None,
+                        flow=external['flow'] if external else perception.flow_snapshot(now),
+                        event_age_ms=external['event_age_ms'] if external else (now-state['event_stamp'])*1000 if state['event_stamp'] else None,
+                        event_receiver=external['stats'] if external else None,
+                        event_receiver_error=external['error'] if external else None,
                         error=state['error'],model=state['model'],backend=args.backend,
                         model_id=args.model,
                         inference_fps=(len(completed)-1)/(completed[-1]-completed[0]) if len(completed)>1 else 0,
@@ -182,6 +196,7 @@ def main():
         if record['result']:record['result'].pop('jpeg_b64',None)
         (args.out/'exit_status.json').write_text(json.dumps(record,indent=2))
         capture.close();server.server_close()
+        if event_process:event_process.close()
         if semantics is not None:semantics.close()
         if events is not None:events.close()
 

@@ -1,7 +1,7 @@
 // Immutable triple-frame ownership; synchronous BSRAM is imported from upstream.
 // Capture never stalls. Invalid/incomplete/nonconsecutive frames cannot form a pair.
 module flow_frame_store #(parameter WIDTH=160,HEIGHT=90,PYRAMID=0)(
-    input clk,rst_n,frame_start,frame_end,frame_good,pixel_valid,
+    input clk,rst_n,invalidate,frame_start,frame_end,frame_good,pixel_valid,
     input [15:0] frame_id,x,y,input [7:0] luma,
     input processing,read_enable,read_current,read_coarse,input [15:0] read_address,
     output [7:0] read_data,
@@ -36,10 +36,11 @@ module flow_frame_store #(parameter WIDTH=160,HEIGHT=90,PYRAMID=0)(
             .clk(clk),.addr_a(b_addr),.data_a(total[9:2]),.we_a(b_valid && b_phase),
             .addr_b(coarse_read),.data_b(coarse_data),.re_b(read_enable && read_coarse));
         always @(posedge clk)begin
-            if(a_valid)begin
-                previous<=row_pairs[a_col];
-                if(!a_phase)row_pairs[a_col]<=a_sum;
-            end
+            // Even rows only write; odd rows only read. The old value on an
+            // even-row write was unused, and requesting it inferred unsupported
+            // SPX9 read-before-write mode on GW5AT. Keep the two roles disjoint.
+            if(a_valid && a_phase)previous<=row_pairs[a_col];
+            if(a_valid && !a_phase)row_pairs[a_col]<=a_sum;
         end
         wire [15:0] coarse_index=(y>>1)*(WIDTH/2)+(x>>1);
         always @(posedge clk or negedge rst_n)begin
@@ -79,6 +80,10 @@ module flow_frame_store #(parameter WIDTH=160,HEIGHT=90,PYRAMID=0)(
                     end else if(have_previous)rejected<=1;
                     last_bank<=cap_bank;last_id<=cap_id;have_previous<=1;
                 end else begin have_previous<=0;rejected<=1;dropped_frames<=dropped_frames+1'b1;end
+            end
+            if(invalidate)begin
+                have_previous<=0;active<=0;bad<=1;pair_start<=0;rejected<=1;
+                dropped_frames<=dropped_frames+1'b1;
             end
         end
     end

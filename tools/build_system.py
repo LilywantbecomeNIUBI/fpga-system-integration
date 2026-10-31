@@ -37,6 +37,11 @@ def prepare():
     sdc=(ROOT/'vendor/reference/robot.sdc').read_text(encoding='utf-8').replace('imu/core/reader/','imu/reader/')
     sdc=sdc.replace('[get_nets {camera/clk50}]','[get_pins {camera/pll/PLL_inst/CLKOUT0}]')
     sdc=sdc.replace('[get_nets {camera/clk125}]','[get_pins {camera/pll/PLL_inst/CLKOUT1}]')
+    # Clock groups outrank max-delay in Gowin. Leave the new pointer CDC
+    # timed with explicit bounds, instead of silently masking its skew budget.
+    sdc=sdc.replace('-group [get_clocks {cam_pclk}] -group [get_clocks {sys50 control50 eth125}]',
+                    '-group [get_clocks {cam_pclk}] -group [get_clocks {sys50 eth125}]')
+    sdc+='\n'+(ROOT/'fpga/vision/constraints/perception_cdc.sdc').read_text(encoding='utf-8')
     for pin in ('chassis/rx/rx_meta_s0/D','chassis/core/enc_l/ab_meta_0_s0/D','chassis/core/enc_l/ab_meta_1_s0/D','chassis/core/enc_r/ab_meta_0_s0/D','chassis/core/enc_r/ab_meta_1_s0/D'):
         sdc+=f'set_false_path -to [get_pins {{{pin}}}]\n'
     (folder/'system.sdc').write_text(sdc,encoding='utf-8')
@@ -55,7 +60,7 @@ def prepare():
     tcl='set here [file dirname [file normalize [info script]]]\ncd $here\nopen_project system.gprj\n'
     profile=ROOT/'config/pnr.json'
     place=json.loads(profile.read_text())['place_option'] if profile.exists() else 2
-    for k,v in [('top_module','system_top'),('verilog_std','sysv2017'),('output_base_name','system'),('max_fanout','32'),('replicate_resources','1'),('timing_driven','1'),('retiming_resource','bsram'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option',str(place)),('route_option','1')]:
+    for k,v in [('top_module','system_top'),('verilog_std','sysv2017'),('output_base_name','system'),('max_fanout','32'),('replicate_resources',str(json.loads(profile.read_text()).get('replicate_resources',1)) if profile.exists() else '1'),('timing_driven','1'),('retiming_resource','bsram'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option',str(place)),('route_option','1')]:
         tcl+=f'set_option -{k} {v}\n'
     (folder/'build.tcl').write_text(tcl+'run all\n',encoding='utf-8')
     return folder,sources
@@ -79,6 +84,9 @@ def main():
         result=subprocess.run([str(exe),str(folder/'build.tcl')],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
     timing=folder/'impl/pnr/system_tr_content.html'; bit=folder/'impl/pnr/system.fs'
     record=dict(started_utc=stamp,exit_code=result.returncode,source_sha256=hashes,options=options,tool=str(exe),tool_sha256=sha(exe),programmed=False,hardware_tested=False)
+    audit=subprocess.run([sys.executable,str(ROOT/'tools/audit_lk_state.py')],cwd=ROOT,capture_output=True,text=True) if result.returncode==0 else None
+    record['state_register_audit_passed']=bool(audit is not None and audit.returncode==0)
+    if audit is not None:(attempt/'lk_state_audit.txt').write_text(audit.stdout+audit.stderr,encoding='utf-8')
     record.update(pwm_limit_per_mille=350, left_encoder_profile='P7-31/F16, P7-32/E17', avoidance_mode='observe_only')
     record['sources_unchanged']=all(sha(ROOT/p)==h for p,h in hashes.items())
     if timing.exists() and result.returncode==0:
@@ -102,7 +110,7 @@ def main():
         record['clock_routing_passed']=not record['clock_route_warnings']
     if result.returncode==0 and bit.exists(): record['bitstream_sha256']=sha(bit)
     record['setup_hold_passed']=result.returncode==0 and record.get('violations')=={'setup':0,'hold':0}
-    record['passed']=record['setup_hold_passed'] and record.get('pulse_width_passed',False) and record.get('clock_routing_passed',False) and record['sources_unchanged'] and 'bitstream_sha256' in record
+    record['passed']=record['setup_hold_passed'] and record.get('pulse_width_passed',False) and record.get('clock_routing_passed',False) and record['sources_unchanged'] and record['state_register_audit_passed'] and 'bitstream_sha256' in record
     for src,name in ((timing,'timing.html'),(folder/'impl/pnr/system.tr','timing.txt'),(folder/'impl/pnr/system.rpt.txt','pnr_report.txt'),(pnr_log,'pnr.log'),(folder/'system.sdc','system.sdc'),(folder/'system.cst','system.cst')):
         if result.returncode==0 and src.exists():shutil.copyfile(src,attempt/name)
     for p in (attempt/'result.json',folder/'result.json'):p.write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')

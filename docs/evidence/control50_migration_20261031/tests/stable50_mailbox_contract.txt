@@ -1,0 +1,12 @@
+PASS mailbox held bus + request/ack timing sh=10.000000 dh=4.000000 delivered=       1001
+tests/vision/tb_mailbox_contract.v:41: $finish called at 81260000 (1ps)
+
+PASS mailbox held bus + request/ack timing sh=4.000000 dh=10.000000 delivered=        402
+tests/vision/tb_mailbox_contract.v:41: $finish called at 32680000 (1ps)
+
+PASS mailbox held bus + request/ack timing sh=6.130000 dh=10.470000 delivered=        587
+tests/vision/tb_mailbox_contract.v:41: $finish called at 49934980 (1ps)
+
+PASS mailbox held bus + request/ack timing sh=10.590000 dh=3.800000 delivered=       1180
+tests/vision/tb_mailbox_contract.v:41: $finish called at 86054340 (1ps)
+

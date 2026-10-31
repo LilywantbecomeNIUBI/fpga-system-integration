@@ -1,0 +1,24 @@
+[
+  {
+    "module": "flow_lk_patch",
+    "state_fanout": {
+      "state[3]": 10,
+      "state[2]": 13,
+      "state[1]": 15,
+      "state[0]": 12,
+      "state[4]": 11
+    },
+    "data_phase_ff_count": 32
+  },
+  {
+    "module": "flow_lk_patch_0",
+    "state_fanout": {
+      "state[3]": 16,
+      "state[2]": 18,
+      "state[1]": 18,
+      "state[0]": 18,
+      "state[4]": 19
+    },
+    "data_phase_ff_count": 32
+  }
+]

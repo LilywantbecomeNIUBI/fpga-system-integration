@@ -68,7 +68,10 @@ def main():
     if worker_bit.exists():
         assert sha(worker_bit)==best['bitstream_sha256']
         (out/'selected').mkdir(exist_ok=True);shutil.copyfile(worker_bit,out/'selected/system.fs')
-    (ROOT/'config/pnr.json').write_text(json.dumps(dict(place_option=best['place_option'],route_option=1,timing_driven=1,evidence=evidence.relative_to(ROOT).as_posix()),indent=2)+'\n')
+    profile_path=ROOT/'config/pnr.json'
+    profile=json.loads(profile_path.read_text()) if profile_path.exists() else {}
+    profile.update(place_option=best['place_option'],route_option=1,timing_driven=1,evidence=evidence.relative_to(ROOT).as_posix())
+    profile_path.write_text(json.dumps(profile,indent=2)+'\n')
     waiver=dict(id='PR1014-B1',scope=dict(device='GW5AT-LV138PG484AC1/I0',port='camera_pclk',ball='B1',clock_period_ns=11.9047),
                 status='accepted_configuration_exception',reason='Existing fixed B1 non-GCLK wiring; global spine still has generic ingress.',
                 physical_issue_fixed=False,hardware_validation=False,authorization='User explicitly requested B1 limited-configuration waiver; raw warnings retained.')

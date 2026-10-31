@@ -1,0 +1,182 @@
+PASS all 262144 signed input pairs for all five pipelined LK products
+tests/vision/tb_lk_products.v:20: $finish called at 5242926000 (1ps)
+PASS still: 108 bit-exact patches, valid=35, EPE=0.000px
+PASS right_half: 108 bit-exact patches, valid=35, EPE=0.048px
+PASS left_half: 108 bit-exact patches, valid=35, EPE=0.043px
+PASS down_half: 108 bit-exact patches, valid=35, EPE=0.038px
+PASS up_half: 108 bit-exact patches, valid=35, EPE=0.035px
+FIRST_PAIR_CYCLES=49630
+PASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=49630
+build/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 1206230000 (1ps)
+PASS right_one: 108 bit-exact patches, valid=35, EPE=0.154px
+PASS diagonal: 108 bit-exact patches, valid=35, EPE=0.044px
+PASS flat: 108 bit-exact patches, valid=0, EPE=0.000px
+PASS right_four: 108 bit-exact patches, valid=35, EPE=2.991px
+PASS regional counts, expansion/recession, steering, all-blocked, texture, clear hysteresis, invalidation and timeout
+build/tests/flow_benches/tb_flow_avoidance.v:48: $finish called at 17020000 (1ps)
+PASS pyramid still: V0 EPE=0.000, V2 EPE=0.000px
+PASS pyramid right_half: V0 EPE=0.041, V2 EPE=0.045px
+PASS pyramid right_one: V0 EPE=0.133, V2 EPE=0.025px
+PASS pyramid right_two: V0 EPE=0.611, V2 EPE=0.015px
+PASS pyramid right_four: V0 EPE=2.994, V2 EPE=0.028px
+PASS pyramid left_four: V0 EPE=3.015, V2 EPE=0.026px
+PASS pyramid down_four: V0 EPE=2.939, V2 EPE=0.024px
+PASS pyramid diagonal_two: V0 EPE=0.962, V2 EPE=0.019px
+PASS pyramid right_five: V0 EPE=4.588, V2 EPE=0.829px
+PASS pyramid right_six: V0 EPE=6.104, V2 EPE=6.027px
+PASS pyramid flat: V0 EPE=0.000, V2 EPE=0.000px
+PASS pyramid zoom_in: V0 EPE=0.218, V2 EPE=0.042px
+PASS pyramid zoom_out: V0 EPE=0.230, V2 EPE=0.075px
+PASS merged events: fairness, immutable stall, exact watchdog deadline/refresh and endpoint loss
+tests/vision/tb_perception_merge.v:52: $finish called at 3590000 (1ps)
+PASS tracking and semantic TTL/refresh, stopped-camera result rejection
+tests/vision/tb_perception_deadlines.v:40: $finish called at 3200000 (1ps)
+PASS actual frame payload: 16 rows, headers, RGB565 bytes, letterbox and consumer stalls
+tests/vision/tb_frame_payload.v:46: $finish called at 16152000 (1ps)
+PASS timing boundaries: contiguous/final samples, frame ownership, invalidation, frame-age wrap/refresh, exact second period
+tests/vision/tb_timing_boundaries.v:87: $finish called at 600000 (1ps)
+PASS real flow ownership: simultaneous capture completion/solver done retains banks through avoidance drain
+tests/vision/tb_flow_drain.v:46: $finish called at 63100000 (1ps)
+PASS flow diagnostic: waits, illegal encoding and observed IDLE/busy fault handled
+tests/vision/tb_flow_diagnostic.v:35: $finish called at 60360000 (1ps)
+PASS elastic FIFO: 300 ordered vectors, wrap, full/pop/push, long stalls, reset isolation
+tests/vision/tb_flow_elastic.v:34: $finish called at 16130000 (1ps)
+PASS real frame stream -> registered byte stage -> production UDP, 16 packets captured
+tests/vision/tb_stream_udp.v:26: $finish called at 18232000 (1ps)
+PASS 16 real stream/UDP packets: exact headers/pixels/padding, Ethernet FCS and IPv4 checksum
+PASS mixed RTL packets decoded by production Python parsers
+full_compile: 
+full_top: PROGRESS time=1000000000 samples=0 bytes=0
+PROGRESS time=2000000000 samples=0 bytes=48
+PROGRESS time=3000000000 samples=0 bytes=96
+PROGRESS time=4000000000 samples=0 bytes=144
+PROGRESS time=5000000000 samples=1 bytes=192
+PROGRESS time=6000000000 samples=2 bytes=288
+PROGRESS time=7000000000 samples=3 bytes=336
+PROGRESS time=8000000000 samples=4 bytes=432
+PROGRESS time=9000000000 samples=5 bytes=480
+PROGRESS time=10000000000 samples=6 bytes=528
+PROGRESS time=11000000000 samples=7 bytes=624
+PROGRESS time=12000000000 samples=8 bytes=720
+PROGRESS time=13000000000 samples=9 bytes=768
+PROGRESS time=14000000000 samples=10 bytes=816
+PROGRESS time=15000000000 samples=11 bytes=864
+PROGRESS time=16000000000 samples=12 bytes=979
+PROGRESS time=17000000000 samples=13 bytes=1056
+PROGRESS time=18000000000 samples=14 bytes=1104
+PASS full production top: IMU=15 control_ticks=18 Ethernet_bytes=285919 camera stop/network reset/IMU fault isolated
+tests/tb_full_system.sv:77: $finish called at 18349681000 (1ps)
+
+PASS full-top mixed UART 23
+unit_and_motor: e_rejects_missing_nan_and_short_run (test_system.HttpTests.test_dynamic_acceptance_rejects_missing_nan_and_short_run) ... ok
+test_lidar_can_be_disabled_without_opening_its_serial (test_system.HttpTests.test_lidar_can_be_disabled_without_opening_its_serial) ... ok
+test_nano_python36_syntax (test_system.HttpTests.test_nano_python36_syntax) ... ok
+test_pc_offline_and_stale_gateway_never_enable_motion (test_system.HttpTests.test_pc_offline_and_stale_gateway_never_enable_motion) ... ok
+test_raw_indices_use_capture_time_and_exact_offsets (test_system.RecordingTests.test_raw_indices_use_capture_time_and_exact_offsets) ... ok
+test_calibration_required_and_rollover (test_system.StreamTests.test_calibration_required_and_rollover) ... ok
+test_lidar_captured_golden_and_scan (test_system.StreamTests.test_lidar_captured_golden_and_scan) ... ok
+test_mixed_fragment_crc_recovery (test_system.StreamTests.test_mixed_fragment_crc_recovery) ... ok
+test_disconnect_discards_lease_and_recovery_never_replays_drive (test_tuner_connection.ConnectionTests.test_disconnect_discards_lease_and_recovery_never_replays_drive) ... ok
+test_switch_validates_address_releases_old_and_preserves_credentials (test_tuner_connection.ConnectionTests.test_switch_validates_address_releases_old_and_preserves_credentials) ... ok
+
+----------------------------------------------------------------------
+Ran 55 tests in 2.451s
+
+OK
+
+PASS immutable sources, self-contained project and 68 unique integrated pins
+lk_compile: 
+lk: e800000000
+OBS 201 46535441020f000200c900c800270384010000c00300024003e803e800010000
+OBS 202 46535441020f000200ca00c800270384010000c00300024003e803e800020000
+OBS 203 46535441020f000200cb00c800270384010000c00300024003e803e800030000
+OBS 204 46535441020f000200cc00c800270384010000c00300024003e803e800040000
+OBS 205 46535441020f000200cd00c800270384010000c00300024003e803e800050000
+OBS 206 46535441020f000200ce00c800270384010000c00300024003e803e800060000
+OBS 207 46535441020f000200cf00c800270384010000c00300024003e803e800070000
+OBS 208 46535441020f000200d000c800270384010000c00300024003e803e800080000
+OBS 209 46535441020f000200d100c800270384010000c00300024003e803e800090000
+OBS 210 46535441020f000200d200c800270384010000c00300024003e803e8000a0000
+OBS 211 46535441020f000200d300c800270384010000c00300024003e803e8000b0000
+OBS 212 46535441020f000200d400c800270384010000c00300024003e803e8000c0000
+OBS 213 46535441020f000200d500c800270384010000c00300024003e803e8000d0000
+OBS 214 46535441020f000200d600c800270384010000c00300024003e803e8000e0000
+OBS 215 465354410218060000d700c800270384010000c00300024003e803e8000f0000
+OBS 0 46535441020f00020000fffe00270384011100c00311024003e803e800020000
+PASS multi-point LK replay/subpixel/reversal/flat/color/bad frame/history/expiry/rollover
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\tests\tb_lk_adapted.v:66: $finish called at 38229444000 (1ps)
+
+dual: PASS dual cache collision, identical replay, source once, frame gate, independent stop/clear, target snapshots, bad packet rejection and TTL
+build/tests/tb_dual_adapted.v:60: $finish called at 3415592000 (1ps)
+
+{
+  "status": "PASS",
+  "frames_checked": 47,
+  "acks": [
+    {
+      "op": 130,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 1
+    },
+    {
+      "op": 133,
+      "error": 1
+    },
+    {
+      "op": 132,
+      "error": 0
+    },
+    {
+      "op": 131,
+      "error": 0
+    },
+    {
+      "op": 130,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 0
+    },
+    {
+      "op": 134,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 0
+    },
+    {
+      "op": 136,
+      "error": 0
+    },
+    {
+      "op": 129,
+      "error": 0
+    },
+    {
+      "op": 135,
+      "error": 0
+    }
+  ],
+  "checks": [
+    "byte identical copies including 1456/31/1-byte payloads",
+    "source read once and released after copies",
+    "PC .100/Nano .20 cache collision avoided",
+    "independent cache clear/stop and offline target",
+    "in-flight destination snapshot",
+    "per-target complete-frame start",
+    "bad FCS/IP/UDP/fragment rejection",
+    "TTL",
+    "CRC and IP checksum"
+  ]
+}
+
+PASS system regressions ['unit_and_motor', 'lk', 'dual']

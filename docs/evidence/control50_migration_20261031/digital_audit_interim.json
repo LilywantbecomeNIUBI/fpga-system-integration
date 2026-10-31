@@ -1,0 +1,51 @@
+{
+  "stable_cdc": {
+    "passed": true,
+    "relevant_inputs_unchanged": true,
+    "changed_non_simulation_or_external_inputs": []
+  },
+  "mailbox_contract": {
+    "passed": true,
+    "relevant_inputs_unchanged": true,
+    "changed_non_simulation_or_external_inputs": []
+  },
+  "control50_audit": {
+    "passed": true,
+    "relevant_inputs_unchanged": true,
+    "changed_non_simulation_or_external_inputs": []
+  },
+  "lk_state_audit": {
+    "passed": true,
+    "relevant_inputs_unchanged": true,
+    "changed_non_simulation_or_external_inputs": []
+  },
+  "frame_cdc_synth": {
+    "passed": true,
+    "relevant_inputs_unchanged": true,
+    "changed_non_simulation_or_external_inputs": []
+  },
+  "flow_recovery_synth": {
+    "passed": true,
+    "relevant_inputs_unchanged": true,
+    "changed_non_simulation_or_external_inputs": []
+  },
+  "lk_math_synth": {
+    "passed": true,
+    "relevant_inputs_unchanged": true,
+    "changed_non_simulation_or_external_inputs": []
+  },
+  "system": {
+    "passed": true,
+    "relevant_inputs_unchanged": true,
+    "changed_non_simulation_or_external_inputs": [
+      "tools/task4/mission.py"
+    ]
+  },
+  "full_top_result": {
+    "passed": true,
+    "relevant_inputs_unchanged": true,
+    "changed_non_simulation_or_external_inputs": [
+      "build/system/system.sdc"
+    ]
+  }
+}

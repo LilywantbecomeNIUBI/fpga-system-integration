@@ -140,7 +140,7 @@ class Session:
                 while not self.stop.is_set():
                     try:data,peer=sock.recvfrom(2048)
                     except socket.timeout:continue
-                    if peer!=(self.config.get('fpga','192.168.50.30'),6202):continue
+                    if peer!=(self.config.get('event_source',self.config.get('fpga','192.168.50.30')),self.config.get('event_source_port',6202)):continue
                     try:
                         with self.frame_lock:
                             kind,event=self.perception.ingest(data)

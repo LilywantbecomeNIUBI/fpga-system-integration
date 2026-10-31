@@ -1,0 +1,187 @@
+*** GOWIN Tcl Command Line Console  *** 
+Open project E:/Gowin_project/fpga_project/team_repos/fpga-system-integration/build/system/system.gprj finished
+GowinSynthesis start
+Running parser ...
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\control\brushed_chassis.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\at8236_pwm.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\brushed_motor_top.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\encoder_ab.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\encoder_diagnostics.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\frame_transport.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\motor_core.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\motor_protocol.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\motor_telemetry.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\uart_byte.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\wheel_control.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\system\imu_status_source.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\system\system_top.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\system\event_packet_mux.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\system\flow_observer.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\camera_init\i2c_control\i2c_bit_shift.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\camera_init\i2c_control\i2c_control.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\camera_init\ov5640_init_table_rgb.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\camera_status_uart.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\eth_udp_gmii\crc32_d8.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\eth_udp_gmii\eth_udp_tx_gmii.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\eth_udp_gmii\ip_checksum.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\ethernet_pll\ethernet_pll.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\mdio\mdio_bit_shift.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\mdio\phy_reg_config.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\network_runtime_dual.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\camera_flow.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\camera_flow_v0_top.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\camera_flow_v1_top.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\camera_flow_v2_top.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_avoidance.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_avoidance_top.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_event_bridge.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_event_source.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_frame_store.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_grid.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_grid_pyramid.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_pipeline.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_v2_core.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\ov5640_config.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\reset_sync.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\rgmii_input.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\rgmii_output.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\camera_perception.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_divider.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_dvp_capture.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_feature_grid.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_frame_stream.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_mailbox.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_pixel_pipeline.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_result_core.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_tracker.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_v23_bridge.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\frame_memory.sv'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\imu\imu_1khz_core.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\imu\icm42688_fast_reader.v'
+Analyzing Verilog file 'E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\imu\imu_fast_i2c_master.v'
+Compiling module 'system_top'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\system\system_top.sv":1)
+Compiling module 'brushed_chassis'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\control\brushed_chassis.sv":2)
+Compiling module 'uart_rx_byte'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\uart_byte.sv":1)
+Compiling module 'motor_protocol'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\motor_protocol.sv":2)
+Compiling module 'motor_core(PWM_LIMIT=350,LEFT_ENCODER_B=1,LEFT_ENCODER_RECOVERY=1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\motor_core.sv":1)
+Compiling module 'encoder_ab(COUNT_B_EDGES=1,RECOVER_DIAGONALS=1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\encoder_ab.sv":4)
+Compiling module 'encoder_ab'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\encoder_ab.sv":4)
+Compiling module 'wheel_control(PWM_LIMIT=350)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\wheel_control.sv":2)
+Compiling module 'at8236_pwm'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\at8236_pwm.sv":1)
+Compiling module 'motor_telemetry(ENCODER_DIAGNOSTICS=1,ENCODER_B_MASK=1,ENCODER_RECOVERY_MASK=1,IMU_ENABLED=1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\motor_telemetry.sv":29)
+Compiling module 'motor_status_source'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\motor_telemetry.sv":1)
+Compiling module 'frame_crc'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\frame_transport.sv":2)
+Compiling module 'encoder_diagnostic_source(ENCODER_B_MASK=1,ENCODER_RECOVERY_MASK=1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\encoder_diagnostics.sv":4)
+Compiling module 'frame_uart_mux(AUX_ENABLED=1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\frame_transport.sv":32)
+Compiling module 'uart_tx_byte'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\uart_byte.sv":38)
+Compiling module 'camera_perception'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\camera_perception.v":3)
+Compiling module 'ethernet_pll'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\ethernet_pll\ethernet_pll.v":10)
+Compiling module 'reset_sync'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\reset_sync.v":2)
+Compiling module 'phy_reg_config'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\mdio\phy_reg_config.v":1)
+Compiling module 'mdio_bit_shift'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\mdio\mdio_bit_shift.v":1)
+Compiling module 'ov5640_config(IMAGE_FLIP_EN=1,IMAGE_MIRROR_EN=1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\ov5640_config.v":3)
+Compiling module 'ov5640_init_table_rgb(IMAGE_WIDTH=1280,IMAGE_HEIGHT=720,IMAGE_FLIP_EN=1,IMAGE_MIRROR_EN=1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\camera_init\ov5640_init_table_rgb.v":18)
+Extracting RAM for identifier 'rom'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\camera_init\ov5640_init_table_rgb.v":41)
+Compiling module 'i2c_control(SCL_CLOCK=100000)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\camera_init\i2c_control\i2c_control.v":18)
+Compiling module 'i2c_bit_shift(SCL_CLOCK=100000)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\camera_init\i2c_control\i2c_bit_shift.v":18)
+Compiling module 'vision_dvp_capture'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_dvp_capture.v":3)
+Compiling module 'vision_pixel_pipeline'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_pixel_pipeline.v":4)
+Compiling module 'vision_feature_grid'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_feature_grid.v":3)
+Extracting RAM for identifier 'vertical_y'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_feature_grid.v":9)
+Extracting RAM for identifier 'vertical_r'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_feature_grid.v":9)
+WARN  (EX3791) : Expression size 24 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_feature_grid.v":37)
+Compiling module 'vision_frame_stream'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_frame_stream.v":4)
+Extracting RAM for identifier 'ram'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_frame_stream.v":16)
+Extracting RAM for identifier 'descriptors'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_frame_stream.v":16)
+Extracting RAM for identifier 'line_ram'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_frame_stream.v":42)
+Compiling module 'vision_mailbox(WIDTH=257)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_mailbox.v":4)
+WARN  (EX3073) : Port 'debug_status' remains unconnected for this instance("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":63)
+WARN  (EX3073) : Port 'debug_count' remains unconnected for this instance("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":76)
+Compiling module 'vision_tracker'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":4)
+Extracting RAM for identifier 'memory'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":17)
+Extracting RAM for identifier 'sort_u'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":50)
+Extracting RAM for identifier 'sort_v'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":50)
+Extracting RAM for identifier 'values_u'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":50)
+Extracting RAM for identifier 'values_v'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":50)
+WARN  (EX3791) : Expression size 26 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":54)
+WARN  (EX3791) : Expression size 26 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":55)
+Compiling module 'flow_lk_patch(WIDTH=80,HEIGHT=45)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":5)
+Compiling module 'vision_divider(WIDTH=64)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_divider.v":2)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":185)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":185)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":186)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":187)
+WARN  (EX3791) : Expression size 17 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":212)
+WARN  (EX3791) : Expression size 17 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":213)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":265)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":265)
+Compiling module 'vision_divider'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_divider.v":2)
+WARN  (EX3791) : Expression size 28 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":197)
+WARN  (EX3791) : Expression size 28 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":197)
+WARN  (EX3791) : Expression size 25 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_lk_tracker.v":200)
+Compiling module 'vision_mailbox'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_mailbox.v":4)
+Compiling module 'vision_v23_bridge'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_v23_bridge.v":3)
+Compiling module 'flow_observer'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\system\flow_observer.v":3)
+Compiling module 'flow_pipeline(PYRAMID=1'b1,OUTPUT_DRAIN_CYCLES=4)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_pipeline.v":2)
+Compiling module 'flow_frame_store(PYRAMID=1'b1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_frame_store.v":3)
+Extracting RAM for identifier 'row_pairs'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_frame_store.v":30)
+Compiling module 'frame_memory(DEPTH=49152)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\frame_memory.sv":16)
+Extracting RAM for identifier 'mem'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\frame_memory.sv":35)
+Compiling module 'frame_memory(ADDR_WIDTH=14,DEPTH=12288)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\frame_memory.sv":16)
+Extracting RAM for identifier 'mem'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\frame_memory.sv":35)
+WARN  (EX3791) : Expression size 23 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_frame_store.v":44)
+Compiling module 'flow_grid_pyramid'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_grid_pyramid.v":3)
+Compiling module 'flow_lk_patch(PYRAMID=1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":5)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":185)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":185)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":186)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":187)
+WARN  (EX3791) : Expression size 17 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":212)
+WARN  (EX3791) : Expression size 17 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":213)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":265)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_lk_patch.v":265)
+WARN  (EX3791) : Expression size 17 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_grid_pyramid.v":69)
+WARN  (EX3791) : Expression size 17 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_grid_pyramid.v":70)
+Compiling module 'flow_avoidance'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_avoidance.v":4)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_avoidance.v":16)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 17("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_avoidance.v":17)
+Compiling module 'flow_event_source'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_event_source.v":3)
+Compiling module 'flow_event_bridge'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\optical_flow\flow_event_bridge.v":3)
+Compiling module 'event_packet_mux'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\system\event_packet_mux.v":3)
+Compiling module 'rgmii_input'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\rgmii_input.v":3)
+Compiling module 'network_runtime_dual(DEFAULT_IP=0,VISION_ENABLE=1,EVENT_ENABLE=1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\network_runtime_dual.v":3)
+Extracting RAM for identifier 'packet_ram'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\network_runtime_dual.v":226)
+Compiling module 'eth_udp_tx_gmii'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\eth_udp_gmii\eth_udp_tx_gmii.v":21)
+Compiling module 'ip_checksum'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\eth_udp_gmii\ip_checksum.v":18)
+Compiling module 'crc32_d8'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\eth_udp_gmii\crc32_d8.v":20)
+Compiling module 'vision_result_core(MAX_AGE_FRAMES=14)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\vision\vision_result_core.v":3)
+Compiling module 'rgmii_output'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\vision\src\rgmii_output.v":2)
+Compiling module 'imu_1khz_core'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\imu\imu_1khz_core.v":5)
+Compiling module 'icm42688_fast_reader'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\imu\icm42688_fast_reader.v":6)
+Compiling module 'imu_fast_i2c_master(I2C_HZ=1000000,TIMEOUT_US=2000)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\imu\imu_fast_i2c_master.v":7)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\imu\icm42688_fast_reader.v":190)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 16("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\imu\icm42688_fast_reader.v":191)
+Compiling module 'imu_status_source(DECIMATION=20)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\system\imu_status_source.sv":1)
+Compiling module 'frame_crc(HIGH_FIRST=1)'("E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\fpga\motor\frame_transport.sv":2)
+NOTE  (EX0101) : Current top module is "system_top"
+[5%] Running netlist conversion ...
+Running device independent optimization ...
+[10%] Optimizing Phase 0 completed
+[15%] Optimizing Phase 1 completed
+[25%] Optimizing Phase 2 completed
+Running inference ...
+[30%] Inferring Phase 0 completed
+[40%] Inferring Phase 1 completed
+[50%] Inferring Phase 2 completed
+[55%] Inferring Phase 3 completed
+Running technical mapping ...
+[60%] Tech-Mapping Phase 0 completed
+[65%] Tech-Mapping Phase 1 completed
+[75%] Tech-Mapping Phase 2 completed
+[80%] Tech-Mapping Phase 3 completed
+[90%] Tech-Mapping Phase 4 completed
+[95%] Generate netlist file "E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\system\impl\gwsynthesis\system.vg" completed
+[100%] Generate report file "E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\system\impl\gwsynthesis\system_syn.rpt.html" completed
+GowinSynthesis finish

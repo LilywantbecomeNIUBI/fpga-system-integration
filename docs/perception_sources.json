@@ -93,7 +93,9 @@
     },
     "fpga/vision/src/optical_flow/flow_frame_store.v": {
       "source": "src/optical_flow/flow_frame_store.v",
-      "sha256": "a7ac985a402c6ec7e9a572dc5d535b13570fa0832f8113eeca87c8fa14b2facb"
+      "sha256": "a7ac985a402c6ec7e9a572dc5d535b13570fa0832f8113eeca87c8fa14b2facb",
+      "adapted": true,
+      "adaptation_note": "Stable control50 processing-domain isolation; original import hash retained for provenance."
     },
     "fpga/vision/src/optical_flow/flow_grid.v": {
       "source": "src/optical_flow/flow_grid.v",
@@ -243,7 +245,9 @@
     },
     "tests/vision/tb_vision_lk_tracker.v": {
       "source": "sim/tb_vision_lk_tracker.v",
-      "sha256": "33067132af51d752cf24faff32929e34d071bc0722fba534db0d98b50a397290"
+      "sha256": "33067132af51d752cf24faff32929e34d071bc0722fba534db0d98b50a397290",
+      "adapted": true,
+      "adaptation_note": "Stable control50 processing-domain isolation; original import hash retained for provenance."
     },
     "tests/vision/tb_vision_v23_network.v": {
       "source": "sim/tb_vision_v23_network.v",
@@ -255,7 +259,9 @@
     },
     "tests/vision/tb_flow_pipeline.v": {
       "source": "sim/optical_flow/tb_flow_pipeline.v",
-      "sha256": "b20159efe3e4e9da9aeefae61ff533497d2bca1cbdc59bc19fdffe838e7daf59"
+      "sha256": "b20159efe3e4e9da9aeefae61ff533497d2bca1cbdc59bc19fdffe838e7daf59",
+      "adapted": true,
+      "adaptation_note": "Stable control50 processing-domain isolation; original import hash retained for provenance."
     },
     "tests/vision/tb_flow_avoidance.v": {
       "source": "sim/optical_flow/tb_flow_avoidance.v",

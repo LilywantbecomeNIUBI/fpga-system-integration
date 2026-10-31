@@ -15,10 +15,13 @@ module camera_perception(
     ov5640_config #(.IMAGE_WIDTH(1280),.IMAGE_HEIGHT(720),.IMAGE_FLIP_EN(1),.IMAGE_MIRROR_EN(1),.OUTPUT_JPEG(0),.FRAME_RATE(30)) config_camera(
         .clk(clk50),.rst_n(sys_rst_n),.camera_rst_n(camera_rst_n),.camera_pwdn(camera_pwdn),.sclk(camera_sclk),.sdat(camera_sdat),
         .id_ok(cam_id_ok),.done(cam_done),.error(cam_error));
-    wire cap_rst_n,eth_rst_stream;
+    wire cap_rst_n,eth_rst_stream,eth_video_rst_n,front_rst_n;
     wire common_reset_n=sys_rst_n && phy_init && cam_done;
     reset_sync cap_reset(.clk(camera_pclk),.arst_n(common_reset_n),.rst_n(cap_rst_n));
-    reset_sync perception_reset(.clk(clk125),.arst_n(common_reset_n),.rst_n(eth_rst_stream));
+    // Processing/mailbox reset is independent of camera/PHY configuration.
+    reset_sync perception_reset(.clk(clk125),.arst_n(sys_rst_n),.rst_n(eth_rst_stream));
+    reset_sync video_reset(.clk(clk125),.arst_n(common_reset_n),.rst_n(eth_video_rst_n));
+    reset_sync front_reset(.clk(camera_pclk),.arst_n(sys_rst_n),.rst_n(front_rst_n));
     wire pv,fs,fe,fg,format_error;wire [15:0] pixel,x,y,fid;
     vision_dvp_capture capture(.clk(camera_pclk),.rst_n(cap_rst_n),.vsync(camera_vsync),.href(camera_href),.data(camera_data),
         .pixel_valid(pv),.pixel(pixel),.x(x),.y(y),.frame_id(fid),.frame_start(fs),.frame_end(fe),.frame_good(fg),.format_error(format_error));
@@ -26,21 +29,30 @@ module camera_perception(
     vision_pixel_pipeline pixels(.clk(camera_pclk),.rst_n(cap_rst_n),.pixel_valid(pv),.pixel(pixel),.x(x),.y(y),.frame_id(fid),
         .frame_start(fs),.frame_end(fe),.frame_good(fg),.out_valid(ov),.out_pixel(op),.out_x(ox),.out_y(oy),.out_frame_id(ofid),
         .luma(luma),.red(red),.out_start(os),.out_end(oe),.out_good(og));
+    // Sparse capture crosses once; RAM writers, leases and both solvers are control50.
+    wire proc_fs,proc_fe,proc_fg,proc_pv,proc_red,proc_invalidate;
+    wire [15:0] proc_fid,proc_x,proc_y;wire [7:0] proc_luma;
+    wire [31:0] capture_overflows,capture_aborts;
+    vision_frame_cdc frames_to_control50(.wr_clk(camera_pclk),.wr_rst_n(front_rst_n),.capture_ready(cap_rst_n),
+        .frame_start(os),.frame_end(oe),.frame_good(og),.pixel_valid(ov),.frame_id(ofid),.x(ox),.y(oy),.luma(luma),.red(red),
+        .rd_clk(clk50),.rd_rst_n(sys_rst_n),.out_start(proc_fs),.out_end(proc_fe),.out_good(proc_fg),.out_valid(proc_pv),
+        .out_id(proc_fid),.out_x(proc_x),.out_y(proc_y),.out_luma(proc_luma),.out_red(proc_red),.invalidate(proc_invalidate),
+        .overflow_count(capture_overflows),.abort_count(capture_aborts));
     wire fv;wire [15:0] fa,feature;
-    vision_feature_grid grid(.clk(camera_pclk),.rst_n(cap_rst_n),.frame_start(os),.pixel_valid(ov),.x(ox),.y(oy),.luma(luma),.red(red),
+    vision_feature_grid grid(.clk(clk50),.rst_n(sys_rst_n),.frame_start(proc_fs),.pixel_valid(proc_pv),.x(proc_x),.y(proc_y),.luma(proc_luma),.red(proc_red),
         .feature_valid(fv),.feature_address(fa),.feature(feature));
     wire start,done,read,first;wire [7:0] payload,gmii;wire [15:0] length,packet_fid;wire tx_valid;
     vision_frame_stream stream(.wr_clk(camera_pclk),.wr_rst_n(cap_rst_n),.frame_start(os),.frame_end(oe),.frame_good(og),.frame_id(ofid),
-        .pixel(op),.pixel_valid(ov),.rd_clk(clk125),.rd_rst_n(eth_rst_stream),.payload_read(read),.tx_done(done),.payload_data(payload),
+        .pixel(op),.pixel_valid(ov),.rd_clk(clk125),.rd_rst_n(eth_video_rst_n),.payload_read(read),.tx_done(done),.payload_data(payload),
         .payload_length(length),.packet_frame_id(packet_fid),.packet_first(first),.tx_start(start),.dropped_frames());
     wire semantic_update,semantic_target;wire [255:0] semantic_payload;
     wire seed_valid;wire [256:0] seed;
     vision_mailbox #(.WIDTH(257)) seed_mailbox(.src_clk(clk125),.src_rst_n(eth_rst_stream),.src_valid(semantic_update),
-        .src_data({semantic_target,semantic_payload}),.dst_clk(camera_pclk),.dst_rst_n(cap_rst_n),.dst_valid(seed_valid),.dst_data(seed));
+        .src_data({semantic_target,semantic_payload}),.dst_clk(clk50),.dst_rst_n(sys_rst_n),.dst_valid(seed_valid),.dst_data(seed));
     wire perception_valid,observation_valid;wire [255:0] perception_payload,observation_payload;
-    vision_tracker tracker(.clk(camera_pclk),.rst_n(cap_rst_n),.frame_start(os),.frame_end(oe),.frame_good(og),.frame_id(ofid),
+    vision_tracker tracker(.clk(clk50),.rst_n(sys_rst_n),.invalidate(proc_invalidate),.frame_start(proc_fs),.frame_end(proc_fe),.frame_good(proc_fg),.frame_id(proc_fid),
         .feature_valid(fv),.feature_address(fa),.feature(feature),.seed_valid(seed_valid),.seed_data(seed),.status_valid(perception_valid),.status_payload(perception_payload));
-    vision_mailbox observation_mailbox(.src_clk(camera_pclk),.src_rst_n(cap_rst_n),.src_valid(perception_valid),.src_data(perception_payload),
+    vision_mailbox observation_mailbox(.src_clk(clk50),.src_rst_n(sys_rst_n),.src_valid(perception_valid),.src_data(perception_payload),
         .dst_clk(clk125),.dst_rst_n(eth_rst_stream),.dst_valid(observation_valid),.dst_data(observation_payload));
     wire event_valid,event_ready,tracker_event_valid,tracker_event_ready;wire [255:0] event_payload,tracker_event_payload;wire [3:0] vision_led;
     wire endpoint_ready;
@@ -56,10 +68,10 @@ module camera_perception(
     // One camera/feature pipeline fans out to ROI LK and environment flow.
     wire flow_obs_valid,flow_observation_valid,flow_event_valid,flow_event_ready;
     wire [255:0] flow_obs,flow_observation,flow_event_payload;
-    flow_observer flow_sensor(.camera_pclk(camera_pclk),.cap_rst_n(cap_rst_n),
-        .ov(ov),.os(os),.oe(oe),.og(og),.ox(ox),.oy(oy),.ofid(ofid),.luma(luma),
+    flow_observer flow_sensor(.clk(clk50),.rst_n(sys_rst_n),.invalidate(proc_invalidate),
+        .ov(proc_pv),.os(proc_fs),.oe(proc_fe),.og(proc_fg),.ox(proc_x),.oy(proc_y),.ofid(proc_fid),.luma(proc_luma),
         .event_valid(flow_obs_valid),.event_payload(flow_obs));
-    vision_mailbox flow_mailbox(.src_clk(camera_pclk),.src_rst_n(cap_rst_n),
+    vision_mailbox flow_mailbox(.src_clk(clk50),.src_rst_n(sys_rst_n),
         .src_valid(flow_obs_valid),.src_data(flow_obs),.dst_clk(clk125),.dst_rst_n(eth_rst_stream),
         .dst_valid(flow_observation_valid),.dst_data(flow_observation));
     flow_event_bridge flow_bridge(.clk(clk125),.rst_n(eth_rst_stream),.stream_ready(observer_ready),

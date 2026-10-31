@@ -9,7 +9,9 @@
     },
     "fpga/vision/constraints/camera_perception.sdc": {
       "source": "fpga/vision/constraints/camera_perception.sdc",
-      "sha256": "72b4e71936063cfde002f0c031d56d7508cddcb42c4c7410e8420937a1037ad7"
+      "sha256": "72b4e71936063cfde002f0c031d56d7508cddcb42c4c7410e8420937a1037ad7",
+      "adapted": true,
+      "adaptation_note": "Stable control50 processing-domain isolation; original import hash retained for provenance."
     },
     "fpga/vision/src/camera_perception_top.v": {
       "source": "fpga/vision/src/camera_perception_top.v",

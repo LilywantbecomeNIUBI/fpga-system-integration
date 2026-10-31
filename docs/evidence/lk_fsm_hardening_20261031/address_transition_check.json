@@ -1,0 +1,100 @@
+[
+  {
+    "module": "flow_lk_patch",
+    "source_state": 27,
+    "expected_next": 26,
+    "passed": true,
+    "registers": [
+      {
+        "cell": "state_3_s1",
+        "data": 1,
+        "ce": 1,
+        "clear": 0,
+        "next": 1,
+        "expected": 1
+      },
+      {
+        "cell": "state_2_s1",
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "cell": "state_1_s1",
+        "data": 1,
+        "ce": 1,
+        "clear": 0,
+        "next": 1,
+        "expected": 1
+      },
+      {
+        "cell": "state_0_s1",
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "cell": "state_4_s1",
+        "data": 1,
+        "ce": 1,
+        "clear": 0,
+        "next": 1,
+        "expected": 1
+      }
+    ],
+    "assumptions": "Consistent state bank, reset inactive, stable binary combinational evaluation; not a timing/clock/reset proof."
+  },
+  {
+    "module": "flow_lk_patch_0",
+    "source_state": 27,
+    "expected_next": 26,
+    "passed": true,
+    "registers": [
+      {
+        "cell": "state_3_s1",
+        "data": 1,
+        "ce": 1,
+        "clear": 0,
+        "next": 1,
+        "expected": 1
+      },
+      {
+        "cell": "state_2_s1",
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "cell": "state_1_s1",
+        "data": 1,
+        "ce": 1,
+        "clear": 0,
+        "next": 1,
+        "expected": 1
+      },
+      {
+        "cell": "state_0_s1",
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "cell": "state_4_s1",
+        "data": 1,
+        "ce": 1,
+        "clear": 0,
+        "next": 1,
+        "expected": 1
+      }
+    ],
+    "assumptions": "Consistent state bank, reset inactive, stable binary combinational evaluation; not a timing/clock/reset proof."
+  }
+]

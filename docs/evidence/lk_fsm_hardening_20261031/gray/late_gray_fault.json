@@ -1,0 +1,102 @@
+{
+  "pc": {
+    "frame_id": 62651,
+    "point_x": 136,
+    "point_y": 32,
+    "patch_state": 3,
+    "divider_count": 63,
+    "patch_flags": 200,
+    "iteration": 2,
+    "patch_wait_cycles": 0,
+    "grid_wait_cycles": 715,
+    "patch_starts": 189,
+    "patch_completions": 188,
+    "cycles": 322026,
+    "dropped_frames": 22,
+    "stage": 2,
+    "grid_busy": true,
+    "grid_state": 2,
+    "illegal_state_seen": true,
+    "first_illegal_state": 18,
+    "first_fault_state": 18,
+    "fault_idle_busy": false,
+    "previous_fault_state": 26,
+    "divider_busy": false,
+    "divider_done": false,
+    "divider_start": false,
+    "patch_busy": true,
+    "patch_done": false,
+    "age_ms": 25.72659999896132
+  },
+  "nano": {
+    "frame_id": 62648,
+    "point_x": 144,
+    "point_y": 32,
+    "patch_state": 6,
+    "divider_count": 63,
+    "patch_flags": 72,
+    "iteration": 1,
+    "patch_wait_cycles": 0,
+    "grid_wait_cycles": 1111,
+    "patch_starts": 250,
+    "patch_completions": 249,
+    "cycles": 333894,
+    "dropped_frames": 22,
+    "stage": 2,
+    "grid_busy": true,
+    "grid_state": 2,
+    "illegal_state_seen": true,
+    "first_illegal_state": 18,
+    "first_fault_state": 18,
+    "fault_idle_busy": false,
+    "previous_fault_state": 26,
+    "divider_busy": false,
+    "divider_done": false,
+    "divider_start": false,
+    "patch_busy": true,
+    "patch_done": false,
+    "age_ms": 108.07569384814997
+  },
+  "pc_control": {
+    "state": "unknown",
+    "stop_request": true,
+    "steer": 0,
+    "speed_limit": 0,
+    "hazard": 0,
+    "fresh": false,
+    "confident": false,
+    "age_ms": 8.259599999291822,
+    "frame_id": 62651,
+    "valid_counts": [
+      20,
+      29,
+      45
+    ],
+    "risk_counts": [
+      0,
+      1,
+      0
+    ]
+  },
+  "nano_control": {
+    "state": "unknown",
+    "stop_request": true,
+    "steer": 0,
+    "speed_limit": 0,
+    "hazard": 0,
+    "fresh": false,
+    "confident": false,
+    "age_ms": 69.44500962345046,
+    "frame_id": 62649,
+    "valid_counts": [
+      20,
+      29,
+      47
+    ],
+    "risk_counts": [
+      0,
+      2,
+      0
+    ]
+  }
+}

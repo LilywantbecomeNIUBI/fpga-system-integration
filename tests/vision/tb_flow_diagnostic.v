@@ -9,9 +9,9 @@ module tb_flow_diagnostic;
  endtask
  initial begin
   launch();wait(dut.patch.busy);@(negedge clk);
-  force dut.patch.state=5'd14;force dut.patch.div_done=0;
+  force dut.patch.state=dut.patch.WAIT_U;force dut.patch.div_done=0;
   repeat(1000)@(negedge clk);
-  if(!busy || diagnostic[135:128]!=2 || diagnostic[79:72]!=14 || diagnostic[47:32]<900 || diagnostic[31:16]<900)
+  if(!busy || diagnostic[135:128]!=2 || diagnostic[79:72]!=dut.patch.WAIT_U || diagnostic[47:32]<900 || diagnostic[31:16]<900)
    $fatal(1,"Stalled divider wait was not observable: %h",diagnostic);
   release dut.patch.state;release dut.patch.div_done;
   rst_n=0;launch();force dut.pd=0;
