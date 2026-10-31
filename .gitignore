@@ -11,3 +11,13 @@ __pycache__/
 .env
 *.key
 *.pem
+runs/
+dist/
+config/local*.json
+config/pc.local.json
+config/nano.local.json
+.playwright-cli/
+.deps/
+output/
+
+docs/evidence/**/config/local*.json

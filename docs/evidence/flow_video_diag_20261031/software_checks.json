@@ -1,0 +1,20 @@
+{
+  "python_unittest": {
+    "command": "python -m unittest discover -s tests -p test_*.py",
+    "passed": true,
+    "tests": 55
+  },
+  "ui": {
+    "command": "node tests/test_perception_ui.js",
+    "passed": true
+  },
+  "verified_after_latest_stream_changes": true,
+  "source_sha256": {
+    "host/dashboard.py": "f259b6244b5b87a48f71dcc0b08c5e2054eb548aafac16bbabf507f8f09359f2",
+    "host/index.html": "90574b6a8e2a6784ba9b80764661a68b03e29c4a312a7ff28bcb22260919ea79",
+    "nano/vision/vision_dashboard_agent.py": "db336a3df1c1880112dafda98b8f38d7b1e4e1897539477d251639d6ff291b0a",
+    "tests/test_perception_ui.js": "4f818930bb052a02a6ab907bd0761f9e2a48dfcf3f443e6a0086206c68690d70"
+  },
+  "live_stream_probe": "final_mjpeg_delivery.json",
+  "browser_probe": "browser_final.json"
+}

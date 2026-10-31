@@ -1,0 +1,17 @@
+{
+  "status": 9021,
+  "unavailable": 4,
+  "stale": 4,
+  "diagnostic_faults": 0,
+  "diagnostics": 3009,
+  "invalid_mask_errors": 0,
+  "first_frame": 10130,
+  "frame_span": 9024,
+  "unavailable_frame_ids": [
+    11845,
+    13006,
+    16822,
+    17004
+  ],
+  "filter": "Inclusive FPGA frame ID range from sampled window; no cross-machine wall-clock assumption."
+}

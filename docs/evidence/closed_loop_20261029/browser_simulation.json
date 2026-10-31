@@ -1,0 +1,20 @@
+{
+  "simulation_only": true,
+  "hardware_tested": false,
+  "serial_opened": false,
+  "checks": [
+    "offline ARM/test disabled",
+    "zero-target explicit ARM handshake",
+    "left-only timed test at 20 counts/window for 3000ms and 1000ms",
+    "right target/feedback stayed zero in simulated plant",
+    "deadline STOP and revoke without automatic rearm",
+    "reload retains stopped state",
+    "browser console has no errors"
+  ],
+  "source_sha256": {
+    "host\\motor_tuner.html": "63299e2bea17485bccb74b66183edbc961338595a266bbb8b1207f729e246ca9",
+    "host\\motor_tuner.py": "0d9ec111f9fb2dcb2148185a5f1ce7b63f873c32e461c8a7e8180a1b0d549fca",
+    "host\\dashboard.py": "efd64c2647ee5ed96af904395c710f2f8be8bddcfbbc7f8dcdd0ad34bdcdf11a",
+    "nano\\control.py": "a6fd215e47369e08d7b5c14f5c1dcbd0ae08f4ec01e223fff0ef418ba9d4308c"
+  }
+}

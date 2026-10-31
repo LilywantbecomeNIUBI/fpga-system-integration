@@ -1,0 +1,7 @@
+PASS synthesized image case 0 u=     0 v=     0
+PASS synthesized image case 1 u=   128 v=    33
+PASS synthesized image case 2 u=  -125 v=    43
+PASS synthesized image case 3 u=     1 v=   134
+PASS synthesized image case 4 u=     1 v=  -112
+build\tests\tb_lk_math_synth.v:54: $finish called at 71150000 (1ps)
+

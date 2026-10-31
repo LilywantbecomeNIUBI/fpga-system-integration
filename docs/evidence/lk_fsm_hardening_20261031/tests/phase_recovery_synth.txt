@@ -1,0 +1,7 @@
+flow_lk_patch: PASS actual Gowin netlist: one invalid completion from captured IDLE/busy contradiction
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\tests\flow_recovery_flow_lk_patch.v:23: $finish called at 280000 (1ps)
+
+flow_lk_patch_0: PASS actual Gowin netlist: one invalid completion from captured IDLE/busy contradiction
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\tests\flow_recovery_flow_lk_patch_0.v:23: $finish called at 280000 (1ps)
+
+{"passed": true, "instances": 2, "netlist_sha256": "0d35d3d9370f8f6df383e46c02489cd3933f1d1ca3faa4342d5385d5bbf7ebb7", "hardware_tested": false}

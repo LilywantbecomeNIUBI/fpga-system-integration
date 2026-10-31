@@ -1,0 +1,69 @@
+{
+  "tail_records": 38560,
+  "bad_records": 0,
+  "counts": {
+    "FSTA": 34674,
+    "OFST": 3886
+  },
+  "status_frame_ids": [
+    7016
+  ],
+  "first_status": {
+    "time": 1793335900.6470487,
+    "kind": "OFST",
+    "event": {
+      "kind": "status",
+      "stage": 2,
+      "frame_id": 7016,
+      "state": "unknown",
+      "stop_request": true,
+      "confident": false,
+      "stale": true,
+      "hazard": 0,
+      "valid_counts": [
+        17,
+        42,
+        47
+      ],
+      "risk_counts": [
+        0,
+        0,
+        0
+      ],
+      "steer": 0,
+      "speed_limit": 0,
+      "cycles": 2089856674,
+      "dropped_frames": 3839
+    }
+  },
+  "last_status": {
+    "time": 1793336030.152041,
+    "kind": "OFST",
+    "event": {
+      "kind": "status",
+      "stage": 2,
+      "frame_id": 7016,
+      "state": "unknown",
+      "stop_request": true,
+      "confident": false,
+      "stale": true,
+      "hazard": 0,
+      "valid_counts": [
+        17,
+        42,
+        47
+      ],
+      "risk_counts": [
+        0,
+        0,
+        0
+      ],
+      "steer": 0,
+      "speed_limit": 0,
+      "cycles": 83557041,
+      "dropped_frames": 7724
+    }
+  },
+  "last_vector": null,
+  "track_valid_events": 26884
+}

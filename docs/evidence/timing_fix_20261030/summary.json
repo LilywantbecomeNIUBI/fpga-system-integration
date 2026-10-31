@@ -1,0 +1,96 @@
+{
+  "created_utc": "2026-10-30T13:29:15.079288+00:00",
+  "baseline_commit": "ab0e6ed308c7b95e6d33979fc18ec59588381b10",
+  "programmed": false,
+  "hardware_tested": false,
+  "nano_deployed": false,
+  "automatic_motion_connected": false,
+  "final_build_started_utc": "20261030T132042Z",
+  "violations": {
+    "setup": 0,
+    "hold": 0
+  },
+  "worst_setup_slack_ns": 0.014,
+  "setup_hold_passed": true,
+  "pulse_width_passed": false,
+  "clock_routing_passed": false,
+  "timing_signoff": false,
+  "bitstream_sha256": "6d0c70cf99a62c225736d5f94992a7898c69555e85f3f70451e4ce169e17fc58",
+  "source_identity_verified": true,
+  "regressions": {
+    "system_regression.json": {
+      "passed": true,
+      "sources_match": true,
+      "sha256": "3146756a486572691e04fe339dca5f1fa0c4a8d5e243d04f6f1816ab8adb4344"
+    },
+    "perception_regression.json": {
+      "passed": true,
+      "sources_match": true,
+      "sha256": "228aef5c314238cc8e51a4302c6b57bdc6e47a8b05876d7ac1f9eada8c01003f"
+    },
+    "full_top_regression.json": {
+      "passed": true,
+      "sources_match": true,
+      "sha256": "950a4ce47dea3b2216e955491b7b08441357e583e953b4bf5ffa035b575e8145"
+    }
+  },
+  "clock_probe": {
+    "pins": {
+      "worst_reported_pulse_slack_ns": 0.665,
+      "actual_width_ns": 1.565,
+      "diagnostic_only": true
+    },
+    "auto": {
+      "worst_reported_pulse_slack_ns": 0.665,
+      "actual_width_ns": 1.565,
+      "diagnostic_only": true
+    },
+    "dce": {
+      "worst_reported_pulse_slack_ns": -0.756,
+      "actual_width_ns": 0.144,
+      "diagnostic_only": true,
+      "accepted_for_production": false,
+      "warning": "PCLK DCE output has default 100MHz clock in this diagnostic; not a valid production constraint set. TX PLL clock is constrained at 125MHz. PR1014 persists."
+    }
+  },
+  "remaining": [
+    "eth125 BSRAM high-pulse-width -0.688ns; PLL pin constraint alone does not fix it",
+    "PR1014: fixed B1 non-GCLK PCLK entry has a generic route before the global spine",
+    "DVP/RGMII external IO/PVT and real-camera/concurrent hardware validation remain separate"
+  ],
+  "artifact_sha256": {
+    "build.json": "645b00c5bf74f508249c240a48439d6e344edcf4d8687448b5585130343c073a",
+    "build.log": "e9b789b3ead43444cb7ef1d581f9ed72a7513fd60543dd2227b008e6faa50a79",
+    "dual.log": "c2aac7e9a63d37a304399276e2e99b54b78e470eab88c7068e5a459d06e7b402",
+    "full_top.log": "c01d7300f9836ff86299a9b0f01333dba0f3b13b60cfaba2eaac67a1d56cdf1c",
+    "full_top_regression.json": "950a4ce47dea3b2216e955491b7b08441357e583e953b4bf5ffa035b575e8145",
+    "lk.log": "0376a65d0d677cd11e91d206dcee6807d29258ddb83d42c2059c916bf9a6a83d",
+    "perception_regression.json": "228aef5c314238cc8e51a4302c6b57bdc6e47a8b05876d7ac1f9eada8c01003f",
+    "pnr.log": "87907f731bd59dcf76bb8698182261a31cc5e161c363ed97542ad7c84205dd27",
+    "pnr_report.txt": "f58f03c7e08fde6e003a60361f93c7ba8eaa5c486258586974d6b5865c537bac",
+    "system.cst": "a43521ea39bc63d1503b5a0e86d3a32f1f2a1884ee775a45cca199ec65be1b59",
+    "system.sdc": "19a3893960455872c623b40e1572743374c338e07ce3edba0b333fb981781978",
+    "system_regression.json": "3146756a486572691e04fe339dca5f1fa0c4a8d5e243d04f6f1816ab8adb4344",
+    "timing.html": "32bd811eb35738a7ab95d330a1648b1d6d2f8f964981748648231bbef53a1d88",
+    "timing.txt": "536c563c210a8355b68d955d4377292115d8d7797779b85054c22a79de98b615",
+    "unit_and_motor.log": "9e58cca6dcf7a00129c99b4121526a10c53890b7494363ef7f90ba998d4d88de",
+    "clock_probe/auto/build.log": "b7eb0c401d03aa2616ab3f9b7fb6240c435ea1327b586e31ddf545a0c231c28b",
+    "clock_probe/auto/pnr_report.txt": "2359d6730ed3740879ca88942ae2e51f7cba3c2a445d5192758ae77af09a360a",
+    "clock_probe/auto/probe.cst": "8e052a43af9178287fc7f15a106674eae082a0c1c62e732c341ae9f1beaaa1b9",
+    "clock_probe/auto/probe.sdc": "31fe914a60958c3f5e7513095a3953a9083b25692ed6a1a67bf5921217025ee5",
+    "clock_probe/auto/probe.v": "ec85a7b907b0dfc73fddc125c1694008de9a921ef2abff6d19b5b98abd88956d",
+    "clock_probe/auto/timing.txt": "0aaf00f3331d98b9d90867fd14c308504ad73cb409099483710cb3837132e2ca",
+    "clock_probe/dce/build.log": "4b42085cc30bbc6f9a27e93f0a730b68d42aa7cd58456ed5a3e22c4b67a53651",
+    "clock_probe/dce/pnr_report.txt": "d7cfbdb4113d093940ef4d81b880395fc1d5702613c01369740aff48a39e34e0",
+    "clock_probe/dce/probe.cst": "3577c2482de099299799bd301575db93ae44ffa031904276f6b2f5c40ab5f294",
+    "clock_probe/dce/probe.sdc": "77da34aed1866ea54bece39cc03fd40169d53b6ed5a8c8b22b45aa59129d804d",
+    "clock_probe/dce/probe.v": "0d08f4be113c62c0abfe629e516bbad6375c4500b51f83c25f0f15564b03d917",
+    "clock_probe/dce/timing.txt": "a330d94e7de6640c8779ff7183c4a416ec0aa25759f4d813ef4a978bc06a7d63",
+    "clock_probe/pins/build.log": "b6f06a8011d434b4007849745868e7ff0ab90b1335a689fd5405d1202de61208",
+    "clock_probe/pins/pnr_report.txt": "3a29a119318841017678e2caf994e28773827ce65055dddf64eb477c8b9d3d42",
+    "clock_probe/pins/probe.cst": "8e052a43af9178287fc7f15a106674eae082a0c1c62e732c341ae9f1beaaa1b9",
+    "clock_probe/pins/probe.sdc": "b9082bf9e4a28a337be1876d7ca084a22f5971a55a3b66ad885f8657af44dd41",
+    "clock_probe/pins/probe.v": "ec85a7b907b0dfc73fddc125c1694008de9a921ef2abff6d19b5b98abd88956d",
+    "clock_probe/pins/timing.txt": "24c6cf9a5bf8950416409f266ba40ad2cd58d0ccdac50c902d6e83d246bcafbc"
+  }
+}

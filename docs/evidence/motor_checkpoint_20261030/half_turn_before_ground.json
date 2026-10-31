@@ -1,0 +1,61 @@
+{
+  "operator_action": "left wheel only, approximately half turn forward",
+  "first": {
+    "left_position": -18404,
+    "right_position": 20681,
+    "left_velocity": 0,
+    "right_velocity": 0,
+    "left_applied": 0,
+    "right_applied": 0,
+    "left_invalid": 11288,
+    "right_invalid": 1,
+    "bad_frames": 0,
+    "rejected_commands": 0,
+    "packet_count": 15316,
+    "last_sequence": 0,
+    "armed": false,
+    "flags": 1,
+    "faults": 1,
+    "fault_names": [
+      "power_on_requires_clear"
+    ]
+  },
+  "last": {
+    "left_position": -18766,
+    "right_position": 21500,
+    "left_velocity": 0,
+    "right_velocity": 0,
+    "left_applied": 0,
+    "right_applied": 0,
+    "left_invalid": 11521,
+    "right_invalid": 1,
+    "bad_frames": 0,
+    "rejected_commands": 0,
+    "packet_count": 16139,
+    "last_sequence": 0,
+    "armed": false,
+    "flags": 1,
+    "faults": 1,
+    "fault_names": [
+      "power_on_requires_clear"
+    ]
+  },
+  "frames": 824,
+  "bad_crc_capture": 0,
+  "left": {
+    "position_delta": -362,
+    "invalid_delta": 233,
+    "change_first_packet": 15645,
+    "change_last_packet": 15743,
+    "changed_frames": 47
+  },
+  "right": {
+    "position_delta": 819,
+    "invalid_delta": 0,
+    "change_first_packet": 15645,
+    "change_last_packet": 15743,
+    "changed_frames": 48
+  },
+  "motion_commands_sent": false,
+  "cpr_calibrated": false
+}

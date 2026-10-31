@@ -1,0 +1,21 @@
+{
+  "outputs": {
+    "legacy_m1_disable": true,
+    "legacy_m2_disable": true,
+    "legacy_m1_pwm_disabled[0]": true,
+    "legacy_m1_pwm_disabled[1]": true,
+    "legacy_m1_pwm_disabled[2]": true,
+    "legacy_m1_pwm_disabled[3]": true,
+    "legacy_m1_pwm_disabled[4]": true,
+    "legacy_m1_pwm_disabled[5]": true,
+    "legacy_m2_pwm_disabled[0]": true,
+    "legacy_m2_pwm_disabled[1]": true,
+    "legacy_m2_pwm_disabled[2]": true,
+    "legacy_m2_pwm_disabled[3]": true,
+    "legacy_m2_pwm_disabled[4]": true,
+    "legacy_m2_pwm_disabled[5]": true,
+    "legacy_cal_disabled[0]": true,
+    "legacy_cal_disabled[1]": true
+  },
+  "netlist_sha256": "e4a01c3b59ce47169b0726ec335e2b39cc66e61351778e6927793f414e0e733c"
+}

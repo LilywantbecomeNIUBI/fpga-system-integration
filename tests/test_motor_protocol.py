@@ -8,7 +8,7 @@ from motor_protocol import crc16,command,decode_status,StatusStream
 class ProtocolTests(unittest.TestCase):
     def test_crc_and_command_layout(self):
         self.assertEqual(crc16(b'123456789'),0x29b1)
-        frame=command(2,255,0,-80,60,256,0)
+        frame=command(2,255,1,-80,60,256,0)
         self.assertEqual(len(frame),16)
         self.assertEqual(struct.unpack_from('<hhHH',frame,6),(-80,60,256,0))
         self.assertEqual(crc16(frame[:14]),struct.unpack_from('<H',frame,14)[0])

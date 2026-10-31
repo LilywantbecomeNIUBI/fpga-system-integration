@@ -1,0 +1,72 @@
+PASS dual cache collision, identical replay, source once, frame gate, independent stop/clear, target snapshots, bad packet rejection and TTL
+build/tests/tb_dual_adapted.v:60: $finish called at 3415592000 (1ps)
+
+{
+  "status": "PASS",
+  "frames_checked": 47,
+  "acks": [
+    {
+      "op": 130,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 1
+    },
+    {
+      "op": 133,
+      "error": 1
+    },
+    {
+      "op": 132,
+      "error": 0
+    },
+    {
+      "op": 131,
+      "error": 0
+    },
+    {
+      "op": 130,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 0
+    },
+    {
+      "op": 134,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 0
+    },
+    {
+      "op": 136,
+      "error": 0
+    },
+    {
+      "op": 129,
+      "error": 0
+    },
+    {
+      "op": 135,
+      "error": 0
+    }
+  ],
+  "checks": [
+    "byte identical copies including 1456/31/1-byte payloads",
+    "source read once and released after copies",
+    "PC .100/Nano .20 cache collision avoided",
+    "independent cache clear/stop and offline target",
+    "in-flight destination snapshot",
+    "per-target complete-frame start",
+    "bad FCS/IP/UDP/fragment rejection",
+    "TTL",
+    "CRC and IP checksum"
+  ]
+}

@@ -1,0 +1,86 @@
+group,signal,ball,direction,p7,endpoint,status
+legacy_disabled,legacy_m1_pwm_disabled[5],A13,OUT,1,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m1_pwm_disabled[4],A14,OUT,2,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m1_pwm_disabled[3],A15,OUT,3,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m1_pwm_disabled[2],A16,OUT,4,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m2_pwm_disabled[4],C13,OUT,13,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m2_pwm_disabled[3],B13,OUT,14,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m2_pwm_disabled[2],D14,OUT,15,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m2_pwm_disabled[1],D15,OUT,16,Old DRV8323 PWM fixed low; not D157B,fixed_low
+spare_p7,spare_p7_20,B16,UNASSIGNED,20,Old FOC connection retained; not a new chassis signal,reserved
+camera,camera_rst_n,N20,OUT,,,reserved
+camera,camera_pwdn,L1,OUT,,,reserved
+camera,camera_sclk,M20,OUT,,,reserved
+ethernet,eth_rst_n,V22,OUT,,,reserved
+ethernet,eth_mdc,AA18,OUT,,,reserved
+ethernet,rgmii_txen,AA19,OUT,,,reserved
+ethernet,rgmii_txd[3],Y22,OUT,,,reserved
+ethernet,rgmii_txd[2],W21,OUT,,,reserved
+ethernet,rgmii_txd[1],W22,OUT,,,reserved
+ethernet,rgmii_txd[0],U21,OUT,,,reserved
+ethernet,rgmii_gtxc,U22,OUT,,,reserved
+camera,camera_sdat,L18,INOUT,,,reserved
+ethernet,eth_mdio,W17,INOUT,,,reserved
+camera,camera_data[7],E1,IN,,,reserved
+camera,camera_data[6],D1,IN,,,reserved
+camera,camera_data[5],G2,IN,,,reserved
+camera,camera_data[4],F1,IN,,,reserved
+camera,camera_data[3],H2,IN,,,reserved
+camera,camera_data[2],G1,IN,,,reserved
+camera,camera_data[1],J1,IN,,,reserved
+camera,camera_data[0],J2,IN,,,reserved
+camera,camera_pclk,B1,IN,,,reserved
+camera,camera_href,A1,IN,,,reserved
+camera,camera_vsync,B2,IN,,,reserved
+board,reset_n,F15,IN,,,reserved
+board,clk50m,Y18,IN,,,reserved
+board,led[0],M22,OUT,,,reserved
+board,led[1],N22,OUT,,,reserved
+board,led[2],L21,OUT,,,reserved
+board,led[3],K21,OUT,,,reserved
+board,led[4],K22,OUT,,,reserved
+board,led[5],J22,OUT,,,reserved
+board,led[6],H22,OUT,,,reserved
+board,led[7],M21,OUT,,,reserved
+board,uart_tx,M15,OUT,,,reserved
+ethernet,rgmii_rxc,W19,IN,,,reserved
+ethernet,rgmii_rxctl,AB18,IN,,,reserved
+ethernet,rgmii_rxd[0],V17,IN,,,reserved
+ethernet,rgmii_rxd[1],V18,IN,,,reserved
+ethernet,rgmii_rxd[2],P19,IN,,,reserved
+ethernet,rgmii_rxd[3],R19,IN,,,reserved
+board,uart_rx,J21,IN,,,reserved
+reserved_p7,imu_i2c_scl,F19,INOUT,39,,reserved
+reserved_p7,imu_i2c_sda,F20,INOUT,40,,reserved
+chassis,right_enc_b,D19,IN,36,level shifter <- E2B / D157B J5-4,candidate_adc_remap
+chassis,estop_n,F18,IN,37,external safety status / external pulldown,candidate_adc_remap
+reserved_p7,lidar_moto_pwm,E18,OUT,38,,reserved
+reserved_p7,legacy_m1_disable,F13,OUT,7,,reserved
+reserved_p7,legacy_m2_disable,C15,OUT,18,,reserved
+audio,audio_mclk,V20,OUT,,,reserved
+audio,audio_bclk,U20,OUT,,,reserved
+audio,audio_lrck,W20,OUT,,,reserved
+audio,audio_adc,AA21,IN,,,reserved
+audio,audio_dac,AA20,OUT,,,reserved
+audio,codec_scl,M13,OUT,,,reserved
+audio,codec_sda,M16,INOUT,,,reserved
+legacy_disabled,legacy_m1_pwm_disabled[1],A18,OUT,5,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m1_pwm_disabled[0],A19,OUT,6,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_cal_disabled[0],F14,OUT,8,Old DRV8323 CAL fixed low,fixed_low
+spare_p7,spare_p7_9,E13,UNASSIGNED,9,M1_FAULT_N (old connection; disconnect before reuse),reserved
+legacy_disabled,legacy_m2_pwm_disabled[5],E14,OUT,10,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m2_pwm_disabled[0],C14,OUT,17,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_cal_disabled[1],B15,OUT,19,Old DRV8323 CAL fixed low,fixed_low
+chassis,left_in1,D17,OUT,21,AIN1 / D157B J4-4,candidate_adc_remap
+chassis,left_in2,C17,OUT,22,AIN2 / D157B J4-3,candidate_adc_remap
+chassis,right_in1,E16,OUT,23,BIN1 / D157B J4-2,candidate_adc_remap
+chassis,right_in2,D16,OUT,24,BIN2 / D157B J4-1,candidate_adc_remap
+chassis,left_enc_a,B17,IN,25,level shifter <- E1A / D157B J5-1,candidate_adc_remap
+chassis,left_enc_b,B18,IN,26,level shifter <- E1B / D157B J5-2,candidate_adc_remap
+chassis,right_enc_a,C18,IN,27,level shifter <- E2A / D157B J5-3,candidate_adc_remap
+spare_p7,spare_p7_28,C19,UNASSIGNED,28,ENC1_CS_N (old connection; disconnect before reuse),reserved
+spare_p7,spare_p7_31,F16,UNASSIGNED,31,ENC1_CLK (old connection; disconnect before reuse),reserved
+spare_p7,spare_p7_32,E17,UNASSIGNED,32,ENC1_DO (old connection; disconnect before reuse),reserved
+spare_p7,spare_p7_33,D20,UNASSIGNED,33,ENC2_CS_N (old connection; disconnect before reuse),reserved
+spare_p7,spare_p7_34,C20,UNASSIGNED,34,ENC2_CLK (old connection; disconnect before reuse),reserved
+spare_p7,spare_p7_35,E19,UNASSIGNED,35,ENC2_DO (old connection; disconnect before reuse),reserved

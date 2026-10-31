@@ -1,0 +1,13 @@
+{
+  "full_timing_signoff": false,
+  "system_build_scope": "source identity, successful build and Setup/Hold only",
+  "minimum_high_pulse_width": {
+    "slack_ns": -0.688,
+    "actual_ns": 0.212,
+    "required_ns": 0.9,
+    "clock": "eth125"
+  },
+  "camera_pclk_general_route_warning": true,
+  "programmed": false,
+  "hardware_tested": false
+}

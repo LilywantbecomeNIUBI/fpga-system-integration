@@ -1,0 +1,53 @@
+{
+  "bitstream_sha256": "be049edb9456adf52f59454b9aff5829289c93f32b4ee524b8d79c6b81ddd78c",
+  "operation": "SRAM Program",
+  "flash_written": false,
+  "motion_commands_sent": false,
+  "serial_port": "COM13",
+  "pin_profile": "left_encoder_p7_31_32",
+  "motor_power_off_confirmed": true,
+  "download_confirmed": true,
+  "motor_frames": 100,
+  "bad_crc": 0,
+  "first": {
+    "left_position": 0,
+    "right_position": 0,
+    "left_velocity": 0,
+    "right_velocity": 0,
+    "left_applied": 0,
+    "right_applied": 0,
+    "left_invalid": 1,
+    "right_invalid": 1,
+    "bad_frames": 0,
+    "rejected_commands": 0,
+    "packet_count": 22,
+    "last_sequence": 0,
+    "armed": false,
+    "flags": 1,
+    "faults": 1,
+    "fault_names": [
+      "power_on_requires_clear"
+    ]
+  },
+  "last": {
+    "left_position": 0,
+    "right_position": 0,
+    "left_velocity": 0,
+    "right_velocity": 0,
+    "left_applied": 0,
+    "right_applied": 0,
+    "left_invalid": 1,
+    "right_invalid": 1,
+    "bad_frames": 0,
+    "rejected_commands": 0,
+    "packet_count": 121,
+    "last_sequence": 0,
+    "armed": false,
+    "flags": 1,
+    "faults": 1,
+    "fault_names": [
+      "power_on_requires_clear"
+    ]
+  },
+  "static_passed": true
+}

@@ -1,0 +1,68 @@
+{
+  "profile": "task4_m2",
+  "pins": [
+    {
+      "signal": "left_in1",
+      "ball": "E14",
+      "p7": 10,
+      "j_drv2": 25,
+      "direction": "OUT"
+    },
+    {
+      "signal": "left_in2",
+      "ball": "C13",
+      "p7": 13,
+      "j_drv2": 26,
+      "direction": "OUT"
+    },
+    {
+      "signal": "right_in1",
+      "ball": "B13",
+      "p7": 14,
+      "j_drv2": 27,
+      "direction": "OUT"
+    },
+    {
+      "signal": "right_in2",
+      "ball": "D14",
+      "p7": 15,
+      "j_drv2": 28,
+      "direction": "OUT"
+    },
+    {
+      "signal": "left_enc_a",
+      "ball": "D15",
+      "p7": 16,
+      "j_drv2": 29,
+      "direction": "IN"
+    },
+    {
+      "signal": "left_enc_b",
+      "ball": "C14",
+      "p7": 17,
+      "j_drv2": 30,
+      "direction": "IN"
+    },
+    {
+      "signal": "right_enc_a",
+      "ball": "C15",
+      "p7": 18,
+      "j_drv2": 23,
+      "direction": "IN"
+    },
+    {
+      "signal": "right_enc_b",
+      "ball": "B15",
+      "p7": 19,
+      "j_drv2": 24,
+      "direction": "IN"
+    },
+    {
+      "signal": "lidar_rx",
+      "ball": "B16",
+      "p7": 20,
+      "j_drv2": 14,
+      "direction": "IN"
+    }
+  ]
+}

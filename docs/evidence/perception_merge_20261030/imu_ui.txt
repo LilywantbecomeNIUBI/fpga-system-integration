@@ -1,0 +1,1 @@
+PASS IMU UI: fresh values, stale/offline clearing, no control requests

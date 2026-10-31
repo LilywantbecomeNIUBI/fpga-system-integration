@@ -1,0 +1,318 @@
+  PID  PPID %CPU %MEM STAT COMMAND
+    1     0  0.2  0.2 Ss   /sbin/init 2
+    2     0  0.0  0.0 S    [kthreadd]
+    3     2  5.1  0.0 S    [ksoftirqd/0]
+    5     2  0.0  0.0 S<   [kworker/0:0H]
+    7     2  0.1  0.0 S    [rcu_preempt]
+    8     2  0.0  0.0 S    [rcu_sched]
+    9     2  0.0  0.0 S    [rcu_bh]
+   10     2  0.0  0.0 S    [migration/0]
+   11     2  0.0  0.0 S<   [lru-add-drain]
+   12     2  0.0  0.0 S    [watchdog/0]
+   13     2  0.0  0.0 S    [cpuhp/0]
+   14     2  0.0  0.0 S    [cpuhp/1]
+   15     2  0.0  0.0 S    [watchdog/1]
+   16     2  0.0  0.0 S    [migration/1]
+   17     2  0.0  0.0 S    [ksoftirqd/1]
+   19     2  0.0  0.0 S<   [kworker/1:0H]
+   20     2  0.0  0.0 S    [cpuhp/2]
+   21     2  0.0  0.0 S    [watchdog/2]
+   22     2  0.0  0.0 S    [migration/2]
+   23     2  0.0  0.0 S    [ksoftirqd/2]
+   25     2  0.0  0.0 S<   [kworker/2:0H]
+   26     2  0.0  0.0 S    [cpuhp/3]
+   27     2  0.0  0.0 S    [watchdog/3]
+   28     2  0.0  0.0 S    [migration/3]
+   29     2  0.0  0.0 S    [ksoftirqd/3]
+   30     2  0.0  0.0 S    [kworker/3:0]
+   31     2  0.0  0.0 S<   [kworker/3:0H]
+   32     2  0.0  0.0 S    [kdevtmpfs]
+   33     2  0.0  0.0 S<   [netns]
+   34     2  0.4  0.0 S    [kworker/u8:1]
+   97     2  0.0  0.0 S    [irq/18-mc_statu]
+  591     2  0.0  0.0 S    [khungtaskd]
+  592     2  0.0  0.0 S    [oom_reaper]
+  593     2  0.0  0.0 S<   [writeback]
+  595     2  0.0  0.0 S    [kcompactd0]
+  596     2  0.0  0.0 SN   [ksmd]
+  597     2  0.0  0.0 SN   [khugepaged]
+  598     2  0.0  0.0 S<   [crypto]
+  599     2  0.0  0.0 S<   [kintegrityd]
+  600     2  0.0  0.0 S<   [bioset]
+  602     2  0.0  0.0 S<   [kblockd]
+  622     2  0.0  0.0 S<   [ata_sff]
+  639     2  0.0  0.0 S    [kworker/3:1]
+  646     2  0.0  0.0 S    [irq/355-max7762]
+  670     2  0.1  0.0 S    [kworker/0:1]
+  696     2  0.0  0.0 S<   [devfreq_wq]
+  713     2  0.0  0.0 S    [kworker/1:1]
+  724     2  0.0  0.0 S<   [watchdogd]
+  741     2  0.0  0.0 S    [vpr-shrink_thre]
+  742     2  0.0  0.0 S    [nvmap-bz]
+  833     2  0.0  0.0 S<   [rpciod]
+  834     2  0.0  0.0 S<   [xprtiod]
+  837     2  0.0  0.0 S<   [host_low_prio_w]
+  838     2  1.9  0.0 S    [irq/69-host_syn]
+  839     2  0.0  0.0 S    [irq/70-host_sta]
+  879     2  0.0  0.0 S    [kswapd0]
+  880     2  0.0  0.0 S<   [vmstat]
+  962     2  0.0  0.0 S<   [SquashFS read w]
+  965     2  0.0  0.0 S<   [nfsiod]
+ 1005     2  0.0  0.0 S<   [kthrotld]
+ 1044     2  0.0  0.0 S    [kworker/1:2]
+ 1079     2  0.0  0.0 S<   [nvhdcp0]
+ 1089     2  0.0  0.0 S<   [nvhdcp0]
+ 1097     2  0.0  0.0 S    [tegradc.0/a]
+ 1099     2  0.0  0.0 S    [tegradc.0/b]
+ 1100     2  0.0  0.0 S    [tegradc.0/c]
+ 1101     2  0.0  0.0 S    [tegradc.0/d]
+ 1102     2  0.0  0.0 S    [tegradc.0/e]
+ 1103     2  0.0  0.0 S    [tegradc.0/sl]
+ 1104     2  0.0  0.0 S    [irq/74-tegradc.]
+ 1108     2  0.0  0.0 S    [irq/324-tegradc]
+ 1124     2  0.0  0.0 S    [irq/77-tegra_dp]
+ 1148     2  0.0  0.0 S    [tegradc.1/a]
+ 1149     2  0.0  0.0 S    [tegradc.1/b]
+ 1150     2  0.0  0.0 S    [tegradc.1/c]
+ 1151     2  0.0  0.0 S    [tegradc.1/d]
+ 1152     2  0.0  0.0 S    [tegradc.1/e]
+ 1153     2  0.0  0.0 S    [tegradc.1/sl]
+ 1154     2  0.0  0.0 S    [irq/75-tegradc.]
+ 1249     2  0.0  0.0 S<   [bioset]
+ 1250     2  0.0  0.0 S<   [bioset]
+ 1251     2  0.0  0.0 S<   [bioset]
+ 1252     2  0.0  0.0 S<   [bioset]
+ 1253     2  0.0  0.0 S<   [bioset]
+ 1254     2  0.0  0.0 S<   [bioset]
+ 1255     2  0.0  0.0 S<   [bioset]
+ 1256     2  0.0  0.0 S<   [bioset]
+ 1257     2  0.0  0.0 S<   [bioset]
+ 1258     2  0.0  0.0 S<   [bioset]
+ 1259     2  0.0  0.0 S<   [bioset]
+ 1260     2  0.0  0.0 S<   [bioset]
+ 1261     2  0.0  0.0 S<   [bioset]
+ 1262     2  0.0  0.0 S<   [bioset]
+ 1263     2  0.0  0.0 S<   [bioset]
+ 1264     2  0.0  0.0 S<   [bioset]
+ 1302     2  0.0  0.0 S<   [bioset]
+ 1305     2  0.0  0.0 S<   [bioset]
+ 1308     2  0.0  0.0 S<   [bioset]
+ 1311     2  0.0  0.0 S<   [bioset]
+ 1314     2  0.0  0.0 S<   [bioset]
+ 1317     2  0.0  0.0 S<   [bioset]
+ 1320     2  0.0  0.0 S<   [bioset]
+ 1323     2  0.0  0.0 S<   [bioset]
+ 1333     2  0.0  0.0 S<   [kworker/u9:0]
+ 1349     2  0.0  0.0 S<   [nvme]
+ 1358     2  0.0  0.0 S    [irq/66-7000d400]
+ 1359     2  0.0  0.0 S    [spi0]
+ 1363     2  0.0  0.0 S    [irq/67-7000d600]
+ 1365     2  0.0  0.0 S    [spi1]
+ 1370     2  0.0  0.0 S    [irq/68-70410000]
+ 1372     2  0.0  0.0 S    [spi32766]
+ 1376     2  0.0  0.0 S<   [bioset]
+ 1439     2  0.0  0.0 S<   [ixgbe]
+ 1441     2  0.0  0.0 S<   [mlxsw_core]
+ 1466     2  0.0  0.0 S<   [vfio-irqfd-clea]
+ 1478     2  0.0  0.0 S<   [uas]
+ 1497     2  0.0  0.0 S    [irq/60-70090000]
+ 1498     2  0.0  0.0 S    [irq/62-70090000]
+ 1516     2  0.0  0.0 S    [irq/19-tegra_rt]
+ 1539     2  0.0  0.0 S    [kworker/0:2]
+ 1561     2  0.0  0.0 S    [irq/95-700e2000]
+ 1562     2  0.0  0.0 S    [irq/96-soctherm]
+ 1578     2  0.0  0.0 S    [irq/301-pwm-fan]
+ 1584     2  0.0  0.0 S<   [kworker/0:1H]
+ 1591     2  0.0  0.0 S    [cfinteractive]
+ 1600     2  0.0  0.0 S    [irq/92-mmc0]
+ 1711     2  0.0  0.0 S    [irq/13-6000c800]
+ 1791     2  0.0  0.0 S    [irq/300-sdhci-t]
+ 1820     2  0.0  0.0 S<   [ipv6_addrconf]
+ 1822     2  0.0  0.0 S<   [krfcommd]
+ 1879     2  0.0  0.0 S<   [bioset]
+ 1880     2  0.3  0.0 S    [mmcqd/0]
+ 1901     2  0.0  0.0 S<   [kworker/1:1H]
+ 1905     2  0.0  0.0 S    [jbd2/mmcblk0p1-]
+ 1906     2  0.0  0.0 S<   [ext4-rsv-conver]
+ 1914     2  0.0  0.0 S<   [kworker/u9:1]
+ 1979     1  0.2  0.2 S<s  /lib/systemd/systemd-journald
+ 2044     2  0.0  0.0 S    [kauditd]
+ 2319     1  0.2  0.1 Ss   /lib/systemd/systemd-udevd
+ 2709     2  0.1  0.0 S    [irq/80-gk20a_st]
+ 3385     2  0.2  0.0 S    [kworker/u8:5]
+ 3597     1  0.0  0.1 Ssl  /lib/systemd/systemd-timesyncd
+ 3605     1  0.1  0.1 Ss   /usr/sbin/haveged --Foreground --verbose=1 -w 1024
+ 3630     1  0.0  0.1 Ss   /lib/systemd/systemd-resolved
+ 3635     1  0.0  0.0 Ss   /sbin/rpcbind -f -w
+ 3771     1  0.0  0.3 Ssl  /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+ 3772     1  0.2  0.1 Ss   /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+ 3839     1  0.0  0.0 Ss   /usr/sbin/cron -f
+ 3841     1  0.0  0.2 Ssl  /usr/sbin/ModemManager --filter-policy=strict
+ 3863     1  0.0  0.0 Ss   avahi-daemon: running [liwei-desktop.local]
+ 3910     1  0.0  0.1 Ssl  /usr/lib/accountsservice/accounts-daemon
+ 3912     1  0.3  0.4 Ssl  /usr/sbin/NetworkManager --no-daemon
+ 3945     1  0.0  0.1 Ss   /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+ 4015     1  0.0  0.1 Ss   /lib/systemd/systemd-logind
+ 4022     1  0.0  0.3 Ssl  /usr/lib/udisks2/udisksd
+ 4033     1  0.0  0.1 Ssl  /usr/sbin/rsyslogd -n
+ 4113  3863  0.0  0.0 S    avahi-daemon: chroot helper
+ 4330     1  0.1  0.2 Ssl  /usr/lib/policykit-1/polkitd --no-debug
+ 4343     2  2.4  0.0 S    [sugov:0]
+ 4432     2  0.0  0.0 S<   [cfg80211]
+ 4445     2  0.1  0.0 S    [irq/408-iwlwifi]
+ 4540     1  0.0  0.2 Ssl  /usr/bin/whoopsie -f
+ 4554     2  0.0  0.0 S<   [hci0]
+ 4561     2  0.0  0.0 S<   [hci0]
+ 4599     1  0.0  0.0 S    /bin/bash /home/liwei/start_camera.sh
+ 4621     1  1.8  1.1 Ssl  /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=41641
+ 4641     1  0.1  1.3 Ssl  /usr/bin/containerd
+ 4791     2  0.0  0.0 S<   [kworker/2:1H]
+ 4812     2  0.0  0.0 S    [file-storage]
+ 4932     2  0.0  0.0 S<   [loop0]
+ 4945     1  0.0  0.0 S    /usr/sbin/dnsmasq -x /run/dnsmasq/dnsmasq.pid -u dnsmasq -r /run/dnsmasq/resolv.conf -7 /etc/dnsmasq.d,.dpkg-dist,.dpkg-old,.dpkg-new --local-service --trust-anchor=.,19036,8,2,49aac11d7b6f6446702e54a1607371607a1a41855200fd2ce1cdde32f24e8fb5 --trust-anchor=.,20326,8,2,e06d44b80b8f1d39a95c0b0d7c65d08458e880409bbc683457104237c7f8ec8d
+ 5014     1  0.0  0.0 Ss+  /sbin/agetty -o -p -- \u --keep-baud 115200,38400,9600 ttyGS0 vt220
+ 5016     1  0.0  0.1 Ss   /usr/sbin/sshd -D
+ 5137     1  0.0  0.0 Ss   /usr/sbin/kerneloops --test
+ 5162     1  0.0  0.0 Ss   /usr/sbin/kerneloops
+ 5177     1  0.0  0.0 Ssl  /usr/sbin/nvs-service
+ 5179     1  0.0  0.0 Ss   /bin/bash /etc/systemd/nvmemwarning.sh
+ 5180     1  0.0  0.0 Ss+  /sbin/agetty -o -p -- \u --keep-baud 115200,38400,9600 ttyS0 vt220
+ 5262     2  1.7  0.0 S    [nvgpu_channel_p]
+ 5266     1  0.0  0.0 Ss   /usr/lib/bluetooth/bluetoothd -d --noplugin=audio,a2dp,avrcp
+ 5281     2  0.0  0.0 S    [nvgpu_pg_init_g]
+ 5293     1  0.0  0.4 Ssl  /usr/sbin/nvargus-daemon
+ 5300     1  0.0  0.0 Ss   /bin/bash /etc/systemd/nvgetty.sh
+ 5396     2  0.0  0.0 S    [kworker/2:3]
+ 5410  5300  0.0  0.0 Ss+  /sbin/getty -L 115200 ttyTHS1
+ 5447     2  0.0  0.0 S<   [bioset]
+ 5451     2  0.0  0.0 S<   [bioset]
+ 5455     2  0.0  0.0 S<   [bioset]
+ 5458     2  0.0  0.0 S<   [bioset]
+ 5470     1  0.0  0.1 Ssl  /usr/sbin/gdm3
+ 5480     1  0.1  2.2 Ssl  /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+ 5615     1  0.0  0.0 Ss   /usr/sbin/nvphsd
+ 5672  5615  0.0  0.0 Sl   /usr/sbin/nvphsd
+ 5919  5470  0.0  0.1 Sl   gdm-session-worker [pam/gdm-autologin]
+ 6024     1  0.1  0.1 Ss   /lib/systemd/systemd --user
+ 6051  6024  0.0  0.0 S    (sd-pam)
+ 6075     2  0.0  0.0 S<   [kworker/3:1H]
+ 6126     1  0.0  0.2 SLl  /usr/bin/gnome-keyring-daemon --daemonize --login
+ 6132  5919  0.0  0.1 Ssl+ /usr/lib/gdm3/gdm-x-session --run-script /usr/lib/gnome-session/run-systemd-session unity-session.target
+ 6157  6132  0.8  0.9 Sl+  /usr/lib/xorg/Xorg vt1 -displayfd 3 -auth /run/user/1000/gdm/Xauthority -background none -noreset -keeptty -verbose 3
+ 6405  6024  0.0  0.1 Ss   /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+ 6459  6132  0.0  0.0 S+   /bin/sh /usr/lib/gnome-session/run-systemd-session unity-session.target
+ 6708  6024  0.0  0.1 Ssl  /usr/lib/gvfs/gvfsd
+ 6713  6024  0.0  0.1 Sl   /usr/lib/gvfs/gvfsd-fuse /run/user/1000/gvfs -f -o big_writes
+ 6720  6024  0.0  0.1 Ssl  /usr/lib/gvfs/gvfsd-metadata
+ 6782  6459  0.0  0.0 Ss   /usr/bin/ssh-agent /usr/bin/im-launch env LD_PRELOAD=libgtk3-nocsd.so.0 /usr/lib/gnome-session/run-systemd-session unity-session.target
+ 6830  3912  0.0  0.1 S    /sbin/dhclient -d -q -sf /usr/lib/NetworkManager/nm-dhcp-helper -pf /run/dhclient-wlan0.pid -lf /var/lib/NetworkManager/dhclient-b45a0735-e553-4d6b-a72d-a67aa91731f3-wlan0.lease -cf /var/lib/NetworkManager/dhclient-wlan0.conf wlan0
+ 6989  6459  0.0  0.1 S+   systemctl --user start --wait unity-session.target
+ 7000  6024  0.0  0.3 Ssl  /usr/lib/aarch64-linux-gnu/indicator-sound/indicator-sound-service
+ 7001  6024  0.0  0.7 Ssl  /usr/lib/aarch64-linux-gnu/bamf/bamfdaemon
+ 7002  6024  0.0  0.9 Ssl  /usr/lib/unity-settings-daemon/unity-settings-daemon
+ 7004  6024  0.0  0.9 Ssl  /usr/lib/aarch64-linux-gnu/indicator-keyboard/indicator-keyboard-service --use-gtk
+ 7005  6024  0.0  0.1 Ssl  /usr/lib/aarch64-linux-gnu/indicator-bluetooth/indicator-bluetooth-service
+ 7006  6024  0.0  0.1 Ssl  /usr/lib/aarch64-linux-gnu/indicator-power/indicator-power-service
+ 7008  6024  0.0  0.2 Ssl  /usr/lib/aarch64-linux-gnu/indicator-session/indicator-session-service
+ 7009  6024  0.0  0.2 Ssl  /usr/lib/aarch64-linux-gnu/indicator-messages/indicator-messages-service
+ 7011  6024  0.0  0.6 Ssl  /usr/lib/aarch64-linux-gnu/indicator-datetime/indicator-datetime-service
+ 7012  6024  0.0  0.2 Ssl  /usr/lib/aarch64-linux-gnu/indicator-application/indicator-application-service
+ 7014  6024  0.0  0.3 Ssl  /usr/lib/gnome-session/gnome-session-binary --session=unity
+ 7053  6024  0.0  0.3 S<l  /usr/bin/pulseaudio --start --log-target=syslog
+ 7054     1  0.0  0.0 SNsl /usr/lib/rtkit/rtkit-daemon
+ 7086  3912  0.0  0.1 S    /sbin/dhclient -d -q -6 -N -sf /usr/lib/NetworkManager/nm-dhcp-helper -pf /run/dhclient6-wlan0.pid -lf /var/lib/NetworkManager/dhclient6-b45a0735-e553-4d6b-a72d-a67aa91731f3-wlan0.lease -cf /var/lib/NetworkManager/dhclient6-wlan0.conf wlan0
+ 7122  6024  0.0  0.1 Ssl  /usr/lib/at-spi2-core/at-spi-bus-launcher
+ 7131  6024  0.0  0.5 Ssl  /usr/lib/evolution/evolution-source-registry
+ 7178  7122  0.0  0.0 S    /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 3
+ 7290  6024  0.0  0.1 Sl   /usr/lib/at-spi2-core/at-spi2-registryd --use-gnome-session
+ 7349     1  0.0  0.1 Ssl  /usr/lib/upower/upowerd
+ 7386  6024  0.0  0.1 Sl   /usr/lib/dconf/dconf-service
+ 7410  6024  0.0  0.8 Sl   /usr/lib/gnome-online-accounts/goa-daemon
+ 7419  6024  2.2  2.6 Ssl  /usr/bin/compiz
+ 7426  6024  0.1  0.7 Ssl  /usr/lib/aarch64-linux-gnu/unity/unity-panel-service
+ 7433  6024  0.0  1.6 Ssl  /usr/lib/evolution/evolution-calendar-factory
+ 7467  7014  0.2  1.3 Sl   nautilus-desktop
+ 7476  7014  0.0  0.5 Sl   /usr/lib/unity-settings-daemon/unity-fallback-mount-helper
+ 7483  7014  0.1  0.7 Sl   nm-applet
+ 7485  6024  0.0  0.2 Sl   /usr/lib/gnome-online-accounts/goa-identity-service
+ 7498  7014  0.2  0.9 Sl   python3 /usr/share/nvpmodel_indicator/nvpmodel_indicator.py
+ 7499  7014  0.0  0.5 Sl   /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+ 7505     1  0.0  0.3 Ssl  /usr/lib/colord/colord
+ 7506  6024  0.0  0.2 Ssl  /usr/lib/gvfs/gvfs-udisks2-volume-monitor
+ 7542  6708  0.0  0.2 Sl   /usr/lib/gvfs/gvfsd-trash --spawner :1.4 /org/gtk/gvfs/exec_spaw/0
+ 7552  6024  0.0  0.1 Ssl  /usr/lib/gvfs/gvfs-gphoto2-volume-monitor
+ 7569  6024  0.0  0.1 Ssl  /usr/lib/gvfs/gvfs-goa-volume-monitor
+ 7598  6024  0.0  0.1 Ssl  /usr/lib/gvfs/gvfs-mtp-volume-monitor
+ 7602  6024  0.0  0.1 Ssl  /usr/lib/gvfs/gvfs-afc-volume-monitor
+ 7624  6024  0.0  0.2 Sl   /usr/bin/ibus-daemon --replace --panel disable --xim
+ 7632  7624  0.0  0.1 Sl   /usr/lib/ibus/ibus-dconf
+ 7635  6024  0.0  0.4 Sl   /usr/lib/ibus/ibus-x11 --kill-daemon
+ 7646  6024  0.0  0.2 Sl   /usr/lib/ibus/ibus-portal
+ 7647  7624  0.1  0.7 Sl   /usr/lib/ibus/ibus-ui-gtk3
+ 7648  7624  0.0  0.1 Sl   /usr/lib/ibus/ibus-engine-simple
+ 7666  7498  0.0  0.5 S    python3 /usr/share/nvpmodel_indicator/nvpmodel_indicator.py
+ 7668  7498  0.0  0.5 S    python3 /usr/share/nvpmodel_indicator/nvpmodel_indicator.py
+ 7670  7498  0.0  0.5 S    python3 /usr/share/nvpmodel_indicator/nvpmodel_indicator.py
+ 7675  7498  0.0  0.5 S    python3 /usr/share/nvpmodel_indicator/nvpmodel_indicator.py
+ 7676  7498  0.4  0.5 S    python3 /usr/share/nvpmodel_indicator/nvpmodel_indicator.py
+ 7677  7498  0.0  0.5 S    python3 /usr/share/nvpmodel_indicator/nvpmodel_indicator.py
+ 7678  7498  0.0  0.5 S    python3 /usr/share/nvpmodel_indicator/nvpmodel_indicator.py
+ 7686  7433  0.0  1.5 Sl   /usr/lib/evolution/evolution-calendar-factory-subprocess --factory all --bus-name org.gnome.evolution.dataserver.Subprocess.Backend.Calendarx7433x2 --own-path /org/gnome/evolution/dataserver/Subprocess/Backend/Calendar/7433/2
+ 7701  6024  0.0  0.6 Ssl  /usr/lib/evolution/evolution-addressbook-factory
+ 7713  7701  0.0  0.7 Sl   /usr/lib/evolution/evolution-addressbook-factory-subprocess --factory all --bus-name org.gnome.evolution.dataserver.Subprocess.Backend.AddressBookx7701x2 --own-path /org/gnome/evolution/dataserver/Subprocess/Backend/AddressBook/7701/2
+ 7750  6024  0.0  0.6 Ssl  /usr/lib/aarch64-linux-gnu/unity/unity-panel-service --lockscreen-mode
+ 7755  4599  0.6  0.0 Sl   ./src/ustreamer.bin -d /dev/video0 -r 640x480 -m MJPEG -f 30 --host=0.0.0.0 --port=8080
+ 7778  7014  0.0  0.3 Sl   zeitgeist-datahub
+ 7790  6024  0.0  0.1 Ssl  /usr/bin/zeitgeist-daemon
+ 7796  6024  0.0  0.2 Ssl  /usr/lib/zeitgeist/zeitgeist/zeitgeist-fts
+ 8205  7014  0.9  4.0 SLl  /usr/bin/gnome-software --gapplication-service
+ 8207  7014  0.0  0.7 Sl   update-notifier
+ 8234     1  0.0  0.4 Ssl  /usr/lib/fwupd/fwupd
+ 8243     1  1.8  0.7 Ssl  /usr/lib/packagekit/packagekitd
+ 8314  8205  0.0  0.0 S    sh -c /usr/lib/aarch64-linux-gnu/libproxy/0.4.14/pxgsettings org.gnome.system.proxy org.gnome.system.proxy.http org.gnome.system.proxy.https org.gnome.system.proxy.ftp org.gnome.system.proxy.socks
+ 8315  8314  0.0  0.2 Sl   /usr/lib/aarch64-linux-gnu/libproxy/0.4.14/pxgsettings org.gnome.system.proxy org.gnome.system.proxy.http org.gnome.system.proxy.https org.gnome.system.proxy.ftp org.gnome.system.proxy.socks
+ 8368  6024  2.7  2.9 SNl  /usr/bin/python3 /usr/bin/update-manager --no-update --no-focus-on-map
+ 8609  7014  0.0  0.8 Sl   /usr/lib/deja-dup/deja-dup-monitor
+ 8970     2  0.0  0.0 S    [kworker/1:0]
+ 8988     2  0.4  0.0 S    [kworker/u8:0]
+ 9256     2  0.0  0.0 S    [kworker/2:0]
+ 9274     2  0.0  0.0 S    [kworker/3:2]
+ 9485     2  0.0  0.0 S    [kworker/0:0]
+10237     2  0.6  0.0 S    [kworker/u8:2]
+18058     2  0.0  0.0 S    [kworker/3:3]
+19250     2  0.0  0.0 S    [kworker/2:1]
+19678     2  0.0  0.0 S    [kworker/1:3]
+23694     2  0.0  0.0 S    [kworker/0:3]
+23750  5179  0.0  0.0 S    sleep 300
+25238     1  115 35.6 Ssl  /usr/bin/python3 /home/liwei/robot_sensing_board_20261031_002906/launcher.py
+25326     2  0.0  0.0 S    [kworker/2:2]
+28693     1  0.0  0.0 Ss   /bin/bash -c sleep 20 && /home/liwei/start_camera.sh
+28707 28693  0.0  0.0 S    sleep 20
+28904  5016  4.0  0.1 Ss   sshd: liwei [priv]
+28950 28904  0.0  0.1 S    sshd: liwei@notty
+28953 28950 15.0  0.2 Ss   python3 -c import pathlib,json,subprocess; r=pathlib.Path('/home/liwei/robot_sensing_board_20261031_002906'); p=json.loads((r/'pid.json').read_text())['pid']; print(subprocess.check_output(['ps','-eo','pid,ppid,pcpu,pmem,stat,args']).decode()); print(subprocess.check_output(['top','-b','-n','1','-H','-p',str(p)]).decode()); print((r/'agent_after_fpga_reset.log').read_text()[-2500:]); print(subprocess.check_output(['sh','-c','cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq']).decode())
+28960 28953  0.0  0.0 R    ps -eo pid,ppid,pcpu,pmem,stat,args
+
+top - 12:49:59 up 17 min,  1 user,  load average: 1.28, 1.27, 0.83
+Threads:   8 total,   1 running,   7 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 15.1 us,  6.0 sy,  0.7 ni, 73.9 id,  0.5 wa,  0.9 hi,  2.9 si,  0.0 st
+KiB Mem :  4059240 total,   520808 free,  2292516 used,  1245916 buff/cache
+KiB Swap:  2029616 total,  2027584 free,     2032 used.  1567256 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND
+25241 liwei     20   0 10.696g 1.381g 483480 R 81.2 35.7   0:50.62 python3
+25238 liwei     20   0 10.696g 1.381g 483480 S  6.2 35.7   0:02.48 python3
+25246 liwei     20   0 10.696g 1.381g 483480 S  6.2 35.7   0:36.32 python3
+25242 liwei     20   0 10.696g 1.381g 483480 S  0.0 35.7   0:00.07 python3
+25243 liwei     20   0 10.696g 1.381g 483480 S  0.0 35.7   0:00.27 python3
+25244 liwei     20   0 10.696g 1.381g 483480 S  0.0 35.7   0:00.05 python3
+25247 liwei     20   0 10.696g 1.381g 483480 S  0.0 35.7   0:17.00 python3
+25251 liwei     20   0 10.696g 1.381g 483480 S  0.0 35.7   0:00.43 cuda-EvtHan+
+
+Nano YOLO endpoint ready 192.168.50.20 8766
+
+1479000
+1479000
+1479000
+1479000
+

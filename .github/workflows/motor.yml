@@ -1,4 +1,4 @@
-name: Motor RTL and protocol
+name: System RTL and protocols
 on: [push, pull_request]
 jobs:
   simulate:
@@ -9,4 +9,15 @@ jobs:
         with:
           python-version: '3.12'
       - run: sudo apt-get update && sudo apt-get install -y iverilog
-      - run: python tools/test_motor.py
+      - run: python -m pip install numpy opencv-python-headless pyserial
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: python tools/test_system.py
+      - run: python tools/test_perception.py
+      - run: python tools/test_mailbox_contract.py
+      - run: python tools/test_stable_cdc.py
+      - run: node tests/test_perception_ui.js
+      - run: node tests/test_ground_ui.js
+      - run: node tests/test_motor_tuner_ui.js
+      - run: node tests/test_imu_ui.js

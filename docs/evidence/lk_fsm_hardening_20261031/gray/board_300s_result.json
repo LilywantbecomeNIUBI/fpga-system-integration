@@ -1,0 +1,23 @@
+{
+  "seconds": 300.8027041999994,
+  "samples": 296,
+  "errors": [],
+  "pc_fps": 29.86675277369404,
+  "nano_fps": 29.963161481445276,
+  "inference_fps": 24.20855896015583,
+  "pc_missing": 39,
+  "nano_missing": 11,
+  "queue_ms_p50_median": 9.900008704833985,
+  "flow_frame_advance": 9024,
+  "flow_packets": 1494419,
+  "fault_samples": 0,
+  "first_fault": null,
+  "fresh_samples": 295,
+  "confident_samples": 295,
+  "max_grid_wait": 1402,
+  "imu_crc_delta": 0,
+  "imu_gap_delta": 0,
+  "motor_outputs_enabled": false,
+  "static_health_passed": false,
+  "dynamic_obstacle_acceptance": false
+}

@@ -1,0 +1,23 @@
+{
+  "netlist_sha256": "66d81bd16a44260ee9bd4269b05c007e78c8b6669b79db82d1b6e589d32ce1cf",
+  "read_bank_replicas": [
+    "read_bank_1_s0",
+    "read_bank_2_s0",
+    "read_bank_3_s0",
+    "read_bank_4_s0",
+    "read_bank_5_s0",
+    "read_bank_6_s0",
+    "read_bank_7_s0",
+    "read_bank_0_s0",
+    "read_bank_1_s1",
+    "read_bank_3_s1",
+    "read_bank_4_s1",
+    "read_bank_5_s1",
+    "read_bank_0_s1"
+  ],
+  "data_cell_types": [
+    "DFFCE",
+    "DFFRE",
+    "DFFSE"
+  ]
+}

@@ -1,0 +1,3545 @@
+{
+  "profile": "system_integration_v1",
+  "mode": "live",
+  "simulation": false,
+  "replay": false,
+  "motor_outputs_enabled": false,
+  "pc": {
+    "frames": 10742,
+    "packets": 3437440,
+    "bad": 0,
+    "missing_frames": 30,
+    "fps": 29.916949975879643,
+    "frame_id": 14731,
+    "age_ms": 25.409399999716697,
+    "error": null,
+    "online": true
+  },
+  "nano": {
+    "online": true,
+    "poll_age_ms": 7.6291000000310305,
+    "error": null,
+    "error_detail": null,
+    "data": {
+      "profile": "fpga_yolo_dashboard_v1",
+      "session": "4b9f6ae0595a4560a7d22a352ccc3aea",
+      "capture": {
+        "frames": 5697,
+        "packets": 2712022,
+        "bad": 0,
+        "missing_frames": 4404,
+        "fps": 16.904494068866722,
+        "frame_id": 14722,
+        "age_ms": 14.29687500012733,
+        "error": null
+      },
+      "result": {
+        "session": "4b9f6ae0595a4560a7d22a352ccc3aea",
+        "sequence": 5349,
+        "frame_id": 14721,
+        "inference_ms": 30.555937999906746,
+        "receive_to_result_ms": 40.58026000006976,
+        "detections": [
+          {
+            "class_id": 39,
+            "label": "bottle",
+            "confidence": 0.8955226540565491,
+            "bbox": [
+              174,
+              71,
+              230,
+              248
+            ]
+          },
+          {
+            "class_id": 58,
+            "label": "potted plant",
+            "confidence": 0.20561504364013672,
+            "bbox": [
+              0,
+              165,
+              19,
+              199
+            ]
+          },
+          {
+            "class_id": 72,
+            "label": "refrigerator",
+            "confidence": 0.07978200912475586,
+            "bbox": [
+              46,
+              70,
+              149,
+              192
+            ]
+          },
+          {
+            "class_id": 39,
+            "label": "bottle",
+            "confidence": 0.06418263912200928,
+            "bbox": [
+              156,
+              152,
+              178,
+              218
+            ]
+          },
+          {
+            "class_id": 39,
+            "label": "bottle",
+            "confidence": 0.061875998973846436,
+            "bbox": [
+              230,
+              72,
+              258,
+              161
+            ]
+          },
+          {
+            "class_id": 39,
+            "label": "bottle",
+            "confidence": 0.057071417570114136,
+            "bbox": [
+              0,
+              165,
+              12,
+              198
+            ]
+          }
+        ],
+        "feedback": {
+          "kind": "bottle",
+          "threshold": 0.5,
+          "reply": {
+            "result_frame": 14721,
+            "current_frame": 14731,
+            "class_id": 39,
+            "confidence": 896,
+            "center_x": 808,
+            "center_y": 358,
+            "age_frames": 10,
+            "accepted": 4489,
+            "rejected": 861,
+            "target_valid": true,
+            "frame_seen": true,
+            "sequence_seen": true,
+            "stream_ready": true,
+            "reason": 1,
+            "direction": "center"
+          },
+          "error": null
+        },
+        "age_ms": 3.4556769999198877,
+        "key": "4b9f6ae0595a4560a7d22a352ccc3aea-5349"
+      },
+      "event": {
+        "frame_id": 14725,
+        "semantic_frame_id": 14721,
+        "class_id": 39,
+        "confidence": 896,
+        "x1": 696,
+        "y1": 4,
+        "x2": 920,
+        "y2": 712,
+        "red_permille": 154,
+        "track_confidence": 1000,
+        "semantic_age": 4,
+        "target_valid": false,
+        "track_valid": true,
+        "semantic_valid": true,
+        "red": false,
+        "force_yolo": false,
+        "history_miss": false,
+        "scene_change": false,
+        "bad_frame": false,
+        "reason": 0,
+        "direction": "none"
+      },
+      "flow": {
+        "epoch": "12a3295d87aa",
+        "stage": 2,
+        "frame_id": 7016,
+        "newest_frame_id": 7016,
+        "field_status": {
+          "kind": "status",
+          "stage": 2,
+          "frame_id": 7016,
+          "state": "unknown",
+          "stop_request": true,
+          "confident": false,
+          "stale": true,
+          "hazard": 0,
+          "valid_counts": [
+            17,
+            42,
+            47
+          ],
+          "risk_counts": [
+            0,
+            0,
+            0
+          ],
+          "steer": 0,
+          "speed_limit": 0,
+          "cycles": 128359522,
+          "dropped_frames": 7740
+        },
+        "vectors": [
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 8,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 0,
+            "width": 160,
+            "height": 90,
+            "cycles": 3635,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 16,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 1,
+            "width": 160,
+            "height": 90,
+            "cycles": 4445,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 24,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 2,
+            "width": 160,
+            "height": 90,
+            "cycles": 5255,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 32,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 3,
+            "width": 160,
+            "height": 90,
+            "cycles": 6065,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 40,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 4,
+            "width": 160,
+            "height": 90,
+            "cycles": 6875,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 48,
+            "y": 8,
+            "u": -0.015625,
+            "v": -0.203125,
+            "sequence": 5,
+            "width": 160,
+            "height": 90,
+            "cycles": 11587,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 56,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 6,
+            "width": 160,
+            "height": 90,
+            "cycles": 12397,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 64,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 7,
+            "width": 160,
+            "height": 90,
+            "cycles": 13207,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 72,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 8,
+            "width": 160,
+            "height": 90,
+            "cycles": 14017,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 80,
+            "y": 8,
+            "u": -0.0625,
+            "v": 0.1953125,
+            "sequence": 9,
+            "width": 160,
+            "height": 90,
+            "cycles": 18729,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 88,
+            "y": 8,
+            "u": 0.0078125,
+            "v": 0.046875,
+            "sequence": 10,
+            "width": 160,
+            "height": 90,
+            "cycles": 23441,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 96,
+            "y": 8,
+            "u": 0.0078125,
+            "v": -0.0078125,
+            "sequence": 11,
+            "width": 160,
+            "height": 90,
+            "cycles": 28153,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 104,
+            "y": 8,
+            "u": 0.0625,
+            "v": 0.0859375,
+            "sequence": 12,
+            "width": 160,
+            "height": 90,
+            "cycles": 32865,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 112,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 13,
+            "width": 160,
+            "height": 90,
+            "cycles": 36501,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 120,
+            "y": 8,
+            "u": -0.03125,
+            "v": 0.0546875,
+            "sequence": 14,
+            "width": 160,
+            "height": 90,
+            "cycles": 41213,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 128,
+            "y": 8,
+            "u": -0.0390625,
+            "v": 0.0078125,
+            "sequence": 15,
+            "width": 160,
+            "height": 90,
+            "cycles": 45925,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 136,
+            "y": 8,
+            "u": 0.015625,
+            "v": 0.0078125,
+            "sequence": 16,
+            "width": 160,
+            "height": 90,
+            "cycles": 50637,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 144,
+            "y": 8,
+            "u": -0.0078125,
+            "v": 0.25,
+            "sequence": 17,
+            "width": 160,
+            "height": 90,
+            "cycles": 55349,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 152,
+            "y": 8,
+            "u": -0.0390625,
+            "v": 0.0234375,
+            "sequence": 18,
+            "width": 160,
+            "height": 90,
+            "cycles": 60061,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 8,
+            "y": 16,
+            "u": -0.109375,
+            "v": -0.0546875,
+            "sequence": 19,
+            "width": 160,
+            "height": 90,
+            "cycles": 64773,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 16,
+            "y": 16,
+            "u": 0.0546875,
+            "v": -0.0234375,
+            "sequence": 20,
+            "width": 160,
+            "height": 90,
+            "cycles": 69485,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 24,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 21,
+            "width": 160,
+            "height": 90,
+            "cycles": 70295,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 32,
+            "y": 16,
+            "u": 0.03125,
+            "v": 0.0,
+            "sequence": 22,
+            "width": 160,
+            "height": 90,
+            "cycles": 75007,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 40,
+            "y": 16,
+            "u": -0.0234375,
+            "v": 0.0703125,
+            "sequence": 23,
+            "width": 160,
+            "height": 90,
+            "cycles": 79719,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 48,
+            "y": 16,
+            "u": 0.1015625,
+            "v": -1.2578125,
+            "sequence": 24,
+            "width": 160,
+            "height": 90,
+            "cycles": 84431,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 56,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 25,
+            "width": 160,
+            "height": 90,
+            "cycles": 85241,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 64,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 26,
+            "width": 160,
+            "height": 90,
+            "cycles": 86051,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 72,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 27,
+            "width": 160,
+            "height": 90,
+            "cycles": 86861,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 80,
+            "y": 16,
+            "u": 0.0546875,
+            "v": -0.421875,
+            "sequence": 28,
+            "width": 160,
+            "height": 90,
+            "cycles": 91573,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": false,
+            "x": 88,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 29,
+            "width": 160,
+            "height": 90,
+            "cycles": 95209,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 96,
+            "y": 16,
+            "u": -0.125,
+            "v": -0.0234375,
+            "sequence": 30,
+            "width": 160,
+            "height": 90,
+            "cycles": 99921,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 104,
+            "y": 16,
+            "u": 0.0,
+            "v": -0.0546875,
+            "sequence": 31,
+            "width": 160,
+            "height": 90,
+            "cycles": 104633,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 112,
+            "y": 16,
+            "u": -0.0234375,
+            "v": -0.0546875,
+            "sequence": 32,
+            "width": 160,
+            "height": 90,
+            "cycles": 109345,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 120,
+            "y": 16,
+            "u": -0.015625,
+            "v": -0.0234375,
+            "sequence": 33,
+            "width": 160,
+            "height": 90,
+            "cycles": 114057,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 128,
+            "y": 16,
+            "u": 0.0390625,
+            "v": -0.0234375,
+            "sequence": 34,
+            "width": 160,
+            "height": 90,
+            "cycles": 118769,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 136,
+            "y": 16,
+            "u": 0.078125,
+            "v": -0.0390625,
+            "sequence": 35,
+            "width": 160,
+            "height": 90,
+            "cycles": 123481,
+            "dropped_frames": 25
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 7016,
+            "valid": true,
+            "x": 144,
+            "y": 16,
+            "u": 0.0078125,
+            "v": -1.6328125,
+            "sequence": 36,
+            "width": 160,
+            "height": 90,
+            "cycles": 128193,
+            "dropped_frames": 25
+          }
+        ],
+        "received": 37,
+        "valid": 23,
+        "invalid": 14,
+        "missing": 153,
+        "expected": 190,
+        "image_key": null,
+        "control": {
+          "state": "unknown",
+          "stop_request": true,
+          "steer": 0,
+          "speed_limit": 0,
+          "hazard": 0,
+          "fresh": false,
+          "confident": false,
+          "age_ms": 257158.366204,
+          "frame_id": 7016,
+          "valid_counts": [
+            17,
+            42,
+            47
+          ],
+          "risk_counts": [
+            0,
+            0,
+            0
+          ]
+        },
+        "cycles": 128359522,
+        "dropped_frames": 7740,
+        "fps": 0.0,
+        "packets": 248788,
+        "bad": 0,
+        "duplicates": 0,
+        "late": 0,
+        "ignored_source": 0,
+        "restarts": 0,
+        "video": {
+          "frames": 0,
+          "fps": 0.0,
+          "frame_id": null,
+          "age_ms": null,
+          "bad": 0,
+          "missing_frames": 0
+        },
+        "history": [
+          {
+            "frame_id": 6545,
+            "ratios": [
+              0.058823529411764705,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6550,
+            "ratios": [
+              0.0625,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6559,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6564,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6573,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6574,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.02127659574468085
+            ]
+          },
+          {
+            "frame_id": 6577,
+            "ratios": [
+              0.058823529411764705,
+              0.047619047619047616,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6588,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6590,
+            "ratios": [
+              0.058823529411764705,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6591,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6598,
+            "ratios": [
+              0.0,
+              0.047619047619047616,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6603,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6605,
+            "ratios": [
+              0.11764705882352941,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6606,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6608,
+            "ratios": [
+              0.11764705882352941,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6613,
+            "ratios": [
+              0.0,
+              0.047619047619047616,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6616,
+            "ratios": [
+              0.0,
+              0.07142857142857142,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6618,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6623,
+            "ratios": [
+              0.11764705882352941,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6628,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6630,
+            "ratios": [
+              0.0,
+              0.047619047619047616,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6632,
+            "ratios": [
+              0.0625,
+              0.047619047619047616,
+              0.02127659574468085
+            ]
+          },
+          {
+            "frame_id": 6639,
+            "ratios": [
+              0.058823529411764705,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6660,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6661,
+            "ratios": [
+              0.05555555555555555,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6664,
+            "ratios": [
+              0.058823529411764705,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6671,
+            "ratios": [
+              0.11764705882352941,
+              0.024390243902439025,
+              0.021739130434782608
+            ]
+          },
+          {
+            "frame_id": 6672,
+            "ratios": [
+              0.0625,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6675,
+            "ratios": [
+              0.058823529411764705,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6678,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6680,
+            "ratios": [
+              0.0625,
+              0.04878048780487805,
+              0.02127659574468085
+            ]
+          },
+          {
+            "frame_id": 6681,
+            "ratios": [
+              0.0,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6685,
+            "ratios": [
+              0.0,
+              0.047619047619047616,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6686,
+            "ratios": [
+              0.0625,
+              0.0,
+              0.02127659574468085
+            ]
+          },
+          {
+            "frame_id": 6688,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6693,
+            "ratios": [
+              0.11764705882352941,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6694,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6704,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6713,
+            "ratios": [
+              0.11764705882352941,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6720,
+            "ratios": [
+              0.11764705882352941,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6723,
+            "ratios": [
+              0.0,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6737,
+            "ratios": [
+              0.0625,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6739,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6740,
+            "ratios": [
+              0.058823529411764705,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6747,
+            "ratios": [
+              0.058823529411764705,
+              0.04878048780487805,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6753,
+            "ratios": [
+              0.11764705882352941,
+              0.04878048780487805,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6758,
+            "ratios": [
+              0.0,
+              0.0,
+              0.02127659574468085
+            ]
+          },
+          {
+            "frame_id": 6764,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6767,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6772,
+            "ratios": [
+              0.058823529411764705,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6774,
+            "ratios": [
+              0.11764705882352941,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6780,
+            "ratios": [
+              0.0625,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6782,
+            "ratios": [
+              0.0625,
+              0.023809523809523808,
+              0.02127659574468085
+            ]
+          },
+          {
+            "frame_id": 6793,
+            "ratios": [
+              0.0,
+              0.047619047619047616,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6796,
+            "ratios": [
+              0.058823529411764705,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6799,
+            "ratios": [
+              0.058823529411764705,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6801,
+            "ratios": [
+              0.058823529411764705,
+              0.04878048780487805,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6803,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6806,
+            "ratios": [
+              0.0,
+              0.047619047619047616,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6811,
+            "ratios": [
+              0.058823529411764705,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6814,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6818,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6824,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6825,
+            "ratios": [
+              0.1111111111111111,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6826,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6833,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6843,
+            "ratios": [
+              0.11764705882352941,
+              0.04878048780487805,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6848,
+            "ratios": [
+              0.058823529411764705,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6851,
+            "ratios": [
+              0.0,
+              0.047619047619047616,
+              0.02127659574468085
+            ]
+          },
+          {
+            "frame_id": 6860,
+            "ratios": [
+              0.058823529411764705,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6861,
+            "ratios": [
+              0.0625,
+              0.047619047619047616,
+              0.02127659574468085
+            ]
+          },
+          {
+            "frame_id": 6865,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6867,
+            "ratios": [
+              0.0,
+              0.04878048780487805,
+              0.02127659574468085
+            ]
+          },
+          {
+            "frame_id": 6875,
+            "ratios": [
+              0.058823529411764705,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6882,
+            "ratios": [
+              0.0,
+              0.04878048780487805,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6902,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6904,
+            "ratios": [
+              0.0,
+              0.047619047619047616,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6905,
+            "ratios": [
+              0.0625,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6908,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6921,
+            "ratios": [
+              0.0625,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6922,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6934,
+            "ratios": [
+              0.058823529411764705,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6935,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6937,
+            "ratios": [
+              0.058823529411764705,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6939,
+            "ratios": [
+              0.058823529411764705,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6942,
+            "ratios": [
+              0.0,
+              0.024390243902439025,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6948,
+            "ratios": [
+              0.0,
+              0.0,
+              0.021739130434782608
+            ]
+          },
+          {
+            "frame_id": 6951,
+            "ratios": [
+              0.0,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6952,
+            "ratios": [
+              0.058823529411764705,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6962,
+            "ratios": [
+              0.125,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6966,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6970,
+            "ratios": [
+              0.11764705882352941,
+              0.04878048780487805,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6972,
+            "ratios": [
+              0.058823529411764705,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6975,
+            "ratios": [
+              0.0,
+              0.04878048780487805,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6980,
+            "ratios": [
+              0.058823529411764705,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6985,
+            "ratios": [
+              0.058823529411764705,
+              0.023809523809523808,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6987,
+            "ratios": [
+              0.058823529411764705,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 6989,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 7000,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 7016,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        ],
+        "observe_only": true,
+        "automatic_control_enabled": false
+      },
+      "event_age_ms": 0.7681249999222928,
+      "error": null,
+      "model": "YOLOv8n COCO / Nano TensorRT GPU FP16",
+      "backend": "tensorrt",
+      "model_id": "yolov8n",
+      "inference_fps": 19.50164373103006,
+      "offline": false,
+      "inferences": 5349
+    },
+    "result_fresh": true
+  },
+  "imu": {
+    "online": true,
+    "healthy": true,
+    "age_ms": 3.183700000136014,
+    "error": null,
+    "frame": {
+      "type": "sample",
+      "seq": 24618,
+      "raw_seq": 492360,
+      "timestamp_us": 491238884,
+      "ax_raw": 289,
+      "ay_raw": -300,
+      "az_raw": -8244,
+      "gx_raw": 6,
+      "gy_raw": -16,
+      "gz_raw": -5,
+      "temp_raw": -320,
+      "ax_g": 0.0352783203125,
+      "ay_g": -0.03662109375,
+      "az_g": -1.00634765625,
+      "gx_dps": 0.18310546875,
+      "gy_dps": -0.48828125,
+      "gz_dps": -0.152587890625,
+      "temp_c": 22.584541062801932,
+      "ready": true,
+      "fault": false,
+      "who_am_i": 71,
+      "last_error": 0,
+      "config_id": 2,
+      "error_count": 0,
+      "invalid_count": 0,
+      "tx_drop_count": 0,
+      "stale": false,
+      "temperature_valid": true,
+      "fast_bus": true,
+      "low_latency_filter": true,
+      "observe_to_commit_us": 145,
+      "raw_interval_us": 937,
+      "decimation": 20,
+      "poll_us": 150
+    },
+    "statistics": {
+      "samples": 61427,
+      "status_frames": 0,
+      "serial_sequence_gaps": 0,
+      "sequence_resets": 1,
+      "duplicate_sequences": 0,
+      "crc_failures": 0,
+      "discarded_bytes": 0,
+      "unsupported_frames": 0,
+      "trailing_bytes": 0,
+      "observed_rate_hz": 50.12444823552502,
+      "debug_rate_hz": 50.12444823552502,
+      "raw_read_rate_hz": 1002.4889647105005,
+      "raw_stride_anomalies": 0,
+      "observe_to_commit_us": {
+        "mean": 144.8803436936459,
+        "maximum": 145,
+        "p99": 145
+      },
+      "last_frame": {
+        "type": "sample",
+        "seq": 24618,
+        "raw_seq": 492360,
+        "timestamp_us": 491238884,
+        "ax_raw": 289,
+        "ay_raw": -300,
+        "az_raw": -8244,
+        "gx_raw": 6,
+        "gy_raw": -16,
+        "gz_raw": -5,
+        "temp_raw": -320,
+        "ax_g": 0.0352783203125,
+        "ay_g": -0.03662109375,
+        "az_g": -1.00634765625,
+        "gx_dps": 0.18310546875,
+        "gy_dps": -0.48828125,
+        "gz_dps": -0.152587890625,
+        "temp_c": 22.584541062801932,
+        "ready": true,
+        "fault": false,
+        "who_am_i": 71,
+        "last_error": 0,
+        "config_id": 2,
+        "error_count": 0,
+        "invalid_count": 0,
+        "tx_drop_count": 0,
+        "stale": false,
+        "temperature_valid": true,
+        "fast_bus": true,
+        "low_latency_filter": true,
+        "observe_to_commit_us": 145,
+        "raw_interval_us": 937,
+        "decimation": 20,
+        "poll_us": 150
+      },
+      "note": "seq is debug-frame sequence; raw_seq counts successful FPGA reads. Deliberate decimation is not packet loss. Observation-to-commit is not total sensor latency."
+    },
+    "attitude": {
+      "valid": true,
+      "pitch_deg": -2.3363059155861654,
+      "roll_deg": -178.17054719121376,
+      "yaw_deg": null,
+      "convention": "sensor axes; roll about +X, pitch about +Y, upright +Z; yaw unavailable",
+      "method": "host complementary filter of decimated IMU; visualization only, no motor control"
+    }
+  },
+  "tracking": {
+    "event": {
+      "frame_id": 14725,
+      "semantic_frame_id": 14721,
+      "class_id": 39,
+      "confidence": 896,
+      "x1": 696,
+      "y1": 4,
+      "x2": 920,
+      "y2": 712,
+      "red_permille": 154,
+      "track_confidence": 1000,
+      "semantic_age": 4,
+      "target_valid": false,
+      "track_valid": true,
+      "semantic_valid": true,
+      "red": false,
+      "force_yolo": false,
+      "history_miss": false,
+      "scene_change": false,
+      "bad_frame": false,
+      "reason": 0,
+      "direction": "none"
+    },
+    "age_ms": 8.397224999953323,
+    "error": null,
+    "fresh": true
+  },
+  "flow": {
+    "epoch": "12a3295d87aa",
+    "stage": 2,
+    "frame_id": 7016,
+    "newest_frame_id": 7016,
+    "field_status": {
+      "kind": "status",
+      "stage": 2,
+      "frame_id": 7016,
+      "state": "unknown",
+      "stop_request": true,
+      "confident": false,
+      "stale": true,
+      "hazard": 0,
+      "valid_counts": [
+        17,
+        42,
+        47
+      ],
+      "risk_counts": [
+        0,
+        0,
+        0
+      ],
+      "steer": 0,
+      "speed_limit": 0,
+      "cycles": 128359522,
+      "dropped_frames": 7740
+    },
+    "vectors": [
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 8,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 0,
+        "width": 160,
+        "height": 90,
+        "cycles": 3635,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 16,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 1,
+        "width": 160,
+        "height": 90,
+        "cycles": 4445,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 24,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 2,
+        "width": 160,
+        "height": 90,
+        "cycles": 5255,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 32,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 3,
+        "width": 160,
+        "height": 90,
+        "cycles": 6065,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 40,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 4,
+        "width": 160,
+        "height": 90,
+        "cycles": 6875,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 48,
+        "y": 8,
+        "u": -0.015625,
+        "v": -0.203125,
+        "sequence": 5,
+        "width": 160,
+        "height": 90,
+        "cycles": 11587,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 56,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 6,
+        "width": 160,
+        "height": 90,
+        "cycles": 12397,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 64,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 7,
+        "width": 160,
+        "height": 90,
+        "cycles": 13207,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 72,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 8,
+        "width": 160,
+        "height": 90,
+        "cycles": 14017,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 80,
+        "y": 8,
+        "u": -0.0625,
+        "v": 0.1953125,
+        "sequence": 9,
+        "width": 160,
+        "height": 90,
+        "cycles": 18729,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 88,
+        "y": 8,
+        "u": 0.0078125,
+        "v": 0.046875,
+        "sequence": 10,
+        "width": 160,
+        "height": 90,
+        "cycles": 23441,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 96,
+        "y": 8,
+        "u": 0.0078125,
+        "v": -0.0078125,
+        "sequence": 11,
+        "width": 160,
+        "height": 90,
+        "cycles": 28153,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 104,
+        "y": 8,
+        "u": 0.0625,
+        "v": 0.0859375,
+        "sequence": 12,
+        "width": 160,
+        "height": 90,
+        "cycles": 32865,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 112,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 13,
+        "width": 160,
+        "height": 90,
+        "cycles": 36501,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 120,
+        "y": 8,
+        "u": -0.03125,
+        "v": 0.0546875,
+        "sequence": 14,
+        "width": 160,
+        "height": 90,
+        "cycles": 41213,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 128,
+        "y": 8,
+        "u": -0.0390625,
+        "v": 0.0078125,
+        "sequence": 15,
+        "width": 160,
+        "height": 90,
+        "cycles": 45925,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 136,
+        "y": 8,
+        "u": 0.015625,
+        "v": 0.0078125,
+        "sequence": 16,
+        "width": 160,
+        "height": 90,
+        "cycles": 50637,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 144,
+        "y": 8,
+        "u": -0.0078125,
+        "v": 0.25,
+        "sequence": 17,
+        "width": 160,
+        "height": 90,
+        "cycles": 55349,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 152,
+        "y": 8,
+        "u": -0.0390625,
+        "v": 0.0234375,
+        "sequence": 18,
+        "width": 160,
+        "height": 90,
+        "cycles": 60061,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 8,
+        "y": 16,
+        "u": -0.109375,
+        "v": -0.0546875,
+        "sequence": 19,
+        "width": 160,
+        "height": 90,
+        "cycles": 64773,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 16,
+        "y": 16,
+        "u": 0.0546875,
+        "v": -0.0234375,
+        "sequence": 20,
+        "width": 160,
+        "height": 90,
+        "cycles": 69485,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 24,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 21,
+        "width": 160,
+        "height": 90,
+        "cycles": 70295,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 32,
+        "y": 16,
+        "u": 0.03125,
+        "v": 0.0,
+        "sequence": 22,
+        "width": 160,
+        "height": 90,
+        "cycles": 75007,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 40,
+        "y": 16,
+        "u": -0.0234375,
+        "v": 0.0703125,
+        "sequence": 23,
+        "width": 160,
+        "height": 90,
+        "cycles": 79719,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 48,
+        "y": 16,
+        "u": 0.1015625,
+        "v": -1.2578125,
+        "sequence": 24,
+        "width": 160,
+        "height": 90,
+        "cycles": 84431,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 56,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 25,
+        "width": 160,
+        "height": 90,
+        "cycles": 85241,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 64,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 26,
+        "width": 160,
+        "height": 90,
+        "cycles": 86051,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 72,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 27,
+        "width": 160,
+        "height": 90,
+        "cycles": 86861,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 80,
+        "y": 16,
+        "u": 0.0546875,
+        "v": -0.421875,
+        "sequence": 28,
+        "width": 160,
+        "height": 90,
+        "cycles": 91573,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": false,
+        "x": 88,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 29,
+        "width": 160,
+        "height": 90,
+        "cycles": 95209,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 96,
+        "y": 16,
+        "u": -0.125,
+        "v": -0.0234375,
+        "sequence": 30,
+        "width": 160,
+        "height": 90,
+        "cycles": 99921,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 104,
+        "y": 16,
+        "u": 0.0,
+        "v": -0.0546875,
+        "sequence": 31,
+        "width": 160,
+        "height": 90,
+        "cycles": 104633,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 112,
+        "y": 16,
+        "u": -0.0234375,
+        "v": -0.0546875,
+        "sequence": 32,
+        "width": 160,
+        "height": 90,
+        "cycles": 109345,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 120,
+        "y": 16,
+        "u": -0.015625,
+        "v": -0.0234375,
+        "sequence": 33,
+        "width": 160,
+        "height": 90,
+        "cycles": 114057,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 128,
+        "y": 16,
+        "u": 0.0390625,
+        "v": -0.0234375,
+        "sequence": 34,
+        "width": 160,
+        "height": 90,
+        "cycles": 118769,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 136,
+        "y": 16,
+        "u": 0.078125,
+        "v": -0.0390625,
+        "sequence": 35,
+        "width": 160,
+        "height": 90,
+        "cycles": 123481,
+        "dropped_frames": 25
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 7016,
+        "valid": true,
+        "x": 144,
+        "y": 16,
+        "u": 0.0078125,
+        "v": -1.6328125,
+        "sequence": 36,
+        "width": 160,
+        "height": 90,
+        "cycles": 128193,
+        "dropped_frames": 25
+      }
+    ],
+    "received": 37,
+    "valid": 23,
+    "invalid": 14,
+    "missing": 153,
+    "expected": 190,
+    "image_key": null,
+    "control": {
+      "state": "unknown",
+      "stop_request": true,
+      "steer": 0,
+      "speed_limit": 0,
+      "hazard": 0,
+      "fresh": false,
+      "confident": false,
+      "age_ms": 257165.995304,
+      "frame_id": 7016,
+      "valid_counts": [
+        17,
+        42,
+        47
+      ],
+      "risk_counts": [
+        0,
+        0,
+        0
+      ]
+    },
+    "cycles": 128359522,
+    "dropped_frames": 7740,
+    "fps": 0.0,
+    "packets": 248788,
+    "bad": 0,
+    "duplicates": 0,
+    "late": 0,
+    "ignored_source": 0,
+    "restarts": 0,
+    "video": {
+      "frames": 0,
+      "fps": 0.0,
+      "frame_id": null,
+      "age_ms": null,
+      "bad": 0,
+      "missing_frames": 0
+    },
+    "history": [
+      {
+        "frame_id": 6545,
+        "ratios": [
+          0.058823529411764705,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6550,
+        "ratios": [
+          0.0625,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6559,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6564,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6573,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6574,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.02127659574468085
+        ]
+      },
+      {
+        "frame_id": 6577,
+        "ratios": [
+          0.058823529411764705,
+          0.047619047619047616,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6588,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6590,
+        "ratios": [
+          0.058823529411764705,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6591,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6598,
+        "ratios": [
+          0.0,
+          0.047619047619047616,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6603,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6605,
+        "ratios": [
+          0.11764705882352941,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6606,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6608,
+        "ratios": [
+          0.11764705882352941,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6613,
+        "ratios": [
+          0.0,
+          0.047619047619047616,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6616,
+        "ratios": [
+          0.0,
+          0.07142857142857142,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6618,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6623,
+        "ratios": [
+          0.11764705882352941,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6628,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6630,
+        "ratios": [
+          0.0,
+          0.047619047619047616,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6632,
+        "ratios": [
+          0.0625,
+          0.047619047619047616,
+          0.02127659574468085
+        ]
+      },
+      {
+        "frame_id": 6639,
+        "ratios": [
+          0.058823529411764705,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6660,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6661,
+        "ratios": [
+          0.05555555555555555,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6664,
+        "ratios": [
+          0.058823529411764705,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6671,
+        "ratios": [
+          0.11764705882352941,
+          0.024390243902439025,
+          0.021739130434782608
+        ]
+      },
+      {
+        "frame_id": 6672,
+        "ratios": [
+          0.0625,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6675,
+        "ratios": [
+          0.058823529411764705,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6678,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6680,
+        "ratios": [
+          0.0625,
+          0.04878048780487805,
+          0.02127659574468085
+        ]
+      },
+      {
+        "frame_id": 6681,
+        "ratios": [
+          0.0,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6685,
+        "ratios": [
+          0.0,
+          0.047619047619047616,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6686,
+        "ratios": [
+          0.0625,
+          0.0,
+          0.02127659574468085
+        ]
+      },
+      {
+        "frame_id": 6688,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6693,
+        "ratios": [
+          0.11764705882352941,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6694,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6704,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6713,
+        "ratios": [
+          0.11764705882352941,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6720,
+        "ratios": [
+          0.11764705882352941,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6723,
+        "ratios": [
+          0.0,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6737,
+        "ratios": [
+          0.0625,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6739,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6740,
+        "ratios": [
+          0.058823529411764705,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6747,
+        "ratios": [
+          0.058823529411764705,
+          0.04878048780487805,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6753,
+        "ratios": [
+          0.11764705882352941,
+          0.04878048780487805,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6758,
+        "ratios": [
+          0.0,
+          0.0,
+          0.02127659574468085
+        ]
+      },
+      {
+        "frame_id": 6764,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6767,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6772,
+        "ratios": [
+          0.058823529411764705,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6774,
+        "ratios": [
+          0.11764705882352941,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6780,
+        "ratios": [
+          0.0625,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6782,
+        "ratios": [
+          0.0625,
+          0.023809523809523808,
+          0.02127659574468085
+        ]
+      },
+      {
+        "frame_id": 6793,
+        "ratios": [
+          0.0,
+          0.047619047619047616,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6796,
+        "ratios": [
+          0.058823529411764705,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6799,
+        "ratios": [
+          0.058823529411764705,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6801,
+        "ratios": [
+          0.058823529411764705,
+          0.04878048780487805,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6803,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6806,
+        "ratios": [
+          0.0,
+          0.047619047619047616,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6811,
+        "ratios": [
+          0.058823529411764705,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6814,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6818,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6824,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6825,
+        "ratios": [
+          0.1111111111111111,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6826,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6833,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6843,
+        "ratios": [
+          0.11764705882352941,
+          0.04878048780487805,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6848,
+        "ratios": [
+          0.058823529411764705,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6851,
+        "ratios": [
+          0.0,
+          0.047619047619047616,
+          0.02127659574468085
+        ]
+      },
+      {
+        "frame_id": 6860,
+        "ratios": [
+          0.058823529411764705,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6861,
+        "ratios": [
+          0.0625,
+          0.047619047619047616,
+          0.02127659574468085
+        ]
+      },
+      {
+        "frame_id": 6865,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6867,
+        "ratios": [
+          0.0,
+          0.04878048780487805,
+          0.02127659574468085
+        ]
+      },
+      {
+        "frame_id": 6875,
+        "ratios": [
+          0.058823529411764705,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6882,
+        "ratios": [
+          0.0,
+          0.04878048780487805,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6902,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6904,
+        "ratios": [
+          0.0,
+          0.047619047619047616,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6905,
+        "ratios": [
+          0.0625,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6908,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6921,
+        "ratios": [
+          0.0625,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6922,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6934,
+        "ratios": [
+          0.058823529411764705,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6935,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6937,
+        "ratios": [
+          0.058823529411764705,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6939,
+        "ratios": [
+          0.058823529411764705,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6942,
+        "ratios": [
+          0.0,
+          0.024390243902439025,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6948,
+        "ratios": [
+          0.0,
+          0.0,
+          0.021739130434782608
+        ]
+      },
+      {
+        "frame_id": 6951,
+        "ratios": [
+          0.0,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6952,
+        "ratios": [
+          0.058823529411764705,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6962,
+        "ratios": [
+          0.125,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6966,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6970,
+        "ratios": [
+          0.11764705882352941,
+          0.04878048780487805,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6972,
+        "ratios": [
+          0.058823529411764705,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6975,
+        "ratios": [
+          0.0,
+          0.04878048780487805,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6980,
+        "ratios": [
+          0.058823529411764705,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6985,
+        "ratios": [
+          0.058823529411764705,
+          0.023809523809523808,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6987,
+        "ratios": [
+          0.058823529411764705,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 6989,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 7000,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 7016,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "observe_only": true,
+    "automatic_control_enabled": false
+  },
+  "recording": {
+    "active": false,
+    "error": null,
+    "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\runs\\commissioning\\system_static_20261031_002906\\sensor_console",
+    "contents": "10Hz PC status JSONL; raw serial streams are recorded on Nano; frames only on explicit save"
+  },
+  "gateway": {
+    "online": true,
+    "age_ms": 35.87020000031771,
+    "error": null,
+    "data": {
+      "profile": "system_integration_v1",
+      "mode": "live",
+      "control": {
+        "timed_test_supported": true,
+        "ground_test_supported": true,
+        "connected": true,
+        "motor_fresh": true,
+        "motor_age_ms": 40.25270000011005,
+        "motor": {
+          "left_position": 0,
+          "right_position": 0,
+          "left_velocity": 0,
+          "right_velocity": 0,
+          "left_applied": 0,
+          "right_applied": 0,
+          "left_invalid": 0,
+          "right_invalid": 0,
+          "bad_frames": 0,
+          "rejected_commands": 0,
+          "packet_count": 9823,
+          "last_sequence": 0,
+          "armed": false,
+          "flags": 1,
+          "faults": 1,
+          "fault_names": [
+            "power_on_requires_clear"
+          ]
+        },
+        "phase": "stopped",
+        "reason": "fpga_counter_restart_or_large_gap",
+        "owned": false,
+        "targets": [
+          0,
+          0
+        ],
+        "test_remaining_ms": null,
+        "flags": 1,
+        "kp": 256,
+        "ki": 0,
+        "physical_control_enabled": false
+      },
+      "imu": {
+        "online": true,
+        "healthy": true,
+        "age_ms": 3.183700000136014,
+        "error": null,
+        "frame": {
+          "type": "sample",
+          "seq": 24618,
+          "raw_seq": 492360,
+          "timestamp_us": 491238884,
+          "ax_raw": 289,
+          "ay_raw": -300,
+          "az_raw": -8244,
+          "gx_raw": 6,
+          "gy_raw": -16,
+          "gz_raw": -5,
+          "temp_raw": -320,
+          "ax_g": 0.0352783203125,
+          "ay_g": -0.03662109375,
+          "az_g": -1.00634765625,
+          "gx_dps": 0.18310546875,
+          "gy_dps": -0.48828125,
+          "gz_dps": -0.152587890625,
+          "temp_c": 22.584541062801932,
+          "ready": true,
+          "fault": false,
+          "who_am_i": 71,
+          "last_error": 0,
+          "config_id": 2,
+          "error_count": 0,
+          "invalid_count": 0,
+          "tx_drop_count": 0,
+          "stale": false,
+          "temperature_valid": true,
+          "fast_bus": true,
+          "low_latency_filter": true,
+          "observe_to_commit_us": 145,
+          "raw_interval_us": 937,
+          "decimation": 20,
+          "poll_us": 150
+        },
+        "statistics": {
+          "samples": 61427,
+          "status_frames": 0,
+          "serial_sequence_gaps": 0,
+          "sequence_resets": 1,
+          "duplicate_sequences": 0,
+          "crc_failures": 0,
+          "discarded_bytes": 0,
+          "unsupported_frames": 0,
+          "trailing_bytes": 0,
+          "observed_rate_hz": 50.12444823552502,
+          "debug_rate_hz": 50.12444823552502,
+          "raw_read_rate_hz": 1002.4889647105005,
+          "raw_stride_anomalies": 0,
+          "observe_to_commit_us": {
+            "mean": 144.8803436936459,
+            "maximum": 145,
+            "p99": 145
+          },
+          "last_frame": {
+            "type": "sample",
+            "seq": 24618,
+            "raw_seq": 492360,
+            "timestamp_us": 491238884,
+            "ax_raw": 289,
+            "ay_raw": -300,
+            "az_raw": -8244,
+            "gx_raw": 6,
+            "gy_raw": -16,
+            "gz_raw": -5,
+            "temp_raw": -320,
+            "ax_g": 0.0352783203125,
+            "ay_g": -0.03662109375,
+            "az_g": -1.00634765625,
+            "gx_dps": 0.18310546875,
+            "gy_dps": -0.48828125,
+            "gz_dps": -0.152587890625,
+            "temp_c": 22.584541062801932,
+            "ready": true,
+            "fault": false,
+            "who_am_i": 71,
+            "last_error": 0,
+            "config_id": 2,
+            "error_count": 0,
+            "invalid_count": 0,
+            "tx_drop_count": 0,
+            "stale": false,
+            "temperature_valid": true,
+            "fast_bus": true,
+            "low_latency_filter": true,
+            "observe_to_commit_us": 145,
+            "raw_interval_us": 937,
+            "decimation": 20,
+            "poll_us": 150
+          },
+          "note": "seq is debug-frame sequence; raw_seq counts successful FPGA reads. Deliberate decimation is not packet loss. Observation-to-commit is not total sensor latency."
+        },
+        "attitude": {
+          "valid": true,
+          "pitch_deg": -2.3363059155861654,
+          "roll_deg": -178.17054719121376,
+          "yaw_deg": null,
+          "convention": "sensor axes; roll about +X, pitch about +Y, upright +Z; yaw unavailable",
+          "method": "host complementary filter of decimated IMU; visualization only, no motor control"
+        }
+      },
+      "lidar": {
+        "enabled": false,
+        "online": false,
+        "age_ms": null,
+        "error": null,
+        "frames": 0,
+        "scans": 0,
+        "bad_crc": 0,
+        "connections": 0,
+        "scan": null
+      },
+      "encoder_diagnostics": {
+        "2": {
+          "sync_a_edges": 0,
+          "sync_b_edges": 211608292,
+          "filtered_a_edges": 0,
+          "filtered_b_edges": 211608292,
+          "a_positive": 0,
+          "a_negative": 0,
+          "b_positive": 105804146,
+          "b_negative": 105804146,
+          "diagonal": 0,
+          "axis": 2,
+          "sequence": 4911,
+          "mode": "a_edge_x2_scaled4",
+          "synchronized_ab": 3,
+          "filtered_ab": 3,
+          "received_monotonic": 2312.2799907,
+          "age_ms": 34.847000000354456
+        },
+        "1": {
+          "sync_a_edges": 0,
+          "sync_b_edges": 0,
+          "filtered_a_edges": 0,
+          "filtered_b_edges": 0,
+          "a_positive": 0,
+          "a_negative": 0,
+          "b_positive": 0,
+          "b_negative": 0,
+          "diagonal": 0,
+          "axis": 1,
+          "sequence": 4910,
+          "mode": "quadrature_continuity_x4",
+          "synchronized_ab": 3,
+          "filtered_ab": 3,
+          "received_monotonic": 2312.1801951,
+          "age_ms": 134.64459999977407
+        }
+      },
+      "encoder_traces": {
+        "2": {
+          "axis": 2,
+          "sequence": 44211,
+          "event_count": 211626342,
+          "mode": "a_edge_x2_scaled4",
+          "transitions": [
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11
+          ],
+          "synchronized_ab": 3,
+          "filtered_ab": 3,
+          "received_monotonic": 2312.3143701,
+          "age_ms": 0.47130000029937946
+        },
+        "1": {
+          "axis": 1,
+          "sequence": 44210,
+          "event_count": 0,
+          "mode": "quadrature_continuity_x4",
+          "transitions": [],
+          "synchronized_ab": 3,
+          "filtered_ab": 3,
+          "received_monotonic": 2312.3025106,
+          "age_ms": 12.331699999776902
+        }
+      },
+      "odometry": {
+        "valid": false,
+        "x_m": 0.0,
+        "y_m": 0.0,
+        "yaw_rad": 0.0,
+        "method": "encoder dead reckoning; no SLAM or IMU fusion"
+      },
+      "serial_error": null,
+      "serial_connections": 1,
+      "uart_bad_crc": 1,
+      "recording": {
+        "active": true,
+        "drops": 0,
+        "error": null
+      }
+    }
+  },
+  "control": {
+    "timed_test_supported": true,
+    "ground_test_supported": true,
+    "connected": true,
+    "motor_fresh": true,
+    "motor_age_ms": 40.25270000011005,
+    "motor": {
+      "left_position": 0,
+      "right_position": 0,
+      "left_velocity": 0,
+      "right_velocity": 0,
+      "left_applied": 0,
+      "right_applied": 0,
+      "left_invalid": 0,
+      "right_invalid": 0,
+      "bad_frames": 0,
+      "rejected_commands": 0,
+      "packet_count": 9823,
+      "last_sequence": 0,
+      "armed": false,
+      "flags": 1,
+      "faults": 1,
+      "fault_names": [
+        "power_on_requires_clear"
+      ]
+    },
+    "phase": "stopped",
+    "reason": "fpga_counter_restart_or_large_gap",
+    "owned": false,
+    "targets": [
+      0,
+      0
+    ],
+    "test_remaining_ms": null,
+    "flags": 1,
+    "kp": 256,
+    "ki": 0,
+    "physical_control_enabled": false
+  },
+  "lidar": {
+    "enabled": false,
+    "online": false,
+    "age_ms": null,
+    "error": null,
+    "frames": 0,
+    "scans": 0,
+    "bad_crc": 0,
+    "connections": 0,
+    "scan": null
+  },
+  "odometry": {
+    "valid": false,
+    "x_m": 0.0,
+    "y_m": 0.0,
+    "yaw_rad": 0.0,
+    "method": "encoder dead reckoning; no SLAM or IMU fusion"
+  }
+}

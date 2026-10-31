@@ -1,0 +1,24 @@
+-d E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\pnr_compare_20261030T144455Z\worker_4\impl\gwsynthesis\system.vg
+-p GW5AT-138B-PBGA484A-1
+-pn GW5AT-LV138PG484AC1/I0
+-cst E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\system\system.cst
+-cfg E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\pnr_compare_20261030T144455Z\worker_4\impl\pnr\device.cfg
+-sdc E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\system\system.sdc
+-bit
+-tr
+-ph
+-timing
+-ireg_not_in_iob
+-oreg_not_in_iob
+-ioreg_not_in_iob
+-replicate
+-cst_error
+-convert_sdp32_36_to_sdp16_18
+-place_option 4
+-route_option 1
+-retiming_resource bsram
+-clock_route_order 0
+-correct_hold 1
+-route_maxfan 23
+-global_freq 100.000
+-enable_dsrm 0

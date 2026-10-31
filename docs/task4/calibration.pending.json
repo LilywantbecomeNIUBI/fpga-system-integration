@@ -1,0 +1,17 @@
+{
+  "confirmed": false,
+  "wheel_diameter_mm": 65,
+  "left_counts_per_rev": null,
+  "right_counts_per_rev": null,
+  "track_mm": null,
+  "robot_radius_mm": null,
+  "gyro_axis_sign": null,
+  "gyro_bias_raw": null,
+  "lidar_angle_offset_q100": null,
+  "lidar_reverse": null,
+  "parameters": {},
+  "max_half_width_mm": null,
+  "front_extent_mm": null,
+  "lidar_offset_x_mm": null,
+  "lidar_offset_y_mm": null
+}

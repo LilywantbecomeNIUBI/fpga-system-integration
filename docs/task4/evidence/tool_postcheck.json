@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "rtl_and_fixtures_unchanged": true,
+  "build_constraints_identical": true,
+  "protocol_test_passed": true,
+  "tools_changed_after_rtl_test": [
+    "tools/task4/build.py",
+    "tools/task4/mission.py"
+  ],
+  "tool_sha256": {
+    "tools/task4/build.py": "8173816c03ea01c61017d796a2efad4aa18c3ae6ca659e67a8596b117b08bcff",
+    "tools/task4/mission.py": "f6e67a9972c067c6b848be6d100cd0810395649ff4f975dcd4ed73dda375249e"
+  }
+}

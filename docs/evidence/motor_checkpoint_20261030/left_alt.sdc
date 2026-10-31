@@ -1,0 +1,6 @@
+create_clock -name clk50m -period 20.000 [get_ports {clk50m}]
+set_false_path -to [get_pins {rx/rx_meta_s0/D}]
+set_false_path -to [get_pins {core/enc_l/ab_meta_0_s0/D}]
+set_false_path -to [get_pins {core/enc_l/ab_meta_1_s0/D}]
+set_false_path -to [get_pins {core/enc_r/ab_meta_0_s0/D}]
+set_false_path -to [get_pins {core/enc_r/ab_meta_1_s0/D}]

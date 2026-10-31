@@ -1,0 +1,228 @@
+{
+  "date": "2026-10-31",
+  "timezone": "Asia/Shanghai",
+  "created_utc": "2026-10-30T16:54:22.805008+00:00",
+  "scope": "Sensors and communications only. User clarified encoders are on brushless motors; chassis and encoder tests excluded.",
+  "bitstream_sha256": "2cdcd3b5ef230803076bee9ee2459d907492653605ee032888d4a11317610fd4",
+  "operation": "SRAM only, same candidate programmed twice",
+  "flash_written": false,
+  "hardware_tested": true,
+  "timing_signoff": false,
+  "mpw_status": "unresolved_not_waived",
+  "pr1014_scope": "Existing B1 wiring; configuration-limited waiver only",
+  "pc_console": "http://127.0.0.1:8875",
+  "uart_owner": "Temporary PC gateway at 127.0.0.1:8873, COM20; no Nano UART deployment",
+  "nano_vision": "/home/liwei/robot_sensing_board_20261031_002906",
+  "full_raw_run": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\runs\\commissioning\\system_static_20261031_002906",
+  "gateway_logs": [
+    "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\runs\\commissioning\\system_static_20261031_002906\\gateway\\20261031_003246_2ece7a49\\events.jsonl"
+  ],
+  "commands": {
+    "count": 2,
+    "opcodes": [
+      0
+    ],
+    "arm_sent": false,
+    "drive_sent": false,
+    "control_tested": false,
+    "scope": "Count is gateway recorder commands; direct static STOP sequences recorded separately",
+    "direct_static_stop_sequences": [
+      0,
+      1,
+      2
+    ],
+    "all_observed_command_types": [
+      "STOP"
+    ]
+  },
+  "results": {
+    "imu_static_passed": true,
+    "static_imu_raw_hz": 1002.5275010269397,
+    "static_imu_upload_hz": 50.12637505134698,
+    "yolo_real_bottle_detected": true,
+    "lk_track_valid_observed": true,
+    "lk_initial_valid_samples": 38,
+    "lk_center_x_range": [
+      558.0,
+      893.0
+    ],
+    "lk_confidence_permille_range": [
+      875,
+      1000
+    ],
+    "steady": {
+      "seconds": 44.52802589999965,
+      "pc": {
+        "frames": 1329,
+        "packets": 425280,
+        "bad": 0,
+        "missing_frames": 7,
+        "measured_fps": 29.846371428741254
+      },
+      "nano": {
+        "frames": 946,
+        "packets": 405248,
+        "bad": 0,
+        "missing_frames": 382,
+        "measured_fps": 21.24504693121838
+      },
+      "inferences": 943,
+      "imu_samples": 2233,
+      "imu_crc_delta": 0,
+      "imu_gaps_delta": 0,
+      "flow_start_frame": 7016,
+      "flow_end_frame": 7016,
+      "flow_packets": 1336,
+      "flow_fresh_samples": 0,
+      "total_samples": 87,
+      "track_valid_samples": 46,
+      "last_flow": {
+        "state": "unknown",
+        "stop_request": true,
+        "steer": 0,
+        "speed_limit": 0,
+        "hazard": 0,
+        "fresh": false,
+        "confident": false,
+        "age_ms": 132049.22530000022,
+        "frame_id": 7016,
+        "valid_counts": [
+          17,
+          42,
+          47
+        ],
+        "risk_counts": [
+          0,
+          0,
+          0
+        ]
+      },
+      "latest_feedback": {
+        "kind": "bottle",
+        "threshold": 0.5,
+        "reply": {
+          "result_frame": 10958,
+          "current_frame": 10972,
+          "class_id": 39,
+          "confidence": 897,
+          "center_x": 808,
+          "center_y": 356,
+          "age_frames": 14,
+          "accepted": 2361,
+          "rejected": 402,
+          "target_valid": true,
+          "frame_seen": true,
+          "sequence_seen": true,
+          "stream_ready": true,
+          "reason": 1,
+          "direction": "center"
+        },
+        "error": null
+      },
+      "last_gateway_recording": {
+        "active": true,
+        "drops": 0,
+        "error": null
+      },
+      "measured_inference_fps": 21.17767363228217
+    },
+    "overall_sensing_acceptance": false
+  },
+  "issues": [
+    {
+      "id": "FLOW_STALL",
+      "status": "reproduced_twice_unresolved",
+      "frame_ids": [
+        2197,
+        7016
+      ],
+      "evidence": "Old result frame persists, OFLW ceases, cycles and dropped_frames continue. Same bitstream reload restored continuous flow before a second stall at a different frame. Other sensors and target tracking continue. Root cause unproven; no assertion that MPW is false or is the cause."
+    },
+    {
+      "id": "FLOW_STATUS_GAPS",
+      "status": "unresolved",
+      "post_reload_observed_vectors": 523832,
+      "post_reload_observed_status": 338,
+      "distinct_result_frames": 4103,
+      "note": "Avoidance status freshness intermittent while vectors advance. Source/CDC/arbiter/receiver contribution not isolated."
+    },
+    {
+      "id": "VIDEO_RESET_EPOCH",
+      "status": "reproduced_runtime_recovered_not_code_fixed",
+      "detail": "After FPGA SRAM reload resets frame IDs, both receiver assemblers retained the previous completed ID and rejected new low IDs. Fresh receiver sessions recovered images. Existing AutoAssembler requires small ID<=32 after silence; reconfiguration can miss that window."
+    },
+    {
+      "id": "NANO_CONCURRENT_THROUGHPUT",
+      "status": "measured_unresolved",
+      "pc_fps": 29.846371428741254,
+      "nano_fps": 21.24504693121838,
+      "inference_fps": 21.17767363228217,
+      "nano_missing_frames": 382,
+      "note": "Same 44.53s steady window: PC missing7, Nano missing382. Cannot claim full-rate/lossless concurrency. Raw event logging and frequent HTTP polling enabled; their contribution not isolated."
+    }
+  ],
+  "clock_note": "Nano wall clock differs from PC by roughly 12 hours. No cross-device latency claim; local intervals and FPGA IDs used.",
+  "final_state": {
+    "imu_healthy": true,
+    "motor_armed": false,
+    "left_applied": 0,
+    "right_applied": 0,
+    "uart_bad_crc": 1,
+    "recording": {
+      "active": true,
+      "drops": 0,
+      "error": null
+    },
+    "flow": {
+      "state": "unknown",
+      "stop_request": true,
+      "steer": 0,
+      "speed_limit": 0,
+      "hazard": 0,
+      "fresh": false,
+      "confident": false,
+      "age_ms": 257165.995304,
+      "frame_id": 7016,
+      "valid_counts": [
+        17,
+        42,
+        47
+      ],
+      "risk_counts": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "limitations": [
+    "Physical avoidance hazard geometry and directional response not validated because environment flow stalled.",
+    "No autonomous motion, balance control, current/temperature sweep, PVT validation or timing signoff.",
+    "YOLO and LK valid samples do not imply continuous tracking or color-qualified target availability.",
+    "No RTL or production host code changed during board testing; temporary launch/logging wrappers used."
+  ],
+  "artifacts": {
+    "clock_observation.json": "8b656084970327fa117528a0861b0f5c96120ef05cbf954e7333f260deaab660",
+    "dual_video_events.json": "424a578745306ce495adf855ba406d7f9305a92d872a22e56ab9e14b7ce12d73",
+    "event_excerpt.jsonl": "02bf523f1f9fd41f60ec7a5e3a1dcf2d27918ae1353178bb25d13d53ebd6a9c8",
+    "final_events_tail.jsonl.gz": "3866a3475bace0ac4e9f1e156c5c17a5b66fa13d3bcc03345832500cb5719198",
+    "final_raw_analysis.json": "21055cb6162de58bb321c9ca78f9e1f5bc148b36fa27b94e6b4334bb3a2fcbf2",
+    "final_raw_capture.json": "e16c4b99f2e731468263b4160079b0d7d7396af3af78fc04ad8bc55b07231e87",
+    "final_ui_state.json": "8b7e874bb7a6d27b669c5b7190c1a1499e55e57b621a43159d893d6926cb107e",
+    "nano_deployment.json": "cfc5d5a18d791c8917c9899ce8a5d9eb27862f74834c5c813ee85e8112d6f7c1",
+    "nano_initial.json": "5337f1134ef336ff76880c48b5efb1c48cc4c9e9e3a5853212e58ce8b2db37bd",
+    "nano_modelpath_fixed.json": "eb66ec8bb5cfdce5c16c348ef410024b82a2b1b5244fd11872079af417359aae",
+    "nano_runtime_diagnostic.txt": "2e7174c048c1708088eaeb876abc2aca5ea47ec3d3c17e30cff1b6faaf663ea0",
+    "network_video_static.json": "d726ab52166240d85165e788b497ff43618c7a4a10676daa09a938b4d80a09bf",
+    "programmer_initial.txt": "cecb2d26d1246b9c8d85dba3bbf594f2d054ee0b0252386b0836123833fbaca0",
+    "programmer_repeat.txt": "19538591dbfc245b6f3bb2b0d9df176cc83f2eb487295b525a60ac9c49d31969",
+    "program_repeat.json": "de377d04930bef4acbda0a0b8130a73be8d635618ca9f7e3c1e4101846981614",
+    "program_result.json": "bb61d74340ab2eb657a41fb44906ecb9e36c1440724b0d51b67cef8a513689c1",
+    "raw_event_analysis.json": "abf8dd3807396767c2cbd99fdf54fce2c88c434c82817f4c6a8ef85d8d12d1fa",
+    "semantic_query.json": "d0a6d8486b877aed0eaea774ebc57bb5ff7b9ad0ce89b6a3fbfedb9e034c2453",
+    "sensor_concurrent_result.json": "fba319dbe8068835420ae6b937bdd69988dfe3520b4a3c19a9ca1db3179924fa",
+    "static_result.json": "975a7cbd44cb74800737533fec379d01a5529c0750873550bd39c9cee12c83b2",
+    "static_uart.bin.gz": "c0a7c5f1ee1e4dbd7e0495a4c1f3e6e21b96d39e0891fe1edc8a7a69ae43a815",
+    "steady_concurrent_result.json": "8e42c899dd64b5e565f04538d94f5a363529f7774221940286e069d926ffbb10"
+  }
+}

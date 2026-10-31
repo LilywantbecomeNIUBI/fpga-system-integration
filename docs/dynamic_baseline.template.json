@@ -1,0 +1,10 @@
+{
+  "video_fps": null,
+  "yolo_fps": null,
+  "imu_hz": null,
+  "lidar_hz": null,
+  "configuration_id": null,
+  "source_commit": null,
+  "raw_log_paths": [],
+  "note": "TEMPLATE ONLY: fill measured stationary rates. imu_hz is sample_seq/timestamp collection rate, not 100 Hz UART upload rate."
+}

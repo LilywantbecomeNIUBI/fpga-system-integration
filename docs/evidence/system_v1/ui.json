@@ -1,0 +1,14 @@
+{
+  "mode": "offline",
+  "browser": "Microsoft Edge via Playwright CLI",
+  "viewport": [
+    1440,
+    1000
+  ],
+  "arm_disabled": true,
+  "directions_disabled": true,
+  "uncalibrated_physical_control_disabled": true,
+  "stale_images_hidden": true,
+  "horizontal_overflow": false,
+  "hardware_connected": false
+}

@@ -1,0 +1,91 @@
+{
+  "total_records": 565239,
+  "bad_records": 0,
+  "epoch_break_indices": [
+    36929
+  ],
+  "pre_reload_flow_frames": [
+    2197
+  ],
+  "post_reload_counts": {
+    "FSTA": 4140,
+    "OFST": 338,
+    "OFLW": 523832
+  },
+  "post_reload_distinct_flow_frames": 4103,
+  "first_status": {
+    "time": 1793335550.7063065,
+    "kind": "OFST",
+    "event": {
+      "kind": "status",
+      "stage": 2,
+      "frame_id": 0,
+      "state": "unknown",
+      "stop_request": true,
+      "confident": false,
+      "stale": true,
+      "hazard": 0,
+      "valid_counts": [
+        0,
+        0,
+        0
+      ],
+      "risk_counts": [
+        0,
+        0,
+        0
+      ],
+      "steer": 0,
+      "speed_limit": 0,
+      "cycles": 0,
+      "dropped_frames": 0
+    }
+  },
+  "last_status": {
+    "time": 1793335688.1378517,
+    "kind": "OFST",
+    "event": {
+      "kind": "status",
+      "stage": 2,
+      "frame_id": 4454,
+      "state": "unknown",
+      "stop_request": true,
+      "confident": false,
+      "stale": true,
+      "hazard": 0,
+      "valid_counts": [
+        22,
+        42,
+        47
+      ],
+      "risk_counts": [
+        0,
+        0,
+        0
+      ],
+      "steer": 0,
+      "speed_limit": 0,
+      "cycles": 660498,
+      "dropped_frames": 19
+    }
+  },
+  "last_vector": {
+    "time": 1793335688.592646,
+    "kind": "OFLW",
+    "event": {
+      "kind": "flow",
+      "stage": 2,
+      "frame_id": 4468,
+      "valid": true,
+      "x": 128,
+      "y": 24,
+      "u": 0.0234375,
+      "v": 0.015625,
+      "sequence": 53,
+      "width": 160,
+      "height": 90,
+      "cycles": 180581,
+      "dropped_frames": 19
+    }
+  }
+}

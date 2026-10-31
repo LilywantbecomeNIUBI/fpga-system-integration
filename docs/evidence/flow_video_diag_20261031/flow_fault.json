@@ -1,0 +1,23 @@
+{
+  "frame_id": 28891,
+  "point_x": 32,
+  "point_y": 24,
+  "patch_state": 0,
+  "divider_count": 63,
+  "patch_flags": 72,
+  "iteration": 0,
+  "patch_wait_cycles": 0,
+  "grid_wait_cycles": 65535,
+  "patch_starts": 83,
+  "patch_completions": 82,
+  "cycles": 3685283973,
+  "dropped_frames": 5965,
+  "stage": 2,
+  "grid_busy": true,
+  "grid_state": 2,
+  "divider_busy": false,
+  "divider_done": false,
+  "divider_start": false,
+  "patch_busy": true,
+  "patch_done": false
+}

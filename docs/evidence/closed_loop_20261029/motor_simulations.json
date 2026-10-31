@@ -1,0 +1,56 @@
+{
+  "utc": "2026-10-29T09:20:52.919601+00:00",
+  "cases": [
+    {
+      "case": "tb_core",
+      "passed": true,
+      "output": "PASS core: arm guard, dual commands, sequence/wrap, watchdog, STOP and open loop rejection, stall, encoder faults\nE:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\tests\\tb_core.sv:60: $finish called at 53710000 (1ps)\n"
+    },
+    {
+      "case": "tb_encoder",
+      "passed": true,
+      "output": "PASS encoder: x4 directions, window boundaries, filter, invalid, polarity\nE:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\tests\\tb_encoder.sv:25: $finish called at 2240000 (1ps)\n"
+    },
+    {
+      "case": "tb_transport",
+      "passed": true,
+      "output": "PASS transport: nominal rates, congestion=98, whole-frame UART\nE:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\tests\\tb_transport.sv:33: $finish called at 1720030000 (1ps)\n"
+    },
+    {
+      "case": "tb_uart_system",
+      "passed": true,
+      "output": "PASS UART system: real serial commands, CRC rejection, partial timeout, telemetry CRC, replay, STOP\nE:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\tests\\tb_uart_system.sv:70: $finish called at 1812120000 (1ps)\n"
+    },
+    {
+      "case": "tb_wheel",
+      "passed": true,
+      "output": "PASS wheel: saturation, PWM duty, slew, reversal, disable, PI antiwindup and plant convergence\nE:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\tests\\tb_wheel.sv:35: $finish called at 70020000 (1ps)\n"
+    }
+  ],
+  "hardware_tested": false,
+  "source_sha256": {
+    "fpga/motor/at8236_pwm.sv": "d44b178072845044f17f9cddda658b2406c25d4930dd77b2fbd60443fb8883c2",
+    "fpga/motor/brushed_motor_top.sv": "3a27e005165c7053633d72034641d90463b5d3f2b7b144889dabe1bd8e6c15c1",
+    "fpga/motor/encoder_ab.sv": "bebe5d2526dffafa1cd3efca0b30a586167114864c0e15ddfe422faebf6483b0",
+    "fpga/motor/frame_transport.sv": "a7d36c5107e235efb5e3b885efcce6c768362a040f631c093a633a92d1410d17",
+    "fpga/motor/motor_core.sv": "9ab64b21be1e10087ba1b8778a06dc977c2b3a1bac5a7edcf905d48dee65b5d1",
+    "fpga/motor/motor_protocol.sv": "ffc307a70e0fdf8c5b4c3b9bd3e7f45305ddd7c530f47319aa99e173f69fe05c",
+    "fpga/motor/motor_telemetry.sv": "f6ab9c13d59ba2ccec817682d34ae71b6b127544398f0754b83219573e0d9e79",
+    "fpga/motor/uart_byte.sv": "d88aa96614eac7f51ab4d37d547e4fd3560c7ea4bb7ec25e97ff686e7a7d8ac0",
+    "fpga/motor/wheel_control.sv": "5840112b8eb8a2060af6f53663cc514718fc0d66639bfee5d8b6598033c4730d",
+    "fpga/system/imu_status_source.sv": "c675b9494e8d7a987dc711da01efedfd0de920e20020773a7d4071a53792e97b",
+    "tests/tb_core.sv": "525abf4cf20aeb3a05cc12bbb3bb0280895d7af79bde66d523a7056f25d70a25",
+    "tests/tb_encoder.sv": "239032ec79477c4cfbed5aec298ceafabafd75e7f9e269497bf2f5cd230d6e65",
+    "tests/tb_full_system.sv": "ed77787aa979308bb9d83b2ac35dc6c30f28b0a1fda0a905af27b482a143672a",
+    "tests/tb_transport.sv": "f439d6f0d7d8bd4584c7dba09b7a96482d0908a5c8c0d1c4ec3dcc49f39e7026",
+    "tests/tb_uart_system.sv": "f27146b3230be3254c5dbccf6a7e619cdc7fe74f4728461cc9fbf928b9e15f9a",
+    "tests/tb_wheel.sv": "f5593bf3f866299247d1bd307348f645668989045b25445faec45692c77d3db1",
+    "tests/test_motor_protocol.py": "7894c8cedee246d20a235acce1981918596e3bacba1e0d116a03c966d7fd60f0",
+    "tests/test_system.py": "dc4ae44ed6dda2a9c2ee527278f3f228eeed904863a8a1dd730efd6748623704",
+    "host/dashboard.py": "efd64c2647ee5ed96af904395c710f2f8be8bddcfbbc7f8dcdd0ad34bdcdf11a",
+    "host/motor_console.py": "a406ba8c81351bf19bde3b7223429e534f84b412e4b457956bb8d15938a9be8a",
+    "host/motor_protocol.py": "747aa9c689f60c9b872ba839d4a1bced79318c99d2b3717a3fc4478a79f19a32",
+    "host/motor_tuner.py": "0d9ec111f9fb2dcb2148185a5f1ce7b63f873c32e461c8a7e8180a1b0d549fca",
+    "host/sensing_base.py": "d4debeac10e8afd940f2604bbe16059f11c9f8b05f7f1bb07b45a491bda5a998"
+  }
+}

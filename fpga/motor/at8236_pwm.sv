@@ -31,7 +31,11 @@ module at8236_pwm #(parameter integer CLK_HZ=50000000, PWM_HZ=10000)(
             duty<=magnitude>=1000 ? PERIOD : scaled;
         end else phase<=phase+1;
     end
-    // Fast decay after wake; disable immediately forces 00, including during wake.
-    assign in1=enable && (waking || (power_state==2 && !direction && phase<duty));
-    assign in2=enable && (waking || (power_state==2 && direction && phase<duty));
+    // Match the board-verified diagnostic: positive=01, negative=10, idle PWM=11.
+    // Hold one input high throughout slow decay so the driver stays awake.
+    // Zero command, disable and reset immediately force 00, including during wake.
+    wire active=reset_n && enable && magnitude!=0;
+    wire driving=power_state==2 && phase<duty;
+    assign in1=active && (!driving || direction);
+    assign in2=active && (!driving || !direction);
 endmodule

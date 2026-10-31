@@ -1,0 +1,416 @@
+{
+  "passed": true,
+  "hardware_tested": false,
+  "oracle_reused": true,
+  "optical_flow_oracle": {
+    "stage": "V2",
+    "passed": true,
+    "hardware_tested": false,
+    "cases": [
+      {
+        "case": "still",
+        "ground_truth": [
+          0,
+          0
+        ],
+        "valid": 35,
+        "epe": 0.0,
+        "fixed_vs_float_epe": 0.0,
+        "patch_comparisons": 108,
+        "vectors_sha256": "556c15dae7def526594d6d79b75d11ce236e5aec23159f78bbdd782e080281fe"
+      },
+      {
+        "case": "right_half",
+        "ground_truth": [
+          0.5,
+          0
+        ],
+        "valid": 35,
+        "epe": 0.0480951411579106,
+        "fixed_vs_float_epe": 0.008836660582786225,
+        "patch_comparisons": 108,
+        "vectors_sha256": "c3d3d209760fefe1c79eaec9be00396483c2ceba3eeaf17f2af4cd7bc17774cb"
+      },
+      {
+        "case": "left_half",
+        "ground_truth": [
+          -0.5,
+          0
+        ],
+        "valid": 35,
+        "epe": 0.043076011435177586,
+        "fixed_vs_float_epe": 0.008376566539918156,
+        "patch_comparisons": 108,
+        "vectors_sha256": "9fffa60ccab01ba855a8186e98501436cfa2b887dc481f5fe48a3d5abe3fd866"
+      },
+      {
+        "case": "down_half",
+        "ground_truth": [
+          0,
+          0.5
+        ],
+        "valid": 35,
+        "epe": 0.03789874562531446,
+        "fixed_vs_float_epe": 0.009208288136193937,
+        "patch_comparisons": 108,
+        "vectors_sha256": "68d862f90b82da8919a276f9dca89a915da9b7fe777e1eaf5ac58474e7b08062"
+      },
+      {
+        "case": "up_half",
+        "ground_truth": [
+          0,
+          -0.5
+        ],
+        "valid": 35,
+        "epe": 0.03489311578700795,
+        "fixed_vs_float_epe": 0.009311742466731906,
+        "patch_comparisons": 108,
+        "vectors_sha256": "ac3269b1c137715c27f6051d0ccb26e23a3cb31a30dd0eaeb881f77f307bb9a0"
+      },
+      {
+        "case": "right_one",
+        "ground_truth": [
+          1,
+          0
+        ],
+        "valid": 35,
+        "epe": 0.15360585221410514,
+        "fixed_vs_float_epe": 0.014782678204831323,
+        "patch_comparisons": 108,
+        "vectors_sha256": "9ce904c47dcbfbcd65ed97fed63e04ee8ffc7473cd77a70061d53a229d5c3cab"
+      },
+      {
+        "case": "diagonal",
+        "ground_truth": [
+          0.5,
+          -0.5
+        ],
+        "valid": 35,
+        "epe": 0.044339198492901646,
+        "fixed_vs_float_epe": 0.007536426136483132,
+        "patch_comparisons": 108,
+        "vectors_sha256": "fe9be1f34d41f232ac535da2b673cbe8edb09819043d35ee855cdd88523c2c13"
+      },
+      {
+        "case": "flat",
+        "ground_truth": [
+          1,
+          0
+        ],
+        "valid": 0,
+        "epe": 0.0,
+        "fixed_vs_float_epe": 0.0,
+        "patch_comparisons": 108,
+        "vectors_sha256": "1dba009afa536cf328f91258df578157ef1d303c4dd466504f438bbb8cc50c38"
+      },
+      {
+        "case": "right_four",
+        "ground_truth": [
+          4,
+          0
+        ],
+        "valid": 35,
+        "epe": 2.991357126336834,
+        "fixed_vs_float_epe": 0.03642897585479708,
+        "patch_comparisons": 108,
+        "vectors_sha256": "c2a40ff6246e14fb2a32dbf5f28e44330ed05f3c0e9c607e288e85d677650b39"
+      }
+    ],
+    "safety_checks": true,
+    "pyramid_cases": [
+      {
+        "case": "still",
+        "ground_truth": [
+          0,
+          0
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 120,
+            "epe": 0.0
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.0
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=895280\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=895280\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18894310000 (1ps)"
+      },
+      {
+        "case": "right_half",
+        "ground_truth": [
+          0.5,
+          0
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 120,
+            "epe": 0.04096709241555854
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.04452753054316814
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=895280\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=895280\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18894310000 (1ps)"
+      },
+      {
+        "case": "right_one",
+        "ground_truth": [
+          1,
+          0
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 120,
+            "epe": 0.13322048200459077
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.02456252766811245
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=895280\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=895280\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18894310000 (1ps)"
+      },
+      {
+        "case": "right_two",
+        "ground_truth": [
+          2,
+          0
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 120,
+            "epe": 0.6107692747066111
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.015449946771762202
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=874586\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=895280\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18687370000 (1ps)"
+      },
+      {
+        "case": "right_four",
+        "ground_truth": [
+          4,
+          0
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 120,
+            "epe": 2.9942298069855817
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.028125637528008837
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=861418\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=895280\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18555690000 (1ps)"
+      },
+      {
+        "case": "left_four",
+        "ground_truth": [
+          -4,
+          0
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 120,
+            "epe": 3.014566482926193
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.025593958687650305
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=895280\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=861418\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18555690000 (1ps)"
+      },
+      {
+        "case": "down_four",
+        "ground_truth": [
+          0,
+          4
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 119,
+            "epe": 2.939283781234592
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.024250058813969282
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=889638\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=886817\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18753260000 (1ps)"
+      },
+      {
+        "case": "diagonal_two",
+        "ground_truth": [
+          2,
+          -2
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 120,
+            "epe": 0.9621244737599928
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.019459263277137148
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=879291\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=895280\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18734420000 (1ps)"
+      },
+      {
+        "case": "right_five",
+        "ground_truth": [
+          5,
+          0
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 113,
+            "epe": 4.587574618035154
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.8287393299239582
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=873649\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=895280\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18678000000 (1ps)"
+      },
+      {
+        "case": "right_six",
+        "ground_truth": [
+          6,
+          0
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 101,
+            "epe": 6.10350971297444
+          },
+          "v2": {
+            "valid": 117,
+            "epe": 6.026511087365275
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=886678\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=890235\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18757840000 (1ps)"
+      },
+      {
+        "case": "flat",
+        "ground_truth": [
+          1,
+          0
+        ],
+        "zoom": 1,
+        "metrics": {
+          "v0": {
+            "valid": 0,
+            "epe": 0.0
+          },
+          "v2": {
+            "valid": 0,
+            "epe": 0.0
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=153900\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=153900\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 4066710000 (1ps)"
+      },
+      {
+        "case": "zoom_in",
+        "ground_truth": [
+          0,
+          0
+        ],
+        "zoom": 1.03,
+        "metrics": {
+          "v0": {
+            "valid": 120,
+            "epe": 0.21803915196593887
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.04184362152720927
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=863302\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=895280\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18574530000 (1ps)"
+      },
+      {
+        "case": "zoom_out",
+        "ground_truth": [
+          0,
+          0
+        ],
+        "zoom": 0.97,
+        "metrics": {
+          "v0": {
+            "valid": 120,
+            "epe": 0.22983787256289206
+          },
+          "v2": {
+            "valid": 120,
+            "epe": 0.07530916596001588
+          }
+        },
+        "bit_exact_points": 190,
+        "pipeline_stdout": "FIRST_PAIR_CYCLES=895280\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=863297\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 18574480000 (1ps)"
+      }
+    ]
+  },
+  "decoded_tracking_packets": 233,
+  "decoded_flow_status_packets": 6,
+  "source_sha256": {
+    "fpga/vision/src/optical_flow/camera_flow.v": "d489fa0b05a4d8342e34960490addeaab688b9b41bfb7203d02ec1919f438c4a",
+    "fpga/vision/src/optical_flow/camera_flow_v0_top.v": "b4294e5e43570be4ae2bffc82efefc92fe0093e2f7b3d0d9f24d41137372e26a",
+    "fpga/vision/src/optical_flow/camera_flow_v1_top.v": "7dbb7329a96931a69adac766eb6409cd84fbc8494bcff89526cb526298d6f966",
+    "fpga/vision/src/optical_flow/camera_flow_v2_top.v": "d0fae461f56ec963e01d284ab922d18ef43a18be275458a5d85f41fa362011e1",
+    "fpga/vision/src/optical_flow/flow_avoidance.v": "f8502b5bde77ad2d39f3b78f24b34d183b05d54021afce6920b842e31d350064",
+    "fpga/vision/src/optical_flow/flow_avoidance_top.v": "3a4c870287e18945f7624f54fb76ba2dda31ecd90f757b4c944ac20fda6ea048",
+    "fpga/vision/src/optical_flow/flow_event_bridge.v": "eee758df6cd42fc3d6dd68f6f1fd9be4cf59ffcb5c6fec51c39a551898f9cfbe",
+    "fpga/vision/src/optical_flow/flow_event_source.v": "de80541937cb795f78f862392f334662fcb336a56c7e78896cb0c3ec13c548f0",
+    "fpga/vision/src/optical_flow/flow_frame_store.v": "a7ac985a402c6ec7e9a572dc5d535b13570fa0832f8113eeca87c8fa14b2facb",
+    "fpga/vision/src/optical_flow/flow_grid.v": "e0ed9425430c5d7cb981a4a0092544939e2a69ca94da4c47f821153a74431798",
+    "fpga/vision/src/optical_flow/flow_grid_pyramid.v": "77ff37d35b4aa6a956476cbf07cc51a2f83b6bf45ae932dd8c91c23f53c7a73f",
+    "fpga/vision/src/optical_flow/flow_lk_patch.v": "2c18fa419b2cf8406cd61dbaf90a62fa4c60e5626233d5d843951377f9cd472d",
+    "fpga/vision/src/optical_flow/flow_pipeline.v": "353914b84838c643b9d0dbe7f55ed68a23098bd46c3d7ce6fc8336e56006c9ab",
+    "fpga/vision/src/optical_flow/flow_v2_core.v": "ed3e767d861e39d52dba504aa58173f7dfb0fecdfc925e3497ce7ec2f996e791",
+    "fpga/vision/src/optical_flow/frame_memory.sv": "85058b008fac54a1b559913335762ebc535e60da4df2e3988ce419e7f9ec6d73",
+    "fpga/system/event_packet_mux.v": "a7961f0e1d4caf924ee31d4fd2f5d7f5d45f3d489a72d39989f32ce65e65cdeb",
+    "tests/vision/tb_perception_merge.v": "65b1960465f6e0bf41b3d621d6da9c0d5a8556d215cae8caade1220178cd92a2",
+    "vendor/vision/lk_model.py": "cfdda57ad50036dd7798eab9965ca42897abf2b32de5cd5cb93280eb38c93aac",
+    "tools/test_perception.py": "e96cf030efe36694d1a4c2553d70be7c776aa51a12a325317f0a586c95e65633",
+    "fpga/vision/src/vision/vision_divider.v": "748b259b62a708b5f0686acf9ff8fb4fc8a47a51015382aaff88394a4687aab1",
+    "vendor/reference/test_optical_flow_original.py": "b3868baa6f2d51c8ed7b11c6256784f20477cc85361b8d3e139a552070176122",
+    "tests/vision/tb_flow_patch.v": "da606c61dc9041d6058a65d9f95da9233515b5690645aae77d7916891ad5242c",
+    "tests/vision/tb_flow_pipeline.v": "b20159efe3e4e9da9aeefae61ff533497d2bca1cbdc59bc19fdffe838e7daf59",
+    "tests/vision/tb_flow_avoidance.v": "70dc053ac2d3610ea60031db0daedda8814c76af5fb503947ab287675f898d56",
+    "tests/vision/tb_perception_deadlines.v": "f5d0cd97c063ada716f9216df01fb52e2e1ed44cfce0e67519b84c5cb026b532",
+    "fpga/vision/src/vision/vision_v23_bridge.v": "2fb058391e1254e34f8e1f5c3637fb6f3170d77db890fbf4786eac9d84607b11",
+    "fpga/vision/src/vision/vision_result_core.v": "aede60e34bafc44215be98c01d2f3d3e16c5397929e50ce2343268ff857a63fe",
+    "tests/vision/tb_frame_payload.v": "c4cbf14421a6b2f84c51cf130e0c101c96909a8632547504f21871a4e3ce74eb",
+    "fpga/vision/src/vision/vision_frame_stream.v": "36334612bb87038b41a64a956af42f038f1ee4d856601e0ae832684b6fb1181e"
+  }
+}

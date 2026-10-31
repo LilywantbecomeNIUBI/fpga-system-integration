@@ -1,0 +1,55 @@
+{
+  "user_action": "left only forward, approximately half turn; user explicitly notes angle imprecise",
+  "first": {
+    "left_position": -21810,
+    "right_position": 25128,
+    "left_velocity": 0,
+    "right_velocity": 0,
+    "left_applied": 0,
+    "right_applied": 0,
+    "left_invalid": 13071,
+    "right_invalid": 12,
+    "bad_frames": 0,
+    "rejected_commands": 0,
+    "packet_count": 22815,
+    "last_sequence": 0,
+    "armed": false,
+    "flags": 1,
+    "faults": 1,
+    "fault_names": [
+      "power_on_requires_clear"
+    ]
+  },
+  "last": {
+    "left_position": -22090,
+    "right_position": 25128,
+    "left_velocity": 0,
+    "right_velocity": 0,
+    "left_applied": 0,
+    "right_applied": 0,
+    "left_invalid": 13218,
+    "right_invalid": 12,
+    "bad_frames": 0,
+    "rejected_commands": 0,
+    "packet_count": 23840,
+    "last_sequence": 0,
+    "armed": false,
+    "flags": 1,
+    "faults": 1,
+    "fault_names": [
+      "power_on_requires_clear"
+    ]
+  },
+  "frames": 1026,
+  "bad_crc_capture": 0,
+  "nonzero_output_seen": false,
+  "cpr_calibrated": false,
+  "left": {
+    "position_delta": -280,
+    "invalid_delta": 147
+  },
+  "right": {
+    "position_delta": 0,
+    "invalid_delta": 0
+  }
+}

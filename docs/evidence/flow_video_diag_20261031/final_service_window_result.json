@@ -1,0 +1,16 @@
+{
+  "seconds": 58.9046083000012,
+  "pc_fps": 29.963699801055533,
+  "nano_fps": 29.98067640150939,
+  "inference_fps": 24.650023858998658,
+  "capture_lag_frames_median": 1,
+  "inference_lag_frames_median": 3,
+  "queue_ms_p50_median": 9.389738395751968,
+  "inference_ms_median": 34.29958400010946,
+  "feedback_errors": 0,
+  "pc_missing": 2,
+  "nano_missing": 2,
+  "motor_outputs_enabled": false,
+  "healthy_avoidance_acceptance": false,
+  "samples": 59
+}

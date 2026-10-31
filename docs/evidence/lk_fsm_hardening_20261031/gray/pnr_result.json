@@ -1,0 +1,187 @@
+{
+  "setup": 0,
+  "hold": 0,
+  "wns_ns": 0.061,
+  "cam_wns_reported_ns": 0.115,
+  "bitstream_sha256": "bd106766c179adc594ba8c62764bded6ee5bb429e72abd9580a70cb21ea3b8a2",
+  "netlist_sha256": "37deacda2275645a1bd555f766528848aacb98dc612ec5503ed6b6af9eb2ee94",
+  "paths": [
+    {
+      "slack": 0.061,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot0_56_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.076,
+      "source": "camera/runtime_network.semantics/frame_idle_cycles_4_s1/Q",
+      "sink": "camera/runtime_network.semantics/frame_idle_cycles_29_s1/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.115,
+      "source": "camera/tracker/tags[9]_3_s0/Q",
+      "sink": "camera/tracker/state_4_s1/D",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.116,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot1_63_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.188,
+      "source": "camera/tracker/job_fid_0_s4/Q",
+      "sink": "camera/tracker/good_count_4_s15/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.188,
+      "source": "camera/tracker/job_fid_0_s4/Q",
+      "sink": "camera/tracker/good_count_1_s4/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.188,
+      "source": "camera/tracker/job_fid_0_s4/Q",
+      "sink": "camera/tracker/good_count_4_s10/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.188,
+      "source": "camera/tracker/job_fid_0_s4/Q",
+      "sink": "camera/tracker/good_count_2_s1/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.188,
+      "source": "camera/tracker/job_fid_0_s4/Q",
+      "sink": "camera/tracker/good_count_3_s1/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.19,
+      "source": "camera/tracker/job_fid_0_s4/Q",
+      "sink": "camera/tracker/good_count_2_s6/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.19,
+      "source": "camera/tracker/job_fid_0_s4/Q",
+      "sink": "camera/tracker/good_count_2_s4/CE",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    },
+    {
+      "slack": 0.191,
+      "source": "camera/runtime_network.semantics/frame_idle_cycles_4_s1/Q",
+      "sink": "camera/runtime_network.semantics/frame_idle_cycles_28_s1/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.215,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot1_60_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.217,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot1_48_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.299,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot1_127_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.302,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot0_33_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.361,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot0_59_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.365,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot0_60_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.38,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot0_48_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.392,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot1_33_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.397,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot0_63_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.405,
+      "source": "camera/runtime_network.semantics/frame_idle_cycles_4_s1/Q",
+      "sink": "camera/runtime_network.semantics/frame_idle_cycles_30_s1/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.405,
+      "source": "camera/runtime_network.semantics/frame_idle_cycles_4_s1/Q",
+      "sink": "camera/runtime_network.semantics/frame_idle_cycles_31_s1/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.417,
+      "source": "camera/flow_mailbox/dst_data_236_s0/Q",
+      "sink": "camera/flow_bridge/slot0_47_s0/D",
+      "source_clock": "eth125:[R]",
+      "sink_clock": "eth125:[R]"
+    },
+    {
+      "slack": 0.42,
+      "source": "camera/tracker/job_fid_0_s4/Q",
+      "sink": "camera/tracker/state_1_s1/D",
+      "source_clock": "cam_pclk:[R]",
+      "sink_clock": "cam_pclk:[R]"
+    }
+  ],
+  "mpw_status": "unresolved",
+  "timing_signoff": false
+}

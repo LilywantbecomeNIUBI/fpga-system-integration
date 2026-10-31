@@ -1,0 +1,2 @@
+PASS actual synthesized frame CDC: 57600 exact pixels, feature stream flags, camera reset and FIFO overflow
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\tests\tb_frame_cdc_synth.v:36: $finish called at 5495386368 (1ps)

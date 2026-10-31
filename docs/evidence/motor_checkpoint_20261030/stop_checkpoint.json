@@ -1,0 +1,42 @@
+{
+  "control": {
+    "timed_test_supported": true,
+    "connected": true,
+    "motor_fresh": true,
+    "motor_age_ms": 46.62779998034239,
+    "motor": {
+      "left_position": -25641,
+      "right_position": 25128,
+      "left_velocity": 0,
+      "right_velocity": 0,
+      "left_applied": 0,
+      "right_applied": 0,
+      "left_invalid": 15035,
+      "right_invalid": 12,
+      "bad_frames": 0,
+      "rejected_commands": 0,
+      "packet_count": 37981,
+      "last_sequence": 0,
+      "armed": false,
+      "flags": 1,
+      "faults": 1,
+      "fault_names": [
+        "power_on_requires_clear"
+      ]
+    },
+    "phase": "stopped",
+    "reason": "operator_stop",
+    "owned": false,
+    "targets": [
+      0,
+      0
+    ],
+    "test_remaining_ms": null,
+    "flags": 1,
+    "kp": 256,
+    "ki": 0,
+    "physical_control_enabled": false
+  },
+  "mode": "live",
+  "scope": "software STOP telemetry only; physical power not confirmed at checkpoint"
+}

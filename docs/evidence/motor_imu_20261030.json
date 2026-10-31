@@ -1,0 +1,39 @@
+{
+  "started_utc": "20261030T043404Z",
+  "exit_code": 0,
+  "programmed": false,
+  "hardware_tested": false,
+  "pin_profile": "left_encoder_p7_31_32",
+  "encoder_pull_mode": "UP",
+  "pwm_limit_per_mille": 350,
+  "imu_enabled": true,
+  "left_encoder_pins": {
+    "a": {
+      "p7": 31,
+      "ball": "F16"
+    },
+    "b": {
+      "p7": 32,
+      "ball": "E17"
+    }
+  },
+  "sources_unchanged": true,
+  "violations": {
+    "setup": 0,
+    "hold": 0
+  },
+  "timing_sha256": "640eccdc4a3d9c46ab94a9d646a5954d47d3469a3b9ea8cdbf6c2232ba36f19e",
+  "bitstream_sha256": "fcc7f652f09718bd91977144d5fe75b05b28d764e9572c6e547714c3c4586e6e",
+  "passed": true,
+  "simulation_frame_counts": {
+    "encoder_trace": 40,
+    "motor": 8,
+    "encoder_diagnostics": 4,
+    "imu": 2
+  },
+  "simulation_bad_crc": 0,
+  "board_programmed": false,
+  "python_unit_tests": 44,
+  "basic_motion_user_feedback": "基本正确",
+  "note": "Built and simulated motor+IMU candidate; live board still motor-only PWM350. No motion commands sent for this integration."
+}

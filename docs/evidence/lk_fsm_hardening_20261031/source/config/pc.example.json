@@ -1,0 +1,8 @@
+{
+  "bind": "192.168.50.10",
+  "fpga": "192.168.50.30",
+  "video_port": 6102,
+  "event_port": 6202,
+  "nano_url": "http://192.168.50.20:8766",
+  "gateway_url": "http://NANO_WIFI_ADDRESS:8873"
+}

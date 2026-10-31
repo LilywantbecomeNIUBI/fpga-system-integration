@@ -1,0 +1,8 @@
+{
+  "seconds": 5.0018,
+  "camera_requests": 24,
+  "inference_requests": 24,
+  "state_requests": 24,
+  "label": "29.79 FPS",
+  "actual_image_request_fps": 4.798272621856132
+}

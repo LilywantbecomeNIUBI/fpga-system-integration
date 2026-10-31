@@ -1,0 +1,87 @@
+{
+  "change": "Four AB input PULL_MODE changed DOWN to UP; all other archived constraints retained",
+  "encoder_inputs": {
+    "left_enc_a": "F16 / P7-31",
+    "left_enc_b": "E17 / P7-32",
+    "right_enc_a": "C18 / P7-27",
+    "right_enc_b": "D19 / P7-36"
+  },
+  "encoder_pull_mode": "UP",
+  "setup_violations": 0,
+  "hold_violations": 0,
+  "source_hashes_unchanged": true,
+  "download_attempt": {
+    "bitstream_sha256": "4840e1cb55d889e5d31af4e5b1a8b21ed4bb25e033cee34e16b07c649ac2d415",
+    "operation": "SRAM Program",
+    "flash_written": false,
+    "motion_commands_sent": false,
+    "serial_port": "COM12",
+    "pin_profile": "left_encoder_p7_31_32",
+    "motor_power_off_confirmed": true,
+    "encoder_pull_mode": "UP",
+    "download_confirmed": true,
+    "motor_frames": 99,
+    "bad_crc": 0,
+    "first": {
+      "left_position": -1,
+      "right_position": -2,
+      "left_velocity": 0,
+      "right_velocity": 0,
+      "left_applied": 0,
+      "right_applied": 0,
+      "left_invalid": 0,
+      "right_invalid": 0,
+      "bad_frames": 0,
+      "rejected_commands": 0,
+      "packet_count": 23,
+      "last_sequence": 0,
+      "armed": false,
+      "flags": 1,
+      "faults": 1,
+      "fault_names": [
+        "power_on_requires_clear"
+      ]
+    },
+    "last": {
+      "left_position": -1,
+      "right_position": -2,
+      "left_velocity": 0,
+      "right_velocity": 0,
+      "left_applied": 0,
+      "right_applied": 0,
+      "left_invalid": 0,
+      "right_invalid": 0,
+      "bad_frames": 0,
+      "rejected_commands": 0,
+      "packet_count": 121,
+      "last_sequence": 0,
+      "armed": false,
+      "flags": 1,
+      "faults": 1,
+      "fault_names": [
+        "power_on_requires_clear"
+      ]
+    },
+    "static_passed": true
+  },
+  "physical_turn_tested": true,
+  "telemetry_verified": true,
+  "scope_voltage_user_report": "FPGA encoder input Vmax approximately 2.2V before pull-up change; no post-change scope value yet",
+  "voltage_reference": {
+    "source": "https://cdn.gowinsemi.com.cn/DS981E.pdf",
+    "table": "3-26 GW5AT-138 single-ended DC, LVCMOS33",
+    "vih_min_v": 2.0,
+    "vil_max_v": 0.8,
+    "note": "2.2V is a reported maximum, not proof of a valid high plateau"
+  },
+  "next": "Hand-turn check sufficient for initial speed tuning; retain approximate CPR, motor power last confirmed off.",
+  "latest_retry_folder": "runs/commissioning/speed_static_20261030_091146",
+  "hand_turn_review": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\runs\\commissioning\\speed_live_20261030_091203\\pullup_hand_turn_review.json",
+  "single_revolution_isolated": false,
+  "hand_turn_validation": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\runs\\commissioning\\speed_live_20261030_091203\\pullup_two_turn_validation.json",
+  "approx_counts_per_revolution": 1500,
+  "passive_diagonal_delta_two_turns": {
+    "left": 0,
+    "right": 0
+  }
+}

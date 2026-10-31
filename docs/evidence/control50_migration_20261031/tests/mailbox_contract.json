@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "hardware_tested": false,
+  "cases": [
+    {
+      "src_half_ns": 10,
+      "dst_half_ns": 4,
+      "passed": true,
+      "log": "PASS mailbox held bus + request/ack timing sh=10.000000 dh=4.000000 delivered=       1001\ntests/vision/tb_mailbox_contract.v:41: $finish called at 81260000 (1ps)\n"
+    },
+    {
+      "src_half_ns": 4,
+      "dst_half_ns": 10,
+      "passed": true,
+      "log": "PASS mailbox held bus + request/ack timing sh=4.000000 dh=10.000000 delivered=        402\ntests/vision/tb_mailbox_contract.v:41: $finish called at 32680000 (1ps)\n"
+    },
+    {
+      "src_half_ns": 6.13,
+      "dst_half_ns": 10.47,
+      "passed": true,
+      "log": "PASS mailbox held bus + request/ack timing sh=6.130000 dh=10.470000 delivered=        587\ntests/vision/tb_mailbox_contract.v:41: $finish called at 49934980 (1ps)\n"
+    },
+    {
+      "src_half_ns": 10.59,
+      "dst_half_ns": 3.8,
+      "passed": true,
+      "log": "PASS mailbox held bus + request/ack timing sh=10.590000 dh=3.800000 delivered=       1180\ntests/vision/tb_mailbox_contract.v:41: $finish called at 86054340 (1ps)\n"
+    }
+  ],
+  "source_sha256": {
+    "tests/vision/tb_mailbox_contract.v": "28fe9a12121029073e8bf0a94ab1fc7a5f187ab5dc07a64a9111a0e5be3172d1",
+    "fpga/vision/src/vision/vision_mailbox.v": "0376dacbc4fe05a59e928f719fce302b9f70779aac5e61d1d20f1b540e15307a",
+    "tools/test_mailbox_contract.py": "e29fc4fda3f2636cd5ade7fad76d1c18dce240226419b8fd4f6b9f0d6f1c10c7"
+  }
+}

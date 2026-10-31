@@ -1,0 +1,378 @@
+{
+  "stage": "V2",
+  "passed": true,
+  "hardware_tested": false,
+  "cases": [
+    {
+      "case": "still",
+      "ground_truth": [
+        0,
+        0
+      ],
+      "valid": 35,
+      "epe": 0.0,
+      "fixed_vs_float_epe": 0.0,
+      "patch_comparisons": 108,
+      "vectors_sha256": "556c15dae7def526594d6d79b75d11ce236e5aec23159f78bbdd782e080281fe"
+    },
+    {
+      "case": "right_half",
+      "ground_truth": [
+        0.5,
+        0
+      ],
+      "valid": 35,
+      "epe": 0.0480951411579106,
+      "fixed_vs_float_epe": 0.008836660582786225,
+      "patch_comparisons": 108,
+      "vectors_sha256": "c3d3d209760fefe1c79eaec9be00396483c2ceba3eeaf17f2af4cd7bc17774cb"
+    },
+    {
+      "case": "left_half",
+      "ground_truth": [
+        -0.5,
+        0
+      ],
+      "valid": 35,
+      "epe": 0.043076011435177586,
+      "fixed_vs_float_epe": 0.008376566539918156,
+      "patch_comparisons": 108,
+      "vectors_sha256": "9fffa60ccab01ba855a8186e98501436cfa2b887dc481f5fe48a3d5abe3fd866"
+    },
+    {
+      "case": "down_half",
+      "ground_truth": [
+        0,
+        0.5
+      ],
+      "valid": 35,
+      "epe": 0.03789874562531446,
+      "fixed_vs_float_epe": 0.009208288136193937,
+      "patch_comparisons": 108,
+      "vectors_sha256": "68d862f90b82da8919a276f9dca89a915da9b7fe777e1eaf5ac58474e7b08062"
+    },
+    {
+      "case": "up_half",
+      "ground_truth": [
+        0,
+        -0.5
+      ],
+      "valid": 35,
+      "epe": 0.03489311578700795,
+      "fixed_vs_float_epe": 0.009311742466731906,
+      "patch_comparisons": 108,
+      "vectors_sha256": "ac3269b1c137715c27f6051d0ccb26e23a3cb31a30dd0eaeb881f77f307bb9a0"
+    },
+    {
+      "case": "right_one",
+      "ground_truth": [
+        1,
+        0
+      ],
+      "valid": 35,
+      "epe": 0.15360585221410514,
+      "fixed_vs_float_epe": 0.014782678204831323,
+      "patch_comparisons": 108,
+      "vectors_sha256": "9ce904c47dcbfbcd65ed97fed63e04ee8ffc7473cd77a70061d53a229d5c3cab"
+    },
+    {
+      "case": "diagonal",
+      "ground_truth": [
+        0.5,
+        -0.5
+      ],
+      "valid": 35,
+      "epe": 0.044339198492901646,
+      "fixed_vs_float_epe": 0.007536426136483132,
+      "patch_comparisons": 108,
+      "vectors_sha256": "fe9be1f34d41f232ac535da2b673cbe8edb09819043d35ee855cdd88523c2c13"
+    },
+    {
+      "case": "flat",
+      "ground_truth": [
+        1,
+        0
+      ],
+      "valid": 0,
+      "epe": 0.0,
+      "fixed_vs_float_epe": 0.0,
+      "patch_comparisons": 108,
+      "vectors_sha256": "1dba009afa536cf328f91258df578157ef1d303c4dd466504f438bbb8cc50c38"
+    },
+    {
+      "case": "right_four",
+      "ground_truth": [
+        4,
+        0
+      ],
+      "valid": 35,
+      "epe": 2.991357126336834,
+      "fixed_vs_float_epe": 0.03642897585479708,
+      "patch_comparisons": 108,
+      "vectors_sha256": "c2a40ff6246e14fb2a32dbf5f28e44330ed05f3c0e9c607e288e85d677650b39"
+    }
+  ],
+  "safety_checks": true,
+  "pyramid_cases": [
+    {
+      "case": "still",
+      "ground_truth": [
+        0,
+        0
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 120,
+          "epe": 0.0
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.0
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1346530\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1346530\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27919310000 (1ps)"
+    },
+    {
+      "case": "right_half",
+      "ground_truth": [
+        0.5,
+        0
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 120,
+          "epe": 0.04096709241555854
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.04452753054316814
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1346530\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1346530\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27919310000 (1ps)"
+    },
+    {
+      "case": "right_one",
+      "ground_truth": [
+        1,
+        0
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 120,
+          "epe": 0.13322048200459077
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.02456252766811245
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1346530\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1346530\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27919310000 (1ps)"
+    },
+    {
+      "case": "right_two",
+      "ground_truth": [
+        2,
+        0
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 120,
+          "epe": 0.6107692747066111
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.015449946771762202
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1315386\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1346530\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27607870000 (1ps)"
+    },
+    {
+      "case": "right_four",
+      "ground_truth": [
+        4,
+        0
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 120,
+          "epe": 2.9942298069855817
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.028125637528008837
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1295568\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1346530\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27409690000 (1ps)"
+    },
+    {
+      "case": "left_four",
+      "ground_truth": [
+        -4,
+        0
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 120,
+          "epe": 3.014566482926193
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.025593958687650305
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1346530\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1295568\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27409690000 (1ps)"
+    },
+    {
+      "case": "down_four",
+      "ground_truth": [
+        0,
+        4
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 119,
+          "epe": 2.939283781234592
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.024250058813969282
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1338038\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1333792\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27707010000 (1ps)"
+    },
+    {
+      "case": "diagonal_two",
+      "ground_truth": [
+        2,
+        -2
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 120,
+          "epe": 0.9621244737599928
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.019459263277137148
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1322466\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1346530\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27678670000 (1ps)"
+    },
+    {
+      "case": "right_five",
+      "ground_truth": [
+        5,
+        0
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 113,
+          "epe": 4.587574618035154
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.8287393299239582
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1313974\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1346530\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27593750000 (1ps)"
+    },
+    {
+      "case": "right_six",
+      "ground_truth": [
+        6,
+        0
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 101,
+          "epe": 6.10350971297444
+        },
+        "v2": {
+          "valid": 117,
+          "epe": 6.026511087365275
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1333653\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1339110\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27716340000 (1ps)"
+    },
+    {
+      "case": "flat",
+      "ground_truth": [
+        1,
+        0
+      ],
+      "zoom": 1,
+      "metrics": {
+        "v0": {
+          "valid": 0,
+          "epe": 0.0
+        },
+        "v2": {
+          "valid": 0,
+          "epe": 0.0
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=244150\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=244150\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 5871710000 (1ps)"
+    },
+    {
+      "case": "zoom_in",
+      "ground_truth": [
+        0,
+        0
+      ],
+      "zoom": 1.03,
+      "metrics": {
+        "v0": {
+          "valid": 120,
+          "epe": 0.21803915196593887
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.04184362152720927
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1298402\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1346530\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27438030000 (1ps)"
+    },
+    {
+      "case": "zoom_out",
+      "ground_truth": [
+        0,
+        0
+      ],
+      "zoom": 0.97,
+      "metrics": {
+        "v0": {
+          "valid": 120,
+          "epe": 0.22983787256289206
+        },
+        "v2": {
+          "valid": 120,
+          "epe": 0.07530916596001588
+        }
+      },
+      "bit_exact_points": 190,
+      "pipeline_stdout": "FIRST_PAIR_CYCLES=1346530\nPASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=1298397\nbuild/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 27437980000 (1ps)"
+    }
+  ]
+}

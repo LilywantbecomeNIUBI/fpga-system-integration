@@ -1,0 +1,151 @@
+{
+  "set_slot1": {
+    "board_ip": "192.168.50.30",
+    "local_ip": "192.168.50.10",
+    "target_ip": "192.168.50.20",
+    "target_port": 6102,
+    "enabled": true,
+    "arp_valid": false,
+    "target_mac": "D4:D8:53:39:2A:D8",
+    "arp_requests": 25,
+    "received_small_frames": 274,
+    "error": 0,
+    "request_id": 4240181475,
+    "slot": 1,
+    "supported_slots": 2,
+    "perception_events": true
+  },
+  "state": {
+    "profile": "fpga_yolo_dashboard_v1",
+    "session": "5e75a91835584bc4a91bcf76943a4254",
+    "capture": {
+      "frames": 66,
+      "packets": 21365,
+      "bad": 0,
+      "missing_frames": 1,
+      "fps": 29.862730514982395,
+      "frame_id": 19643,
+      "age_ms": 31.520624999984648,
+      "error": null
+    },
+    "result": null,
+    "event": {
+      "frame_id": 19644,
+      "semantic_frame_id": 0,
+      "class_id": 0,
+      "confidence": 0,
+      "x1": 0,
+      "y1": 0,
+      "x2": 0,
+      "y2": 0,
+      "red_permille": 0,
+      "track_confidence": 0,
+      "semantic_age": 19644,
+      "target_valid": false,
+      "track_valid": false,
+      "semantic_valid": false,
+      "red": false,
+      "force_yolo": true,
+      "history_miss": false,
+      "scene_change": false,
+      "bad_frame": false,
+      "reason": 1,
+      "direction": "none"
+    },
+    "flow": {
+      "epoch": "c40b2bb50d4f",
+      "stage": 2,
+      "frame_id": 2197,
+      "newest_frame_id": 2197,
+      "field_status": {
+        "kind": "status",
+        "stage": 2,
+        "frame_id": 2197,
+        "state": "unknown",
+        "stop_request": true,
+        "confident": false,
+        "stale": true,
+        "hazard": 0,
+        "valid_counts": [
+          24,
+          29,
+          47
+        ],
+        "risk_counts": [
+          0,
+          1,
+          0
+        ],
+        "steer": 0,
+        "speed_limit": 0,
+        "cycles": 1609472300,
+        "dropped_frames": 17452
+      },
+      "vectors": [],
+      "received": 0,
+      "valid": 0,
+      "invalid": 0,
+      "missing": 190,
+      "expected": 190,
+      "image_key": null,
+      "control": {
+        "state": "unknown",
+        "stop_request": true,
+        "steer": 0,
+        "speed_limit": 0,
+        "hazard": 0,
+        "fresh": false,
+        "confident": false,
+        "age_ms": 2278.034218000016,
+        "frame_id": 2197,
+        "valid_counts": [
+          24,
+          29,
+          47
+        ],
+        "risk_counts": [
+          0,
+          1,
+          0
+        ]
+      },
+      "cycles": 1609472300,
+      "dropped_frames": 17452,
+      "fps": 0.0,
+      "packets": 70,
+      "bad": 0,
+      "duplicates": 1,
+      "late": 0,
+      "ignored_source": 0,
+      "restarts": 0,
+      "video": {
+        "frames": 0,
+        "fps": 0.0,
+        "frame_id": null,
+        "age_ms": null,
+        "bad": 0,
+        "missing_frames": 0
+      },
+      "history": [
+        {
+          "frame_id": 2197,
+          "ratios": [
+            0.0,
+            0.034482758620689655,
+            0.0
+          ]
+        }
+      ],
+      "observe_only": true,
+      "automatic_control_enabled": false
+    },
+    "event_age_ms": 13.439844000004086,
+    "error": "FileNotFoundError(2, 'No such file or directory')",
+    "model": "\u6b63\u5728\u52a0\u8f7d\u6a21\u578b",
+    "backend": "tensorrt",
+    "model_id": "yolov8n",
+    "inference_fps": 0,
+    "offline": false,
+    "inferences": 0
+  }
+}

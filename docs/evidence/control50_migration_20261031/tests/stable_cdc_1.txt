@@ -1,0 +1,2 @@
+PASS stable CDC wh=5.000000 rh=10.310000: ordered/coincident events, exact features, RAM lease, overflow, camera reset, stopped PCLK, common reset
+tests/vision/tb_stable_frame_cdc.v:106: $finish called at 51141335952 (1ps)

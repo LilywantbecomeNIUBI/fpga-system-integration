@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "compiled_and_constraint_inputs_unchanged": true,
+  "tests": {
+    "stable_cdc": {
+      "passed": true,
+      "relevant_inputs_unchanged": true,
+      "changed_non_consumed_inventory": []
+    },
+    "mailbox_contract": {
+      "passed": true,
+      "relevant_inputs_unchanged": true,
+      "changed_non_consumed_inventory": []
+    },
+    "control50_audit": {
+      "passed": true,
+      "relevant_inputs_unchanged": true,
+      "changed_non_consumed_inventory": []
+    },
+    "lk_state_audit": {
+      "passed": true,
+      "relevant_inputs_unchanged": true,
+      "changed_non_consumed_inventory": []
+    },
+    "frame_cdc_synth": {
+      "passed": true,
+      "relevant_inputs_unchanged": true,
+      "changed_non_consumed_inventory": []
+    },
+    "flow_recovery_synth": {
+      "passed": true,
+      "relevant_inputs_unchanged": true,
+      "changed_non_consumed_inventory": []
+    },
+    "lk_math_synth": {
+      "passed": true,
+      "relevant_inputs_unchanged": true,
+      "changed_non_consumed_inventory": []
+    },
+    "system": {
+      "passed": true,
+      "relevant_inputs_unchanged": true,
+      "changed_non_consumed_inventory": [
+        "tools/task4/mission.py",
+        "config/pnr.json"
+      ]
+    },
+    "full_top_result": {
+      "passed": true,
+      "relevant_inputs_unchanged": true,
+      "changed_non_consumed_inventory": [
+        "build/system/system.sdc"
+      ]
+    },
+    "perception_result": {
+      "passed": true,
+      "relevant_inputs_unchanged": true,
+      "changed_non_consumed_inventory": []
+    }
+  },
+  "note": "Full-top digital simulation does not consume SDC; its original metadata retains the earlier constraint hash. System test metadata inventories unrelated concurrent task4 files and config evidence paths; these are not consumed by these digital tests. Current SDC is independently covered by frozen-source PnR and CDC timing audits."
+}

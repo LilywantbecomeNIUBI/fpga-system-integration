@@ -1,0 +1,76 @@
+{
+  "seconds": 44.52802589999965,
+  "pc": {
+    "frames": 1329,
+    "packets": 425280,
+    "bad": 0,
+    "missing_frames": 7,
+    "measured_fps": 29.846371428741254
+  },
+  "nano": {
+    "frames": 946,
+    "packets": 405248,
+    "bad": 0,
+    "missing_frames": 382,
+    "measured_fps": 21.24504693121838
+  },
+  "inferences": 943,
+  "imu_samples": 2233,
+  "imu_crc_delta": 0,
+  "imu_gaps_delta": 0,
+  "flow_start_frame": 7016,
+  "flow_end_frame": 7016,
+  "flow_packets": 1336,
+  "flow_fresh_samples": 0,
+  "total_samples": 87,
+  "track_valid_samples": 46,
+  "last_flow": {
+    "state": "unknown",
+    "stop_request": true,
+    "steer": 0,
+    "speed_limit": 0,
+    "hazard": 0,
+    "fresh": false,
+    "confident": false,
+    "age_ms": 132049.22530000022,
+    "frame_id": 7016,
+    "valid_counts": [
+      17,
+      42,
+      47
+    ],
+    "risk_counts": [
+      0,
+      0,
+      0
+    ]
+  },
+  "latest_feedback": {
+    "kind": "bottle",
+    "threshold": 0.5,
+    "reply": {
+      "result_frame": 10958,
+      "current_frame": 10972,
+      "class_id": 39,
+      "confidence": 897,
+      "center_x": 808,
+      "center_y": 356,
+      "age_frames": 14,
+      "accepted": 2361,
+      "rejected": 402,
+      "target_valid": true,
+      "frame_seen": true,
+      "sequence_seen": true,
+      "stream_ready": true,
+      "reason": 1,
+      "direction": "center"
+    },
+    "error": null
+  },
+  "last_gateway_recording": {
+    "active": true,
+    "drops": 0,
+    "error": null
+  },
+  "measured_inference_fps": 21.17767363228217
+}

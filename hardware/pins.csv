@@ -1,13 +1,13 @@
 group,signal,ball,direction,p7,endpoint,status
-chassis,left_in1,A13,OUT,1,AIN1 / D157B J4-4,candidate
-chassis,left_in2,A14,OUT,2,AIN2 / D157B J4-3,candidate
-chassis,right_in1,A15,OUT,3,BIN1 / D157B J4-2,candidate
-chassis,right_in2,A16,OUT,4,BIN2 / D157B J4-1,candidate
-chassis,left_enc_a,C13,IN,13,level shifter <- E1A / D157B J5-1,candidate
-chassis,left_enc_b,B13,IN,14,level shifter <- E1B / D157B J5-2,candidate
-chassis,right_enc_a,D14,IN,15,level shifter <- E2A / D157B J5-3,candidate
-chassis,right_enc_b,D15,IN,16,level shifter <- E2B / D157B J5-4,candidate
-chassis,estop_n,B16,IN,20,external safety status / external pulldown,candidate
+legacy_disabled,legacy_m1_pwm_disabled[5],A13,OUT,1,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m1_pwm_disabled[4],A14,OUT,2,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m1_pwm_disabled[3],A15,OUT,3,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m1_pwm_disabled[2],A16,OUT,4,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m2_pwm_disabled[4],C13,OUT,13,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m2_pwm_disabled[3],B13,OUT,14,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m2_pwm_disabled[2],D14,OUT,15,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m2_pwm_disabled[1],D15,OUT,16,Old DRV8323 PWM fixed low; not D157B,fixed_low
+spare_p7,spare_p7_20,B16,UNASSIGNED,20,Old FOC connection retained; not a new chassis signal,reserved
 camera,camera_rst_n,N20,OUT,,,reserved
 camera,camera_pwdn,L1,OUT,,,reserved
 camera,camera_sclk,M20,OUT,,,reserved
@@ -52,8 +52,8 @@ ethernet,rgmii_rxd[3],R19,IN,,,reserved
 board,uart_rx,J21,IN,,,reserved
 reserved_p7,imu_i2c_scl,F19,INOUT,39,,reserved
 reserved_p7,imu_i2c_sda,F20,INOUT,40,,reserved
-reserved_p7,lidar_uart_rx,D19,IN,36,,reserved
-reserved_p7,lidar_uart_tx,F18,OUT,37,,reserved
+chassis,right_enc_b,D19,IN,36,level shifter <- E2B / D157B J5-4,candidate_adc_remap
+reserved,p7_37_unused,F18,IN,37,unused no external permit required,closed_loop_only
 reserved_p7,lidar_moto_pwm,E18,OUT,38,,reserved
 reserved_p7,legacy_m1_disable,F13,OUT,7,,reserved
 reserved_p7,legacy_m2_disable,C15,OUT,18,,reserved
@@ -64,23 +64,23 @@ audio,audio_adc,AA21,IN,,,reserved
 audio,audio_dac,AA20,OUT,,,reserved
 audio,codec_scl,M13,OUT,,,reserved
 audio,codec_sda,M16,INOUT,,,reserved
-spare_p7,spare_p7_5,A18,UNASSIGNED,5,M1_PWM_CH (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_6,A19,UNASSIGNED,6,M1_PWM_CL (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_8,F14,UNASSIGNED,8,M1_CAL (old connection; disconnect before reuse),reserved
+legacy_disabled,legacy_m1_pwm_disabled[1],A18,OUT,5,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m1_pwm_disabled[0],A19,OUT,6,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_cal_disabled[0],F14,OUT,8,Old DRV8323 CAL fixed low,fixed_low
 spare_p7,spare_p7_9,E13,UNASSIGNED,9,M1_FAULT_N (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_10,E14,UNASSIGNED,10,M2_PWM_AH (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_17,C14,UNASSIGNED,17,M2_PWM_CL (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_19,B15,UNASSIGNED,19,M2_CAL (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_21,D17,UNASSIGNED,21,ADC_CONVST (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_22,C17,UNASSIGNED,22,ADC_BUSY (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_23,E16,UNASSIGNED,23,ADC_CS_N (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_24,D16,UNASSIGNED,24,ADC_SCLK (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_25,B17,UNASSIGNED,25,ADC_DOUT_A (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_26,B18,UNASSIGNED,26,ADC_DOUT_B (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_27,C18,UNASSIGNED,27,ADC_RESET (old connection; disconnect before reuse),reserved
+legacy_disabled,legacy_m2_pwm_disabled[5],E14,OUT,10,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_m2_pwm_disabled[0],C14,OUT,17,Old DRV8323 PWM fixed low; not D157B,fixed_low
+legacy_disabled,legacy_cal_disabled[1],B15,OUT,19,Old DRV8323 CAL fixed low,fixed_low
+chassis,left_in1,D17,OUT,21,AIN1 / D157B J4-4,candidate_adc_remap
+chassis,left_in2,C17,OUT,22,AIN2 / D157B J4-3,candidate_adc_remap
+chassis,right_in1,E16,OUT,23,BIN1 / D157B J4-2,candidate_adc_remap
+chassis,right_in2,D16,OUT,24,BIN2 / D157B J4-1,candidate_adc_remap
+chassis,left_enc_a,F16,IN,31,level shifter <- E1A / D157B J5-1,validated_encoder_profile
+chassis,left_enc_b,E17,IN,32,level shifter <- E1B / D157B J5-2,validated_encoder_profile
+chassis,right_enc_a,C18,IN,27,level shifter <- E2A / D157B J5-3,candidate_adc_remap
 spare_p7,spare_p7_28,C19,UNASSIGNED,28,ENC1_CS_N (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_31,F16,UNASSIGNED,31,ENC1_CLK (old connection; disconnect before reuse),reserved
-spare_p7,spare_p7_32,E17,UNASSIGNED,32,ENC1_DO (old connection; disconnect before reuse),reserved
+spare_p7,spare_p7_25,B17,UNASSIGNED,25,Old ADC remap endpoint; disconnected before validated encoder profile,reserved
+spare_p7,spare_p7_26,B18,UNASSIGNED,26,Old ADC remap endpoint; disconnected before validated encoder profile,reserved
 spare_p7,spare_p7_33,D20,UNASSIGNED,33,ENC2_CS_N (old connection; disconnect before reuse),reserved
 spare_p7,spare_p7_34,C20,UNASSIGNED,34,ENC2_CLK (old connection; disconnect before reuse),reserved
 spare_p7,spare_p7_35,E19,UNASSIGNED,35,ENC2_DO (old connection; disconnect before reuse),reserved

@@ -1,0 +1,10 @@
+{
+  "input": "C:\\Users\\leo\\Documents\\ChatGPT\\FPGA\\STL27L_check_20261025\\COM8_921600_5s.bin",
+  "sha256": "35e023e8509c19bfba2c94545d9af6f44d95156b4da43e8a0b43c92d61aaa4ee",
+  "bytes": 423329,
+  "frames": 9006,
+  "complete_scans": 48,
+  "crc_errors": 0,
+  "hardware_tested_now": false,
+  "distance_accuracy_verified": false
+}

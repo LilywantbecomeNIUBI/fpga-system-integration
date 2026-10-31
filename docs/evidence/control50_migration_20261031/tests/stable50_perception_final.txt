@@ -1,0 +1,45 @@
+PASS still: 108 bit-exact patches, valid=35, EPE=0.000px
+PASS right_half: 108 bit-exact patches, valid=35, EPE=0.048px
+PASS left_half: 108 bit-exact patches, valid=35, EPE=0.043px
+PASS down_half: 108 bit-exact patches, valid=35, EPE=0.038px
+PASS up_half: 108 bit-exact patches, valid=35, EPE=0.035px
+FIRST_PAIR_CYCLES=49630
+PASS frame ownership, exact grid, bubbles, rollover, overrun, bad frame and gap; cycles=49630
+build/tests/flow_benches/tb_flow_pipeline.v:56: $finish called at 1206230000 (1ps)
+PASS right_one: 108 bit-exact patches, valid=35, EPE=0.154px
+PASS diagonal: 108 bit-exact patches, valid=35, EPE=0.044px
+PASS flat: 108 bit-exact patches, valid=0, EPE=0.000px
+PASS right_four: 108 bit-exact patches, valid=35, EPE=2.991px
+PASS regional counts, expansion/recession, steering, all-blocked, texture, clear hysteresis, invalidation and timeout
+build/tests/flow_benches/tb_flow_avoidance.v:48: $finish called at 17020000 (1ps)
+PASS pyramid still: V0 EPE=0.000, V2 EPE=0.000px
+PASS pyramid right_half: V0 EPE=0.041, V2 EPE=0.045px
+PASS pyramid right_one: V0 EPE=0.133, V2 EPE=0.025px
+PASS pyramid right_two: V0 EPE=0.611, V2 EPE=0.015px
+PASS pyramid right_four: V0 EPE=2.994, V2 EPE=0.028px
+PASS pyramid left_four: V0 EPE=3.015, V2 EPE=0.026px
+PASS pyramid down_four: V0 EPE=2.939, V2 EPE=0.024px
+PASS pyramid diagonal_two: V0 EPE=0.962, V2 EPE=0.019px
+PASS pyramid right_five: V0 EPE=4.588, V2 EPE=0.829px
+PASS pyramid right_six: V0 EPE=6.104, V2 EPE=6.027px
+PASS pyramid flat: V0 EPE=0.000, V2 EPE=0.000px
+PASS pyramid zoom_in: V0 EPE=0.218, V2 EPE=0.042px
+PASS pyramid zoom_out: V0 EPE=0.230, V2 EPE=0.075px
+PASS merged events: fairness, immutable stall, exact watchdog deadline/refresh and endpoint loss
+tests/vision/tb_perception_merge.v:52: $finish called at 3590000 (1ps)
+PASS tracking and semantic TTL/refresh, stopped-camera result rejection
+tests/vision/tb_perception_deadlines.v:40: $finish called at 3200000 (1ps)
+PASS actual frame payload: 16 rows, headers, RGB565 bytes, letterbox and consumer stalls
+tests/vision/tb_frame_payload.v:46: $finish called at 16152000 (1ps)
+PASS timing boundaries: contiguous/final samples, frame ownership, invalidation, frame-age wrap/refresh, exact second period
+tests/vision/tb_timing_boundaries.v:87: $finish called at 600000 (1ps)
+PASS real flow ownership: simultaneous capture completion/solver done retains banks through avoidance drain
+tests/vision/tb_flow_drain.v:46: $finish called at 63100000 (1ps)
+PASS flow diagnostic: waits, illegal encoding and observed IDLE/busy fault handled
+tests/vision/tb_flow_diagnostic.v:35: $finish called at 60360000 (1ps)
+PASS elastic FIFO: 300 ordered vectors, wrap, full/pop/push, long stalls, reset isolation
+tests/vision/tb_flow_elastic.v:34: $finish called at 16130000 (1ps)
+PASS real frame stream -> registered byte stage -> production UDP, 16 packets captured
+tests/vision/tb_stream_udp.v:26: $finish called at 18232000 (1ps)
+PASS 16 real stream/UDP packets: exact headers/pixels/padding, Ethernet FCS and IPv4 checksum
+PASS mixed RTL packets decoded by production Python parsers

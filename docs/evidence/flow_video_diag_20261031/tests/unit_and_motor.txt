@@ -1,0 +1,82 @@
+PASS: 85 distinct signal/ball reservations; 36 P7 GPIOs; 8 chassis CST ports.
+Scope: pin consistency only. Voltage compatibility, synthesis, timing, and vehicle tests remain pending.
+PASS core: arm guard, dual commands, sequence/wrap, watchdog, STOP and open loop rejection, stall, encoder faults
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\tests\tb_core.sv:59: $finish called at 56710000 (1ps)
+PASS encoder: scaled x2 directions, windows, filter, zero legacy invalid, polarity
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\tests\tb_encoder.sv:25: $finish called at 2240000 (1ps)
+PASS A-edge decoder: all phases/polarities/directions, scaled windows, B distortion, glitches, diagonal limitation
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\tests\tb_encoder_a_edges.sv:76: $finish called at 281360000 (1ps)
+PASS recovery candidate: both complete recorded traces, reverse, clean scale, unknown/stale ambiguity ignored
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\tests\tb_encoder_recovery.sv:41: $finish called at 278280000 (1ps)
+PASS ordered trace source: byte packing, both axes, mode identity, statistics coexistence
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\tests\tb_encoder_trace_source.sv:30: $finish called at 26030000 (1ps)
+PASS motor IMU: sensor acquisition, concurrent diagnostics/UART, STOP outputs
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\tests\tb_motor_imu.sv:25: $finish called at 45000200000 (1ps)
+PASS PWM: slow decay signed drive duty, 11 wake/brake, zero coast, disable and reset
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\tests\tb_pwm.sv:32: $finish called at 40091000 (1ps)
+PASS transport: nominal rates, congestion=98, whole-frame UART
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\tests\tb_transport.sv:33: $finish called at 1720030000 (1ps)
+PASS UART system: real serial commands, CRC rejection, partial timeout, telemetry CRC, replay, STOP
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\tests\tb_uart_system.sv:81: $finish called at 1812120000 (1ps)
+PASS wheel: saturation, PWM duty, slew, reversal, disable, PI antiwindup and plant convergence
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\tests\tb_wheel.sv:34: $finish called at 70020000 (1ps)
+test_delayed_one_frame_does_not_replace_current_epoch (test_capture_latency.CaptureLatencyTests.test_delayed_one_frame_does_not_replace_current_epoch) ... ok
+test_diagnostic_isolated_from_control_and_tracking (test_capture_latency.CaptureLatencyTests.test_diagnostic_isolated_from_control_and_tracking) ... ok
+test_regular_wrap_is_not_reset (test_capture_latency.CaptureLatencyTests.test_regular_wrap_is_not_reset) ... ok
+test_reset_after_silence_with_id_above_32 (test_capture_latency.CaptureLatencyTests.test_reset_after_silence_with_id_above_32) ... ok
+test_reset_when_old_id_is_above_half_range (test_capture_latency.CaptureLatencyTests.test_reset_when_old_id_is_above_half_range) ... ok
+test_sticky_solver_fault_masks_advice_until_reset_report (test_capture_latency.CaptureLatencyTests.test_sticky_solver_fault_masks_advice_until_reset_report) ... ok
+test_counter_analysis_direction_cancellation_and_reset (test_encoder_diagnostics.DiagnosticTests.test_counter_analysis_direction_cancellation_and_reset) ... ok
+test_diagnostics_do_not_refresh_motor_or_feed_imu (test_encoder_diagnostics.DiagnosticTests.test_diagnostics_do_not_refresh_motor_or_feed_imu) ... ok
+test_invalid_axis_or_mode_does_not_kill_stream (test_encoder_diagnostics.DiagnosticTests.test_invalid_axis_or_mode_does_not_kill_stream) ... ok
+test_wire_order_crc_and_fragmentation (test_encoder_diagnostics.DiagnosticTests.test_wire_order_crc_and_fragmentation) ... ok
+test_clean_directions_and_incomplete_chains (test_encoder_trace.TraceTests.test_clean_directions_and_incomplete_chains) ... ok
+test_order_crc_fragmentation_and_no_control_refresh (test_encoder_trace.TraceTests.test_order_crc_fragmentation_and_no_control_refresh) ... ok
+test_overlap_overflow_reset_and_other_axis (test_encoder_trace.TraceTests.test_overlap_overflow_reset_and_other_axis) ... ok
+test_headless_parser_matches_frozen_source (test_imu_protocol_compat.CompatibilityTests.test_headless_parser_matches_frozen_source) ... ok
+test_crc_and_command_layout (test_motor_protocol.ProtocolTests.test_crc_and_command_layout) ... ok
+test_stream_recovers_after_noise_corruption_and_partial_frame (test_motor_protocol.ProtocolTests.test_stream_recovers_after_noise_corruption_and_partial_frame) ... ok
+test_validation (test_motor_protocol.ProtocolTests.test_validation) ... ok
+test_future_policy_constraints_fail_closed_and_do_not_treat_scale_as_pwm (test_perception_merge.PerceptionMergeTests.test_future_policy_constraints_fail_closed_and_do_not_treat_scale_as_pwm) ... ok
+test_mixed_protocol_retains_tracking_and_flow_independently (test_perception_merge.PerceptionMergeTests.test_mixed_protocol_retains_tracking_and_flow_independently) ... ok
+test_motion_adapter_units_curvature_polarity_and_expiry (test_perception_merge.PerceptionMergeTests.test_motion_adapter_units_curvature_polarity_and_expiry) ... ok
+test_nano_cached_flow_ages_at_pc_without_chassis_dependency (test_perception_merge.PerceptionMergeTests.test_nano_cached_flow_ages_at_pc_without_chassis_dependency) ... ok
+test_same_frame_stop_is_immediate (test_perception_merge.PerceptionMergeTests.test_same_frame_stop_is_immediate) ... ok
+test_client_timeout_stop_no_auto_restart (test_pwm_console.ControlTests.test_client_timeout_stop_no_auto_restart) ... ok
+test_encode_rejects_dual_channel_and_out_of_range (test_pwm_console.ControlTests.test_encode_rejects_dual_channel_and_out_of_range) ... ok
+test_encoder_named_fields_never_regulate_raw_duty (test_pwm_console.ControlTests.test_encoder_named_fields_never_regulate_raw_duty) ... ok
+test_five_second_duration_and_old_firmware_rejected (test_pwm_console.ControlTests.test_five_second_duration_and_old_firmware_rejected) ... ok
+test_invalid_and_overlapping_requests_do_not_renew (test_pwm_console.ControlTests.test_invalid_and_overlapping_requests_do_not_renew) ... ok
+test_m1_m2_serialization_and_no_feedback_control (test_pwm_console.ControlTests.test_m1_m2_serialization_and_no_feedback_control) ... ok
+test_timer_fixed_despite_heartbeats_and_metrics (test_pwm_console.ControlTests.test_timer_fixed_despite_heartbeats_and_metrics) ... ok
+test_wrong_firmware_and_stale_status_block_output (test_pwm_console.ControlTests.test_wrong_firmware_and_stale_status_block_output) ... ok
+test_real_worker_http_fake_uart_and_startup_stop_only (test_pwm_console.HttpWorkerTests.test_real_worker_http_fake_uart_and_startup_stop_only) ... ok
+test_bad_ranges_dont_renew_and_physical_disabled (test_system.ControlTests.test_bad_ranges_dont_renew_and_physical_disabled) ... ok
+test_closed_only_and_timed_test_cannot_extend_or_rearm (test_system.ControlTests.test_closed_only_and_timed_test_cannot_extend_or_rearm) ... ok
+test_continuous_counts_heartbeat_runs_past_one_second_and_times_out (test_system.ControlTests.test_continuous_counts_heartbeat_runs_past_one_second_and_times_out) ... ok
+test_counter_jump_revokes_and_requests_new_odometry_reference (test_system.ControlTests.test_counter_jump_revokes_and_requests_new_odometry_reference) ... ok
+test_duplicate_telemetry_does_not_refresh (test_system.ControlTests.test_duplicate_telemetry_does_not_refresh) ... ok
+test_gateway_restart_old_lease_rejected (test_system.ControlTests.test_gateway_restart_old_lease_rejected) ... ok
+test_ground_mapping_limits_deadline_and_release (test_system.ControlTests.test_ground_mapping_limits_deadline_and_release) ... ok
+test_ground_requires_correct_polarity_and_explicit_arm (test_system.ControlTests.test_ground_requires_correct_polarity_and_explicit_arm) ... ok
+test_handshake_latest_targets_timeout_and_no_rearm (test_system.ControlTests.test_handshake_latest_targets_timeout_and_no_rearm) ... ok
+test_held_false_releases_targets_and_replay_rejected (test_system.ControlTests.test_held_false_releases_targets_and_replay_rejected) ... ok
+test_permille_api_removed (test_system.ControlTests.test_permille_api_removed) ... ok
+test_stale_motor_and_disconnect_revokes (test_system.ControlTests.test_stale_motor_and_disconnect_revokes) ... ok
+test_actual_serial_worker_with_fake_device (test_system.HttpTests.test_actual_serial_worker_with_fake_device) ... ok
+test_authentication_and_read_only_offline (test_system.HttpTests.test_authentication_and_read_only_offline) ... ok
+test_dynamic_acceptance_rejects_missing_nan_and_short_run (test_system.HttpTests.test_dynamic_acceptance_rejects_missing_nan_and_short_run) ... ok
+test_lidar_can_be_disabled_without_opening_its_serial (test_system.HttpTests.test_lidar_can_be_disabled_without_opening_its_serial) ... ok
+test_nano_python36_syntax (test_system.HttpTests.test_nano_python36_syntax) ... ok
+test_pc_offline_and_stale_gateway_never_enable_motion (test_system.HttpTests.test_pc_offline_and_stale_gateway_never_enable_motion) ... ok
+test_raw_indices_use_capture_time_and_exact_offsets (test_system.RecordingTests.test_raw_indices_use_capture_time_and_exact_offsets) ... ok
+test_calibration_required_and_rollover (test_system.StreamTests.test_calibration_required_and_rollover) ... ok
+test_lidar_captured_golden_and_scan (test_system.StreamTests.test_lidar_captured_golden_and_scan) ... ok
+test_mixed_fragment_crc_recovery (test_system.StreamTests.test_mixed_fragment_crc_recovery) ... ok
+test_disconnect_discards_lease_and_recovery_never_replays_drive (test_tuner_connection.ConnectionTests.test_disconnect_discards_lease_and_recovery_never_replays_drive) ... ok
+test_switch_validates_address_releases_old_and_preserves_credentials (test_tuner_connection.ConnectionTests.test_switch_validates_address_releases_old_and_preserves_credentials) ... ok
+
+----------------------------------------------------------------------
+Ran 55 tests in 2.452s
+
+OK

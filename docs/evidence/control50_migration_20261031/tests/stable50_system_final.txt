@@ -1,0 +1,114 @@
+unit_and_motor: tax (test_system.HttpTests.test_nano_python36_syntax) ... ok
+test_pc_offline_and_stale_gateway_never_enable_motion (test_system.HttpTests.test_pc_offline_and_stale_gateway_never_enable_motion) ... ok
+test_raw_indices_use_capture_time_and_exact_offsets (test_system.RecordingTests.test_raw_indices_use_capture_time_and_exact_offsets) ... ok
+test_calibration_required_and_rollover (test_system.StreamTests.test_calibration_required_and_rollover) ... ok
+test_lidar_captured_golden_and_scan (test_system.StreamTests.test_lidar_captured_golden_and_scan) ... ok
+test_mixed_fragment_crc_recovery (test_system.StreamTests.test_mixed_fragment_crc_recovery) ... ok
+test_http (test_task4_console.Checks.test_http) ... ok
+test_record_replay (test_task4_console.Checks.test_record_replay) ... ok
+test_stream_and_expiry (test_task4_console.Checks.test_stream_and_expiry) ... ok
+test_unknown_and_crc (test_task4_console.Checks.test_unknown_and_crc) ... ok
+test_disconnect_discards_lease_and_recovery_never_replays_drive (test_tuner_connection.ConnectionTests.test_disconnect_discards_lease_and_recovery_never_replays_drive) ... ok
+test_switch_validates_address_releases_old_and_preserves_credentials (test_tuner_connection.ConnectionTests.test_switch_validates_address_releases_old_and_preserves_credentials) ... ok
+
+----------------------------------------------------------------------
+Ran 59 tests in 3.131s
+
+OK
+
+PASS immutable sources, self-contained project and 68 unique integrated pins
+lk_compile: 
+lk: e800000000
+OBS 201 46535441020f000200c900c800270384010000c00300024003e803e800010000
+OBS 202 46535441020f000200ca00c800270384010000c00300024003e803e800020000
+OBS 203 46535441020f000200cb00c800270384010000c00300024003e803e800030000
+OBS 204 46535441020f000200cc00c800270384010000c00300024003e803e800040000
+OBS 205 46535441020f000200cd00c800270384010000c00300024003e803e800050000
+OBS 206 46535441020f000200ce00c800270384010000c00300024003e803e800060000
+OBS 207 46535441020f000200cf00c800270384010000c00300024003e803e800070000
+OBS 208 46535441020f000200d000c800270384010000c00300024003e803e800080000
+OBS 209 46535441020f000200d100c800270384010000c00300024003e803e800090000
+OBS 210 46535441020f000200d200c800270384010000c00300024003e803e8000a0000
+OBS 211 46535441020f000200d300c800270384010000c00300024003e803e8000b0000
+OBS 212 46535441020f000200d400c800270384010000c00300024003e803e8000c0000
+OBS 213 46535441020f000200d500c800270384010000c00300024003e803e8000d0000
+OBS 214 46535441020f000200d600c800270384010000c00300024003e803e8000e0000
+OBS 215 465354410218060000d700c800270384010000c00300024003e803e8000f0000
+OBS 0 46535441020f00020000fffe00270384011100c00311024003e803e800020000
+PASS multi-point LK replay/subpixel/reversal/flat/color/bad frame/history/expiry/rollover
+E:\Gowin_project\fpga_project\team_repos\fpga-system-integration\build\tests\tb_lk_adapted.v:66: $finish called at 38229444000 (1ps)
+
+dual: PASS dual cache collision, identical replay, source once, frame gate, independent stop/clear, target snapshots, bad packet rejection and TTL
+build/tests/tb_dual_adapted.v:60: $finish called at 3415592000 (1ps)
+
+{
+  "status": "PASS",
+  "frames_checked": 47,
+  "acks": [
+    {
+      "op": 130,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 1
+    },
+    {
+      "op": 133,
+      "error": 1
+    },
+    {
+      "op": 132,
+      "error": 0
+    },
+    {
+      "op": 131,
+      "error": 0
+    },
+    {
+      "op": 130,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 0
+    },
+    {
+      "op": 134,
+      "error": 0
+    },
+    {
+      "op": 133,
+      "error": 0
+    },
+    {
+      "op": 136,
+      "error": 0
+    },
+    {
+      "op": 129,
+      "error": 0
+    },
+    {
+      "op": 135,
+      "error": 0
+    }
+  ],
+  "checks": [
+    "byte identical copies including 1456/31/1-byte payloads",
+    "source read once and released after copies",
+    "PC .100/Nano .20 cache collision avoided",
+    "independent cache clear/stop and offline target",
+    "in-flight destination snapshot",
+    "per-target complete-frame start",
+    "bad FCS/IP/UDP/fragment rejection",
+    "TTL",
+    "CRC and IP checksum"
+  ]
+}
+
+PASS system regressions ['unit_and_motor', 'lk', 'dual']

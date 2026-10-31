@@ -1,0 +1,301 @@
+{
+  "created_utc": "2026-10-30T09:49:35.042270+00:00",
+  "vision_commit": "df6f60d07873150d9ea796580adbc17960945f2c",
+  "merge_mode": "observe_only",
+  "automatic_motion_connected": false,
+  "programmed": false,
+  "nano_deployed": false,
+  "hardware_tested": false,
+  "regression_passed": true,
+  "setup_hold_passed": false,
+  "timing_signoff": false,
+  "reported_min_pulse_width": [
+    {
+      "slack_ns": -0.688,
+      "actual_ns": 0.212,
+      "required_ns": 0.9,
+      "kind": "High Pulse Width",
+      "clock": "eth125",
+      "object": "camera/stream/ram_ram_0_6_s"
+    },
+    {
+      "slack_ns": -0.688,
+      "actual_ns": 0.212,
+      "required_ns": 0.9,
+      "kind": "High Pulse Width",
+      "clock": "eth125",
+      "object": "camera/stream/ram_ram_0_9_s"
+    },
+    {
+      "slack_ns": -0.688,
+      "actual_ns": 0.212,
+      "required_ns": 0.9,
+      "kind": "High Pulse Width",
+      "clock": "eth125",
+      "object": "camera/runtime_network.net/packet_ram_packet_ram_0_0_s"
+    },
+    {
+      "slack_ns": -0.688,
+      "actual_ns": 0.212,
+      "required_ns": 0.9,
+      "kind": "High Pulse Width",
+      "clock": "eth125",
+      "object": "camera/stream/ram_ram_0_13_s"
+    },
+    {
+      "slack_ns": -0.688,
+      "actual_ns": 0.212,
+      "required_ns": 0.9,
+      "kind": "High Pulse Width",
+      "clock": "eth125",
+      "object": "camera/stream/ram_ram_1_9_s"
+    },
+    {
+      "slack_ns": -0.688,
+      "actual_ns": 0.212,
+      "required_ns": 0.9,
+      "kind": "High Pulse Width",
+      "clock": "eth125",
+      "object": "camera/stream/ram_ram_1_12_s"
+    },
+    {
+      "slack_ns": -0.688,
+      "actual_ns": 0.212,
+      "required_ns": 0.9,
+      "kind": "High Pulse Width",
+      "clock": "eth125",
+      "object": "camera/stream/ram_ram_2_6_s"
+    },
+    {
+      "slack_ns": -0.688,
+      "actual_ns": 0.212,
+      "required_ns": 0.9,
+      "kind": "High Pulse Width",
+      "clock": "eth125",
+      "object": "camera/stream/ram_ram_2_11_s"
+    },
+    {
+      "slack_ns": -0.688,
+      "actual_ns": 0.212,
+      "required_ns": 0.9,
+      "kind": "High Pulse Width",
+      "clock": "eth125",
+      "object": "camera/stream/ram_ram_3_10_s"
+    },
+    {
+      "slack_ns": -0.688,
+      "actual_ns": 0.212,
+      "required_ns": 0.9,
+      "kind": "High Pulse Width",
+      "clock": "eth125",
+      "object": "camera/stream/ram_ram_6_6_s"
+    }
+  ],
+  "build_attempts": [
+    {
+      "started_utc": "20261030T084053Z",
+      "violations": {
+        "setup": 649,
+        "hold": 0
+      },
+      "passed": false,
+      "options": {
+        "top_module": "system_top",
+        "verilog_std": "sysv2017",
+        "output_base_name": "system",
+        "max_fanout": "32",
+        "replicate_resources": "1",
+        "retiming_resource": "bsram",
+        "use_sspi_as_gpio": "1",
+        "use_cpu_as_gpio": "1",
+        "place_option": "2",
+        "route_option": "1"
+      },
+      "bitstream_sha256": "f2cf52b1f45a5611ec3fd1a7035e4c9857a309a6adc611120c76bc5ed6041f86",
+      "timing_sha256": "c58e862d1fd4fa02bcbdd6d1da8cbabbdc7660e22e1124d1eedb2281b4ffa3e6"
+    },
+    {
+      "started_utc": "20261030T090035Z",
+      "violations": {
+        "setup": 1791,
+        "hold": 0
+      },
+      "passed": false,
+      "options": {
+        "top_module": "system_top",
+        "verilog_std": "sysv2017",
+        "output_base_name": "system",
+        "max_fanout": "16",
+        "replicate_resources": "1",
+        "retiming_resource": "bsram",
+        "use_sspi_as_gpio": "1",
+        "use_cpu_as_gpio": "1",
+        "place_option": "3",
+        "route_option": "2"
+      },
+      "bitstream_sha256": "fa0959c21aa2a59d89ec05523fe6eb417802cead8ebe0b6c63a5a64235f8a1cc",
+      "timing_sha256": "ac97a85bceca2a85c73228fdff4f784615993948da29b640c4c89c9e305253d1"
+    },
+    {
+      "started_utc": "20261030T091305Z",
+      "violations": {
+        "setup": 242,
+        "hold": 0
+      },
+      "passed": false,
+      "options": {
+        "top_module": "system_top",
+        "verilog_std": "sysv2017",
+        "output_base_name": "system",
+        "max_fanout": "32",
+        "replicate_resources": "1",
+        "retiming_resource": "bsram",
+        "use_sspi_as_gpio": "1",
+        "use_cpu_as_gpio": "1",
+        "place_option": "2",
+        "route_option": "1"
+      },
+      "bitstream_sha256": "5223eac71d4b2e1250d2997ae677191a099abf0250667e6e4b2187a28664309e",
+      "timing_sha256": "00a4004ced1ab16e0d714c255d1e62171afc61571e074240fc98a4e56cfffb83"
+    },
+    {
+      "started_utc": "20261030T092519Z",
+      "violations": {
+        "setup": 10,
+        "hold": 0
+      },
+      "passed": false,
+      "options": {
+        "top_module": "system_top",
+        "verilog_std": "sysv2017",
+        "output_base_name": "system",
+        "max_fanout": "32",
+        "replicate_resources": "1",
+        "retiming_resource": "bsram",
+        "use_sspi_as_gpio": "1",
+        "use_cpu_as_gpio": "1",
+        "place_option": "2",
+        "route_option": "1"
+      },
+      "bitstream_sha256": "c144da64388294eccab070a068b8ad98446224f0265fc6294b5346db8c84521a",
+      "timing_sha256": "624907ec64d498177811ce01b42add07c721f296719fc039ed97f753f99ef0f7"
+    },
+    {
+      "started_utc": "20261030T093804Z",
+      "violations": {
+        "setup": 18,
+        "hold": 0
+      },
+      "passed": false,
+      "options": {
+        "top_module": "system_top",
+        "verilog_std": "sysv2017",
+        "output_base_name": "system",
+        "max_fanout": "32",
+        "replicate_resources": "1",
+        "retiming_resource": "bsram",
+        "use_sspi_as_gpio": "1",
+        "use_cpu_as_gpio": "1",
+        "place_option": "2",
+        "route_option": "1"
+      },
+      "bitstream_sha256": "766f187f9a3d13a9bb60e2dd263b58ba253e47999f6314f78098eb63a8f9b17f",
+      "timing_sha256": "a85f8ad6c5a8fd39e6c3a827ac23fdc705f2e66f0e96354682f51fe459c2accb"
+    }
+  ],
+  "ui_checks": {
+    "perception_ui": {
+      "passed": true,
+      "log_sha256": "444b878851f114749307c78be77489b67ab6c28088886eeebbc382f3dae5a436",
+      "source_sha256": {
+        "host/index.html": "1e33eb870c7f099479c1e2c627e205378dc0ce6cd64f01c4aba31c07b3797dd7",
+        "tests/test_perception_ui.js": "cbecd5ff065cbd90b10c9e62de7216a6b9b2ad373188603ecb1339025509662e"
+      }
+    },
+    "ground_ui": {
+      "passed": true,
+      "log_sha256": "f72e6b411a1fd5079a8f86af5ca8fc98ec0eff9d6f467da45fcc1aad4c8de565",
+      "source_sha256": {
+        "host/motor_tuner.html": "de0cfa1e550e15b9180f247294864ed5c56b90f993bae2298c5c2b9bd03cdb15",
+        "tests/test_ground_ui.js": "83919a150a10643abcea5a30129a8872f44b4991e035a0d688dbc1ebc2a61f44"
+      }
+    },
+    "motor_tuner_ui": {
+      "passed": true,
+      "log_sha256": "c0fb9a295578cc1c47431d4b7146cd4c0948973872b773ae716773af95caaf00",
+      "source_sha256": {
+        "host/motor_tuner.html": "de0cfa1e550e15b9180f247294864ed5c56b90f993bae2298c5c2b9bd03cdb15",
+        "tests/test_motor_tuner_ui.js": "d6939ec450074c2116408a856376a6f71909fa180d8979493d41bcd1021ca382"
+      }
+    },
+    "imu_ui": {
+      "passed": true,
+      "log_sha256": "74a792842869cdfe4394ea6e1032e2e06d92a2736963b031ce31739e98914e8b",
+      "source_sha256": {
+        "host/imu.html": "9a247d50ab62753f4908f9aa850c65ae88ecf3a91df28ae5812caff9d2eb158f",
+        "tests/test_imu_ui.js": "ccf83a0ca4928647e026640d6e4993b2f843ef28b4c497620e852a1c78466391"
+      }
+    }
+  },
+  "netlist_sha256": "ec537c1441c1f616d9ac74d878c2b9fff39346d4b42258a04f8b9caec289df44",
+  "legacy_outputs_grounded": {
+    "legacy_m1_disable": true,
+    "legacy_m2_disable": true,
+    "legacy_m1_pwm_disabled[0]": true,
+    "legacy_m1_pwm_disabled[1]": true,
+    "legacy_m1_pwm_disabled[2]": true,
+    "legacy_m1_pwm_disabled[3]": true,
+    "legacy_m1_pwm_disabled[4]": true,
+    "legacy_m1_pwm_disabled[5]": true,
+    "legacy_m2_pwm_disabled[0]": true,
+    "legacy_m2_pwm_disabled[1]": true,
+    "legacy_m2_pwm_disabled[2]": true,
+    "legacy_m2_pwm_disabled[3]": true,
+    "legacy_m2_pwm_disabled[4]": true,
+    "legacy_m2_pwm_disabled[5]": true,
+    "legacy_cal_disabled[0]": true,
+    "legacy_cal_disabled[1]": true
+  },
+  "limits": [
+    "Digital models and accelerated UART/motor fixture; not physical acceptance",
+    "Full-top fixture injects reduced video; concurrent real-camera throughput remains untested",
+    "IMU body-axis mapping and balance controller are outside this merge",
+    "Board IO/PVT margins and reported pulse-width checks require separate signoff"
+  ],
+  "implementation_commit": "0e810f71c26f584cd2709803385f361d109bbecb",
+  "worst_setup_slack_ns": -0.235,
+  "regression_counts": {
+    "python": 49,
+    "motor_rtl_benches": 10,
+    "network_frames": 47,
+    "single_scale_cases": 9,
+    "pyramid_cases": 13,
+    "full_top_uart_packets": 23,
+    "full_top_bad_crc": 0
+  },
+  "browser_check": {
+    "engine": "Microsoft Edge via Playwright",
+    "mode": "offline",
+    "desktop": [
+      1440,
+      1000
+    ],
+    "mobile": [
+      390,
+      844
+    ],
+    "horizontal_overflow": false,
+    "console_errors_while_running": 0,
+    "console_warnings_while_running": 0,
+    "hardware_io": false,
+    "preview_port": 8892,
+    "preview_stopped": true
+  },
+  "nano_package": {
+    "path": "dist/nano_perception_20261030_final",
+    "files": 36,
+    "manifest_sha256": "5b1936d4656644ac2ac9b9b6a66cd6644107a78821d45a8c494bb7dfc1f87c62",
+    "python36_syntax_passed": true,
+    "deployed": false
+  }
+}

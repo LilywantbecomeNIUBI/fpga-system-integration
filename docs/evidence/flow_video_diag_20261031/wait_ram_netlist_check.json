@@ -1,0 +1,355 @@
+[
+  {
+    "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\build\\pnr_compare_20261030T150734Z\\frozen.vg",
+    "state_register_copies": 19,
+    "constant_propagation_passed": true,
+    "failures": [],
+    "values": [
+      {
+        "register": "state_4_s0",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s0",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_2_s0",
+        "current": 0,
+        "data": 1,
+        "ce": 1,
+        "clear": 0,
+        "next": 1,
+        "expected": 1
+      },
+      {
+        "register": "state_1_s0",
+        "current": 1,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_0_s1",
+        "current": 1,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_4_s1",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s1",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s2",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s3",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s4",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s5",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s6",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s7",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_2_s1",
+        "current": 0,
+        "data": 1,
+        "ce": 1,
+        "clear": 0,
+        "next": 1,
+        "expected": 1
+      },
+      {
+        "register": "state_1_s1",
+        "current": 1,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_1_s2",
+        "current": 1,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_4_s2",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s8",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s9",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      }
+    ],
+    "unknown_types": [],
+    "assumptions": "All state FF copies encode WAIT_RAM=3 consistently; async reset inactive; stable combinational evaluation. Not an analog timing/reset proof."
+  },
+  {
+    "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\build\\system\\impl\\gwsynthesis\\system.vg",
+    "state_register_copies": 18,
+    "constant_propagation_passed": true,
+    "failures": [],
+    "values": [
+      {
+        "register": "state_4_s0",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s0",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_2_s0",
+        "current": 0,
+        "data": 1,
+        "ce": 1,
+        "clear": 0,
+        "next": 1,
+        "expected": 1
+      },
+      {
+        "register": "state_1_s0",
+        "current": 1,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_0_s1",
+        "current": 1,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_4_s1",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s1",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s2",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s3",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s4",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s5",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s6",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s7",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_2_s1",
+        "current": 0,
+        "data": 1,
+        "ce": 1,
+        "clear": 0,
+        "next": 1,
+        "expected": 1
+      },
+      {
+        "register": "state_1_s1",
+        "current": 1,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_1_s2",
+        "current": 1,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_0_s4",
+        "current": 1,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      },
+      {
+        "register": "state_3_s8",
+        "current": 0,
+        "data": 0,
+        "ce": 1,
+        "clear": 0,
+        "next": 0,
+        "expected": 0
+      }
+    ],
+    "unknown_types": [],
+    "assumptions": "All state FF copies encode WAIT_RAM=3 consistently; async reset inactive; stable combinational evaluation. Not an analog timing/reset proof."
+  }
+]

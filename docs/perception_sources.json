@@ -1,0 +1,288 @@
+{
+  "repository": "fpga-vision",
+  "remote": "https://github.com/LilywantbecomeNIUBI/fpga-vision.git",
+  "head": "df6f60d07873150d9ea796580adbc17960945f2c",
+  "import_method": "git show exact committed blobs",
+  "files": {
+    "fpga/vision/src/camera_init/i2c_control/i2c_bit_shift.v": {
+      "source": "src/camera_init/i2c_control/i2c_bit_shift.v",
+      "sha256": "00ffafdc833bda4ea094bcff65ec74ac25c0cd4215559457482e29119540338a"
+    },
+    "fpga/vision/src/camera_init/i2c_control/i2c_control.v": {
+      "source": "src/camera_init/i2c_control/i2c_control.v",
+      "sha256": "7d8106cd3e377afbfe03e1a959903a6ae409c061cd06da4d1c1650f550bad829"
+    },
+    "fpga/vision/src/camera_init/ov5640_init_table_rgb.v": {
+      "source": "src/camera_init/ov5640_init_table_rgb.v",
+      "sha256": "ed5ae01f0f90d888b361c3c773afa01291bdc0703b66f948cc452458f820478e"
+    },
+    "fpga/vision/src/camera_perception_top.v": {
+      "source": "src/camera_perception_top.v",
+      "sha256": "3b3a8f6abc6379ea9fa8ce41c492369d68a1059216ce53f36f98abb311661a0a"
+    },
+    "fpga/vision/src/camera_status_uart.v": {
+      "source": "src/camera_status_uart.v",
+      "sha256": "584c610002950a783f42a0a79a9ba744c9f3370a7e8b134aa46505b590008711"
+    },
+    "fpga/vision/src/eth_udp_gmii/crc32_d8.v": {
+      "source": "src/eth_udp_gmii/crc32_d8.v",
+      "sha256": "bc5f7b1ee9d60fa0ae75b1be7db055680c545e826ecafd86138c4f842d660f3d"
+    },
+    "fpga/vision/src/eth_udp_gmii/eth_udp_tx_gmii.v": {
+      "source": "src/eth_udp_gmii/eth_udp_tx_gmii.v",
+      "sha256": "44f2e7f9dcd444f3300e72ac59a96eb7f28e19f06097274886316361412a74c2",
+      "adapted": true
+    },
+    "fpga/vision/src/eth_udp_gmii/ip_checksum.v": {
+      "source": "src/eth_udp_gmii/ip_checksum.v",
+      "sha256": "20e74286feb737da7bcc9ff72b19ef9ee85d96f3bf6882bfb66572b76c84f856",
+      "adapted": true
+    },
+    "fpga/vision/src/ethernet_pll/ethernet_pll.v": {
+      "source": "src/ethernet_pll/ethernet_pll.v",
+      "sha256": "889ff793c4f4eb8d2de414e6a400831c9134140d0d566a32ff734abc5483fba2"
+    },
+    "fpga/vision/src/mdio/mdio_bit_shift.v": {
+      "source": "src/mdio/mdio_bit_shift.v",
+      "sha256": "470bf1ff074072ecd9977403651b18d8df125e5c0d670d35ce06cd5139796057"
+    },
+    "fpga/vision/src/mdio/phy_reg_config.v": {
+      "source": "src/mdio/phy_reg_config.v",
+      "sha256": "2401a4a435482341b0dd78168a2ed4c5e9e91c5624a97d5dbc01176c061f2043"
+    },
+    "fpga/vision/src/network_runtime_dual.v": {
+      "source": "src/network_runtime_dual.v",
+      "sha256": "f0b31664f1a3f5bc787ea3d60d89b3fd5b897b11c5eaa36771fc5cb6c9c179ec",
+      "adapted": true
+    },
+    "fpga/vision/src/optical_flow/camera_flow.v": {
+      "source": "src/optical_flow/camera_flow.v",
+      "sha256": "d489fa0b05a4d8342e34960490addeaab688b9b41bfb7203d02ec1919f438c4a",
+      "adapted": true
+    },
+    "fpga/vision/src/optical_flow/camera_flow_v0_top.v": {
+      "source": "src/optical_flow/camera_flow_v0_top.v",
+      "sha256": "b4294e5e43570be4ae2bffc82efefc92fe0093e2f7b3d0d9f24d41137372e26a"
+    },
+    "fpga/vision/src/optical_flow/camera_flow_v1_top.v": {
+      "source": "src/optical_flow/camera_flow_v1_top.v",
+      "sha256": "7dbb7329a96931a69adac766eb6409cd84fbc8494bcff89526cb526298d6f966"
+    },
+    "fpga/vision/src/optical_flow/camera_flow_v2_top.v": {
+      "source": "src/optical_flow/camera_flow_v2_top.v",
+      "sha256": "d0fae461f56ec963e01d284ab922d18ef43a18be275458a5d85f41fa362011e1"
+    },
+    "fpga/vision/src/optical_flow/flow_avoidance.v": {
+      "source": "src/optical_flow/flow_avoidance.v",
+      "sha256": "f8502b5bde77ad2d39f3b78f24b34d183b05d54021afce6920b842e31d350064",
+      "adapted": true
+    },
+    "fpga/vision/src/optical_flow/flow_avoidance_top.v": {
+      "source": "src/optical_flow/flow_avoidance_top.v",
+      "sha256": "3a4c870287e18945f7624f54fb76ba2dda31ecd90f757b4c944ac20fda6ea048",
+      "adapted": true
+    },
+    "fpga/vision/src/optical_flow/flow_event_bridge.v": {
+      "source": "src/optical_flow/flow_event_bridge.v",
+      "sha256": "a1053fe77a13a9c5fe84b1786d29ebfb1f76bddd176dcd3d217cbaf93121aec7",
+      "adapted": true
+    },
+    "fpga/vision/src/optical_flow/flow_event_source.v": {
+      "source": "src/optical_flow/flow_event_source.v",
+      "sha256": "de80541937cb795f78f862392f334662fcb336a56c7e78896cb0c3ec13c548f0"
+    },
+    "fpga/vision/src/optical_flow/flow_frame_store.v": {
+      "source": "src/optical_flow/flow_frame_store.v",
+      "sha256": "a7ac985a402c6ec7e9a572dc5d535b13570fa0832f8113eeca87c8fa14b2facb",
+      "adapted": true,
+      "adaptation_note": "Stable control50 processing-domain isolation; original import hash retained for provenance."
+    },
+    "fpga/vision/src/optical_flow/flow_grid.v": {
+      "source": "src/optical_flow/flow_grid.v",
+      "sha256": "e0ed9425430c5d7cb981a4a0092544939e2a69ca94da4c47f821153a74431798"
+    },
+    "fpga/vision/src/optical_flow/flow_grid_pyramid.v": {
+      "source": "src/optical_flow/flow_grid_pyramid.v",
+      "sha256": "77ff37d35b4aa6a956476cbf07cc51a2f83b6bf45ae932dd8c91c23f53c7a73f",
+      "adapted": true
+    },
+    "fpga/vision/src/optical_flow/flow_lk_patch.v": {
+      "source": "src/optical_flow/flow_lk_patch.v",
+      "sha256": "2c18fa419b2cf8406cd61dbaf90a62fa4c60e5626233d5d843951377f9cd472d",
+      "adapted": true
+    },
+    "fpga/vision/src/optical_flow/flow_pipeline.v": {
+      "source": "src/optical_flow/flow_pipeline.v",
+      "sha256": "353914b84838c643b9d0dbe7f55ed68a23098bd46c3d7ce6fc8336e56006c9ab",
+      "adapted": true
+    },
+    "fpga/vision/src/optical_flow/flow_v2_core.v": {
+      "source": "src/optical_flow/flow_v2_core.v",
+      "sha256": "ed3e767d861e39d52dba504aa58173f7dfb0fecdfc925e3497ce7ec2f996e791"
+    },
+    "fpga/vision/src/ov5640_config.v": {
+      "source": "src/ov5640_config.v",
+      "sha256": "16409ed98744ce01b95915ba906839efa91d7d6f530ebcf8ccb87210ad58e58e"
+    },
+    "fpga/vision/src/reset_sync.v": {
+      "source": "src/reset_sync.v",
+      "sha256": "9032a61c45ada932d9b65aff7360bad58f3b4669914808cef6eeb01f65cfabb4"
+    },
+    "fpga/vision/src/rgmii_input.v": {
+      "source": "src/rgmii_input.v",
+      "sha256": "e76d205b357be16230e495c533b378af0c0d549af67f4cd3b3f33149394da5a8"
+    },
+    "fpga/vision/src/rgmii_output.v": {
+      "source": "src/rgmii_output.v",
+      "sha256": "137d0606f7c77058f04b333062e72af1062d1f961f888f2efe7ce093bb9c26d0"
+    },
+    "fpga/vision/src/vision/camera_perception.v": {
+      "source": "src/vision/camera_perception.v",
+      "sha256": "88d078ae03462406dfe9ad875c8c8cdaa65f081772433d15b65457dd7d116b07",
+      "adapted": true
+    },
+    "fpga/vision/src/vision/vision_divider.v": {
+      "source": "src/vision/vision_divider.v",
+      "sha256": "748b259b62a708b5f0686acf9ff8fb4fc8a47a51015382aaff88394a4687aab1",
+      "adapted": true
+    },
+    "fpga/vision/src/vision/vision_dvp_capture.v": {
+      "source": "src/vision/vision_dvp_capture.v",
+      "sha256": "ad62062adb45fb0ffee456520fb8a0de6f4f65ece7064b09c75532e1b6310a6c"
+    },
+    "fpga/vision/src/vision/vision_feature_grid.v": {
+      "source": "src/vision/vision_feature_grid.v",
+      "sha256": "d2254c9d2fd406ceefe94c8bab087c279a3bafb36f66da85ae5280b0c99cd9b6"
+    },
+    "fpga/vision/src/vision/vision_frame_stream.v": {
+      "source": "src/vision/vision_frame_stream.v",
+      "sha256": "e631430a19b0992dac60cd2dbbedd203b24409ea4f7d108ca4fe142dc3b33fdd",
+      "adapted": true
+    },
+    "fpga/vision/src/vision/vision_lk_tracker.v": {
+      "source": "src/vision/vision_lk_tracker.v",
+      "sha256": "c1b08a6df1759de95467610513d15ea771d56c7a8d43885730fd06c284046270",
+      "adapted": true
+    },
+    "fpga/vision/src/vision/vision_mailbox.v": {
+      "source": "src/vision/vision_mailbox.v",
+      "sha256": "0376dacbc4fe05a59e928f719fce302b9f70779aac5e61d1d20f1b540e15307a"
+    },
+    "fpga/vision/src/vision/vision_pixel_pipeline.v": {
+      "source": "src/vision/vision_pixel_pipeline.v",
+      "sha256": "a5e18b6cef73052383afcad9656dacf2d36cf096279c2aac208d3885550bd71d"
+    },
+    "fpga/vision/src/vision/vision_result_core.v": {
+      "source": "src/vision/vision_result_core.v",
+      "sha256": "7c1addd37aeee35ccd5e3e7ad883d7b868e17d81d170c89af23f2330e1b7ce10",
+      "adapted": true
+    },
+    "fpga/vision/src/vision/vision_tracker.v": {
+      "source": "src/vision/vision_tracker.v",
+      "sha256": "1e7c4a07d22c3333904dc4eeb4dbab40be69e35257eea5c026f41c398bfbd859"
+    },
+    "fpga/vision/src/vision/vision_v23_bridge.v": {
+      "source": "src/vision/vision_v23_bridge.v",
+      "sha256": "3bbb32b0379debd3e991d59753181a2b1fa83001f2de7a29cf882aeb15f1496b",
+      "adapted": true
+    },
+    "fpga/vision/src/optical_flow/frame_memory.sv": {
+      "source": "reference/optical_flow/upstream/rtl/frame_memory.sv",
+      "sha256": "85058b008fac54a1b559913335762ebc535e60da4df2e3988ce419e7f9ec6d73"
+    },
+    "vendor/notices/optical-flow-fpga/LICENSE": {
+      "source": "reference/optical_flow/upstream/LICENSE",
+      "sha256": "3d969ef8d40d7bc9397f20ebfa2211535b12905812e220801cdf3a5882b34fc3"
+    },
+    "vendor/vision/lk_model.py": {
+      "source": "reference/optical_flow/model.py",
+      "sha256": "cfdda57ad50036dd7798eab9965ca42897abf2b32de5cd5cb93280eb38c93aac"
+    },
+    "vendor/vision/optical_flow_protocol.py": {
+      "source": "pc/optical_flow_protocol.py",
+      "sha256": "096ad5c177cbafde2759e9a4c791f2c9575a8f0a505fa5c8ce321d7b4dab4e3b"
+    },
+    "vendor/vision/optical_flow_state.py": {
+      "source": "pc/optical_flow_state.py",
+      "sha256": "9fd74f347969577bf8214e0d8bd4fde93c998b6aec0a00a359b884cd789f5328"
+    },
+    "vendor/vision/vision_dashboard.py": {
+      "source": "pc/vision_dashboard.py",
+      "sha256": "67cdb51d23c787a3a35545afc71660312fe6cbd73add2348aae3d3fe3e525a68"
+    },
+    "vendor/vision/vision_dashboard_common.py": {
+      "source": "pc/vision_dashboard_common.py",
+      "sha256": "22dfe363d723c244ec18083e62aa0c54187ea1adefe744cca39c7b1d6ff694fb"
+    },
+    "vendor/vision/vision_v23_protocol.py": {
+      "source": "pc/vision_v23_protocol.py",
+      "sha256": "acabba4b97504d5e64ff9b06bbdd078b9a82221162391856baafa6150b41af68"
+    },
+    "vendor/vision/vision_protocol.py": {
+      "source": "pc/vision_protocol.py",
+      "sha256": "2ff4d75210596a9a110f05d02403009152c869203fa2b006b6cff43db1db4e8e"
+    },
+    "vendor/vision/vision_feedback.py": {
+      "source": "pc/vision_feedback.py",
+      "sha256": "b186fce5084336eef230918628ffef1aebdac828143de5f1566671b25b87c181"
+    },
+    "vendor/vision/vision_models.py": {
+      "source": "pc/vision_models.py",
+      "sha256": "08d3fde8a541538a29e53f1975aced6970b984d974c5f87d70ac74fddc5b502f"
+    },
+    "vendor/vision/vision_tensorrt.py": {
+      "source": "pc/vision_tensorrt.py",
+      "sha256": "40e821b7add73f445ca491e383677df0eb0c410f01f7514895a4886cbe535a8b"
+    },
+    "nano/vision/vision_dashboard_agent.py": {
+      "source": "nano/vision_dashboard_agent.py",
+      "sha256": "0c30395e5f9c67a33335bc252f8a1157564148f134857fc1ec3b792277387922",
+      "adapted": true
+    },
+    "nano/vision/vision_dashboard_service.py": {
+      "source": "nano/vision_dashboard_service.py",
+      "sha256": "133a804b118f502d049068df33a9bca08407d23b5fb914468ee114284d884cf3"
+    },
+    "tests/vision/tb_vision_lk_tracker.v": {
+      "source": "sim/tb_vision_lk_tracker.v",
+      "sha256": "33067132af51d752cf24faff32929e34d071bc0722fba534db0d98b50a397290",
+      "adapted": true,
+      "adaptation_note": "Stable control50 processing-domain isolation; original import hash retained for provenance."
+    },
+    "tests/vision/tb_vision_v23_network.v": {
+      "source": "sim/tb_vision_v23_network.v",
+      "sha256": "cd991475f9fc5be23ad22fd1fb4d8f0c73b9fc5232c0cfb78b9dbb0182209e13"
+    },
+    "tests/vision/tb_flow_patch.v": {
+      "source": "sim/optical_flow/tb_flow_patch.v",
+      "sha256": "da606c61dc9041d6058a65d9f95da9233515b5690645aae77d7916891ad5242c"
+    },
+    "tests/vision/tb_flow_pipeline.v": {
+      "source": "sim/optical_flow/tb_flow_pipeline.v",
+      "sha256": "b20159efe3e4e9da9aeefae61ff533497d2bca1cbdc59bc19fdffe838e7daf59",
+      "adapted": true,
+      "adaptation_note": "Stable control50 processing-domain isolation; original import hash retained for provenance."
+    },
+    "tests/vision/tb_flow_avoidance.v": {
+      "source": "sim/optical_flow/tb_flow_avoidance.v",
+      "sha256": "70dc053ac2d3610ea60031db0daedda8814c76af5fb503947ab287675f898d56",
+      "adapted": true
+    },
+    "tests/vision/tb_flow_events.v": {
+      "source": "sim/optical_flow/tb_flow_events.v",
+      "sha256": "444d5303e844e7ed5e79a9eea8002dba194e0f7ef62cd029391ecfd2b2f95773"
+    },
+    "vendor/reference/test_optical_flow_original.py": {
+      "source": "scripts/test_optical_flow.py",
+      "sha256": "b3868baa6f2d51c8ed7b11c6256784f20477cc85361b8d3e139a552070176122"
+    },
+    "vendor/reference/vision_lk_tracker.md": {
+      "source": "docs/vision_lk_tracker.md",
+      "sha256": "bd97dc6b8f2ab5b8b536b216d5c0648070f16198fadecfa16264950aa12556e5"
+    },
+    "vendor/reference/optical_flow_README.md": {
+      "source": "docs/optical_flow/README.md",
+      "sha256": "722ae63ef81dea5124e72b04a5c8506a4148cf26b24012a6ad8625fd39f1a3d4"
+    }
+  }
+}

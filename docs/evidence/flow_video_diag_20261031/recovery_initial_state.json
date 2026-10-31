@@ -1,0 +1,7485 @@
+{
+  "profile": "system_integration_v1",
+  "mode": "live",
+  "simulation": false,
+  "replay": false,
+  "motor_outputs_enabled": false,
+  "pc": {
+    "frames": 4376,
+    "packets": 1400320,
+    "bad": 0,
+    "missing_frames": 1,
+    "fps": 29.99751630732038,
+    "frame_id": 4692,
+    "age_ms": 4.9605000003793975,
+    "error": null,
+    "receive_buffer_bytes": 4194304,
+    "queue_ms_last": null,
+    "queue_ms_p50": null,
+    "queue_ms_p95": null,
+    "decode_ms": 1.1128000005555805,
+    "epoch_resets": 1,
+    "catchup_events": 0,
+    "catchup_packets": 0,
+    "online": true
+  },
+  "nano": {
+    "online": true,
+    "poll_age_ms": 21.113500000865315,
+    "error": null,
+    "error_detail": null,
+    "data": {
+      "profile": "fpga_yolo_dashboard_v1",
+      "session": "98f20b50f3344cc6b2d9bf020356cc24",
+      "capture": {
+        "frames": 10215,
+        "packets": 1399680,
+        "bad": 0,
+        "missing_frames": 1,
+        "fps": 30.01555786235768,
+        "frame_id": 4690,
+        "age_ms": 37.83786731037253,
+        "error": null,
+        "receive_buffer_bytes": 8388608,
+        "queue_ms_last": 15.724482310791016,
+        "queue_ms_p50": 9.662766568725612,
+        "queue_ms_p95": 17.88023668420413,
+        "decode_ms": 0.2721880000535748,
+        "epoch_resets": 1,
+        "catchup_events": 0,
+        "catchup_packets": 0,
+        "receiver_frames": 4374,
+        "receiver_fps": 30.005579162381245,
+        "receiver_process": true,
+        "receiver_pid": 31778,
+        "receiver_ready": true
+      },
+      "result": {
+        "session": "98f20b50f3344cc6b2d9bf020356cc24",
+        "sequence": 8866,
+        "frame_id": 4688,
+        "inference_ms": 34.20770800039463,
+        "receive_to_result_ms": 88.56672192996484,
+        "detections": [
+          {
+            "class_id": 39,
+            "label": "bottle",
+            "confidence": 0.815232515335083,
+            "bbox": [
+              212,
+              71,
+              267,
+              247
+            ]
+          },
+          {
+            "class_id": 39,
+            "label": "bottle",
+            "confidence": 0.3225259780883789,
+            "bbox": [
+              299,
+              102,
+              319,
+              244
+            ]
+          },
+          {
+            "class_id": 58,
+            "label": "potted plant",
+            "confidence": 0.15921741724014282,
+            "bbox": [
+              18,
+              167,
+              37,
+              201
+            ]
+          },
+          {
+            "class_id": 39,
+            "label": "bottle",
+            "confidence": 0.13117322325706482,
+            "bbox": [
+              18,
+              167,
+              37,
+              201
+            ]
+          },
+          {
+            "class_id": 56,
+            "label": "chair",
+            "confidence": 0.06954175233840942,
+            "bbox": [
+              0,
+              130,
+              15,
+              208
+            ]
+          }
+        ],
+        "feedback": {
+          "kind": "bottle",
+          "threshold": 0.5,
+          "reply": {
+            "result_frame": 4688,
+            "current_frame": 4690,
+            "class_id": 39,
+            "confidence": 815,
+            "center_x": 958,
+            "center_y": 356,
+            "age_frames": 2,
+            "accepted": 3471,
+            "rejected": 0,
+            "target_valid": true,
+            "frame_seen": true,
+            "sequence_seen": true,
+            "stream_ready": true,
+            "reason": 1,
+            "direction": "right"
+          },
+          "error": null
+        },
+        "age_ms": 16.449167000246234,
+        "key": "98f20b50f3344cc6b2d9bf020356cc24-8866"
+      },
+      "event": {
+        "frame_id": 4690,
+        "semantic_frame_id": 4688,
+        "class_id": 39,
+        "confidence": 815,
+        "x1": 848,
+        "y1": 3,
+        "x2": 1068,
+        "y2": 707,
+        "red_permille": 168,
+        "track_confidence": 1000,
+        "semantic_age": 2,
+        "target_valid": false,
+        "track_valid": true,
+        "semantic_valid": true,
+        "red": false,
+        "force_yolo": false,
+        "history_miss": false,
+        "scene_change": false,
+        "bad_frame": false,
+        "reason": 0,
+        "direction": "none"
+      },
+      "flow": {
+        "epoch": "67335e0c380a",
+        "stage": 2,
+        "frame_id": 4690,
+        "newest_frame_id": 4691,
+        "field_status": {
+          "kind": "status",
+          "stage": 2,
+          "frame_id": 4690,
+          "state": "forward",
+          "stop_request": false,
+          "confident": true,
+          "stale": false,
+          "hazard": 0,
+          "valid_counts": [
+            15,
+            22,
+            51
+          ],
+          "risk_counts": [
+            0,
+            1,
+            0
+          ],
+          "steer": 0,
+          "speed_limit": 255,
+          "cycles": 582056,
+          "dropped_frames": 1
+        },
+        "vectors": [
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 8,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 0,
+            "width": 160,
+            "height": 90,
+            "cycles": 3635,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 16,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 1,
+            "width": 160,
+            "height": 90,
+            "cycles": 4445,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 24,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 2,
+            "width": 160,
+            "height": 90,
+            "cycles": 5255,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 32,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 3,
+            "width": 160,
+            "height": 90,
+            "cycles": 6065,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 40,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 4,
+            "width": 160,
+            "height": 90,
+            "cycles": 6875,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 48,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 5,
+            "width": 160,
+            "height": 90,
+            "cycles": 7685,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 56,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 6,
+            "width": 160,
+            "height": 90,
+            "cycles": 8495,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 64,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 7,
+            "width": 160,
+            "height": 90,
+            "cycles": 9305,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 72,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 8,
+            "width": 160,
+            "height": 90,
+            "cycles": 10115,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 80,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 9,
+            "width": 160,
+            "height": 90,
+            "cycles": 10925,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 88,
+            "y": 8,
+            "u": 0.046875,
+            "v": 0.1953125,
+            "sequence": 10,
+            "width": 160,
+            "height": 90,
+            "cycles": 15637,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 96,
+            "y": 8,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 11,
+            "width": 160,
+            "height": 90,
+            "cycles": 16447,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 104,
+            "y": 8,
+            "u": 0.0703125,
+            "v": 0.09375,
+            "sequence": 12,
+            "width": 160,
+            "height": 90,
+            "cycles": 21159,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 112,
+            "y": 8,
+            "u": 0.0234375,
+            "v": -0.03125,
+            "sequence": 13,
+            "width": 160,
+            "height": 90,
+            "cycles": 25871,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 120,
+            "y": 8,
+            "u": 0.0390625,
+            "v": 0.0390625,
+            "sequence": 14,
+            "width": 160,
+            "height": 90,
+            "cycles": 30583,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 128,
+            "y": 8,
+            "u": -0.0390625,
+            "v": -0.0390625,
+            "sequence": 15,
+            "width": 160,
+            "height": 90,
+            "cycles": 35295,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 136,
+            "y": 8,
+            "u": -0.0078125,
+            "v": 0.0625,
+            "sequence": 16,
+            "width": 160,
+            "height": 90,
+            "cycles": 40007,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 144,
+            "y": 8,
+            "u": 0.125,
+            "v": -0.015625,
+            "sequence": 17,
+            "width": 160,
+            "height": 90,
+            "cycles": 44719,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 152,
+            "y": 8,
+            "u": 0.0234375,
+            "v": 0.0546875,
+            "sequence": 18,
+            "width": 160,
+            "height": 90,
+            "cycles": 49431,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 8,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 19,
+            "width": 160,
+            "height": 90,
+            "cycles": 53067,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 16,
+            "y": 16,
+            "u": 0.1328125,
+            "v": -1.359375,
+            "sequence": 20,
+            "width": 160,
+            "height": 90,
+            "cycles": 57779,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 24,
+            "y": 16,
+            "u": 1.65625,
+            "v": -0.4453125,
+            "sequence": 21,
+            "width": 160,
+            "height": 90,
+            "cycles": 62491,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 32,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 22,
+            "width": 160,
+            "height": 90,
+            "cycles": 63301,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 40,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 23,
+            "width": 160,
+            "height": 90,
+            "cycles": 66937,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 48,
+            "y": 16,
+            "u": -0.046875,
+            "v": -0.2265625,
+            "sequence": 24,
+            "width": 160,
+            "height": 90,
+            "cycles": 71649,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 56,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 25,
+            "width": 160,
+            "height": 90,
+            "cycles": 72459,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 64,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 26,
+            "width": 160,
+            "height": 90,
+            "cycles": 73269,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 72,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 27,
+            "width": 160,
+            "height": 90,
+            "cycles": 74079,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 80,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 28,
+            "width": 160,
+            "height": 90,
+            "cycles": 74889,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 88,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 29,
+            "width": 160,
+            "height": 90,
+            "cycles": 75699,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 96,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 30,
+            "width": 160,
+            "height": 90,
+            "cycles": 76509,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 104,
+            "y": 16,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 31,
+            "width": 160,
+            "height": 90,
+            "cycles": 80145,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 112,
+            "y": 16,
+            "u": 0.0390625,
+            "v": 0.0078125,
+            "sequence": 32,
+            "width": 160,
+            "height": 90,
+            "cycles": 84857,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 120,
+            "y": 16,
+            "u": 0.109375,
+            "v": -0.1875,
+            "sequence": 33,
+            "width": 160,
+            "height": 90,
+            "cycles": 89569,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 128,
+            "y": 16,
+            "u": -0.0625,
+            "v": 0.0390625,
+            "sequence": 34,
+            "width": 160,
+            "height": 90,
+            "cycles": 94281,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 136,
+            "y": 16,
+            "u": 0.03125,
+            "v": 0.0,
+            "sequence": 35,
+            "width": 160,
+            "height": 90,
+            "cycles": 98993,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 144,
+            "y": 16,
+            "u": -0.0546875,
+            "v": -0.03125,
+            "sequence": 36,
+            "width": 160,
+            "height": 90,
+            "cycles": 103705,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 152,
+            "y": 16,
+            "u": 0.0703125,
+            "v": -0.265625,
+            "sequence": 37,
+            "width": 160,
+            "height": 90,
+            "cycles": 108417,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 8,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 38,
+            "width": 160,
+            "height": 90,
+            "cycles": 112053,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 16,
+            "y": 24,
+            "u": 0.109375,
+            "v": -0.671875,
+            "sequence": 39,
+            "width": 160,
+            "height": 90,
+            "cycles": 116765,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 24,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 40,
+            "width": 160,
+            "height": 90,
+            "cycles": 117575,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 32,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 41,
+            "width": 160,
+            "height": 90,
+            "cycles": 118385,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 40,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 42,
+            "width": 160,
+            "height": 90,
+            "cycles": 122021,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 48,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 43,
+            "width": 160,
+            "height": 90,
+            "cycles": 122831,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 56,
+            "y": 24,
+            "u": 0.0078125,
+            "v": -0.0078125,
+            "sequence": 44,
+            "width": 160,
+            "height": 90,
+            "cycles": 127543,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 64,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 45,
+            "width": 160,
+            "height": 90,
+            "cycles": 131179,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 72,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 46,
+            "width": 160,
+            "height": 90,
+            "cycles": 131989,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 80,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 47,
+            "width": 160,
+            "height": 90,
+            "cycles": 132799,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 88,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 48,
+            "width": 160,
+            "height": 90,
+            "cycles": 133609,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 96,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 49,
+            "width": 160,
+            "height": 90,
+            "cycles": 134419,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 104,
+            "y": 24,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 50,
+            "width": 160,
+            "height": 90,
+            "cycles": 138055,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 112,
+            "y": 24,
+            "u": 0.0625,
+            "v": -0.0546875,
+            "sequence": 51,
+            "width": 160,
+            "height": 90,
+            "cycles": 142767,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 120,
+            "y": 24,
+            "u": -0.015625,
+            "v": -0.2734375,
+            "sequence": 52,
+            "width": 160,
+            "height": 90,
+            "cycles": 147479,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 128,
+            "y": 24,
+            "u": -0.015625,
+            "v": 0.015625,
+            "sequence": 53,
+            "width": 160,
+            "height": 90,
+            "cycles": 152191,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 136,
+            "y": 24,
+            "u": 0.0625,
+            "v": -0.0078125,
+            "sequence": 54,
+            "width": 160,
+            "height": 90,
+            "cycles": 156903,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 144,
+            "y": 24,
+            "u": -0.015625,
+            "v": 0.046875,
+            "sequence": 55,
+            "width": 160,
+            "height": 90,
+            "cycles": 161615,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 152,
+            "y": 24,
+            "u": 0.2109375,
+            "v": 0.109375,
+            "sequence": 56,
+            "width": 160,
+            "height": 90,
+            "cycles": 166327,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 8,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 57,
+            "width": 160,
+            "height": 90,
+            "cycles": 169963,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 16,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 58,
+            "width": 160,
+            "height": 90,
+            "cycles": 170773,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 24,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 59,
+            "width": 160,
+            "height": 90,
+            "cycles": 171583,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 32,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 60,
+            "width": 160,
+            "height": 90,
+            "cycles": 172393,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 40,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 61,
+            "width": 160,
+            "height": 90,
+            "cycles": 173203,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 48,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 62,
+            "width": 160,
+            "height": 90,
+            "cycles": 174013,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 56,
+            "y": 32,
+            "u": -0.0078125,
+            "v": -0.0703125,
+            "sequence": 63,
+            "width": 160,
+            "height": 90,
+            "cycles": 178725,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 64,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 64,
+            "width": 160,
+            "height": 90,
+            "cycles": 182361,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 72,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 65,
+            "width": 160,
+            "height": 90,
+            "cycles": 183171,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 80,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 66,
+            "width": 160,
+            "height": 90,
+            "cycles": 183981,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 88,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 67,
+            "width": 160,
+            "height": 90,
+            "cycles": 184791,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 96,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 68,
+            "width": 160,
+            "height": 90,
+            "cycles": 185601,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 104,
+            "y": 32,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 69,
+            "width": 160,
+            "height": 90,
+            "cycles": 189237,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 112,
+            "y": 32,
+            "u": -0.0078125,
+            "v": -0.1171875,
+            "sequence": 70,
+            "width": 160,
+            "height": 90,
+            "cycles": 193949,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 120,
+            "y": 32,
+            "u": 0.3046875,
+            "v": 0.1484375,
+            "sequence": 71,
+            "width": 160,
+            "height": 90,
+            "cycles": 198661,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 128,
+            "y": 32,
+            "u": -0.015625,
+            "v": 0.015625,
+            "sequence": 72,
+            "width": 160,
+            "height": 90,
+            "cycles": 203373,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 136,
+            "y": 32,
+            "u": 0.015625,
+            "v": -0.1171875,
+            "sequence": 73,
+            "width": 160,
+            "height": 90,
+            "cycles": 208085,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 144,
+            "y": 32,
+            "u": -0.0390625,
+            "v": 0.0390625,
+            "sequence": 74,
+            "width": 160,
+            "height": 90,
+            "cycles": 212797,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 152,
+            "y": 32,
+            "u": -0.0234375,
+            "v": -0.1796875,
+            "sequence": 75,
+            "width": 160,
+            "height": 90,
+            "cycles": 217509,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 8,
+            "y": 40,
+            "u": 0.34375,
+            "v": -0.015625,
+            "sequence": 76,
+            "width": 160,
+            "height": 90,
+            "cycles": 222221,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 16,
+            "y": 40,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 77,
+            "width": 160,
+            "height": 90,
+            "cycles": 223031,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 24,
+            "y": 40,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 78,
+            "width": 160,
+            "height": 90,
+            "cycles": 223841,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 32,
+            "y": 40,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 79,
+            "width": 160,
+            "height": 90,
+            "cycles": 224651,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 40,
+            "y": 40,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 80,
+            "width": 160,
+            "height": 90,
+            "cycles": 225461,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 48,
+            "y": 40,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 81,
+            "width": 160,
+            "height": 90,
+            "cycles": 226271,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 56,
+            "y": 40,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 82,
+            "width": 160,
+            "height": 90,
+            "cycles": 227081,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 64,
+            "y": 40,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 83,
+            "width": 160,
+            "height": 90,
+            "cycles": 227891,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 72,
+            "y": 40,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 84,
+            "width": 160,
+            "height": 90,
+            "cycles": 228701,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 80,
+            "y": 40,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 85,
+            "width": 160,
+            "height": 90,
+            "cycles": 229511,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 88,
+            "y": 40,
+            "u": 0.1328125,
+            "v": 0.15625,
+            "sequence": 86,
+            "width": 160,
+            "height": 90,
+            "cycles": 234223,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 96,
+            "y": 40,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 87,
+            "width": 160,
+            "height": 90,
+            "cycles": 237859,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 104,
+            "y": 40,
+            "u": 0.0078125,
+            "v": -0.1484375,
+            "sequence": 88,
+            "width": 160,
+            "height": 90,
+            "cycles": 242571,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 112,
+            "y": 40,
+            "u": -0.0703125,
+            "v": 0.0546875,
+            "sequence": 89,
+            "width": 160,
+            "height": 90,
+            "cycles": 247283,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 120,
+            "y": 40,
+            "u": 0.03125,
+            "v": 0.0390625,
+            "sequence": 90,
+            "width": 160,
+            "height": 90,
+            "cycles": 251995,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 128,
+            "y": 40,
+            "u": 0.1484375,
+            "v": -0.2265625,
+            "sequence": 91,
+            "width": 160,
+            "height": 90,
+            "cycles": 256707,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 136,
+            "y": 40,
+            "u": -0.015625,
+            "v": -0.0390625,
+            "sequence": 92,
+            "width": 160,
+            "height": 90,
+            "cycles": 261419,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 144,
+            "y": 40,
+            "u": -0.0390625,
+            "v": -0.109375,
+            "sequence": 93,
+            "width": 160,
+            "height": 90,
+            "cycles": 266131,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 152,
+            "y": 40,
+            "u": -0.015625,
+            "v": -0.046875,
+            "sequence": 94,
+            "width": 160,
+            "height": 90,
+            "cycles": 270843,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 8,
+            "y": 48,
+            "u": 0.3046875,
+            "v": 0.203125,
+            "sequence": 95,
+            "width": 160,
+            "height": 90,
+            "cycles": 275555,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 16,
+            "y": 48,
+            "u": 0.1484375,
+            "v": -0.0859375,
+            "sequence": 96,
+            "width": 160,
+            "height": 90,
+            "cycles": 280267,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 24,
+            "y": 48,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 97,
+            "width": 160,
+            "height": 90,
+            "cycles": 281077,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 32,
+            "y": 48,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 98,
+            "width": 160,
+            "height": 90,
+            "cycles": 281887,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 40,
+            "y": 48,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 99,
+            "width": 160,
+            "height": 90,
+            "cycles": 282697,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 48,
+            "y": 48,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 100,
+            "width": 160,
+            "height": 90,
+            "cycles": 283507,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 56,
+            "y": 48,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 101,
+            "width": 160,
+            "height": 90,
+            "cycles": 284317,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 64,
+            "y": 48,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 102,
+            "width": 160,
+            "height": 90,
+            "cycles": 285127,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 72,
+            "y": 48,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 103,
+            "width": 160,
+            "height": 90,
+            "cycles": 285937,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 80,
+            "y": 48,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 104,
+            "width": 160,
+            "height": 90,
+            "cycles": 286747,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 88,
+            "y": 48,
+            "u": 0.078125,
+            "v": 0.1328125,
+            "sequence": 105,
+            "width": 160,
+            "height": 90,
+            "cycles": 291459,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 96,
+            "y": 48,
+            "u": -0.09375,
+            "v": -0.0234375,
+            "sequence": 106,
+            "width": 160,
+            "height": 90,
+            "cycles": 296171,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 104,
+            "y": 48,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 107,
+            "width": 160,
+            "height": 90,
+            "cycles": 299807,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 112,
+            "y": 48,
+            "u": -0.0859375,
+            "v": 0.109375,
+            "sequence": 108,
+            "width": 160,
+            "height": 90,
+            "cycles": 304519,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 120,
+            "y": 48,
+            "u": 0.21875,
+            "v": 0.0,
+            "sequence": 109,
+            "width": 160,
+            "height": 90,
+            "cycles": 309231,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 128,
+            "y": 48,
+            "u": 0.109375,
+            "v": 0.046875,
+            "sequence": 110,
+            "width": 160,
+            "height": 90,
+            "cycles": 313943,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 136,
+            "y": 48,
+            "u": -0.03125,
+            "v": 0.140625,
+            "sequence": 111,
+            "width": 160,
+            "height": 90,
+            "cycles": 318655,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 144,
+            "y": 48,
+            "u": 0.21875,
+            "v": 0.015625,
+            "sequence": 112,
+            "width": 160,
+            "height": 90,
+            "cycles": 323367,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 152,
+            "y": 48,
+            "u": 0.0234375,
+            "v": -0.0078125,
+            "sequence": 113,
+            "width": 160,
+            "height": 90,
+            "cycles": 328079,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 8,
+            "y": 56,
+            "u": -0.03125,
+            "v": -0.0078125,
+            "sequence": 114,
+            "width": 160,
+            "height": 90,
+            "cycles": 332791,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 16,
+            "y": 56,
+            "u": 0.0,
+            "v": -0.0625,
+            "sequence": 115,
+            "width": 160,
+            "height": 90,
+            "cycles": 337503,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 24,
+            "y": 56,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 116,
+            "width": 160,
+            "height": 90,
+            "cycles": 341139,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 32,
+            "y": 56,
+            "u": -0.0078125,
+            "v": -0.015625,
+            "sequence": 117,
+            "width": 160,
+            "height": 90,
+            "cycles": 345851,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 40,
+            "y": 56,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 118,
+            "width": 160,
+            "height": 90,
+            "cycles": 346661,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 48,
+            "y": 56,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 119,
+            "width": 160,
+            "height": 90,
+            "cycles": 347471,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 56,
+            "y": 56,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 120,
+            "width": 160,
+            "height": 90,
+            "cycles": 351107,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 64,
+            "y": 56,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 121,
+            "width": 160,
+            "height": 90,
+            "cycles": 351917,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 72,
+            "y": 56,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 122,
+            "width": 160,
+            "height": 90,
+            "cycles": 352727,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 80,
+            "y": 56,
+            "u": 0.046875,
+            "v": -0.375,
+            "sequence": 123,
+            "width": 160,
+            "height": 90,
+            "cycles": 357439,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 88,
+            "y": 56,
+            "u": -0.0859375,
+            "v": -0.0546875,
+            "sequence": 124,
+            "width": 160,
+            "height": 90,
+            "cycles": 362151,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 96,
+            "y": 56,
+            "u": 0.0,
+            "v": -0.078125,
+            "sequence": 125,
+            "width": 160,
+            "height": 90,
+            "cycles": 366863,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 104,
+            "y": 56,
+            "u": -0.0546875,
+            "v": 0.0234375,
+            "sequence": 126,
+            "width": 160,
+            "height": 90,
+            "cycles": 371575,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 112,
+            "y": 56,
+            "u": -0.0078125,
+            "v": 0.125,
+            "sequence": 127,
+            "width": 160,
+            "height": 90,
+            "cycles": 376287,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 120,
+            "y": 56,
+            "u": -0.0078125,
+            "v": 0.0546875,
+            "sequence": 128,
+            "width": 160,
+            "height": 90,
+            "cycles": 380999,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 128,
+            "y": 56,
+            "u": 0.0546875,
+            "v": 0.0078125,
+            "sequence": 129,
+            "width": 160,
+            "height": 90,
+            "cycles": 385711,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 136,
+            "y": 56,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 130,
+            "width": 160,
+            "height": 90,
+            "cycles": 389347,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 144,
+            "y": 56,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 131,
+            "width": 160,
+            "height": 90,
+            "cycles": 390157,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 152,
+            "y": 56,
+            "u": -0.0390625,
+            "v": -0.078125,
+            "sequence": 132,
+            "width": 160,
+            "height": 90,
+            "cycles": 394869,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 8,
+            "y": 64,
+            "u": -0.21875,
+            "v": -0.03125,
+            "sequence": 133,
+            "width": 160,
+            "height": 90,
+            "cycles": 399581,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 16,
+            "y": 64,
+            "u": -0.0234375,
+            "v": 0.0,
+            "sequence": 134,
+            "width": 160,
+            "height": 90,
+            "cycles": 404293,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 24,
+            "y": 64,
+            "u": 0.0078125,
+            "v": -0.015625,
+            "sequence": 135,
+            "width": 160,
+            "height": 90,
+            "cycles": 409005,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 32,
+            "y": 64,
+            "u": -0.0703125,
+            "v": -0.0546875,
+            "sequence": 136,
+            "width": 160,
+            "height": 90,
+            "cycles": 413717,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 40,
+            "y": 64,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 137,
+            "width": 160,
+            "height": 90,
+            "cycles": 414527,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 48,
+            "y": 64,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 138,
+            "width": 160,
+            "height": 90,
+            "cycles": 415337,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 56,
+            "y": 64,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 139,
+            "width": 160,
+            "height": 90,
+            "cycles": 416147,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 64,
+            "y": 64,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 140,
+            "width": 160,
+            "height": 90,
+            "cycles": 416957,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 72,
+            "y": 64,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 141,
+            "width": 160,
+            "height": 90,
+            "cycles": 417767,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 80,
+            "y": 64,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 142,
+            "width": 160,
+            "height": 90,
+            "cycles": 421403,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 88,
+            "y": 64,
+            "u": 0.03125,
+            "v": 0.0,
+            "sequence": 143,
+            "width": 160,
+            "height": 90,
+            "cycles": 426115,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 96,
+            "y": 64,
+            "u": 0.0078125,
+            "v": -0.1796875,
+            "sequence": 144,
+            "width": 160,
+            "height": 90,
+            "cycles": 430827,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 104,
+            "y": 64,
+            "u": -0.0234375,
+            "v": 0.03125,
+            "sequence": 145,
+            "width": 160,
+            "height": 90,
+            "cycles": 435539,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 112,
+            "y": 64,
+            "u": 0.0078125,
+            "v": -0.03125,
+            "sequence": 146,
+            "width": 160,
+            "height": 90,
+            "cycles": 440251,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 120,
+            "y": 64,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 147,
+            "width": 160,
+            "height": 90,
+            "cycles": 443887,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 128,
+            "y": 64,
+            "u": -0.0234375,
+            "v": 0.0,
+            "sequence": 148,
+            "width": 160,
+            "height": 90,
+            "cycles": 448599,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 136,
+            "y": 64,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 149,
+            "width": 160,
+            "height": 90,
+            "cycles": 449409,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 144,
+            "y": 64,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 150,
+            "width": 160,
+            "height": 90,
+            "cycles": 450219,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 152,
+            "y": 64,
+            "u": -0.0234375,
+            "v": -0.0234375,
+            "sequence": 151,
+            "width": 160,
+            "height": 90,
+            "cycles": 454931,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 8,
+            "y": 72,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 152,
+            "width": 160,
+            "height": 90,
+            "cycles": 458567,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 16,
+            "y": 72,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 153,
+            "width": 160,
+            "height": 90,
+            "cycles": 462203,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 24,
+            "y": 72,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 154,
+            "width": 160,
+            "height": 90,
+            "cycles": 465839,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 32,
+            "y": 72,
+            "u": 0.2421875,
+            "v": 1.75,
+            "sequence": 155,
+            "width": 160,
+            "height": 90,
+            "cycles": 470551,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 40,
+            "y": 72,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 156,
+            "width": 160,
+            "height": 90,
+            "cycles": 474187,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 48,
+            "y": 72,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 157,
+            "width": 160,
+            "height": 90,
+            "cycles": 474997,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 56,
+            "y": 72,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 158,
+            "width": 160,
+            "height": 90,
+            "cycles": 475807,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 64,
+            "y": 72,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 159,
+            "width": 160,
+            "height": 90,
+            "cycles": 476617,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 72,
+            "y": 72,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 160,
+            "width": 160,
+            "height": 90,
+            "cycles": 477427,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 80,
+            "y": 72,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 161,
+            "width": 160,
+            "height": 90,
+            "cycles": 481063,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 88,
+            "y": 72,
+            "u": -0.2890625,
+            "v": 0.015625,
+            "sequence": 162,
+            "width": 160,
+            "height": 90,
+            "cycles": 485775,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 136,
+            "y": 72,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 168,
+            "width": 160,
+            "height": 90,
+            "cycles": 510145,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": false,
+            "x": 64,
+            "y": 80,
+            "u": 0.0,
+            "v": 0.0,
+            "sequence": 178,
+            "width": 160,
+            "height": 90,
+            "cycles": 532375,
+            "dropped_frames": 1
+          },
+          {
+            "kind": "flow",
+            "stage": 2,
+            "frame_id": 4690,
+            "valid": true,
+            "x": 144,
+            "y": 80,
+            "u": -0.046875,
+            "v": -0.0078125,
+            "sequence": 188,
+            "width": 160,
+            "height": 90,
+            "cycles": 577343,
+            "dropped_frames": 1
+          }
+        ],
+        "received": 166,
+        "valid": 75,
+        "invalid": 91,
+        "missing": 24,
+        "expected": 190,
+        "image_key": null,
+        "control": {
+          "state": "unknown",
+          "stop_request": true,
+          "steer": 0,
+          "speed_limit": 0,
+          "hazard": 0,
+          "fresh": false,
+          "confident": false,
+          "age_ms": 4.95948000025237,
+          "frame_id": 4690,
+          "valid_counts": [
+            15,
+            22,
+            51
+          ],
+          "risk_counts": [
+            0,
+            1,
+            0
+          ]
+        },
+        "cycles": 582056,
+        "dropped_frames": 1,
+        "fps": 29.890237283426103,
+        "packets": 592631,
+        "bad": 0,
+        "duplicates": 0,
+        "late": 0,
+        "ignored_source": 0,
+        "restarts": 1,
+        "video": {
+          "frames": 0,
+          "fps": 0.0,
+          "frame_id": null,
+          "age_ms": null,
+          "bad": 0,
+          "missing_frames": 0
+        },
+        "history": [
+          {
+            "frame_id": 4388,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4389,
+            "ratios": [
+              0.0,
+              0.0,
+              0.018867924528301886
+            ]
+          },
+          {
+            "frame_id": 4394,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4399,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4400,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4405,
+            "ratios": [
+              0.0,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4408,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4409,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4412,
+            "ratios": [
+              0.0,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4416,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4419,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4429,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4432,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4434,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4436,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4439,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4440,
+            "ratios": [
+              0.0,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4441,
+            "ratios": [
+              0.0,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4444,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.018518518518518517
+            ]
+          },
+          {
+            "frame_id": 4449,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4450,
+            "ratios": [
+              0.0,
+              0.04,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4451,
+            "ratios": [
+              0.058823529411764705,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4459,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4461,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4463,
+            "ratios": [
+              0.058823529411764705,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4466,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4468,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4473,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4476,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4477,
+            "ratios": [
+              0.0,
+              0.038461538461538464,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4480,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4481,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4483,
+            "ratios": [
+              0.0,
+              0.08333333333333333,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4486,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4488,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4497,
+            "ratios": [
+              0.0,
+              0.04,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4498,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4500,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4501,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.018867924528301886
+            ]
+          },
+          {
+            "frame_id": 4503,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4507,
+            "ratios": [
+              0.0,
+              0.043478260869565216,
+              0.019230769230769232
+            ]
+          },
+          {
+            "frame_id": 4509,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4513,
+            "ratios": [
+              0.0,
+              0.04,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4521,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4523,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4527,
+            "ratios": [
+              0.0,
+              0.045454545454545456,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4530,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4534,
+            "ratios": [
+              0.0,
+              0.04,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4538,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4541,
+            "ratios": [
+              0.0,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4546,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4551,
+            "ratios": [
+              0.0,
+              0.08333333333333333,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4554,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4559,
+            "ratios": [
+              0.0625,
+              0.043478260869565216,
+              0.018867924528301886
+            ]
+          },
+          {
+            "frame_id": 4562,
+            "ratios": [
+              0.1111111111111111,
+              0.043478260869565216,
+              0.018867924528301886
+            ]
+          },
+          {
+            "frame_id": 4563,
+            "ratios": [
+              0.0,
+              0.04,
+              0.037037037037037035
+            ]
+          },
+          {
+            "frame_id": 4565,
+            "ratios": [
+              0.25,
+              0.04,
+              0.018518518518518517
+            ]
+          },
+          {
+            "frame_id": 4569,
+            "ratios": [
+              0.0,
+              0.07407407407407407,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4572,
+            "ratios": [
+              0.0,
+              0.08333333333333333,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4573,
+            "ratios": [
+              0.0,
+              0.03571428571428571,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4576,
+            "ratios": [
+              0.15789473684210525,
+              0.4583333333333333,
+              0.11320754716981132
+            ]
+          },
+          {
+            "frame_id": 4581,
+            "ratios": [
+              0.0,
+              0.2857142857142857,
+              0.018867924528301886
+            ]
+          },
+          {
+            "frame_id": 4584,
+            "ratios": [
+              0.0,
+              0.09090909090909091,
+              0.09433962264150944
+            ]
+          },
+          {
+            "frame_id": 4585,
+            "ratios": [
+              0.0,
+              0.2857142857142857,
+              0.11538461538461539
+            ]
+          },
+          {
+            "frame_id": 4586,
+            "ratios": [
+              0.0,
+              0.3333333333333333,
+              0.16326530612244897
+            ]
+          },
+          {
+            "frame_id": 4587,
+            "ratios": [
+              0.0,
+              0.23809523809523808,
+              0.1111111111111111
+            ]
+          },
+          {
+            "frame_id": 4597,
+            "ratios": [
+              0.0,
+              0.04,
+              0.15217391304347827
+            ]
+          },
+          {
+            "frame_id": 4599,
+            "ratios": [
+              0.0,
+              0.0,
+              0.15384615384615385
+            ]
+          },
+          {
+            "frame_id": 4602,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.018518518518518517
+            ]
+          },
+          {
+            "frame_id": 4605,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4614,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4617,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4619,
+            "ratios": [
+              0.0,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4625,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4627,
+            "ratios": [
+              0.058823529411764705,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4628,
+            "ratios": [
+              0.0,
+              0.0,
+              0.018518518518518517
+            ]
+          },
+          {
+            "frame_id": 4633,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4635,
+            "ratios": [
+              0.0,
+              0.0,
+              0.019230769230769232
+            ]
+          },
+          {
+            "frame_id": 4636,
+            "ratios": [
+              0.06666666666666667,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4637,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4638,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4641,
+            "ratios": [
+              0.0625,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4642,
+            "ratios": [
+              0.05555555555555555,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4644,
+            "ratios": [
+              0.0625,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4645,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4652,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4654,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4655,
+            "ratios": [
+              0.0,
+              0.08695652173913043,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4658,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4665,
+            "ratios": [
+              0.0,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4667,
+            "ratios": [
+              0.0,
+              0.08695652173913043,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4668,
+            "ratios": [
+              0.0,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4673,
+            "ratios": [
+              0.0,
+              0.043478260869565216,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4674,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4676,
+            "ratios": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4680,
+            "ratios": [
+              0.0625,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4683,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4684,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4686,
+            "ratios": [
+              0.0,
+              0.041666666666666664,
+              0.0
+            ]
+          },
+          {
+            "frame_id": 4690,
+            "ratios": [
+              0.0,
+              0.045454545454545456,
+              0.0
+            ]
+          }
+        ],
+        "observe_only": true,
+        "automatic_control_enabled": false,
+        "diagnostic": {
+          "frame_id": 4689,
+          "point_x": 120,
+          "point_y": 48,
+          "patch_state": 4,
+          "divider_count": 63,
+          "patch_flags": 72,
+          "iteration": 0,
+          "patch_wait_cycles": 0,
+          "grid_wait_cycles": 347,
+          "patch_starts": 89,
+          "patch_completions": 88,
+          "cycles": 311597,
+          "dropped_frames": 1,
+          "stage": 2,
+          "grid_busy": true,
+          "grid_state": 2,
+          "illegal_state_seen": true,
+          "first_illegal_state": 0,
+          "first_fault_state": 0,
+          "fault_idle_busy": true,
+          "previous_fault_state": 3,
+          "divider_busy": false,
+          "divider_done": false,
+          "divider_start": false,
+          "patch_busy": true,
+          "patch_done": false,
+          "age_ms": 55.90859400035697
+        },
+        "health_fault": true
+      },
+      "event_age_ms": 4.3836459999511135,
+      "error": null,
+      "model": "YOLOv8n COCO / Nano TensorRT GPU FP16",
+      "backend": "tensorrt",
+      "model_id": "yolov8n",
+      "inference_fps": 23.523441764024653,
+      "offline": false,
+      "inferences": 8866
+    },
+    "result_fresh": true
+  },
+  "imu": {
+    "online": true,
+    "healthy": true,
+    "age_ms": 19.444899999143672,
+    "error": null,
+    "frame": {
+      "type": "sample",
+      "seq": 7841,
+      "raw_seq": 156820,
+      "timestamp_us": 156540529,
+      "ax_raw": 361,
+      "ay_raw": -165,
+      "az_raw": -8197,
+      "gx_raw": 31,
+      "gy_raw": -8,
+      "gz_raw": -3,
+      "temp_raw": -136,
+      "ax_g": 0.0440673828125,
+      "ay_g": -0.0201416015625,
+      "az_g": -1.0006103515625,
+      "gx_dps": 0.946044921875,
+      "gy_dps": -0.244140625,
+      "gz_dps": -0.091552734375,
+      "temp_c": 23.97342995169082,
+      "ready": true,
+      "fault": false,
+      "who_am_i": 71,
+      "last_error": 0,
+      "config_id": 2,
+      "error_count": 0,
+      "invalid_count": 0,
+      "tx_drop_count": 0,
+      "stale": false,
+      "temperature_valid": true,
+      "fast_bus": true,
+      "low_latency_filter": true,
+      "observe_to_commit_us": 145,
+      "raw_interval_us": 937,
+      "decimation": 20,
+      "poll_us": 150
+    },
+    "statistics": {
+      "samples": 377851,
+      "status_frames": 0,
+      "serial_sequence_gaps": 3,
+      "sequence_resets": 3,
+      "duplicate_sequences": 0,
+      "crc_failures": 0,
+      "discarded_bytes": 0,
+      "unsupported_frames": 0,
+      "trailing_bytes": 0,
+      "observed_rate_hz": 50.12224048237583,
+      "debug_rate_hz": 50.12224048237583,
+      "raw_read_rate_hz": 1002.4448096475166,
+      "raw_stride_anomalies": 0,
+      "observe_to_commit_us": {
+        "mean": 144.8806212567252,
+        "maximum": 145,
+        "p99": 145
+      },
+      "last_frame": {
+        "type": "sample",
+        "seq": 7841,
+        "raw_seq": 156820,
+        "timestamp_us": 156540529,
+        "ax_raw": 361,
+        "ay_raw": -165,
+        "az_raw": -8197,
+        "gx_raw": 31,
+        "gy_raw": -8,
+        "gz_raw": -3,
+        "temp_raw": -136,
+        "ax_g": 0.0440673828125,
+        "ay_g": -0.0201416015625,
+        "az_g": -1.0006103515625,
+        "gx_dps": 0.946044921875,
+        "gy_dps": -0.244140625,
+        "gz_dps": -0.091552734375,
+        "temp_c": 23.97342995169082,
+        "ready": true,
+        "fault": false,
+        "who_am_i": 71,
+        "last_error": 0,
+        "config_id": 2,
+        "error_count": 0,
+        "invalid_count": 0,
+        "tx_drop_count": 0,
+        "stale": false,
+        "temperature_valid": true,
+        "fast_bus": true,
+        "low_latency_filter": true,
+        "observe_to_commit_us": 145,
+        "raw_interval_us": 937,
+        "decimation": 20,
+        "poll_us": 150
+      },
+      "note": "seq is debug-frame sequence; raw_seq counts successful FPGA reads. Deliberate decimation is not packet loss. Observation-to-commit is not total sensor latency."
+    },
+    "attitude": {
+      "valid": true,
+      "pitch_deg": -2.702135031752233,
+      "roll_deg": -178.06932495977847,
+      "yaw_deg": null,
+      "convention": "sensor axes; roll about +X, pitch about +Y, upright +Z; yaw unavailable",
+      "method": "host complementary filter of decimated IMU; visualization only, no motor control"
+    }
+  },
+  "tracking": {
+    "event": {
+      "frame_id": 4690,
+      "semantic_frame_id": 4688,
+      "class_id": 39,
+      "confidence": 815,
+      "x1": 848,
+      "y1": 3,
+      "x2": 1068,
+      "y2": 707,
+      "red_permille": 168,
+      "track_confidence": 1000,
+      "semantic_age": 2,
+      "target_valid": false,
+      "track_valid": true,
+      "semantic_valid": true,
+      "red": false,
+      "force_yolo": false,
+      "history_miss": false,
+      "scene_change": false,
+      "bad_frame": false,
+      "reason": 0,
+      "direction": "none"
+    },
+    "age_ms": 25.49714600081643,
+    "error": null,
+    "fresh": true
+  },
+  "flow": {
+    "epoch": "67335e0c380a",
+    "stage": 2,
+    "frame_id": 4690,
+    "newest_frame_id": 4691,
+    "field_status": {
+      "kind": "status",
+      "stage": 2,
+      "frame_id": 4690,
+      "state": "forward",
+      "stop_request": false,
+      "confident": true,
+      "stale": false,
+      "hazard": 0,
+      "valid_counts": [
+        15,
+        22,
+        51
+      ],
+      "risk_counts": [
+        0,
+        1,
+        0
+      ],
+      "steer": 0,
+      "speed_limit": 255,
+      "cycles": 582056,
+      "dropped_frames": 1
+    },
+    "vectors": [
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 8,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 0,
+        "width": 160,
+        "height": 90,
+        "cycles": 3635,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 16,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 1,
+        "width": 160,
+        "height": 90,
+        "cycles": 4445,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 24,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 2,
+        "width": 160,
+        "height": 90,
+        "cycles": 5255,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 32,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 3,
+        "width": 160,
+        "height": 90,
+        "cycles": 6065,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 40,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 4,
+        "width": 160,
+        "height": 90,
+        "cycles": 6875,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 48,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 5,
+        "width": 160,
+        "height": 90,
+        "cycles": 7685,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 56,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 6,
+        "width": 160,
+        "height": 90,
+        "cycles": 8495,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 64,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 7,
+        "width": 160,
+        "height": 90,
+        "cycles": 9305,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 72,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 8,
+        "width": 160,
+        "height": 90,
+        "cycles": 10115,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 80,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 9,
+        "width": 160,
+        "height": 90,
+        "cycles": 10925,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 88,
+        "y": 8,
+        "u": 0.046875,
+        "v": 0.1953125,
+        "sequence": 10,
+        "width": 160,
+        "height": 90,
+        "cycles": 15637,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 96,
+        "y": 8,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 11,
+        "width": 160,
+        "height": 90,
+        "cycles": 16447,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 104,
+        "y": 8,
+        "u": 0.0703125,
+        "v": 0.09375,
+        "sequence": 12,
+        "width": 160,
+        "height": 90,
+        "cycles": 21159,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 112,
+        "y": 8,
+        "u": 0.0234375,
+        "v": -0.03125,
+        "sequence": 13,
+        "width": 160,
+        "height": 90,
+        "cycles": 25871,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 120,
+        "y": 8,
+        "u": 0.0390625,
+        "v": 0.0390625,
+        "sequence": 14,
+        "width": 160,
+        "height": 90,
+        "cycles": 30583,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 128,
+        "y": 8,
+        "u": -0.0390625,
+        "v": -0.0390625,
+        "sequence": 15,
+        "width": 160,
+        "height": 90,
+        "cycles": 35295,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 136,
+        "y": 8,
+        "u": -0.0078125,
+        "v": 0.0625,
+        "sequence": 16,
+        "width": 160,
+        "height": 90,
+        "cycles": 40007,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 144,
+        "y": 8,
+        "u": 0.125,
+        "v": -0.015625,
+        "sequence": 17,
+        "width": 160,
+        "height": 90,
+        "cycles": 44719,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 152,
+        "y": 8,
+        "u": 0.0234375,
+        "v": 0.0546875,
+        "sequence": 18,
+        "width": 160,
+        "height": 90,
+        "cycles": 49431,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 8,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 19,
+        "width": 160,
+        "height": 90,
+        "cycles": 53067,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 16,
+        "y": 16,
+        "u": 0.1328125,
+        "v": -1.359375,
+        "sequence": 20,
+        "width": 160,
+        "height": 90,
+        "cycles": 57779,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 24,
+        "y": 16,
+        "u": 1.65625,
+        "v": -0.4453125,
+        "sequence": 21,
+        "width": 160,
+        "height": 90,
+        "cycles": 62491,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 32,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 22,
+        "width": 160,
+        "height": 90,
+        "cycles": 63301,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 40,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 23,
+        "width": 160,
+        "height": 90,
+        "cycles": 66937,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 48,
+        "y": 16,
+        "u": -0.046875,
+        "v": -0.2265625,
+        "sequence": 24,
+        "width": 160,
+        "height": 90,
+        "cycles": 71649,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 56,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 25,
+        "width": 160,
+        "height": 90,
+        "cycles": 72459,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 64,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 26,
+        "width": 160,
+        "height": 90,
+        "cycles": 73269,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 72,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 27,
+        "width": 160,
+        "height": 90,
+        "cycles": 74079,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 80,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 28,
+        "width": 160,
+        "height": 90,
+        "cycles": 74889,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 88,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 29,
+        "width": 160,
+        "height": 90,
+        "cycles": 75699,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 96,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 30,
+        "width": 160,
+        "height": 90,
+        "cycles": 76509,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 104,
+        "y": 16,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 31,
+        "width": 160,
+        "height": 90,
+        "cycles": 80145,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 112,
+        "y": 16,
+        "u": 0.0390625,
+        "v": 0.0078125,
+        "sequence": 32,
+        "width": 160,
+        "height": 90,
+        "cycles": 84857,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 120,
+        "y": 16,
+        "u": 0.109375,
+        "v": -0.1875,
+        "sequence": 33,
+        "width": 160,
+        "height": 90,
+        "cycles": 89569,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 128,
+        "y": 16,
+        "u": -0.0625,
+        "v": 0.0390625,
+        "sequence": 34,
+        "width": 160,
+        "height": 90,
+        "cycles": 94281,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 136,
+        "y": 16,
+        "u": 0.03125,
+        "v": 0.0,
+        "sequence": 35,
+        "width": 160,
+        "height": 90,
+        "cycles": 98993,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 144,
+        "y": 16,
+        "u": -0.0546875,
+        "v": -0.03125,
+        "sequence": 36,
+        "width": 160,
+        "height": 90,
+        "cycles": 103705,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 152,
+        "y": 16,
+        "u": 0.0703125,
+        "v": -0.265625,
+        "sequence": 37,
+        "width": 160,
+        "height": 90,
+        "cycles": 108417,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 8,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 38,
+        "width": 160,
+        "height": 90,
+        "cycles": 112053,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 16,
+        "y": 24,
+        "u": 0.109375,
+        "v": -0.671875,
+        "sequence": 39,
+        "width": 160,
+        "height": 90,
+        "cycles": 116765,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 24,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 40,
+        "width": 160,
+        "height": 90,
+        "cycles": 117575,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 32,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 41,
+        "width": 160,
+        "height": 90,
+        "cycles": 118385,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 40,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 42,
+        "width": 160,
+        "height": 90,
+        "cycles": 122021,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 48,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 43,
+        "width": 160,
+        "height": 90,
+        "cycles": 122831,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 56,
+        "y": 24,
+        "u": 0.0078125,
+        "v": -0.0078125,
+        "sequence": 44,
+        "width": 160,
+        "height": 90,
+        "cycles": 127543,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 64,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 45,
+        "width": 160,
+        "height": 90,
+        "cycles": 131179,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 72,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 46,
+        "width": 160,
+        "height": 90,
+        "cycles": 131989,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 80,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 47,
+        "width": 160,
+        "height": 90,
+        "cycles": 132799,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 88,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 48,
+        "width": 160,
+        "height": 90,
+        "cycles": 133609,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 96,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 49,
+        "width": 160,
+        "height": 90,
+        "cycles": 134419,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 104,
+        "y": 24,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 50,
+        "width": 160,
+        "height": 90,
+        "cycles": 138055,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 112,
+        "y": 24,
+        "u": 0.0625,
+        "v": -0.0546875,
+        "sequence": 51,
+        "width": 160,
+        "height": 90,
+        "cycles": 142767,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 120,
+        "y": 24,
+        "u": -0.015625,
+        "v": -0.2734375,
+        "sequence": 52,
+        "width": 160,
+        "height": 90,
+        "cycles": 147479,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 128,
+        "y": 24,
+        "u": -0.015625,
+        "v": 0.015625,
+        "sequence": 53,
+        "width": 160,
+        "height": 90,
+        "cycles": 152191,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 136,
+        "y": 24,
+        "u": 0.0625,
+        "v": -0.0078125,
+        "sequence": 54,
+        "width": 160,
+        "height": 90,
+        "cycles": 156903,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 144,
+        "y": 24,
+        "u": -0.015625,
+        "v": 0.046875,
+        "sequence": 55,
+        "width": 160,
+        "height": 90,
+        "cycles": 161615,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 152,
+        "y": 24,
+        "u": 0.2109375,
+        "v": 0.109375,
+        "sequence": 56,
+        "width": 160,
+        "height": 90,
+        "cycles": 166327,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 8,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 57,
+        "width": 160,
+        "height": 90,
+        "cycles": 169963,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 16,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 58,
+        "width": 160,
+        "height": 90,
+        "cycles": 170773,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 24,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 59,
+        "width": 160,
+        "height": 90,
+        "cycles": 171583,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 32,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 60,
+        "width": 160,
+        "height": 90,
+        "cycles": 172393,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 40,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 61,
+        "width": 160,
+        "height": 90,
+        "cycles": 173203,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 48,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 62,
+        "width": 160,
+        "height": 90,
+        "cycles": 174013,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 56,
+        "y": 32,
+        "u": -0.0078125,
+        "v": -0.0703125,
+        "sequence": 63,
+        "width": 160,
+        "height": 90,
+        "cycles": 178725,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 64,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 64,
+        "width": 160,
+        "height": 90,
+        "cycles": 182361,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 72,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 65,
+        "width": 160,
+        "height": 90,
+        "cycles": 183171,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 80,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 66,
+        "width": 160,
+        "height": 90,
+        "cycles": 183981,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 88,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 67,
+        "width": 160,
+        "height": 90,
+        "cycles": 184791,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 96,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 68,
+        "width": 160,
+        "height": 90,
+        "cycles": 185601,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 104,
+        "y": 32,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 69,
+        "width": 160,
+        "height": 90,
+        "cycles": 189237,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 112,
+        "y": 32,
+        "u": -0.0078125,
+        "v": -0.1171875,
+        "sequence": 70,
+        "width": 160,
+        "height": 90,
+        "cycles": 193949,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 120,
+        "y": 32,
+        "u": 0.3046875,
+        "v": 0.1484375,
+        "sequence": 71,
+        "width": 160,
+        "height": 90,
+        "cycles": 198661,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 128,
+        "y": 32,
+        "u": -0.015625,
+        "v": 0.015625,
+        "sequence": 72,
+        "width": 160,
+        "height": 90,
+        "cycles": 203373,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 136,
+        "y": 32,
+        "u": 0.015625,
+        "v": -0.1171875,
+        "sequence": 73,
+        "width": 160,
+        "height": 90,
+        "cycles": 208085,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 144,
+        "y": 32,
+        "u": -0.0390625,
+        "v": 0.0390625,
+        "sequence": 74,
+        "width": 160,
+        "height": 90,
+        "cycles": 212797,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 152,
+        "y": 32,
+        "u": -0.0234375,
+        "v": -0.1796875,
+        "sequence": 75,
+        "width": 160,
+        "height": 90,
+        "cycles": 217509,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 8,
+        "y": 40,
+        "u": 0.34375,
+        "v": -0.015625,
+        "sequence": 76,
+        "width": 160,
+        "height": 90,
+        "cycles": 222221,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 16,
+        "y": 40,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 77,
+        "width": 160,
+        "height": 90,
+        "cycles": 223031,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 24,
+        "y": 40,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 78,
+        "width": 160,
+        "height": 90,
+        "cycles": 223841,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 32,
+        "y": 40,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 79,
+        "width": 160,
+        "height": 90,
+        "cycles": 224651,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 40,
+        "y": 40,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 80,
+        "width": 160,
+        "height": 90,
+        "cycles": 225461,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 48,
+        "y": 40,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 81,
+        "width": 160,
+        "height": 90,
+        "cycles": 226271,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 56,
+        "y": 40,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 82,
+        "width": 160,
+        "height": 90,
+        "cycles": 227081,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 64,
+        "y": 40,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 83,
+        "width": 160,
+        "height": 90,
+        "cycles": 227891,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 72,
+        "y": 40,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 84,
+        "width": 160,
+        "height": 90,
+        "cycles": 228701,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 80,
+        "y": 40,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 85,
+        "width": 160,
+        "height": 90,
+        "cycles": 229511,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 88,
+        "y": 40,
+        "u": 0.1328125,
+        "v": 0.15625,
+        "sequence": 86,
+        "width": 160,
+        "height": 90,
+        "cycles": 234223,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 96,
+        "y": 40,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 87,
+        "width": 160,
+        "height": 90,
+        "cycles": 237859,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 104,
+        "y": 40,
+        "u": 0.0078125,
+        "v": -0.1484375,
+        "sequence": 88,
+        "width": 160,
+        "height": 90,
+        "cycles": 242571,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 112,
+        "y": 40,
+        "u": -0.0703125,
+        "v": 0.0546875,
+        "sequence": 89,
+        "width": 160,
+        "height": 90,
+        "cycles": 247283,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 120,
+        "y": 40,
+        "u": 0.03125,
+        "v": 0.0390625,
+        "sequence": 90,
+        "width": 160,
+        "height": 90,
+        "cycles": 251995,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 128,
+        "y": 40,
+        "u": 0.1484375,
+        "v": -0.2265625,
+        "sequence": 91,
+        "width": 160,
+        "height": 90,
+        "cycles": 256707,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 136,
+        "y": 40,
+        "u": -0.015625,
+        "v": -0.0390625,
+        "sequence": 92,
+        "width": 160,
+        "height": 90,
+        "cycles": 261419,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 144,
+        "y": 40,
+        "u": -0.0390625,
+        "v": -0.109375,
+        "sequence": 93,
+        "width": 160,
+        "height": 90,
+        "cycles": 266131,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 152,
+        "y": 40,
+        "u": -0.015625,
+        "v": -0.046875,
+        "sequence": 94,
+        "width": 160,
+        "height": 90,
+        "cycles": 270843,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 8,
+        "y": 48,
+        "u": 0.3046875,
+        "v": 0.203125,
+        "sequence": 95,
+        "width": 160,
+        "height": 90,
+        "cycles": 275555,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 16,
+        "y": 48,
+        "u": 0.1484375,
+        "v": -0.0859375,
+        "sequence": 96,
+        "width": 160,
+        "height": 90,
+        "cycles": 280267,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 24,
+        "y": 48,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 97,
+        "width": 160,
+        "height": 90,
+        "cycles": 281077,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 32,
+        "y": 48,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 98,
+        "width": 160,
+        "height": 90,
+        "cycles": 281887,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 40,
+        "y": 48,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 99,
+        "width": 160,
+        "height": 90,
+        "cycles": 282697,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 48,
+        "y": 48,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 100,
+        "width": 160,
+        "height": 90,
+        "cycles": 283507,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 56,
+        "y": 48,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 101,
+        "width": 160,
+        "height": 90,
+        "cycles": 284317,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 64,
+        "y": 48,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 102,
+        "width": 160,
+        "height": 90,
+        "cycles": 285127,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 72,
+        "y": 48,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 103,
+        "width": 160,
+        "height": 90,
+        "cycles": 285937,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 80,
+        "y": 48,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 104,
+        "width": 160,
+        "height": 90,
+        "cycles": 286747,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 88,
+        "y": 48,
+        "u": 0.078125,
+        "v": 0.1328125,
+        "sequence": 105,
+        "width": 160,
+        "height": 90,
+        "cycles": 291459,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 96,
+        "y": 48,
+        "u": -0.09375,
+        "v": -0.0234375,
+        "sequence": 106,
+        "width": 160,
+        "height": 90,
+        "cycles": 296171,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 104,
+        "y": 48,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 107,
+        "width": 160,
+        "height": 90,
+        "cycles": 299807,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 112,
+        "y": 48,
+        "u": -0.0859375,
+        "v": 0.109375,
+        "sequence": 108,
+        "width": 160,
+        "height": 90,
+        "cycles": 304519,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 120,
+        "y": 48,
+        "u": 0.21875,
+        "v": 0.0,
+        "sequence": 109,
+        "width": 160,
+        "height": 90,
+        "cycles": 309231,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 128,
+        "y": 48,
+        "u": 0.109375,
+        "v": 0.046875,
+        "sequence": 110,
+        "width": 160,
+        "height": 90,
+        "cycles": 313943,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 136,
+        "y": 48,
+        "u": -0.03125,
+        "v": 0.140625,
+        "sequence": 111,
+        "width": 160,
+        "height": 90,
+        "cycles": 318655,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 144,
+        "y": 48,
+        "u": 0.21875,
+        "v": 0.015625,
+        "sequence": 112,
+        "width": 160,
+        "height": 90,
+        "cycles": 323367,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 152,
+        "y": 48,
+        "u": 0.0234375,
+        "v": -0.0078125,
+        "sequence": 113,
+        "width": 160,
+        "height": 90,
+        "cycles": 328079,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 8,
+        "y": 56,
+        "u": -0.03125,
+        "v": -0.0078125,
+        "sequence": 114,
+        "width": 160,
+        "height": 90,
+        "cycles": 332791,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 16,
+        "y": 56,
+        "u": 0.0,
+        "v": -0.0625,
+        "sequence": 115,
+        "width": 160,
+        "height": 90,
+        "cycles": 337503,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 24,
+        "y": 56,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 116,
+        "width": 160,
+        "height": 90,
+        "cycles": 341139,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 32,
+        "y": 56,
+        "u": -0.0078125,
+        "v": -0.015625,
+        "sequence": 117,
+        "width": 160,
+        "height": 90,
+        "cycles": 345851,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 40,
+        "y": 56,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 118,
+        "width": 160,
+        "height": 90,
+        "cycles": 346661,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 48,
+        "y": 56,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 119,
+        "width": 160,
+        "height": 90,
+        "cycles": 347471,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 56,
+        "y": 56,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 120,
+        "width": 160,
+        "height": 90,
+        "cycles": 351107,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 64,
+        "y": 56,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 121,
+        "width": 160,
+        "height": 90,
+        "cycles": 351917,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 72,
+        "y": 56,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 122,
+        "width": 160,
+        "height": 90,
+        "cycles": 352727,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 80,
+        "y": 56,
+        "u": 0.046875,
+        "v": -0.375,
+        "sequence": 123,
+        "width": 160,
+        "height": 90,
+        "cycles": 357439,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 88,
+        "y": 56,
+        "u": -0.0859375,
+        "v": -0.0546875,
+        "sequence": 124,
+        "width": 160,
+        "height": 90,
+        "cycles": 362151,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 96,
+        "y": 56,
+        "u": 0.0,
+        "v": -0.078125,
+        "sequence": 125,
+        "width": 160,
+        "height": 90,
+        "cycles": 366863,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 104,
+        "y": 56,
+        "u": -0.0546875,
+        "v": 0.0234375,
+        "sequence": 126,
+        "width": 160,
+        "height": 90,
+        "cycles": 371575,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 112,
+        "y": 56,
+        "u": -0.0078125,
+        "v": 0.125,
+        "sequence": 127,
+        "width": 160,
+        "height": 90,
+        "cycles": 376287,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 120,
+        "y": 56,
+        "u": -0.0078125,
+        "v": 0.0546875,
+        "sequence": 128,
+        "width": 160,
+        "height": 90,
+        "cycles": 380999,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 128,
+        "y": 56,
+        "u": 0.0546875,
+        "v": 0.0078125,
+        "sequence": 129,
+        "width": 160,
+        "height": 90,
+        "cycles": 385711,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 136,
+        "y": 56,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 130,
+        "width": 160,
+        "height": 90,
+        "cycles": 389347,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 144,
+        "y": 56,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 131,
+        "width": 160,
+        "height": 90,
+        "cycles": 390157,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 152,
+        "y": 56,
+        "u": -0.0390625,
+        "v": -0.078125,
+        "sequence": 132,
+        "width": 160,
+        "height": 90,
+        "cycles": 394869,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 8,
+        "y": 64,
+        "u": -0.21875,
+        "v": -0.03125,
+        "sequence": 133,
+        "width": 160,
+        "height": 90,
+        "cycles": 399581,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 16,
+        "y": 64,
+        "u": -0.0234375,
+        "v": 0.0,
+        "sequence": 134,
+        "width": 160,
+        "height": 90,
+        "cycles": 404293,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 24,
+        "y": 64,
+        "u": 0.0078125,
+        "v": -0.015625,
+        "sequence": 135,
+        "width": 160,
+        "height": 90,
+        "cycles": 409005,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 32,
+        "y": 64,
+        "u": -0.0703125,
+        "v": -0.0546875,
+        "sequence": 136,
+        "width": 160,
+        "height": 90,
+        "cycles": 413717,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 40,
+        "y": 64,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 137,
+        "width": 160,
+        "height": 90,
+        "cycles": 414527,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 48,
+        "y": 64,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 138,
+        "width": 160,
+        "height": 90,
+        "cycles": 415337,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 56,
+        "y": 64,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 139,
+        "width": 160,
+        "height": 90,
+        "cycles": 416147,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 64,
+        "y": 64,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 140,
+        "width": 160,
+        "height": 90,
+        "cycles": 416957,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 72,
+        "y": 64,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 141,
+        "width": 160,
+        "height": 90,
+        "cycles": 417767,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 80,
+        "y": 64,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 142,
+        "width": 160,
+        "height": 90,
+        "cycles": 421403,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 88,
+        "y": 64,
+        "u": 0.03125,
+        "v": 0.0,
+        "sequence": 143,
+        "width": 160,
+        "height": 90,
+        "cycles": 426115,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 96,
+        "y": 64,
+        "u": 0.0078125,
+        "v": -0.1796875,
+        "sequence": 144,
+        "width": 160,
+        "height": 90,
+        "cycles": 430827,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 104,
+        "y": 64,
+        "u": -0.0234375,
+        "v": 0.03125,
+        "sequence": 145,
+        "width": 160,
+        "height": 90,
+        "cycles": 435539,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 112,
+        "y": 64,
+        "u": 0.0078125,
+        "v": -0.03125,
+        "sequence": 146,
+        "width": 160,
+        "height": 90,
+        "cycles": 440251,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 120,
+        "y": 64,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 147,
+        "width": 160,
+        "height": 90,
+        "cycles": 443887,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 128,
+        "y": 64,
+        "u": -0.0234375,
+        "v": 0.0,
+        "sequence": 148,
+        "width": 160,
+        "height": 90,
+        "cycles": 448599,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 136,
+        "y": 64,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 149,
+        "width": 160,
+        "height": 90,
+        "cycles": 449409,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 144,
+        "y": 64,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 150,
+        "width": 160,
+        "height": 90,
+        "cycles": 450219,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 152,
+        "y": 64,
+        "u": -0.0234375,
+        "v": -0.0234375,
+        "sequence": 151,
+        "width": 160,
+        "height": 90,
+        "cycles": 454931,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 8,
+        "y": 72,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 152,
+        "width": 160,
+        "height": 90,
+        "cycles": 458567,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 16,
+        "y": 72,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 153,
+        "width": 160,
+        "height": 90,
+        "cycles": 462203,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 24,
+        "y": 72,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 154,
+        "width": 160,
+        "height": 90,
+        "cycles": 465839,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 32,
+        "y": 72,
+        "u": 0.2421875,
+        "v": 1.75,
+        "sequence": 155,
+        "width": 160,
+        "height": 90,
+        "cycles": 470551,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 40,
+        "y": 72,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 156,
+        "width": 160,
+        "height": 90,
+        "cycles": 474187,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 48,
+        "y": 72,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 157,
+        "width": 160,
+        "height": 90,
+        "cycles": 474997,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 56,
+        "y": 72,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 158,
+        "width": 160,
+        "height": 90,
+        "cycles": 475807,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 64,
+        "y": 72,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 159,
+        "width": 160,
+        "height": 90,
+        "cycles": 476617,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 72,
+        "y": 72,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 160,
+        "width": 160,
+        "height": 90,
+        "cycles": 477427,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 80,
+        "y": 72,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 161,
+        "width": 160,
+        "height": 90,
+        "cycles": 481063,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 88,
+        "y": 72,
+        "u": -0.2890625,
+        "v": 0.015625,
+        "sequence": 162,
+        "width": 160,
+        "height": 90,
+        "cycles": 485775,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 136,
+        "y": 72,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 168,
+        "width": 160,
+        "height": 90,
+        "cycles": 510145,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": false,
+        "x": 64,
+        "y": 80,
+        "u": 0.0,
+        "v": 0.0,
+        "sequence": 178,
+        "width": 160,
+        "height": 90,
+        "cycles": 532375,
+        "dropped_frames": 1
+      },
+      {
+        "kind": "flow",
+        "stage": 2,
+        "frame_id": 4690,
+        "valid": true,
+        "x": 144,
+        "y": 80,
+        "u": -0.046875,
+        "v": -0.0078125,
+        "sequence": 188,
+        "width": 160,
+        "height": 90,
+        "cycles": 577343,
+        "dropped_frames": 1
+      }
+    ],
+    "received": 166,
+    "valid": 75,
+    "invalid": 91,
+    "missing": 24,
+    "expected": 190,
+    "image_key": null,
+    "control": {
+      "state": "unknown",
+      "stop_request": true,
+      "steer": 0,
+      "speed_limit": 0,
+      "hazard": 0,
+      "fresh": false,
+      "confident": false,
+      "age_ms": 26.072980001117685,
+      "frame_id": 4690,
+      "valid_counts": [
+        15,
+        22,
+        51
+      ],
+      "risk_counts": [
+        0,
+        1,
+        0
+      ]
+    },
+    "cycles": 582056,
+    "dropped_frames": 1,
+    "fps": 29.890237283426103,
+    "packets": 592631,
+    "bad": 0,
+    "duplicates": 0,
+    "late": 0,
+    "ignored_source": 0,
+    "restarts": 1,
+    "video": {
+      "frames": 0,
+      "fps": 0.0,
+      "frame_id": null,
+      "age_ms": null,
+      "bad": 0,
+      "missing_frames": 0
+    },
+    "history": [
+      {
+        "frame_id": 4388,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4389,
+        "ratios": [
+          0.0,
+          0.0,
+          0.018867924528301886
+        ]
+      },
+      {
+        "frame_id": 4394,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4399,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4400,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4405,
+        "ratios": [
+          0.0,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4408,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4409,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4412,
+        "ratios": [
+          0.0,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4416,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4419,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4429,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4432,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4434,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4436,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4439,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4440,
+        "ratios": [
+          0.0,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4441,
+        "ratios": [
+          0.0,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4444,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.018518518518518517
+        ]
+      },
+      {
+        "frame_id": 4449,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4450,
+        "ratios": [
+          0.0,
+          0.04,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4451,
+        "ratios": [
+          0.058823529411764705,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4459,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4461,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4463,
+        "ratios": [
+          0.058823529411764705,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4466,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4468,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4473,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4476,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4477,
+        "ratios": [
+          0.0,
+          0.038461538461538464,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4480,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4481,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4483,
+        "ratios": [
+          0.0,
+          0.08333333333333333,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4486,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4488,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4497,
+        "ratios": [
+          0.0,
+          0.04,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4498,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4500,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4501,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.018867924528301886
+        ]
+      },
+      {
+        "frame_id": 4503,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4507,
+        "ratios": [
+          0.0,
+          0.043478260869565216,
+          0.019230769230769232
+        ]
+      },
+      {
+        "frame_id": 4509,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4513,
+        "ratios": [
+          0.0,
+          0.04,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4521,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4523,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4527,
+        "ratios": [
+          0.0,
+          0.045454545454545456,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4530,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4534,
+        "ratios": [
+          0.0,
+          0.04,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4538,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4541,
+        "ratios": [
+          0.0,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4546,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4551,
+        "ratios": [
+          0.0,
+          0.08333333333333333,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4554,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4559,
+        "ratios": [
+          0.0625,
+          0.043478260869565216,
+          0.018867924528301886
+        ]
+      },
+      {
+        "frame_id": 4562,
+        "ratios": [
+          0.1111111111111111,
+          0.043478260869565216,
+          0.018867924528301886
+        ]
+      },
+      {
+        "frame_id": 4563,
+        "ratios": [
+          0.0,
+          0.04,
+          0.037037037037037035
+        ]
+      },
+      {
+        "frame_id": 4565,
+        "ratios": [
+          0.25,
+          0.04,
+          0.018518518518518517
+        ]
+      },
+      {
+        "frame_id": 4569,
+        "ratios": [
+          0.0,
+          0.07407407407407407,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4572,
+        "ratios": [
+          0.0,
+          0.08333333333333333,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4573,
+        "ratios": [
+          0.0,
+          0.03571428571428571,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4576,
+        "ratios": [
+          0.15789473684210525,
+          0.4583333333333333,
+          0.11320754716981132
+        ]
+      },
+      {
+        "frame_id": 4581,
+        "ratios": [
+          0.0,
+          0.2857142857142857,
+          0.018867924528301886
+        ]
+      },
+      {
+        "frame_id": 4584,
+        "ratios": [
+          0.0,
+          0.09090909090909091,
+          0.09433962264150944
+        ]
+      },
+      {
+        "frame_id": 4585,
+        "ratios": [
+          0.0,
+          0.2857142857142857,
+          0.11538461538461539
+        ]
+      },
+      {
+        "frame_id": 4586,
+        "ratios": [
+          0.0,
+          0.3333333333333333,
+          0.16326530612244897
+        ]
+      },
+      {
+        "frame_id": 4587,
+        "ratios": [
+          0.0,
+          0.23809523809523808,
+          0.1111111111111111
+        ]
+      },
+      {
+        "frame_id": 4597,
+        "ratios": [
+          0.0,
+          0.04,
+          0.15217391304347827
+        ]
+      },
+      {
+        "frame_id": 4599,
+        "ratios": [
+          0.0,
+          0.0,
+          0.15384615384615385
+        ]
+      },
+      {
+        "frame_id": 4602,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.018518518518518517
+        ]
+      },
+      {
+        "frame_id": 4605,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4614,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4617,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4619,
+        "ratios": [
+          0.0,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4625,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4627,
+        "ratios": [
+          0.058823529411764705,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4628,
+        "ratios": [
+          0.0,
+          0.0,
+          0.018518518518518517
+        ]
+      },
+      {
+        "frame_id": 4633,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4635,
+        "ratios": [
+          0.0,
+          0.0,
+          0.019230769230769232
+        ]
+      },
+      {
+        "frame_id": 4636,
+        "ratios": [
+          0.06666666666666667,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4637,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4638,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4641,
+        "ratios": [
+          0.0625,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4642,
+        "ratios": [
+          0.05555555555555555,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4644,
+        "ratios": [
+          0.0625,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4645,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4652,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4654,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4655,
+        "ratios": [
+          0.0,
+          0.08695652173913043,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4658,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4665,
+        "ratios": [
+          0.0,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4667,
+        "ratios": [
+          0.0,
+          0.08695652173913043,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4668,
+        "ratios": [
+          0.0,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4673,
+        "ratios": [
+          0.0,
+          0.043478260869565216,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4674,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4676,
+        "ratios": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4680,
+        "ratios": [
+          0.0625,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4683,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4684,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4686,
+        "ratios": [
+          0.0,
+          0.041666666666666664,
+          0.0
+        ]
+      },
+      {
+        "frame_id": 4690,
+        "ratios": [
+          0.0,
+          0.045454545454545456,
+          0.0
+        ]
+      }
+    ],
+    "observe_only": true,
+    "automatic_control_enabled": false,
+    "diagnostic": {
+      "frame_id": 4689,
+      "point_x": 120,
+      "point_y": 48,
+      "patch_state": 4,
+      "divider_count": 63,
+      "patch_flags": 72,
+      "iteration": 0,
+      "patch_wait_cycles": 0,
+      "grid_wait_cycles": 347,
+      "patch_starts": 89,
+      "patch_completions": 88,
+      "cycles": 311597,
+      "dropped_frames": 1,
+      "stage": 2,
+      "grid_busy": true,
+      "grid_state": 2,
+      "illegal_state_seen": true,
+      "first_illegal_state": 0,
+      "first_fault_state": 0,
+      "fault_idle_busy": true,
+      "previous_fault_state": 3,
+      "divider_busy": false,
+      "divider_done": false,
+      "divider_start": false,
+      "patch_busy": true,
+      "patch_done": false,
+      "age_ms": 55.90859400035697
+    },
+    "health_fault": true
+  },
+  "recording": {
+    "active": false,
+    "error": null,
+    "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\runs\\commissioning\\system_static_20261031_002906\\sensor_console",
+    "contents": "10Hz PC status JSONL; raw serial streams are recorded on Nano; frames only on explicit save"
+  },
+  "gateway": {
+    "online": true,
+    "age_ms": 47.07179999968503,
+    "error": null,
+    "data": {
+      "profile": "system_integration_v1",
+      "mode": "live",
+      "control": {
+        "timed_test_supported": true,
+        "ground_test_supported": true,
+        "connected": true,
+        "motor_fresh": true,
+        "motor_age_ms": 12.31279999956314,
+        "motor": {
+          "left_position": 0,
+          "right_position": 0,
+          "left_velocity": 0,
+          "right_velocity": 0,
+          "left_applied": 0,
+          "right_applied": 0,
+          "left_invalid": 0,
+          "right_invalid": 0,
+          "bad_frames": 0,
+          "rejected_commands": 0,
+          "packet_count": 3130,
+          "last_sequence": 0,
+          "armed": false,
+          "flags": 1,
+          "faults": 1,
+          "fault_names": [
+            "power_on_requires_clear"
+          ]
+        },
+        "phase": "stopped",
+        "reason": "fpga_counter_restart_or_large_gap",
+        "owned": false,
+        "targets": [
+          0,
+          0
+        ],
+        "test_remaining_ms": null,
+        "flags": 1,
+        "kp": 256,
+        "ki": 0,
+        "physical_control_enabled": false
+      },
+      "imu": {
+        "online": true,
+        "healthy": true,
+        "age_ms": 19.444899999143672,
+        "error": null,
+        "frame": {
+          "type": "sample",
+          "seq": 7841,
+          "raw_seq": 156820,
+          "timestamp_us": 156540529,
+          "ax_raw": 361,
+          "ay_raw": -165,
+          "az_raw": -8197,
+          "gx_raw": 31,
+          "gy_raw": -8,
+          "gz_raw": -3,
+          "temp_raw": -136,
+          "ax_g": 0.0440673828125,
+          "ay_g": -0.0201416015625,
+          "az_g": -1.0006103515625,
+          "gx_dps": 0.946044921875,
+          "gy_dps": -0.244140625,
+          "gz_dps": -0.091552734375,
+          "temp_c": 23.97342995169082,
+          "ready": true,
+          "fault": false,
+          "who_am_i": 71,
+          "last_error": 0,
+          "config_id": 2,
+          "error_count": 0,
+          "invalid_count": 0,
+          "tx_drop_count": 0,
+          "stale": false,
+          "temperature_valid": true,
+          "fast_bus": true,
+          "low_latency_filter": true,
+          "observe_to_commit_us": 145,
+          "raw_interval_us": 937,
+          "decimation": 20,
+          "poll_us": 150
+        },
+        "statistics": {
+          "samples": 377851,
+          "status_frames": 0,
+          "serial_sequence_gaps": 3,
+          "sequence_resets": 3,
+          "duplicate_sequences": 0,
+          "crc_failures": 0,
+          "discarded_bytes": 0,
+          "unsupported_frames": 0,
+          "trailing_bytes": 0,
+          "observed_rate_hz": 50.12224048237583,
+          "debug_rate_hz": 50.12224048237583,
+          "raw_read_rate_hz": 1002.4448096475166,
+          "raw_stride_anomalies": 0,
+          "observe_to_commit_us": {
+            "mean": 144.8806212567252,
+            "maximum": 145,
+            "p99": 145
+          },
+          "last_frame": {
+            "type": "sample",
+            "seq": 7841,
+            "raw_seq": 156820,
+            "timestamp_us": 156540529,
+            "ax_raw": 361,
+            "ay_raw": -165,
+            "az_raw": -8197,
+            "gx_raw": 31,
+            "gy_raw": -8,
+            "gz_raw": -3,
+            "temp_raw": -136,
+            "ax_g": 0.0440673828125,
+            "ay_g": -0.0201416015625,
+            "az_g": -1.0006103515625,
+            "gx_dps": 0.946044921875,
+            "gy_dps": -0.244140625,
+            "gz_dps": -0.091552734375,
+            "temp_c": 23.97342995169082,
+            "ready": true,
+            "fault": false,
+            "who_am_i": 71,
+            "last_error": 0,
+            "config_id": 2,
+            "error_count": 0,
+            "invalid_count": 0,
+            "tx_drop_count": 0,
+            "stale": false,
+            "temperature_valid": true,
+            "fast_bus": true,
+            "low_latency_filter": true,
+            "observe_to_commit_us": 145,
+            "raw_interval_us": 937,
+            "decimation": 20,
+            "poll_us": 150
+          },
+          "note": "seq is debug-frame sequence; raw_seq counts successful FPGA reads. Deliberate decimation is not packet loss. Observation-to-commit is not total sensor latency."
+        },
+        "attitude": {
+          "valid": true,
+          "pitch_deg": -2.702135031752233,
+          "roll_deg": -178.06932495977847,
+          "yaw_deg": null,
+          "convention": "sensor axes; roll about +X, pitch about +Y, upright +Z; yaw unavailable",
+          "method": "host complementary filter of decimated IMU; visualization only, no motor control"
+        }
+      },
+      "lidar": {
+        "enabled": false,
+        "online": false,
+        "age_ms": null,
+        "error": null,
+        "frames": 0,
+        "scans": 0,
+        "bad_crc": 0,
+        "connections": 0,
+        "scan": null
+      },
+      "encoder_diagnostics": {
+        "2": {
+          "sync_a_edges": 0,
+          "sync_b_edges": 67438306,
+          "filtered_a_edges": 0,
+          "filtered_b_edges": 67438306,
+          "a_positive": 0,
+          "a_negative": 0,
+          "b_positive": 33719153,
+          "b_negative": 33719153,
+          "diagonal": 0,
+          "axis": 2,
+          "sequence": 1563,
+          "mode": "a_edge_x2_scaled4",
+          "synchronized_ab": 3,
+          "filtered_ab": 3,
+          "received_monotonic": 8642.7165819,
+          "age_ms": 159.23269999984768
+        },
+        "1": {
+          "sync_a_edges": 0,
+          "sync_b_edges": 0,
+          "filtered_a_edges": 0,
+          "filtered_b_edges": 0,
+          "a_positive": 0,
+          "a_negative": 0,
+          "b_positive": 0,
+          "b_negative": 0,
+          "diagonal": 0,
+          "axis": 1,
+          "sequence": 1564,
+          "mode": "quadrature_continuity_x4",
+          "synchronized_ab": 3,
+          "filtered_ab": 3,
+          "received_monotonic": 8642.8162748,
+          "age_ms": 59.54139999994368
+        }
+      },
+      "encoder_traces": {
+        "2": {
+          "axis": 2,
+          "sequence": 14089,
+          "event_count": 67502802,
+          "mode": "a_edge_x2_scaled4",
+          "transitions": [
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11,
+            14,
+            11
+          ],
+          "synchronized_ab": 3,
+          "filtered_ab": 3,
+          "received_monotonic": 8642.8663339,
+          "age_ms": 9.483699999691453
+        },
+        "1": {
+          "axis": 1,
+          "sequence": 14090,
+          "event_count": 0,
+          "mode": "quadrature_continuity_x4",
+          "transitions": [],
+          "synchronized_ab": 3,
+          "filtered_ab": 3,
+          "received_monotonic": 8642.8736074,
+          "age_ms": 2.2112999995442806
+        }
+      },
+      "odometry": {
+        "valid": false,
+        "x_m": 0.0,
+        "y_m": 0.0,
+        "yaw_rad": 0.0,
+        "method": "encoder dead reckoning; no SLAM or IMU fusion"
+      },
+      "serial_error": null,
+      "serial_connections": 1,
+      "uart_bad_crc": 5,
+      "recording": {
+        "active": true,
+        "drops": 0,
+        "error": null
+      }
+    }
+  },
+  "control": {
+    "timed_test_supported": true,
+    "ground_test_supported": true,
+    "connected": true,
+    "motor_fresh": true,
+    "motor_age_ms": 12.31279999956314,
+    "motor": {
+      "left_position": 0,
+      "right_position": 0,
+      "left_velocity": 0,
+      "right_velocity": 0,
+      "left_applied": 0,
+      "right_applied": 0,
+      "left_invalid": 0,
+      "right_invalid": 0,
+      "bad_frames": 0,
+      "rejected_commands": 0,
+      "packet_count": 3130,
+      "last_sequence": 0,
+      "armed": false,
+      "flags": 1,
+      "faults": 1,
+      "fault_names": [
+        "power_on_requires_clear"
+      ]
+    },
+    "phase": "stopped",
+    "reason": "fpga_counter_restart_or_large_gap",
+    "owned": false,
+    "targets": [
+      0,
+      0
+    ],
+    "test_remaining_ms": null,
+    "flags": 1,
+    "kp": 256,
+    "ki": 0,
+    "physical_control_enabled": false
+  },
+  "lidar": {
+    "enabled": false,
+    "online": false,
+    "age_ms": null,
+    "error": null,
+    "frames": 0,
+    "scans": 0,
+    "bad_crc": 0,
+    "connections": 0,
+    "scan": null
+  },
+  "odometry": {
+    "valid": false,
+    "x_m": 0.0,
+    "y_m": 0.0,
+    "yaw_rad": 0.0,
+    "method": "encoder dead reckoning; no SLAM or IMU fusion"
+  }
+}
