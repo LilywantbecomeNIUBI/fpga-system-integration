@@ -1,0 +1,16 @@
+{
+  "offline_validation_passed": true,
+  "system_synthesis_passed": true,
+  "navigation_harness_sta_passed": true,
+  "worst_setup_slack_ns": 0.488,
+  "min_pulse_width_slack_ns": 7.363,
+  "programmed": false,
+  "hardware_tested": false,
+  "pending": [
+    "LiDAR pin assignment",
+    "All physical calibration except known 65mm wheel diameter",
+    "Other teammate programming priority",
+    "Integrated full PnR and real vehicle acceptance"
+  ],
+  "source_snapshot_verified": true
+}

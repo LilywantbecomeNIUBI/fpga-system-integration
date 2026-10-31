@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "unique_pins": true,
+  "imu_unchanged": true,
+  "legacy_m2_ports_removed": true,
+  "full_top_elaboration_passed": true,
+  "programmed": false,
+  "pnr_passed": false
+}

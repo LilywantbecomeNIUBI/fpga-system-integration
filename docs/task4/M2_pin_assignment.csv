@@ -1,0 +1,10 @@
+signal,J_DRV2,P7,ball,direction
+left_in1,25,10,E14,OUT
+left_in2,26,13,C13,OUT
+right_in1,27,14,B13,OUT
+right_in2,28,15,D14,OUT
+left_enc_a,29,16,D15,IN
+left_enc_b,30,17,C14,IN
+right_enc_a,23,18,C15,IN
+right_enc_b,24,19,B15,IN
+lidar_rx,14,20,B16,IN

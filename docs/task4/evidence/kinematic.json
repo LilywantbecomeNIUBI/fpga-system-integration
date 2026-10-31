@@ -1,0 +1,62 @@
+{
+  "cases": {
+    "waypoints": {
+      "done": true,
+      "seconds": 34.34,
+      "minimum_surface_clearance_mm": 1000000000.0,
+      "obstacles": [],
+      "waypoints": [
+        [
+          1000,
+          0
+        ],
+        [
+          1000,
+          800
+        ],
+        [
+          1800,
+          800
+        ]
+      ]
+    },
+    "box_front": {
+      "done": true,
+      "seconds": 22.48,
+      "minimum_surface_clearance_mm": 389.1747877758168,
+      "obstacles": [
+        [
+          700,
+          0,
+          120
+        ]
+      ],
+      "waypoints": [
+        [
+          1500,
+          0
+        ]
+      ]
+    },
+    "box_offset": {
+      "done": true,
+      "seconds": 20.42,
+      "minimum_surface_clearance_mm": 392.66281140785213,
+      "obstacles": [
+        [
+          700,
+          150,
+          120
+        ]
+      ],
+      "waypoints": [
+        [
+          1500,
+          0
+        ]
+      ]
+    }
+  },
+  "ideal_kinematics": true,
+  "hardware_tested": false
+}

@@ -1,0 +1,71 @@
+{
+  "plan": {
+    "path": "D:\\活动\\比赛\\电赛\\FPGA\\设计方案\\FPGA_机器人导航_V1_RPP-VFH+_方案.md",
+    "sha256": "6f5ac0e61de60c53c19868846603dbae5b048b909262f6a90c1142f6db696e10"
+  },
+  "radar_import": [
+    {
+      "original": {
+        "path": "D:\\活动\\比赛\\电赛\\FPGA\\设计方案\\雷达前端_50MHz时序通过_20261030\\task4_lidar\\src\\stl27l_uart_rx.v",
+        "sha256": "c7cbb11a08187b4d55e6a2a7004385a296b3806c4e68b38ee8cea799f12d7281"
+      },
+      "imported": {
+        "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\fpga\\navigation\\lidar\\stl27l_uart_rx.v",
+        "sha256": "c7cbb11a08187b4d55e6a2a7004385a296b3806c4e68b38ee8cea799f12d7281"
+      },
+      "byte_identical": true
+    },
+    {
+      "original": {
+        "path": "D:\\活动\\比赛\\电赛\\FPGA\\设计方案\\雷达前端_50MHz时序通过_20261030\\task4_lidar\\src\\stl27l_node_parser.v",
+        "sha256": "4840669b11221648d2d6b6516950e57600dc2180005cbdf4a47df1f45d2b8a26"
+      },
+      "imported": {
+        "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\fpga\\navigation\\lidar\\stl27l_node_parser.v",
+        "sha256": "4840669b11221648d2d6b6516950e57600dc2180005cbdf4a47df1f45d2b8a26"
+      },
+      "byte_identical": true
+    }
+  ],
+  "textbook_checked": [
+    {
+      "path": "D:\\活动\\比赛\\电赛\\FPGA\\硬件资料\\ACG720教材文档\\第7章 串口接收模块设计与验证.pdf",
+      "sha256": "5b9f5cb74fa5375cf93a7335cca7b7a70ae46c9ff17d55d64fb6319b849cff5c"
+    },
+    {
+      "path": "D:\\活动\\比赛\\电赛\\FPGA\\硬件资料\\ACG720教材文档\\第16章 IP核使用之FIFO.pdf",
+      "sha256": "6669ed8babde4d91a83b41578ac4b735f615b70a9c0da83646c840a264de7c73"
+    },
+    {
+      "path": "D:\\活动\\比赛\\电赛\\FPGA\\硬件资料\\ACG720教材文档\\第35章 基于ES8388的音频回环实验.pdf",
+      "sha256": "7a5405e81add4913a9c319a435b45726bcb80d7d80c11f09ba39abf435f513a4"
+    }
+  ],
+  "basis": "Local textbooks first, then original VFH+/Pure Pursuit/Nav2 sources; project-specific RTL, not full Nav2/controllerVFH.",
+  "adapter_bases": [
+    {
+      "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\fpga\\system\\system_top.sv",
+      "sha256": "7ef5413ce310f096cd515f69266c4c06e7c7f5e21dabcfcdd67fd95d1a4127c9"
+    },
+    {
+      "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\fpga\\control\\brushed_chassis.sv",
+      "sha256": "5ac8a2ad19de5b0a3da88bad9577444772b79bc4b66056374b4db76abe0ef286"
+    },
+    {
+      "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\fpga\\motor\\motor_core.sv",
+      "sha256": "5ad8477d3f77d434dde67456baaa947594e736909a598aa4072dd089c08dd2b6"
+    },
+    {
+      "path": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\hardware\\pins.csv",
+      "sha256": "c721b610596873b12d493f3216402b71b273c9d31be70afe320f38d68dcfafe8"
+    }
+  ],
+  "references": [
+    "https://www.cs.cmu.edu/~iwan/papers/vfh%2B.pdf",
+    "https://publications.ri.cmu.edu/storage/publications/pub_files/pub3/coulter_r_craig_1992_1/coulter_r_craig_1992_1.pdf",
+    "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/configuring_regulated_pp/"
+  ],
+  "harness_only_sta": "build/task4/harness_/20261030T212946Z",
+  "programmed": false,
+  "hardware_tested": false
+}

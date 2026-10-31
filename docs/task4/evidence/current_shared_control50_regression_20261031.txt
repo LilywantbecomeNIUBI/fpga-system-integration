@@ -1,0 +1,28 @@
+PASS math vectors
+tests/navigation/tb_math.sv:12: $finish called at 698020000 (1ps)
+PASS VFH fixtures
+tests/navigation/tb_vfh.sv:18: $finish called at 3664980000 (1ps)
+PASS imported UART 921600 + CRC recovery + recorded packets + zero crossing
+tests/navigation/tb_lidar_import.sv:18: $finish called at 5150954990 (1ps)
+PASS 1083 independent arithmetic vectors
+PASS 226 VFH geometry/valley/cost cases; max cycles 6302
+PASS imported radar 108 recorded/synthetic points
+PASS protocol preparation/calibration refusal/status resynchronization
+PASS histogram burst/coverage/invalid/stale/wrap/hazard generations/overflow
+tests/navigation/tb_histogram.sv:28: $finish called at 24960000 (1ps)
+PASS motor intent ownership, explicit ARM, immediate gate, STOP priority
+tests/navigation/tb_intent_mux.sv:15: $finish called at 600000 (1ps)
+PASS RPP geometric fixtures
+tests/navigation/tb_rpp.sv:52: $finish called at 7770560000 (1ps)
+PASS 12 RPP/scalar geometry + blocked-radius retry + detour progress cases
+PASS encoder/IMU fusion + unequal wheel scale + gyro axis sign fixtures
+tests/navigation/tb_pose_fusion.sv:48: $finish called at 2594980000 (1ps)
+PASS independent differential/gyro pose reference
+PASS straight RPP/odom/waypoint completion x_q16=   24977294 plans=       709
+PASS raw hazard, calibration gate, duplicate heartbeat, lease, IMU stale, STOP; cycles=    7357322
+tests/navigation/tb_navigation.sv:55: $finish called at 147146440000 (1ps)
+['PASS full production top: IMU=15 control_ticks=18 Ethernet_bytes=285919 camera stop/network reset/IMU fault isolated', 'tests/navigation/tb_task4_system.sv:77: $finish called at 18349681000 (1ps)']
+waypoints {'done': True, 'seconds': 34.34, 'minimum_surface_clearance_mm': 1000000000.0, 'obstacles': [], 'waypoints': [(1000, 0), (1000, 800), (1800, 800)]}
+box_front {'done': True, 'seconds': 22.48, 'minimum_surface_clearance_mm': 389.1747877758168, 'obstacles': [(700, 0, 120)], 'waypoints': [(1500, 0)]}
+box_offset {'done': True, 'seconds': 20.42, 'minimum_surface_clearance_mm': 392.66281140785213, 'obstacles': [(700, 150, 120)], 'waypoints': [(1500, 0)]}
+ALL TASK-4 OFFLINE CHECKS PASSED
