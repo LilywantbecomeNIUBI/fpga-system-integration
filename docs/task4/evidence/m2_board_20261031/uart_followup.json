@@ -1,0 +1,60 @@
+{
+  "motion_commands_sent": false,
+  "armed_commands_sent": false,
+  "probe_opcode": 63,
+  "probe_semantics": "Unsupported opcode is rejected by motor_core without enabling outputs; expected rejected_commands delta +1.",
+  "stop_semantics": "STOP does not update last_sequence; zero-output state plus independent RX roundtrip are checked.",
+  "counts": {
+    "encoder_trace": 450,
+    "imu": 251,
+    "motor": 99,
+    "encoder_diagnostics": 50,
+    "nav": 23
+  },
+  "first": {
+    "left_position": -1,
+    "right_position": 0,
+    "left_velocity": 0,
+    "right_velocity": 0,
+    "left_applied": 0,
+    "right_applied": 0,
+    "left_invalid": 0,
+    "right_invalid": 0,
+    "bad_frames": 0,
+    "rejected_commands": 0,
+    "packet_count": 1687,
+    "last_sequence": 0,
+    "armed": false,
+    "flags": 1,
+    "faults": 1,
+    "fault_names": [
+      "power_on_requires_clear"
+    ]
+  },
+  "last": {
+    "left_position": -1,
+    "right_position": 0,
+    "left_velocity": 0,
+    "right_velocity": 0,
+    "left_applied": 0,
+    "right_applied": 0,
+    "left_invalid": 0,
+    "right_invalid": 0,
+    "bad_frames": 0,
+    "rejected_commands": 1,
+    "packet_count": 1785,
+    "last_sequence": 0,
+    "armed": false,
+    "flags": 1,
+    "faults": 1,
+    "fault_names": [
+      "power_on_requires_clear"
+    ]
+  },
+  "bad_crc": 0,
+  "nav_bad_crc": 0,
+  "uart_roundtrip_verified": true,
+  "stopped_state_verified": true,
+  "stop_sent": true,
+  "passed": true
+}

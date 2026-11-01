@@ -1,0 +1,8 @@
+{
+  "initial_check_failed": true,
+  "reason": "Checker incorrectly expected STOP to update last_sequence; RTL only updates it for ARM/DRIVE.",
+  "followup": "uart_followup/result.json",
+  "uart_roundtrip_verified": true,
+  "stopped_state_verified": true,
+  "reprogramming_needed": false
+}

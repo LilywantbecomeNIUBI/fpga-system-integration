@@ -1,0 +1,177 @@
+{
+  "mode": "live",
+  "online": true,
+  "rows": {
+    "encoder_trace": {
+      "axis": 1,
+      "sequence": 18424,
+      "event_count": 1,
+      "mode": "quadrature_continuity_x4",
+      "transitions": [
+        13
+      ],
+      "synchronized_ab": 1,
+      "filtered_ab": 1
+    },
+    "imu": {
+      "type": "sample",
+      "seq": 10256,
+      "raw_seq": 205120,
+      "timestamp_us": 204715317,
+      "ax_raw": 251,
+      "ay_raw": -695,
+      "az_raw": -8134,
+      "gx_raw": 4,
+      "gy_raw": -14,
+      "gz_raw": -2,
+      "temp_raw": -296,
+      "ax_g": 0.0306396484375,
+      "ay_g": -0.0848388671875,
+      "az_g": -0.992919921875,
+      "gx_dps": 0.1220703125,
+      "gy_dps": -0.42724609375,
+      "gz_dps": -0.06103515625,
+      "temp_c": 22.765700483091788,
+      "ready": true,
+      "fault": false,
+      "who_am_i": 71,
+      "last_error": 0,
+      "config_id": 2,
+      "error_count": 0,
+      "invalid_count": 0,
+      "tx_drop_count": 856,
+      "stale": false,
+      "temperature_valid": true,
+      "fast_bus": true,
+      "low_latency_filter": true,
+      "observe_to_commit_us": 145,
+      "raw_interval_us": 937,
+      "decimation": 20,
+      "poll_us": 150
+    },
+    "motor": {
+      "left_position": -1,
+      "right_position": 0,
+      "left_velocity": 0,
+      "right_velocity": 0,
+      "left_applied": 0,
+      "right_applied": 0,
+      "left_invalid": 0,
+      "right_invalid": 0,
+      "bad_frames": 0,
+      "rejected_commands": 1,
+      "packet_count": 4093,
+      "last_sequence": 0,
+      "armed": false,
+      "flags": 1,
+      "faults": 1,
+      "fault_names": [
+        "power_on_requires_clear"
+      ]
+    },
+    "encoder_diagnostics": {
+      "sync_a_edges": 1,
+      "sync_b_edges": 0,
+      "filtered_a_edges": 1,
+      "filtered_b_edges": 0,
+      "a_positive": 0,
+      "a_negative": 1,
+      "b_positive": 0,
+      "b_negative": 0,
+      "diagonal": 0,
+      "axis": 1,
+      "sequence": 2046,
+      "mode": "quadrature_continuity_x4",
+      "synchronized_ab": 1,
+      "filtered_ab": 1
+    },
+    "nav": {
+      "running": false,
+      "done": false,
+      "permit": false,
+      "waypoint_index": 0,
+      "faults": 0,
+      "x_mm": 0.0,
+      "y_mm": 0.0,
+      "heading_degrees": 0.0,
+      "v_mm_s": 0,
+      "w_mrad_s": 0,
+      "left_target": 0,
+      "right_target": 0,
+      "front_mm": 0,
+      "plans": 0,
+      "lidar_packets": 0,
+      "lidar_errors": 0,
+      "rejected": 0
+    }
+  },
+  "ages_ms": {
+    "encoder_trace": 147.1,
+    "imu": 147.1,
+    "motor": 147.1,
+    "encoder_diagnostics": 147.1,
+    "nav": 147.1
+  },
+  "checks": [
+    {
+      "name": "\u6570\u636e\u6765\u6e90",
+      "state": "ok",
+      "detail": "live"
+    },
+    {
+      "name": "\u5bfc\u822a\u9065\u6d4b",
+      "state": "ok",
+      "detail": "\u5e27\u9f84 147 ms"
+    },
+    {
+      "name": "\u7535\u673a\u9065\u6d4b",
+      "state": "ok",
+      "detail": "ARM=False\uff0cfaults=0x0001"
+    },
+    {
+      "name": "IMU\u539f\u59cb\u9065\u6d4b",
+      "state": "ok",
+      "detail": "\u53ea\u62a5\u544a\u5df2\u6536\u5230\u5b57\u6bb5\uff1b\u4e0d\u4ee5\u4e3b\u673a\u59ff\u6001\u4ee3\u66ffFPGA\u91cc\u7a0b\u8ba1"
+    },
+    {
+      "name": "\u96f7\u8fbe\u5305\u63a8\u8fdb",
+      "state": "unknown",
+      "detail": "0.0 \u5305/s"
+    },
+    {
+      "name": "\u89c4\u5212\u63a8\u8fdb",
+      "state": "unknown",
+      "detail": "0.0 \u6b21/s"
+    },
+    {
+      "name": "FPGA\u8f93\u51fa\u8bb8\u53ef",
+      "state": "bad",
+      "detail": "\u4efb\u52a1\u672a\u8fd0\u884c\u6216\u5df2\u7ecf\u7ed3\u675f"
+    },
+    {
+      "name": "72\u6247\u533a / \u5019\u9009\u65b9\u5411",
+      "state": "unknown",
+      "detail": "\u5f53\u524d\u56fa\u4ef6\u672a\u4e0a\u4f20\uff0c\u754c\u9762\u4e0d\u4f1a\u63a8\u6d4b\u6216\u4f2a\u9020"
+    }
+  ],
+  "events": [
+    {
+      "at_s": 3.012,
+      "message": "\u5bfc\u822a\u72b6\u6001\u53d8\u5316\uff1a\u8fd0\u884c=False \u5b8c\u6210=False \u8bb8\u53ef=False \u6545\u969c=0x0000"
+    }
+  ],
+  "trace": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "bytes": 921600,
+  "nav_bad_frames": 0,
+  "mixed_bad_crc": 0,
+  "error": null,
+  "recording_error": null,
+  "recording": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\build\\task4\\system_\\20261031T042625Z_p3r0\\board_static\\monitor",
+  "elapsed_s": 109.3
+}

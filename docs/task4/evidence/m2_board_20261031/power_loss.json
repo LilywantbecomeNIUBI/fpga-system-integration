@@ -1,0 +1,10 @@
+{
+  "user_reported_board_power_loss": true,
+  "previous_sram_configuration_historical_only": true,
+  "current_configuration_confirmed": false,
+  "jtag_cable_location": 354,
+  "jtag_target_scan": "No Gowin devices found; cable has no valid JTAG target",
+  "reprogram_download_confirmed": false,
+  "encoder_test_interrupted": true,
+  "recorded_unix": 1793422335.7299547
+}

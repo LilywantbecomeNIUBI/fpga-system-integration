@@ -1,0 +1,147 @@
+{
+  "chunks": 484,
+  "motor_frames": 4282,
+  "first": {
+    "at": 0.5189621999961673,
+    "left_position": -1,
+    "right_position": 0,
+    "left_velocity": 0,
+    "right_velocity": 0,
+    "left_applied": 0,
+    "right_applied": 0,
+    "left_invalid": 0,
+    "right_invalid": 0,
+    "bad_frames": 0,
+    "rejected_commands": 1,
+    "packet_count": 1911,
+    "last_sequence": 0,
+    "armed": false,
+    "flags": 1,
+    "faults": 1,
+    "fault_names": [
+      "power_on_requires_clear"
+    ]
+  },
+  "last": {
+    "at": 214.13676850000047,
+    "left_position": -1,
+    "right_position": 0,
+    "left_velocity": 0,
+    "right_velocity": 0,
+    "left_applied": 0,
+    "right_applied": 0,
+    "left_invalid": 0,
+    "right_invalid": 0,
+    "bad_frames": 0,
+    "rejected_commands": 1,
+    "packet_count": 6192,
+    "last_sequence": 0,
+    "armed": false,
+    "flags": 1,
+    "faults": 1,
+    "fault_names": [
+      "power_on_requires_clear"
+    ]
+  },
+  "left_range": [
+    -1,
+    -1
+  ],
+  "right_range": [
+    0,
+    0
+  ],
+  "axis_first": {
+    "2": {
+      "sync_a_edges": 0,
+      "sync_b_edges": 0,
+      "filtered_a_edges": 0,
+      "filtered_b_edges": 0,
+      "a_positive": 0,
+      "a_negative": 0,
+      "b_positive": 0,
+      "b_negative": 0,
+      "diagonal": 0,
+      "axis": 2,
+      "sequence": 955,
+      "mode": "a_edge_x2_scaled4",
+      "synchronized_ab": 3,
+      "filtered_ab": 3
+    },
+    "1": {
+      "sync_a_edges": 1,
+      "sync_b_edges": 0,
+      "filtered_a_edges": 1,
+      "filtered_b_edges": 0,
+      "a_positive": 0,
+      "a_negative": 1,
+      "b_positive": 0,
+      "b_negative": 0,
+      "diagonal": 0,
+      "axis": 1,
+      "sequence": 956,
+      "mode": "quadrature_continuity_x4",
+      "synchronized_ab": 1,
+      "filtered_ab": 1
+    }
+  },
+  "axis_last": {
+    "2": {
+      "sync_a_edges": 0,
+      "sync_b_edges": 0,
+      "filtered_a_edges": 0,
+      "filtered_b_edges": 0,
+      "a_positive": 0,
+      "a_negative": 0,
+      "b_positive": 0,
+      "b_negative": 0,
+      "diagonal": 0,
+      "axis": 2,
+      "sequence": 3095,
+      "mode": "a_edge_x2_scaled4",
+      "synchronized_ab": 3,
+      "filtered_ab": 3
+    },
+    "1": {
+      "sync_a_edges": 1,
+      "sync_b_edges": 0,
+      "filtered_a_edges": 1,
+      "filtered_b_edges": 0,
+      "a_positive": 0,
+      "a_negative": 1,
+      "b_positive": 0,
+      "b_negative": 0,
+      "diagonal": 0,
+      "axis": 1,
+      "sequence": 3094,
+      "mode": "quadrature_continuity_x4",
+      "synchronized_ab": 1,
+      "filtered_ab": 1
+    }
+  },
+  "last_nav": {
+    "running": false,
+    "done": false,
+    "permit": false,
+    "waypoint_index": 0,
+    "faults": 0,
+    "x_mm": 0.0,
+    "y_mm": 0.0,
+    "heading_degrees": 0.0,
+    "v_mm_s": 0,
+    "w_mrad_s": 0,
+    "left_target": 0,
+    "right_target": 0,
+    "front_mm": 0,
+    "plans": 0,
+    "lidar_packets": 0,
+    "lidar_errors": 0,
+    "rejected": 0
+  },
+  "bad_crc": 1,
+  "nav_bad_crc": 0,
+  "window_interrupted_by_user_reported_board_power_loss": true,
+  "encoder_test_valid": false,
+  "radar_test_valid": false,
+  "reason": "No encoder edges before UART stopped; user then confirmed board power loss. Must repeat after reprogramming."
+}

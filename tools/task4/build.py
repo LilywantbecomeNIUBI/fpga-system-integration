@@ -5,7 +5,7 @@ can validate elaboration before wiring is decided. A timing harness separately
 measures the new 50MHz kernel without borrowing an unconfirmed physical pin.
 """
 from pathlib import Path
-import argparse,csv,hashlib,json,os,re,shutil,subprocess,time,xml.etree.ElementTree as ET
+import argparse,csv,hashlib,json,os,re,shutil,subprocess,sys,time,xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[2]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def sources():
@@ -28,6 +28,11 @@ def base_constraints(rows):
     cst+=re.findall(r'^CLOCK_LOC[^\n]+',reference,re.M)
     sdc=(ROOT/'vendor/reference/robot.sdc').read_text(encoding='utf-8').replace('imu/core/reader/','imu/reader/')
     sdc=sdc.replace('[get_nets {camera/clk50}]','[get_pins {camera/pll/PLL_inst/CLKOUT0}]').replace('[get_nets {camera/clk125}]','[get_pins {camera/pll/PLL_inst/CLKOUT1}]')
+    # Preserve the validated control50 migration's bounded CDC paths. Clock
+    # groups would otherwise override the explicit Gray-pointer delay budget.
+    sdc=sdc.replace('-group [get_clocks {cam_pclk}] -group [get_clocks {sys50 control50 eth125}]',
+                    '-group [get_clocks {cam_pclk}] -group [get_clocks {sys50 eth125}]')
+    sdc+='\n'+(ROOT/'fpga/vision/constraints/perception_cdc.sdc').read_text(encoding='utf-8')
     for pin in ('chassis/rx/rx_meta_s0/D','chassis/core/enc_l/ab_meta_0_s0/D','chassis/core/enc_l/ab_meta_1_s0/D','chassis/core/enc_r/ab_meta_0_s0/D','chassis/core/enc_r/ab_meta_1_s0/D'):
         sdc+=f'set_false_path -to [get_pins {{{pin}}}]\n'
     return '\n'.join(cst)+'\n',sdc
@@ -58,7 +63,7 @@ def main():
     if not args.harness:rows=m2_rows(rows)
     cst,sdc=base_constraints(rows)
     input_hashes={}
-    for name in ('hardware/pins.csv','vendor/reference/robot.cst','vendor/reference/robot.sdc','hardware/task4_m2.json'):
+    for name in ('hardware/pins.csv','vendor/reference/robot.cst','vendor/reference/robot.sdc','hardware/task4_m2.json','fpga/vision/constraints/perception_cdc.sdc','tools/task4/build.py','tools/audit_control50.py','tools/audit_lk_state.py','tools/audit_control50_timing.py'):
         path=ROOT/name;dest=folder/'inputs'/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(path,dest);input_hashes[name]=sha(dest)
     if args.harness:
         allowed={'clk50m','reset_n','uart_rx','uart_tx'}
@@ -103,6 +108,16 @@ def main():
     logtext=(folder/'build.log').read_text(encoding='utf-8',errors='replace')
     flow_completed=('GowinSynthesis finish' in logtext and (folder/'impl/gwsynthesis/task4.vg').exists()) if args.mode=='syn' else ('[100%] Power analysis completed' in logtext and (folder/'impl/pnr/task4.fs').exists())
     record.update(exit_code=proc.returncode,elapsed_s=time.monotonic()-start,log_sha256=sha(folder/'build.log'),tool_flow_completed=flow_completed,cli_terminated_after_completed_outputs=cleaned_up,timed_out=timed_out)
+    record['sources_unchanged']=all(sha(ROOT/p)==h for p,h in hashes.items()) and all(sha(ROOT/p)==h for p,h in input_hashes.items())
+    if not args.harness and flow_completed:
+        audits={}
+        for name in ('control50','lk_state'):
+            output=folder/(name+'_audit.json')
+            checked=subprocess.run([sys.executable,str(ROOT/'tools'/('audit_'+name+'.py')),
+                '--netlist',str(folder/'impl/gwsynthesis/task4.vg'),'--output',str(output)],cwd=ROOT,capture_output=True,text=True)
+            (folder/(name+'_audit.log')).write_text(checked.stdout+checked.stderr,encoding='utf-8')
+            audits[name]=checked.returncode==0 and output.exists() and json.loads(output.read_text())['passed']
+        record['netlist_audits']=audits
     timing=folder/'impl/pnr/task4_tr_content.html'
     if timing.exists():
         content=timing.read_text(encoding='utf-8',errors='replace')
@@ -117,7 +132,14 @@ def main():
         logtext=(folder/'build.log').read_text(encoding='utf-8',errors='replace')
         record['clock_route_warnings']=[line for line in logtext.splitlines() if 'PR1014' in line]
         record['clock_routing_passed']=not record['clock_route_warnings']
+        if not args.harness:
+            checked=subprocess.run([sys.executable,str(ROOT/'tools/audit_control50_timing.py'),str(folder),'--basename','task4'],cwd=ROOT,capture_output=True,text=True)
+            (folder/'timing_audit.log').write_text(checked.stdout+checked.stderr,encoding='utf-8')
+            record['cdc_timing_audit_passed']=checked.returncode==0 and (folder/'timing_audit.json').exists() and json.loads((folder/'timing_audit.json').read_text())['passed']
+        record['bitstream_sha256']=sha(folder/'impl/pnr/task4.fs')
+        record['netlist_sha256']=sha(folder/'impl/gwsynthesis/task4.vg')
     record['passed']=(proc.returncode==0 or cleaned_up) and flow_completed and not timed_out and not re.search(r'^ERROR\s*\(',logtext,re.M) and (args.mode=='syn' or (record.get('violations')==dict(setup=0,hold=0) and record.get('pulse_width_passed') and record.get('clock_routing_passed')))
+    record['passed']=record['passed'] and record['sources_unchanged'] and (args.harness or (all(record.get('netlist_audits',{}).values()) and bool(record.get('netlist_audits')) and (args.mode!='pnr' or record.get('cdc_timing_audit_passed',False))))
     (folder/'result.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps({k:v for k,v in record.items() if k!='source_sha256'},indent=2))
     raise SystemExit(0 if record['passed'] else 1)
 if __name__=='__main__':main()

@@ -2,8 +2,8 @@
 import argparse,json,re
 from pathlib import Path
 
-def audit(work):
-    text=(work/'impl/pnr/system.tr').read_text(errors='replace')
+def audit(work,basename='system'):
+    text=(work/'impl/pnr'/(basename+'.tr')).read_text(errors='replace')
     table=text.rsplit('3.1.1 Setup Paths Table',1)[1].split('3.1.2 Hold Paths Table')[0]
     slacks={}
     for clock in ['control50','cam_pclk']:
@@ -41,5 +41,5 @@ def audit(work):
     (work/'timing_audit.json').write_text(json.dumps(result,indent=2)+'\n');return result
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('work',type=Path);a=ap.parse_args();print(json.dumps(audit(a.work),indent=2))
+    ap=argparse.ArgumentParser();ap.add_argument('work',type=Path);ap.add_argument('--basename',default='system');a=ap.parse_args();print(json.dumps(audit(a.work,a.basename),indent=2))
 if __name__=='__main__':main()

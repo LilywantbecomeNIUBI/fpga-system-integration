@@ -1,8 +1,9 @@
 """Verify actual synthesized processing clocks and FIFO synchronizer stages."""
-import hashlib,json,re
+import argparse,hashlib,json,re
 from pathlib import Path
 def main():
-    p=Path('build/system/impl/gwsynthesis/system.vg');text=p.read_text();rows=[]
+    ap=argparse.ArgumentParser();ap.add_argument('--netlist',type=Path,default=Path('build/system/impl/gwsynthesis/system.vg'));ap.add_argument('--output',type=Path,default=Path('build/tests/control50_audit.json'));args=ap.parse_args()
+    p=args.netlist;text=p.read_text();rows=[]
     names=['vision_tracker','flow_observer','flow_pipeline','flow_frame_store','flow_grid_pyramid',
            'flow_lk_patch','flow_avoidance','flow_event_source','vision_feature_grid','vision_divider','frame_memory']
     bodies=dict(re.findall(r'\bmodule (\w+) \((.*?)endmodule',text,re.S))
@@ -24,5 +25,6 @@ def main():
     assert '.CLKA(camera_pclk_d)' in fifo and '.CLKB(clk50)' in fifo
     result=dict(passed=True,netlist_sha256=hashlib.sha256(p.read_bytes()).hexdigest(),processing=rows,fifo_stages=stages,
                 limitation='Synthesis connectivity audit; physical CDC delay/clock routing are checked separately.')
-    Path('build/tests/control50_audit.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
+    args.output.parent.mkdir(parents=True,exist_ok=True)
+    args.output.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
 if __name__=='__main__':main()
