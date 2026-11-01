@@ -1,10 +1,11 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const html=fs.readFileSync('host/index.html','utf8'),elements=new Map(),calls=[];
-const canvas={clearRect(){},beginPath(){},moveTo(){},lineTo(){},stroke(){},arc(){},fillRect(){}};
+const images=[];
+const canvas={drawImage(...args){images.push(args)},save(){},restore(){},clearRect(){},beginPath(){},moveTo(){},lineTo(){},stroke(){},arc(){},fillRect(){}};
 const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',style:{},removeAttribute(){},getContext(){return canvas}});return elements.get(id)};
 const ctx=vm.createContext({document:{getElementById:element,querySelectorAll(){return []}},setTimeout(){},Date,Math,console,
  fetch:async(url,opts)=>{if(opts)calls.push(url);return {ok:false,status:503}}});
-for(const source of html.matchAll(/<script>([\s\S]*?)<\/script>/g))if(source[1].trim()!=='update();')vm.runInContext(source[1],ctx);
+for(const source of html.matchAll(/<script>([\s\S]*?)<\/script>/g))if(!['update();','requestAnimationFrame(animateFlow);update();'].includes(source[1].trim()))vm.runInContext(source[1],ctx);
 vm.runInContext('renderFlow(null)',ctx);
 assert.match(element('flowDetails').textContent,/unknown/);
 assert.match(element('flowDetails').textContent,/建议停车/);
@@ -26,3 +27,20 @@ assert.equal(streamAttachments,1,'Status polling must not restart the continuous
 vm.runInContext("preview('camera','cameraEmpty','',false);preview('camera','cameraEmpty','/camera.mjpg',true)",ctx);
 assert.equal(streamAttachments,2,'A reconnected camera opens a fresh continuous stream');
 console.log('PASS perception UI: mixed-state rendering, stale clearing and no motion side effects');
+
+element('camera').naturalWidth=320;element('camera').naturalHeight=320;
+vm.runInContext("flowVideo={camera:true,infer:false};paintFlow()",ctx);
+assert.deepEqual(images.at(-1).slice(1),[0,70,320,180,0,0,640,360],'Letterbox rows must not shift vector alignment');
+const painted=images.length;
+vm.runInContext("flowVideo={camera:false,infer:false};paintFlow()",ctx);
+assert.equal(images.length,painted,'Stale video must not remain under fresh vectors');
+assert.match(element('flowBackground').textContent,/无新鲜视频/);
+element('infer').naturalWidth=320;element('infer').naturalHeight=320;
+vm.runInContext("flowVideo={camera:false,infer:true};paintFlow()",ctx);
+assert.match(element('flowBackground').textContent,/Nano/);
+vm.runInContext("renderLidar({online:true,scan:{points:[[0,1000,100]]},source:'fpga_m2',age_ms:10,diagnostic:{bytes:47,packets:1,completed_scans:1,framing_errors:0,crc_errors:0,format_errors:0,timeouts:0,age_ms:5}})",ctx);
+assert.match(element('lidarDetails').textContent,/接收字节 47/);
+vm.runInContext('offline()',ctx);
+assert.match(element('lidarDetails').textContent,/暂无新鲜扫描/);
+assert.equal(calls.length,0);
+console.log('PASS image crop, live/Nano fallback, stale video/radar clearing and read-only observations');

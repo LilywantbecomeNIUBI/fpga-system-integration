@@ -66,12 +66,18 @@ class StatusStream:
     def __init__(self):self.buffer=bytearray();self.bad_crc=0
     def feed(self,data):
         self.buffer.extend(data);out=[]
-        while True:
-            at=self.buffer.find(b'\xc3\x3c\x04\x01')
-            if at<0:self.buffer[:]=self.buffer[-3:];break
-            del self.buffer[:at]
+        while len(self.buffer)>=3:
+            header=bytes(self.buffer[:3])
+            if header[:2]!=b'\xc3\x3c' and header!=b'\xa5\x5a\x02':
+                del self.buffer[0];continue
             if len(self.buffer)<48:break
-            try:row=decode_status(bytes(self.buffer[:48]))
-            except ValueError:self.bad_crc+=1;del self.buffer[0];continue
-            del self.buffer[:48];out.append(row)
+            frame=bytes(self.buffer[:48])
+            expected=struct.unpack_from('<H' if header[:2]==b'\xc3\x3c' else '>H',frame,46)[0]
+            if crc16(frame[:46])!=expected:
+                if header==b'\xc3\x3c\x04':self.bad_crc+=1
+                del self.buffer[0];continue
+            del self.buffer[:48]
+            if header==b'\xc3\x3c\x04':
+                try:out.append(decode_status(frame))
+                except ValueError:self.bad_crc+=1
         return out

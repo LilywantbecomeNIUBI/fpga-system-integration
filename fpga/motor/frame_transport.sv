@@ -33,8 +33,9 @@ module frame_uart_mux #(parameter CLK_HZ=50000000,BAUD=115200,AUX_ENABLED=0)(
     input wire clk,reset_n,motor_valid,imu_valid,
     input wire [383:0] motor_frame,imu_frame,
     input wire aux_valid,input wire [383:0] aux_frame,
-    output wire tx,output reg [15:0] aux_drops,output reg [15:0] imu_drops
+    output wire tx,output wire aux_ready,output reg [15:0] aux_drops,output reg [15:0] imu_drops
 );
+    assign aux_ready=AUX_ENABLED && !have_aux;
     reg [383:0] motor_pending,imu_pending,active;
     reg have_motor,have_imu,have_aux;reg [383:0] aux_pending;
     reg [1:0] state;

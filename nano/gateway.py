@@ -7,6 +7,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'host'));sys.path.insert(0,str(ROOT/'nano'))
 from control import Control
 from shared.streams import MixedStream,LidarStream
+from shared.lidar_display import FpgaLidar
 from shared.imu_state import ImuState
 from shared.calibration import Odometry
 
@@ -44,17 +45,20 @@ class Gateway:
         self.lidar_frames_base=0;self.lidar_scans_base=0;self.lidar_crc_base=0
         self.encoder_diagnostics={}
         self.encoder_traces={}
+        self.fpga_lidar=FpgaLidar()
+        self.lidar_source=self.config.get('lidar_source','usb')
+        if self.lidar_source not in ('usb','fpga'):raise ValueError('lidar_source must be usb or fpga')
     def start(self):
         if not self.live:return
         import serial # Fail before opening listeners' device workers if dependency is missing.
         lidar_enabled=self.config.get('lidar_enabled',True)
         if not isinstance(lidar_enabled,bool):raise ValueError('lidar_enabled must be boolean')
         ports=[self.config.get('fpga_serial'),self.config.get('lidar_serial')]
-        if not ports[0] or (lidar_enabled and (not ports[1] or ports[0]==ports[1])):raise ValueError('Configure FPGA serial and, when enabled, a distinct lidar serial')
+        if not ports[0] or (lidar_enabled and self.lidar_source=='usb' and (not ports[1] or ports[0]==ports[1])):raise ValueError('Configure FPGA serial and, when enabled, a distinct lidar serial')
         self.recorder=Recorder(Path(self.config.get('record_dir','runs/gateway'))/(time.strftime('%Y%m%d_%H%M%S')+'_'+os.urandom(4).hex()))
         self.control.event_sink=lambda event:self.recorder.put('control_event',event)
         targets=[self.serial_loop,self.record_loop]
-        if lidar_enabled:targets.append(self.lidar_loop)
+        if lidar_enabled and self.lidar_source=='usb':targets.append(self.lidar_loop)
         for target in targets:
             t=threading.Thread(target=target,daemon=True);self.threads.append(t);t.start()
     def ingest_uart(self,data):
@@ -75,14 +79,16 @@ class Gateway:
             elif kind=='encoder_trace':
                 with self.lock:
                     self.encoder_traces[row['axis']]=dict(row,received_monotonic=time.monotonic())
-            else:self.imu.feed(b'',rows=[row])
+            elif kind in ('lidar_scan','lidar_diagnostic'):
+                with self.lock:self.fpga_lidar.ingest(kind,row)
+            elif kind=='imu':self.imu.feed(b'',rows=[row])
     def serial_loop(self):
         import serial
         while not self.stop.is_set():
             try:
                 with serial.Serial(self.config['fpga_serial'],115200,timeout=.005,write_timeout=.05,exclusive=True) as stream:
                     self.uart_crc_base+=self.mixed.bad_crc;self.mixed=MixedStream();self.serial_connections+=1;self.control.connect()
-                    with self.lock:self.encoder_diagnostics={};self.encoder_traces={}
+                    with self.lock:self.encoder_diagnostics={};self.encoder_traces={};self.fpga_lidar.reset()
                     with self.lock:self.odometry.reset_reference()
                     while not self.stop.is_set():
                         # Check deadlines before any potentially blocking serial operation.
@@ -124,6 +130,8 @@ class Gateway:
             lidar=dict(enabled=self.config.get('lidar_enabled',True),online=self.config.get('lidar_enabled',True) and age is not None and age<.5,age_ms=age*1000 if age is not None else None,error=self.lidar_error,
                 frames=self.lidar_frames_base+self.lidar.frames,scans=self.lidar_scans_base+self.lidar.scans,bad_crc=self.lidar_crc_base+self.lidar.bad_crc,
                 connections=self.lidar_connections,scan=self.lidar.last_scan if age is not None and age<.5 else None)
+            if self.lidar_source=='fpga':lidar=self.fpga_lidar.snapshot(enabled=self.config.get('lidar_enabled',True))
+            else:lidar['source']='nano_usb'
             odometry=self.odometry.snapshot()
         control=self.control.snapshot();odometry['valid']=odometry['valid'] and control['motor_fresh']
         with self.lock:

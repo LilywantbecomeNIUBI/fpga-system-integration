@@ -4,6 +4,7 @@ import hashlib,json,math,os,struct,subprocess,sys,time
 from test_math import run as math_test
 from test_vfh import run as vfh_test
 from test_lidar import run as lidar_test
+from test_display import run as display_test
 from simulate import run as simulate_test
 from model import rpp,circular,vfh
 from protocol import configuration_frames,decode_status,crc16,StatusStream
@@ -79,13 +80,19 @@ def full_top():
     sys.path.insert(0,str(ROOT));from shared.streams import MixedStream
     mixed=MixedStream();rows=mixed.feed((OUT/'full_system_uart.bin').read_bytes())
     assert not mixed.bad_crc and {'motor','imu','encoder_diagnostics','encoder_trace'}<={kind for kind,row in rows}
+    from shared.lidar_display import FpgaLidar
+    display=FpgaLidar()
+    for kind,row in rows:display.ingest(kind,row,now=1)
+    assert display.scan and len(display.scan['points'])==72,'No complete scan under full motor/encoder/IMU/nav load'
+    assert all(p==[i*5+2.5,1000+i,100] for i,p in enumerate(display.scan['points']))
+    assert display.diagnostic and display.diagnostic['packets']==108 and display.diagnostic['crc_errors']==1
     assert all(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()==h for p,h in full_hashes.items())
     return dict(nav_records=len(nav),other_records=len(rows),bad_crc=0,source_sha256=full_hashes)
 def main():
     OUT.mkdir(parents=True,exist_ok=True);result=dict(hardware_tested=False,programmed=False)
     paths=list((ROOT/'fpga/navigation').rglob('*'))+list((ROOT/'tests/navigation').rglob('*.sv'))+list((ROOT/'tools/task4').glob('*.py'))
     hashes={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in paths if p.is_file()}
-    result['math_vectors']=math_test();result['vfh']=vfh_test();result['lidar']=lidar_test();protocol_test()
+    result['math_vectors']=math_test();result['vfh']=vfh_test();result['lidar']=lidar_test();result['lidar_display']=display_test();protocol_test()
     bench('tb_histogram',['fpga/navigation/nav_histogram.sv']);bench('tb_intent_mux',['fpga/navigation/nav_command_mux.sv'])
     rpp_test();pose_test();bench('tb_navigation',CORE);result['full_top']=full_top();result['kinematic']=simulate_test()
     result['source_sha256']=hashes;result['sources_unchanged']=all(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()==v for p,v in hashes.items());assert result['sources_unchanged']

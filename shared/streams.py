@@ -28,6 +28,7 @@ def decode_encoder_trace(frame):
                 mode=ENCODER_MODES[frame[6]],
                 transitions=transitions,synchronized_ab=(frame[7]>>2)&3,filtered_ab=frame[7]&3)
 from shared import imu_protocol
+from shared.lidar_display import decode_lidar
 
 class MixedStream:
     def __init__(self):self.buffer=bytearray();self.bad_crc=0;self.discarded=0
@@ -35,7 +36,7 @@ class MixedStream:
         self.buffer.extend(data);rows=[]
         while len(self.buffer)>=3:
             header=bytes(self.buffer[:3])
-            if header not in (b'\xc3\x3c\x01',b'\xc3\x3c\x02',b'\xc3\x3c\x03',b'\xa5\x5a\x02'):
+            if header[:2]!=b'\xc3\x3c' and header!=b'\xa5\x5a\x02':
                 del self.buffer[0];self.discarded+=1;continue
             if len(self.buffer)<48:break
             frame=bytes(self.buffer[:48]);motor=header[0]==0xc3
@@ -43,14 +44,17 @@ class MixedStream:
             if crc16(frame[:46])!=expected:
                 self.bad_crc+=1;del self.buffer[0];continue
             del self.buffer[:48]
-            if header==b'\xc3\x3c\x03':
+            if header in (b'\xc3\x3c\x05',b'\xc3\x3c\x06'):
+                try:rows.append(decode_lidar(frame))
+                except ValueError:self.discarded+=48
+            elif header==b'\xc3\x3c\x03':
                 try:rows.append(('encoder_trace',decode_encoder_trace(frame)))
                 except ValueError:self.discarded+=48
             elif header==b'\xc3\x3c\x02':
                 try:rows.append(('encoder_diagnostics',decode_encoder_diagnostics(frame)))
                 except ValueError:self.discarded+=48
-            elif motor:rows.append(('motor',decode_status(frame)))
-            else:
+            elif header==b'\xc3\x3c\x01':rows.append(('motor',decode_status(frame)))
+            elif not motor:
                 decoded=imu_protocol.Parser().feed(frame)
                 if decoded:rows.append(('imu',decoded[0]))
         return rows

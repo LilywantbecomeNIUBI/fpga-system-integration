@@ -8,13 +8,14 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'tools/task4'))
 from protocol import StatusStream,configuration_frames,crc16
 from shared.streams import MixedStream
+from shared.lidar_display import FpgaLidar
 from motor_protocol import command
 FAULTS={0:'启动配置/路径点/ARM条件未满足',1:'IMU或雷达健康条件失效（该位无法细分）',2:'编码器位移或航向增量越界',3:'保留位',4:'数学运算或规划执行超时',5:'导航心跳租约到期',6:'电机未ARM或已经失去ARM',7:'相对位置超出±16m'}
 class Session:
  def __init__(self,mode='offline',serial_port=None,replay=None,out=None):
   self.mode=mode;self.serial_port=serial_port;self.replay=replay;self.out=Path(out) if out else None
   self.lock=threading.RLock();self.write_lock=threading.Lock();self.stop_event=threading.Event();self.connection=None
-  self.nav=StatusStream();self.mixed=MixedStream();self.rows={};self.received={};self.events=deque(maxlen=100);self.trace=deque(maxlen=3000);self.last_trace=None
+  self.nav=StatusStream();self.mixed=MixedStream();self.lidar=FpgaLidar();self.rows={};self.received={};self.events=deque(maxlen=100);self.trace=deque(maxlen=3000);self.last_trace=None
   self.history=deque(maxlen=100);self.bytes=0;self.error=None;self.last_signature=None;self.finished=False;self.recording_error=None
   self.worker=None;self.record=None;self.started=time.monotonic()
   if self.out:
@@ -32,7 +33,9 @@ class Session:
     if old and any(((row[k]-old[k])&0xffffffff)>=0x80000000 for k in ('lidar_packets','plans')):
      self.history.clear();self.trace.clear();self.last_trace=None;self.event('计数回退：可能是FPGA复位或切换记录；已清空速率和轨迹参考')
     self.rows['nav']=row;self.received['nav']=now
-   for kind,row in self.mixed.feed(data):self.rows[kind]=row;self.received[kind]=now
+   for kind,row in self.mixed.feed(data):
+    self.rows[kind]=row;self.received[kind]=now
+    self.lidar.ingest(kind,row,now)
    n=self.rows.get('nav')
    if n and self.received['nav']==now:
     point=(n['plans'],n['x_mm'],n['y_mm'])
@@ -63,8 +66,11 @@ class Session:
     if not n['running']:reasons.append('任务未运行或已经结束')
     if fresh and not n['permit'] and not n['faults'] and n['running']:reasons.append('许可未开：当前协议无法区分近障锁存、覆盖不足或无可行方向')
    check('FPGA输出许可','ok' if fresh and n['permit'] else 'bad','；'.join(reasons) or 'FPGA已给许可；仍需检查电机核心/接线')
-   check('72扇区 / 候选方向','unknown','当前固件未上传，界面不会推测或伪造')
-   return dict(mode=self.mode,online=fresh,rows=dict(self.rows),ages_ms={k:round(v*1000,1) for k,v in ages.items()},checks=checks,events=list(self.events),trace=list(self.trace),bytes=self.bytes,nav_bad_frames=self.nav.bad_crc,mixed_bad_crc=self.mixed.bad_crc,error=self.error,recording_error=self.recording_error,recording=str(self.out) if self.out else None,elapsed_s=round(now-self.started,1))
+   lidar=self.lidar.snapshot(now)
+   if self.finished or self.error:lidar.update(online=False,scan=None)
+   check('雷达扫描上传','ok' if lidar['online'] else 'unknown','72个5°扇区最近回波；最多5Hz' if lidar['online'] else '等待六片完整扫描；旧固件未上传')
+   check('导航候选方向','unknown','当前固件未上传，界面不会推测或伪造')
+   return dict(mode=self.mode,online=fresh,lidar=lidar,rows=dict(self.rows),ages_ms={k:round(v*1000,1) for k,v in ages.items()},checks=checks,events=list(self.events),trace=list(self.trace),bytes=self.bytes,nav_bad_frames=self.nav.bad_crc,mixed_bad_crc=self.mixed.bad_crc,error=self.error,recording_error=self.recording_error,recording=str(self.out) if self.out else None,elapsed_s=round(now-self.started,1))
  def start(self):
   self.worker=threading.Thread(target=self.run,daemon=True);self.worker.start()
  def run(self):

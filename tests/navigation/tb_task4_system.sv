@@ -2,7 +2,7 @@
 // Full production hierarchy, behavioral sensor/PLL, reduced frame buffer and
 // post-pixel injection. Camera SCCB/DVP electrical behavior is not modeled.
 module tb_task4_system;
-    reg clk=0,reset_n=0,pclk=0,rxc=0;
+    reg clk=0,reset_n=0,pclk=0,rxc=0,lidar_rx=1;
     always #10 clk=~clk;always #6 pclk=~pclk;always #4 rxc=~rxc;
     tri1 scl,sda,csda,mdio;
     wire tx,l1,l2,r1,r2,m1,m2;
@@ -12,7 +12,7 @@ module tb_task4_system;
             $fatal(1,"Old BLDC enables/PWM/CAL must stay low in all states");
     end
     // Accelerate motor/UART counters by 10x; sensor and camera/network clocks stay unchanged.
-    system_task4_top #(.CLK_HZ(5000000)) dut(.clk50m(clk),.reset_n(reset_n),.uart_rx(1'b1),.lidar_rx(1'b1),
+    system_task4_top #(.CLK_HZ(5000000)) dut(.clk50m(clk),.reset_n(reset_n),.uart_rx(1'b1),.lidar_rx(lidar_rx),
         .left_enc_a(1'b0),.left_enc_b(1'b0),.right_enc_a(1'b0),.right_enc_b(1'b0),
         .rgmii_rxc(rxc),.rgmii_rxd(4'd0),.rgmii_rxctl(1'b0),.camera_pclk(pclk),.camera_vsync(1'b0),.camera_href(1'b0),.camera_data(8'd0),
         .camera_sdat(csda),.eth_mdio(mdio),.imu_i2c_scl(scl),.imu_i2c_sda(sda),.uart_tx(tx),
@@ -26,6 +26,18 @@ module tb_task4_system;
     defparam dut.camera.stream.WIDTH=16;
     defparam dut.camera.stream.ACTIVE_HEIGHT=8;
     defparam dut.camera.stream.CANVAS_HEIGHT=16;
+    // Accelerated fixture uses its rounded 5-clock RX bit period. The separate
+    // lidar_import/display benches cover actual 921600 baud at 50MHz.
+    reg [7:0] lidar_bytes[0:5122];integer li,lk;
+    initial begin
+        $readmemh("build/task4/lidar_display_input.hex",lidar_bytes);
+        wait(reset_n);repeat(10)@(negedge clk);
+        for(li=0;li<5123;li=li+1)begin
+            lidar_rx=0;#100;
+            for(lk=0;lk<8;lk=lk+1)begin lidar_rx=lidar_bytes[li][lk];#100;end
+            lidar_rx=1;#100;
+        end
+    end
     reg present=1;
     icm42688_model #(.SAMPLE_NS(1000000)) sensor(.scl(scl),.sda(sda),.present(present),.identity(8'h47),.corrupt_readback(1'b0),.invalid_data(1'b0),.freeze_samples(1'b0));
     reg cmd=0;reg [7:0] op=0,seq=0;reg signed [15:0] target=0;
@@ -74,6 +86,9 @@ module tb_task4_system;
         present=0;wait(dut.imu_fault || dut.imu_stale);
         if(!dut.chassis.armed)$fatal(1,"observation-only IMU failure disarmed manual drive");
         command(0,0);#1;if(l1||l2||r1||r2)$fatal(1,"STOP output");
+        // Keep all outputs stopped while collecting the 5Hz receive diagnostic.
+        #7000000;
+        if(dut.lpackets!=108 || dut.lcrc!=1 || l1||l2||r1||r2)$fatal(1,"integrated radar/STOP verification");
         $fclose(file);$display("PASS full production top: IMU=%0d control_ticks=%0d Ethernet_bytes=%0d camera stop/network reset/IMU fault isolated",samples,control_ticks,eth_bytes);$finish;
     end
     initial begin #100000000;$fatal(1,"full system timeout");end

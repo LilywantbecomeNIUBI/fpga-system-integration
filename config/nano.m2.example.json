@@ -1,0 +1,18 @@
+{
+  "bind": "0.0.0.0",
+  "port": 8873,
+  "fpga_serial": "/dev/serial/by-id/REPLACE_FPGA_USB_UART",
+  "record_dir": "runs/gateway",
+  "calibration": {
+    "confirmed": false,
+    "left_cpr": null,
+    "right_cpr": null,
+    "left_diameter_m": null,
+    "right_diameter_m": null,
+    "track_m": null,
+    "motor_reverse_mask": null,
+    "encoder_reverse_mask": null
+  },
+  "lidar_enabled": true,
+  "lidar_source": "fpga"
+}

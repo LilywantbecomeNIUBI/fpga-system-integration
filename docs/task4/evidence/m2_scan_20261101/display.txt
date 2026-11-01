@@ -1,0 +1,2 @@
+PASS raw921600 -> parser -> complete scan -> stalled sender -> mixed115200 UART
+tests/navigation/tb_lidar_display.sv:46: $finish called at 255588184870 (1ps)

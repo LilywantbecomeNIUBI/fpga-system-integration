@@ -1,0 +1,141 @@
+{
+  "passed": true,
+  "netlist_sha256": "cfefab8e80ed4bbaa9a0cdea5d04c1183e4597e96288b36415f55926032b6be0",
+  "processing": [
+    {
+      "module": "vision_tracker",
+      "clock_connections": 2536,
+      "clocks": [
+        "clk50",
+        "{GND,GND}",
+        "{GND,clk50}"
+      ]
+    },
+    {
+      "module": "flow_observer",
+      "clock_connections": 38,
+      "clocks": [
+        "clk50"
+      ]
+    },
+    {
+      "module": "flow_pipeline",
+      "clock_connections": 3,
+      "clocks": [
+        "clk50"
+      ]
+    },
+    {
+      "module": "flow_frame_store",
+      "clock_connections": 192,
+      "clocks": [
+        "clk50",
+        "{GND,clk50}"
+      ]
+    },
+    {
+      "module": "flow_grid_pyramid",
+      "clock_connections": 204,
+      "clocks": [
+        "clk50"
+      ]
+    },
+    {
+      "module": "flow_lk_patch",
+      "clock_connections": 952,
+      "clocks": [
+        "clk50",
+        "{GND,clk50}"
+      ]
+    },
+    {
+      "module": "flow_lk_patch_0",
+      "clock_connections": 983,
+      "clocks": [
+        "clk50",
+        "{GND,clk50}"
+      ]
+    },
+    {
+      "module": "flow_avoidance",
+      "clock_connections": 360,
+      "clocks": [
+        "clk50",
+        "{GND,clk50}"
+      ]
+    },
+    {
+      "module": "flow_event_source",
+      "clock_connections": 223,
+      "clocks": [
+        "clk50"
+      ]
+    },
+    {
+      "module": "vision_feature_grid",
+      "clock_connections": 110,
+      "clocks": [
+        "clk50",
+        "{GND,clk50}"
+      ]
+    },
+    {
+      "module": "vision_divider",
+      "clock_connections": 247,
+      "clocks": [
+        "clk50"
+      ]
+    },
+    {
+      "module": "vision_divider_0",
+      "clock_connections": 105,
+      "clocks": [
+        "clk50"
+      ]
+    },
+    {
+      "module": "vision_divider_1",
+      "clock_connections": 247,
+      "clocks": [
+        "clk50"
+      ]
+    },
+    {
+      "module": "frame_memory",
+      "clock_connections": 50,
+      "clocks": [
+        "clk50"
+      ]
+    },
+    {
+      "module": "frame_memory_0",
+      "clock_connections": 16,
+      "clocks": [
+        "clk50"
+      ]
+    }
+  ],
+  "fifo_stages": [
+    {
+      "stage": "ws0",
+      "count": 9,
+      "clock": "clk50"
+    },
+    {
+      "stage": "ws1",
+      "count": 9,
+      "clock": "clk50"
+    },
+    {
+      "stage": "rs0",
+      "count": 9,
+      "clock": "camera_pclk_d"
+    },
+    {
+      "stage": "rs1",
+      "count": 9,
+      "clock": "camera_pclk_d"
+    }
+  ],
+  "limitation": "Synthesis connectivity audit; physical CDC delay/clock routing are checked separately."
+}

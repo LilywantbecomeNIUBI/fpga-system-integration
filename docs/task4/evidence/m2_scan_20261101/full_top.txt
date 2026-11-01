@@ -1,0 +1,27 @@
+PROGRESS time=1000000000 samples=0 bytes=0
+PROGRESS time=2000000000 samples=0 bytes=48
+PROGRESS time=3000000000 samples=0 bytes=96
+PROGRESS time=4000000000 samples=0 bytes=204
+PROGRESS time=5000000000 samples=1 bytes=319
+PROGRESS time=6000000000 samples=2 bytes=434
+PROGRESS time=7000000000 samples=3 bytes=550
+PROGRESS time=8000000000 samples=4 bytes=665
+PROGRESS time=9000000000 samples=5 bytes=768
+PROGRESS time=10000000000 samples=6 bytes=816
+PROGRESS time=11000000000 samples=7 bytes=931
+PROGRESS time=12000000000 samples=8 bytes=1046
+PROGRESS time=13000000000 samples=9 bytes=1104
+PROGRESS time=14000000000 samples=10 bytes=1152
+PROGRESS time=15000000000 samples=11 bytes=1200
+PROGRESS time=16000000000 samples=12 bytes=1315
+PROGRESS time=17000000000 samples=13 bytes=1392
+PROGRESS time=18000000000 samples=14 bytes=1440
+PROGRESS time=19000000000 samples=15 bytes=1488
+PROGRESS time=20000000000 samples=15 bytes=1536
+PROGRESS time=21000000000 samples=15 bytes=1651
+PROGRESS time=22000000000 samples=15 bytes=1766
+PROGRESS time=23000000000 samples=15 bytes=1824
+PROGRESS time=24000000000 samples=15 bytes=1872
+PROGRESS time=25000000000 samples=15 bytes=1920
+PASS full production top: IMU=15 control_ticks=25 Ethernet_bytes=285919 camera stop/network reset/IMU fault isolated
+tests/navigation/tb_task4_system.sv:92: $finish called at 25349681000 (1ps)

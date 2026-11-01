@@ -1,0 +1,36 @@
+{
+  "baseline_commit": "63aca08",
+  "branch": "codex/m2-scan-flow-20261101",
+  "hardware_tested": false,
+  "programmed": false,
+  "commands_sent_to_hardware": 0,
+  "python_tests": 68,
+  "python_passed": true,
+  "motor_rtl_cases": 10,
+  "motor_rtl_passed": true,
+  "ui_script_passed": true,
+  "raw_uart_display_passed": true,
+  "full_task4_regression_passed": true,
+  "full_top_records": {
+    "encoder_trace": 22,
+    "lidar_scan": 6,
+    "motor": 4,
+    "imu": 3,
+    "encoder_diagnostics": 2,
+    "lidar_diagnostic": 1
+  },
+  "full_top_crc_errors": 0,
+  "synthesis_passed": true,
+  "netlist_clock_and_state_audits_passed": true,
+  "pnr_completed": false,
+  "pnr_timeout_seconds": 1200,
+  "new_bitstream_generated": false,
+  "timing_signoff": false,
+  "known_prior_min_pulse_width_slack_ns": -0.688,
+  "limitations": [
+    "Offline synthetic/recorded input verification only; no new board validation",
+    "Live video background and flow results are not frame-locked",
+    "72 nearest-return 5-degree bins, display at most 5Hz; not full raw point cloud",
+    "PnR attempt repeated synthesis and timed out during routing; both synthesis netlist audit hashes are retained"
+  ]
+}
