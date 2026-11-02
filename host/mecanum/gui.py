@@ -16,7 +16,7 @@ from collections import deque
 import tkinter as tk
 from tkinter import ttk, messagebox
 from console import Stream, packet, motor_profile, mm_to_control_counts, polar_displacement
-from live_status import LiveStatusWriter
+from live_status import LiveStatusWriter, TelemetryJournal
 
 
 def imu_readout(row):
@@ -133,7 +133,7 @@ COMMAND_TRANSPORT='router'
 class SerialLink(threading.Thread):
     def __init__(self,port,events,profile):
         super().__init__(daemon=True);self.port=port;self.events=events;self.profile=profile
-        self.requests=queue.Queue();self.close_requested=threading.Event();self.sequence=0
+        self.journal=None;self.requests=queue.Queue();self.close_requested=threading.Event();self.sequence=0
         self.session=None;self.motor=None;self.pose=None;self.options=dict(motor=0,encoder=0,kp=512,ki=32)
         self.recent_frames=deque(maxlen=100);self.previous_imu_fault=False;self.previous_imu_count=0;self.last_fault_record=-1e9
 
@@ -142,6 +142,8 @@ class SerialLink(threading.Thread):
             from transport import SplitLink, RouterLink
             link_type=RouterLink if COMMAND_TRANSPORT=='router' else SplitLink
             with link_type(self.port,timeout=.015,write_timeout=.1,**TELEMETRY_OPTIONS) as self.device:
+                self.journal=TelemetryJournal(Path(__file__).resolve().parents[1]/'runs')
+                self.journal.record('connected',transport=COMMAND_TRANSPORT,**TELEMETRY_OPTIONS)
                 self.events.put(('connected',self.port));decoder=Stream()
                 try:
                     while not self.close_requested.is_set():
@@ -171,6 +173,7 @@ class SerialLink(threading.Thread):
                             except ValueError as exc:self.events.put(('log',str(exc)))
                         for row in decoder.feed(self.device.read(256)):
                             now=time.monotonic()
+                            self.journal.record('telemetry',row=row)
                             self.recent_frames.append(dict(received_monotonic=now,**row))
                             if row['kind']=='motor':self.motor=(now,row)
                             else:
@@ -198,11 +201,14 @@ class SerialLink(threading.Thread):
                     # opening the port starts read-only, with no automatic ARM.
                     if self.session:self.stop()
         except Exception as exc:self.events.put(('log','连接错误：'+str(exc)))
-        finally:self.events.put(('disconnected',None))
+        finally:
+            if self.journal:self.journal.close()
+            self.events.put(('disconnected',None))
 
     def send(self,op,values,options):
         self.sequence=(self.sequence+1)&255
         self.device.write(packet(op,self.sequence,x=values[0],y=values[1],z=values[2],**options))
+        if self.journal:self.journal.record('command',op=op,seq=self.sequence,values=values,options=options)
         return self.sequence
 
     def stop(self):
@@ -479,8 +485,9 @@ class App:
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--demo',action='store_true');parser.add_argument('--transport',choices=['router','serial'],default='router')
+    parser=argparse.ArgumentParser();parser.add_argument('--demo',action='store_true');parser.add_argument('--connect',action='store_true',help='Connect for read-only monitoring on startup');parser.add_argument('--transport',choices=['router','serial'],default='router')
     parser.add_argument('--telemetry-bind',default='0.0.0.0');parser.add_argument('--fpga-ip',default='192.168.50.30')
     args=parser.parse_args();COMMAND_TRANSPORT=args.transport;TELEMETRY_OPTIONS.update(bind=args.telemetry_bind,peer=args.fpga_ip)
     root=tk.Tk();app=App(root,demo=args.demo)
+    if args.connect and not args.demo:root.after(100,app.connect)
     root.mainloop()
