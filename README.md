@@ -1,5 +1,18 @@
 # fpga-system-integration
 
+## 2026-11-03 阶段性主线
+
+当前主线合并了**全点雷达麦轮整机、队友完整 IO 电气约束，以及 Nano 实时图传修复**。
+FPGA Setup/Hold 为 0/0；IMU、串口控制、看门狗和架空短时前进已验证。Nano 默认保持只读的 `nano-video-20261103` 运行基线。
+这是阶段性联调成果，仍保留 PCLK MPW/PR1014、运动期间 4 次可恢复 I²C NACK、雷达未接暂缓和落地运动精度未验等余项。
+
+- [阶段性版本与验证边界](docs/MILESTONE_MECANUM_NANO_20261103.md)
+- [麦轮实板记录与当前位流](docs/MECANUM_BOARD_20261103.md)
+- [Nano 固定运行版本](docs/NANO_BASELINE.md) · [图传修复与交付帧率](docs/VIDEO_FIX_20261103.md)
+
+整机构建入口：`python tools/task4/build_ethernet.py --system --mecanum --raw-points --clock-cleanup`。
+历史双轮、360 点和全点源码/检查点均保留；下列旧日期记录作为历史说明。
+
 **2026-11-02 调试代码快照：雷达72扇区双缓冲RAM版本已通过静态上板接收；IMU已按STM32参考工程补充MPU6500（WHO=0x70）支持，原转接板接线仍在地址阶段NACK。新增P7-31/F16、P7-32/E17直连静态诊断源码快照，仿真及布线通过，尚未下载或确认直连接线。具体改动、验证边界和接线见[STM32对照与直连说明](docs/task4/IMU_STM32_COMPARE_20261102.md)。本次保存也包含当前工作区的1kHz轮速、雷达全点网口和上位机修改，不代表整车动态验收通过。**
 
 **2026-11-02 雷达显示/网口：已升级为解析器全点上传，记录回归每圈约2175点；界面默认全量，可选720/360显示上限和自动范围。七类状态经UDP6205上传，控制命令保留串口。12000点逐点回归及静态诊断版PnR通过（Setup/Hold=0/0，Logic12%、寄存器14%、BSRAM不到1%）。按用户要求仅离线交付，未下载；完整融合版仍待独立PnR和实板验收。见[全点方案与验证](docs/task4/LIDAR_RAW_ETHERNET_20261102.md)；[旧360点记录](docs/task4/LIDAR_ETHERNET_360_20261102.md)保留。**
