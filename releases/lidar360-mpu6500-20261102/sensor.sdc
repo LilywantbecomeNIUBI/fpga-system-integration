@@ -1,0 +1,27 @@
+create_clock -name sys50 -period 20 [get_ports {clk50m}]
+create_generated_clock -name phy50 -source [get_ports {clk50m}] -divide_by 1 [get_pins {network/pll/PLL_inst/CLKOUT0}]
+create_generated_clock -name eth125 -source [get_ports {clk50m}] -multiply_by 5 -divide_by 2 [get_pins {network/pll/PLL_inst/CLKOUT1}]
+create_clock -name eth_rx125 -period 8 [get_ports {rgmii_rxc}]
+set_clock_groups -asynchronous -group [get_clocks {eth_rx125}] -group [get_clocks {sys50 phy50 eth125}]
+set_false_path -from [get_ports {reset_n}]
+set_input_delay -clock eth_rx125 -max 2.2 [get_ports {rgmii_rxd[*] rgmii_rxctl}]
+set_input_delay -clock eth_rx125 -min 1.8 [get_ports {rgmii_rxd[*] rgmii_rxctl}]
+set_input_delay -clock eth_rx125 -clock_fall -add_delay -max 2.2 [get_ports {rgmii_rxd[*] rgmii_rxctl}]
+set_input_delay -clock eth_rx125 -clock_fall -add_delay -min 1.8 [get_ports {rgmii_rxd[*] rgmii_rxctl}]
+set_false_path -to [get_pins {imu/reader/bus/scl_sync_0_s0/D}]
+set_false_path -to [get_pins {imu/reader/bus/sda_sync_0_s0/D}]
+set_false_path -to [get_pins {chassis/core/enc_l/ab_meta_0_s0/D}]
+set_false_path -to [get_pins {chassis/core/enc_l/ab_meta_1_s0/D}]
+set_false_path -to [get_pins {chassis/core/enc_r/ab_meta_0_s0/D}]
+set_false_path -to [get_pins {chassis/core/enc_r/ab_meta_1_s0/D}]
+set_false_path -to [get_pins {lidar_uart/rx_meta_s0/D}]
+
+# Immutable held bus: at least two receiving cycles precede capture.
+set_max_delay -from [get_pins {network/telemetry_bridge/held*/Q}] -to [get_pins {network/telemetry_bridge/dst_payload*/D}] 10.0
+set_false_path -hold -from [get_pins {network/telemetry_bridge/held*/Q}] -to [get_pins {network/telemetry_bridge/dst_payload*/D}]
+set_false_path -to [get_pins {network/telemetry_bridge/ack_meta*/D network/telemetry_bridge/request_meta*/D}]
+set_false_path -to [get_pins {network/sys_reset/release_pipe*/CLEAR}]
+set_false_path -to [get_pins {network/source_reset/release_pipe*/CLEAR}]
+set_false_path -to [get_pins {network/network_reset/release_pipe*/CLEAR}]
+set_false_path -to [get_pins {network/receive_reset/release_pipe*/CLEAR}]
+report_exceptions -setup -from [get_pins {network/telemetry_bridge/held*/Q}] -max_paths 600

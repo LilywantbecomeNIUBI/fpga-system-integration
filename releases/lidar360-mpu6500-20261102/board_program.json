@@ -1,0 +1,18 @@
+{
+  "top": "m2_sensor_eth_diag_top",
+  "firmware_mode": "static_sensors_360_ethernet",
+  "build": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\build\\lidar360_mpu6500_20261102T131932Z",
+  "operation": "SRAM Program",
+  "flash_written": false,
+  "serial_bytes_written": 0,
+  "bitstream_sha256": "2d5f71660757ec199d7dff6177f4fb04c7fc81093cb1cbaf7da58807f7653de7",
+  "motor_outputs_constant_low": true,
+  "command_receiver_enabled": false,
+  "telemetry_transport": "udp",
+  "telemetry_port": 6205,
+  "started_unix": 1793625897.4074032,
+  "testbench_source": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\build\\lidar360_mpu6500_20261102T131932Z\\tb_m2_sensor_ethernet.sv",
+  "testbench_sha256": "54a5d519203efab552efdde72a56510d3ec4618ecfead162a33ab93e3ceebe19",
+  "download_confirmed": true,
+  "finished_unix": 1793625907.3528335
+}
