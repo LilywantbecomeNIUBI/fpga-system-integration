@@ -1,0 +1,43 @@
+{
+  "verified_utc": "2026-11-02T18:50:24.778204+00:00",
+  "stage": "C:\\fpga_build\\mecanum_task2_jamxhyad",
+  "sources_match_build": true,
+  "violations": {
+    "Setup": 0,
+    "Hold": 0
+  },
+  "worst_slack_ns": {
+    "setup": 2.708,
+    "hold": 0.247,
+    "recovery": 10.862,
+    "removal": 0.925,
+    "pulse_width": 7.313
+  },
+  "bitstream_matches_build": true,
+  "bitstream_sha256": "90e6aefcbf6ef6c78e39cb0dc3e95d86daf57b49222405009e00106fe793808d",
+  "source_sha256": {
+    "rtl/at8236_pwm.sv": "74958eda563a9ff376fc5c7a8d674398476f436e466cca03a33c3772a9d0d561",
+    "rtl/cordic_sincos.sv": "a3d89ce8747833e1534070c50afad07730560479f61334ec3bd2e1cf18a1efef",
+    "rtl/encoder_ab.sv": "49e14315ba75501fa0b11cc0c7f4afd7aba0ea38fd124781c4282718f0b76567",
+    "rtl/encoder_control_scale.sv": "f40188b29cf779ed466a6018ebb83649a5276af2f34af68aa1780524f613f36a",
+    "rtl/frame_transport.sv": "ddc3a24db2eb3818e08b022a4423dc22b9a698d14924c9cf62f8e3d5e7556bab",
+    "rtl/imu_fast_i2c_master.sv": "8e64ae1a2e67112bb0d4a8a3304b4756109fecdbb1f6bb750b4b631d9bc2040a",
+    "rtl/lateral_pwm_compensation.sv": "ee04ea1621fc9321d2ccbe6b252a03dea4ce0dd1473bc3ed89e23bf572f952dd",
+    "rtl/mecanum_core.sv": "20b1faf824841d6e57e20d3b02f85b827ac772dcc0e79f411b82d400909a9f70",
+    "rtl/mecanum_mixer.sv": "b2a69ab697653bd4f86548f85694c33dc2f8b0fac69e569114e2838d73107d8a",
+    "rtl/mecanum_pose_control.sv": "7174e13c3f4a987192f05786b1c04a55f769dad4b82a0d005c19f79131911d05",
+    "rtl/mecanum_protocol.sv": "f79a66f13486936140c755bad083d1f65522f9ece3046a3977d463fc857252bd",
+    "rtl/mecanum_top.sv": "b7a11392b318ac05d25065c3675d180bcce9de715aa78deaf7dc10d7c5a4387c",
+    "rtl/mpu6050_reader.sv": "c9b198c4489f1aefec7c34ed601b2e2bb9f1376e6ecc92f162e2a76148873a85",
+    "rtl/mpu6050_yaw.sv": "3574da15d5383671d4dfd6724a9dfbadcdfb48373a627f40be7a86d40bdf4b50",
+    "rtl/uart_byte.sv": "d88aa96614eac7f51ab4d37d547e4fd3560c7ea4bb7ec25e97ff686e7a7d8ac0",
+    "rtl/wheel_control.sv": "9e043a9bff80aa1e1860f4dbc2cf3283a09e90a7b1faf09693f9f514fb2d93ba",
+    "project/mecanum.cst": "6eb72bd3a9c29c18d46ad8d07fd2534f3aba59d5eb55ee58d8232057f012688e",
+    "project/mecanum.sdc": "fcedde1b438eb3d558b5bd5ac5c4e44e07c9466adc5cae4bb764a9381227b2e2",
+    "project/mecanum.gprj": "5b4742b69adad05ddc0bf724b1b64ee8568860bb6d475550fc4af62344fa566e",
+    "project/build.tcl": "d05f7bbbb6dac7889996b05c79185cef87900b36df418f9e99233b3cd174becd"
+  },
+  "hardware_tested": false,
+  "programmed": false,
+  "passed": true
+}

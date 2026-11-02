@@ -54,9 +54,13 @@ class Gateway:
         self.lidar_frames_base=0;self.lidar_scans_base=0;self.lidar_crc_base=0
         self.encoder_diagnostics={}
         self.encoder_traces={}
+        self.mecanum={}
+        self.chassis_type=self.config.get('chassis_type','differential')
+        if self.chassis_type not in ('differential','mecanum'):raise ValueError('Invalid chassis_type')
         self.fpga_lidar=FpgaLidar()
         self.telemetry_transport=self.config.get('telemetry_transport','serial')
         if self.telemetry_transport not in ('serial','udp'):raise ValueError('telemetry_transport must be serial or udp')
+        if self.chassis_type=='mecanum' and self.telemetry_transport!='udp':raise ValueError('Mecanum gateway requires UDP status')
         peer=str(ipaddress.IPv4Address(self.config.get('fpga_ip','192.168.50.30')))
         self.udp_telemetry=TelemetryUDP(peer,self.config.get('telemetry_source_port',6205))
         self.udp_error=None;self.navigation=StatusStream();self.navigation_row=None
@@ -64,14 +68,19 @@ class Gateway:
         if self.lidar_source not in ('usb','fpga'):raise ValueError('lidar_source must be usb or fpga')
     def start(self):
         if not self.live:return
-        import serial # Fail before opening listeners' device workers if dependency is missing.
         lidar_enabled=self.config.get('lidar_enabled',True)
         if not isinstance(lidar_enabled,bool):raise ValueError('lidar_enabled must be boolean')
+        if self.chassis_type=='differential' or (lidar_enabled and self.lidar_source=='usb'):
+            import serial # Fail before opening workers only if a serial device is needed.
         ports=[self.config.get('fpga_serial'),self.config.get('lidar_serial')]
-        if not ports[0] or (lidar_enabled and self.lidar_source=='usb' and (not ports[1] or ports[0]==ports[1])):raise ValueError('Configure FPGA serial and, when enabled, a distinct lidar serial')
+        if self.chassis_type=='differential' and not ports[0]:raise ValueError('Configure FPGA command serial')
+        if lidar_enabled and self.lidar_source=='usb' and (not ports[1] or ports[0]==ports[1]):raise ValueError('Configure a distinct lidar serial')
         self.recorder=Recorder(Path(self.config.get('record_dir','runs/gateway'))/(time.strftime('%Y%m%d_%H%M%S')+'_'+os.urandom(4).hex()))
         self.control.event_sink=lambda event:self.recorder.put('control_event',event)
-        targets=[self.serial_loop,self.record_loop]
+        # The old HTTP controller encodes differential commands. In Mecanum
+        # mode this gateway only receives status; the V3 GUI owns command UART.
+        targets=[self.record_loop]
+        if self.chassis_type=='differential':targets.append(self.serial_loop)
         if self.telemetry_transport=='udp':targets.append(self.telemetry_loop)
         if lidar_enabled and self.lidar_source=='usb':targets.append(self.lidar_loop)
         for target in targets:
@@ -91,6 +100,9 @@ class Gateway:
                     with self.lock:
                         if accepted=='restart':self.odometry.reset_reference()
                         self.odometry.update(row)
+            elif kind in ('mecanum_motor','mecanum_pose'):
+                with self.lock:
+                    self.mecanum[kind]=dict(row,received_monotonic=now)
             elif kind=='encoder_diagnostics':
                 with self.lock:
                     self.encoder_diagnostics[row['axis']]=dict(row,received_monotonic=now)
@@ -181,8 +193,10 @@ class Gateway:
                             for axis,row in self.encoder_traces.items()}
             transport=self.udp_telemetry.snapshot() if self.telemetry_transport=='udp' else dict(transport='serial')
             navigation=dict(self.navigation_row,age_ms=(time.monotonic()-self.navigation_row['received_monotonic'])*1000) if self.navigation_row else None
-        return dict(profile='system_integration_v1',mode='live' if self.live else 'offline',control=control,imu=self.imu.snapshot(),lidar=lidar,
-            telemetry=transport,telemetry_error=self.udp_error,navigation=navigation,
+            mecanum={kind:dict(row,age_ms=(time.monotonic()-row['received_monotonic'])*1000)
+                     for kind,row in self.mecanum.items()}
+        return dict(profile='system_integration_v1',chassis_type=self.chassis_type,mode='live' if self.live else 'offline',control=control,imu=self.imu.snapshot(),lidar=lidar,
+            telemetry=transport,telemetry_error=self.udp_error,navigation=navigation,mecanum=mecanum,
             encoder_diagnostics=encoder_diagnostics,
             encoder_traces=encoder_traces,
             odometry=odometry,serial_error=self.serial_error,serial_connections=self.serial_connections,uart_bad_crc=self.uart_crc_base+self.mixed.bad_crc,recording=dict(active=bool(self.recorder),drops=self.recorder.drops if self.recorder else 0,error=self.recorder.error if self.recorder else None))
@@ -214,6 +228,7 @@ def make_server(gateway,bind,port,token):
         def do_POST(self):
             if not self.authorized():self.reply(dict(error='Forbidden'),403);return
             if self.path!='/api/control':self.reply(dict(error='Not found'),404);return
+            if gateway.chassis_type=='mecanum':self.reply(dict(error='Use the Mecanum V3 UART console; differential HTTP commands are unavailable'),409);return
             try:
                 self.connection.settimeout(.1);size=int(self.headers.get('Content-Length','0'))
                 if not 0<size<=2048:raise ValueError('Invalid body size')

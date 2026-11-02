@@ -29,6 +29,7 @@ def decode_encoder_trace(frame):
                 transitions=transitions,synchronized_ab=(frame[7]>>2)&3,filtered_ab=frame[7]&3)
 from shared import imu_protocol
 from shared.lidar_display import decode_lidar
+from shared.mecanum_protocol import decode_mecanum
 
 class MixedStream:
     def __init__(self):self.buffer=bytearray();self.bad_crc=0;self.discarded=0
@@ -36,15 +37,19 @@ class MixedStream:
         self.buffer.extend(data);rows=[]
         while len(self.buffer)>=3:
             header=bytes(self.buffer[:3])
-            if header[:2]!=b'\xc3\x3c' and header!=b'\xa5\x5a\x02':
+            mecanum=header in (b'M4\x03',b'P4\x03')
+            if header[:2]!=b'\xc3\x3c' and header!=b'\xa5\x5a\x02' and not mecanum:
                 del self.buffer[0];self.discarded+=1;continue
             if len(self.buffer)<48:break
             frame=bytes(self.buffer[:48]);motor=header[0]==0xc3
-            expected=struct.unpack('<H' if motor else '>H',frame[46:])[0]
+            expected=struct.unpack('<H' if motor or mecanum else '>H',frame[46:])[0]
             if crc16(frame[:46])!=expected:
                 self.bad_crc+=1;del self.buffer[0];continue
             del self.buffer[:48]
-            if header in (b'\xc3\x3c\x05',b'\xc3\x3c\x06',b'\xc3\x3c\x07'):
+            if mecanum:
+                row=decode_mecanum(frame)
+                rows.append(('mecanum_'+row['kind'],row))
+            elif header in (b'\xc3\x3c\x05',b'\xc3\x3c\x06',b'\xc3\x3c\x07'):
                 try:rows.append(decode_lidar(frame))
                 except ValueError:self.discarded+=48
             elif header==b'\xc3\x3c\x03':

@@ -14,6 +14,7 @@ def main():
         ROOT/'config/nano.web.example.json',ROOT/'config/nano.vision.example.json',ROOT/'docs/NANO_WEB_CONSOLE.md',
         ROOT/'config/nano.example.json',ROOT/'config/nano.m2.example.json',ROOT/'docs/system_runbook.md',ROOT/'docs/task4/M2扫描与光流显示_20261101.md',
         ROOT/'config/nano.m2.ethernet.example.json',ROOT/'tools/task4/protocol.py',
+        ROOT/'config/nano.mecanum.ethernet.example.json',
         ROOT/'tools/task4/telemetry_endpoint.py',ROOT/'tools/task4/verify_ethernet.py',ROOT/'docs/task4/LIDAR_ETHERNET_360_20261102.md',ROOT/'docs/task4/LIDAR_RAW_ETHERNET_20261102.md',
         ROOT/'docs/IMU_MPU6050_20261102.md',ROOT/'tools/verify_mpu6050.py']
     hashes={}
