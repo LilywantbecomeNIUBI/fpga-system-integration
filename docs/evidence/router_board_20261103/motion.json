@@ -1,0 +1,3261 @@
+{
+  "checks": {
+    "udp_clear_ack": true,
+    "zero_arm_ack": true,
+    "stop_ack": true,
+    "watchdog_stop_observed_s_after_arm_ack": 0.249963199999911,
+    "old_arm_rejected_after_clear": true,
+    "motion_completed": true,
+    "position_delta_raw": [
+      4208,
+      2522,
+      4870,
+      2734
+    ],
+    "four_feedback_positive": true,
+    "imu_errors_during_motion": 10,
+    "final_stop_confirmed": true,
+    "final_velocity_zero": true,
+    "max_abs_pwm": 101,
+    "max_abs_raw_speed": 158
+  },
+  "latest": {
+    "motor": {
+      "kind": "motor",
+      "armed": false,
+      "faults": 0,
+      "seq": 33,
+      "position": [
+        4676,
+        3676,
+        5660,
+        3348
+      ],
+      "velocity": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pwm": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bad": 0,
+      "rejected": 0,
+      "control_shift": 4
+    },
+    "pose": {
+      "kind": "pose",
+      "healthy": true,
+      "calibrated": true,
+      "arrived": false,
+      "mode": 0,
+      "imu_fault": false,
+      "faults": 0,
+      "seq": 33,
+      "imu_error": 0,
+      "x_counts": 238.49237060546875,
+      "y_counts": 8.587173461914062,
+      "heading_deg": 0.022730869557802437,
+      "yaw_deg": 1.1059442304084646,
+      "bias": -28,
+      "gz": -30,
+      "sample_us": 99649755,
+      "who": 112,
+      "control_shift": 4,
+      "raw_counts_per_rev": 60000,
+      "imu_diag_version": 1,
+      "imu_fault_count": 10,
+      "imu_bus_error": 1,
+      "imu_bus_lines": 3,
+      "imu_fault_armed": true,
+      "imu_fault_pwm": true,
+      "imu_fault_outer": true,
+      "imu_stale": false
+    }
+  },
+  "events": [
+    {
+      "time": 23717.3593737,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 2,
+        "seq": 5,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.3594897,
+      "kind": "command",
+      "op": 0,
+      "seq": 6,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23717.3595762,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 2,
+        "seq": 5,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0744707187130458,
+        "bias": -28,
+        "gz": -21,
+        "sample_us": 97439862,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.4093079,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 2,
+        "seq": 5,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.4093756,
+      "kind": "command",
+      "op": 3,
+      "seq": 7,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23717.4094487,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 2,
+        "seq": 5,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0762192471405692,
+        "bias": -28,
+        "gz": -20,
+        "sample_us": 97490410,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.4592069,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 5,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.4592766,
+      "kind": "command",
+      "op": 1,
+      "seq": 8,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23717.4593509,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 5,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0770935113543307,
+        "bias": -28,
+        "gz": -30,
+        "sample_us": 97540958,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.5092567,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 8,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.5093379,
+      "kind": "command",
+      "op": 0,
+      "seq": 9,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23717.5094307,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 8,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0753449829268076,
+        "bias": -28,
+        "gz": -31,
+        "sample_us": 97590103,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 2,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.5592857,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 8,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.559379,
+      "kind": "command",
+      "op": 1,
+      "seq": 10,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23717.5594547,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 8,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0744707187130458,
+        "bias": -28,
+        "gz": -36,
+        "sample_us": 97649919,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.6093274,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.6094108,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0735964544992842,
+        "bias": -28,
+        "gz": -34,
+        "sample_us": 97689796,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.6592349,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.6594667,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0744707187130458,
+        "bias": -28,
+        "gz": -31,
+        "sample_us": 97740344,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.7091653,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.7092362,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0753449829268076,
+        "bias": -28,
+        "gz": -27,
+        "sample_us": 97790892,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.7592558,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.7593574,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0744707187130458,
+        "bias": -28,
+        "gz": -31,
+        "sample_us": 97840037,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.8092242,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.8093552,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0753449829268076,
+        "bias": -28,
+        "gz": -22,
+        "sample_us": 97899853,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.8592918,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 2,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.8593583,
+      "kind": "command",
+      "op": 0,
+      "seq": 11,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23717.8594241,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 2,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0770935113543307,
+        "bias": -28,
+        "gz": -20,
+        "sample_us": 97939731,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.909253,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 2,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.9093179,
+      "kind": "command",
+      "op": 3,
+      "seq": 12,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23717.9094197,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 2,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0779677755680923,
+        "bias": -28,
+        "gz": -25,
+        "sample_us": 97999547,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23717.9592083,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23717.9593179,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0770935113543307,
+        "bias": -28,
+        "gz": -30,
+        "sample_us": 98040827,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.0091605,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.00925,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0779677755680923,
+        "bias": -28,
+        "gz": -28,
+        "sample_us": 98089972,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.0592721,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.0593459,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0788420397818541,
+        "bias": -28,
+        "gz": -21,
+        "sample_us": 98149788,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.1092657,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 10,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.1093788,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 10,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0797163039956157,
+        "bias": -28,
+        "gz": -34,
+        "sample_us": 98189665,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.1094706,
+      "kind": "command",
+      "op": 1,
+      "seq": 13,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.1595311,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 13,
+        "position": [
+          2,
+          0,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.159658,
+      "kind": "command",
+      "op": 6,
+      "seq": 14,
+      "x": 512,
+      "limit": 8
+    },
+    {
+      "time": 23718.1597814,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 13,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0,
+        "yaw_deg": 1.0805905682093773,
+        "bias": -28,
+        "gz": -31,
+        "sample_us": 98249481,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.2092601,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 14,
+        "position": [
+          2,
+          4,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          2,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          19,
+          0,
+          19
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.2093659,
+      "kind": "command",
+      "op": 7,
+      "seq": 15,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.2094437,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 14,
+        "imu_error": 0,
+        "x_counts": 0.0,
+        "y_counts": 0.0,
+        "heading_deg": 0.0017485284275232642,
+        "yaw_deg": 1.0832133608506622,
+        "bias": -28,
+        "gz": -25,
+        "sample_us": 98290761,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.2592848,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 15,
+        "position": [
+          14,
+          16,
+          0,
+          -2
+        ],
+        "velocity": [
+          4,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          -24,
+          19,
+          -19,
+          24
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.2593856,
+      "kind": "command",
+      "op": 7,
+      "seq": 16,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.259492,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 15,
+        "imu_error": 0,
+        "x_counts": 0.249969482421875,
+        "y_counts": 0.2500152587890625,
+        "heading_deg": 0.0034970568550465285,
+        "yaw_deg": 1.0840876250644238,
+        "bias": -28,
+        "gz": -21,
+        "sample_us": 98339907,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 2,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.3092753,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 16,
+        "position": [
+          30,
+          16,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          -26,
+          25,
+          -25,
+          26
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.3093571,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 16,
+        "imu_error": 0,
+        "x_counts": 0.4999847412109375,
+        "y_counts": 3.0517578125e-05,
+        "heading_deg": 0.004371321068808161,
+        "yaw_deg": 1.0875846819194703,
+        "bias": -28,
+        "gz": -32,
+        "sample_us": 98399723,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 0,
+        "imu_bus_error": 0,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.3094191,
+      "kind": "command",
+      "op": 7,
+      "seq": 17,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.3594386,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 17,
+        "position": [
+          34,
+          18,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          -30,
+          30,
+          -30,
+          31
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.3595158,
+      "kind": "command",
+      "op": 7,
+      "seq": 18,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.3595825,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 17,
+        "imu_error": 0,
+        "x_counts": 0.7500152587890625,
+        "y_counts": -0.24993896484375,
+        "heading_deg": 0.006119849496331425,
+        "yaw_deg": 1.0867104177057088,
+        "bias": -28,
+        "gz": -26,
+        "sample_us": 98439405,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.4092908,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 18,
+        "position": [
+          46,
+          24,
+          0,
+          -2
+        ],
+        "velocity": [
+          2,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          -35,
+          34,
+          -34,
+          35
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.4093732,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 18,
+        "imu_error": 0,
+        "x_counts": 0.7500152587890625,
+        "y_counts": -0.24993896484375,
+        "heading_deg": 0.006119849496331425,
+        "yaw_deg": 1.0867104177057088,
+        "bias": -28,
+        "gz": -33,
+        "sample_us": 98489953,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.433001,
+      "kind": "command",
+      "op": 7,
+      "seq": 19,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.4592085,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 19,
+        "position": [
+          52,
+          30,
+          0,
+          -2
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          -37,
+          41,
+          -41,
+          37
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.4592905,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 19,
+        "imu_error": 0,
+        "x_counts": 1.0000457763671875,
+        "y_counts": -0.499908447265625,
+        "heading_deg": 0.006994113710093057,
+        "yaw_deg": 1.0875846819194703,
+        "bias": -28,
+        "gz": -25,
+        "sample_us": 98549769,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.4952783,
+      "kind": "command",
+      "op": 7,
+      "seq": 20,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.5092587,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 20,
+        "position": [
+          62,
+          34,
+          0,
+          8
+        ],
+        "velocity": [
+          4,
+          0,
+          0,
+          2
+        ],
+        "pwm": [
+          -43,
+          43,
+          -44,
+          43
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.5093466,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 20,
+        "imu_error": 0,
+        "x_counts": 1.25,
+        "y_counts": -0.2498779296875,
+        "heading_deg": 0.008742642137616321,
+        "yaw_deg": 1.0893332103469937,
+        "bias": -28,
+        "gz": -22,
+        "sample_us": 98589646,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.5591454,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 20,
+        "position": [
+          70,
+          34,
+          0,
+          28
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          -45,
+          50,
+          -50,
+          45
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.5592308,
+      "kind": "command",
+      "op": 7,
+      "seq": 21,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.5593091,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 20,
+        "imu_error": 0,
+        "x_counts": 1.7501068115234375,
+        "y_counts": -0.7497711181640625,
+        "heading_deg": 0.00786837792385469,
+        "yaw_deg": 1.0902074745607553,
+        "bias": -28,
+        "gz": -16,
+        "sample_us": 98649462,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.6093161,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 21,
+        "position": [
+          72,
+          38,
+          92,
+          32
+        ],
+        "velocity": [
+          0,
+          0,
+          22,
+          2
+        ],
+        "pwm": [
+          -50,
+          53,
+          -49,
+          51
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.6094276,
+      "kind": "command",
+      "op": 7,
+      "seq": 22,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.6095314,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 21,
+        "imu_error": 0,
+        "x_counts": 2.9997711181640625,
+        "y_counts": 0.5005340576171875,
+        "heading_deg": 0.011365434778901218,
+        "yaw_deg": 1.0919560029882784,
+        "bias": -28,
+        "gz": -30,
+        "sample_us": 98699920,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 2,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.6591366,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 22,
+        "position": [
+          120,
+          38,
+          106,
+          92
+        ],
+        "velocity": [
+          12,
+          0,
+          2,
+          18
+        ],
+        "pwm": [
+          -55,
+          57,
+          -56,
+          53
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.6592247,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 22,
+        "imu_error": 0,
+        "x_counts": 4.50006103515625,
+        "y_counts": -0.498992919921875,
+        "heading_deg": 0.011365434778901218,
+        "yaw_deg": 1.0919560029882784,
+        "bias": -28,
+        "gz": -25,
+        "sample_us": 98739797,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 2,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 2,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.6798008,
+      "kind": "command",
+      "op": 7,
+      "seq": 23,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.7092603,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 23,
+        "position": [
+          132,
+          46,
+          116,
+          112
+        ],
+        "velocity": [
+          0,
+          0,
+          -2,
+          0
+        ],
+        "pwm": [
+          -57,
+          64,
+          -63,
+          57
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.7093471,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 23,
+        "imu_error": 0,
+        "x_counts": 6.0003509521484375,
+        "y_counts": -1.498504638671875,
+        "heading_deg": 0.01223969899266285,
+        "yaw_deg": 1.0937045314158018,
+        "bias": -28,
+        "gz": -26,
+        "sample_us": 98799328,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 3,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.7416323,
+      "kind": "command",
+      "op": 7,
+      "seq": 24,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.7591876,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 24,
+        "position": [
+          132,
+          50,
+          116,
+          118
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          2
+        ],
+        "pwm": [
+          -60,
+          69,
+          -68,
+          60
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.7592795,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 24,
+        "imu_error": 0,
+        "x_counts": 6.2502593994140625,
+        "y_counts": -1.2484283447265625,
+        "heading_deg": 0.01223969899266285,
+        "yaw_deg": 1.0928302672020402,
+        "bias": -28,
+        "gz": -28,
+        "sample_us": 98849876,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 3,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.8092238,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 24,
+        "position": [
+          132,
+          62,
+          116,
+          148
+        ],
+        "velocity": [
+          0,
+          4,
+          0,
+          6
+        ],
+        "pwm": [
+          -64,
+          74,
+          -73,
+          62
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.8092992,
+      "kind": "command",
+      "op": 7,
+      "seq": 25,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.8093727,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 24,
+        "imu_error": 0,
+        "x_counts": 6.7503814697265625,
+        "y_counts": -1.7483062744140625,
+        "heading_deg": 0.010491170565139585,
+        "yaw_deg": 1.0910817387745169,
+        "bias": -28,
+        "gz": -31,
+        "sample_us": 98889754,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 3,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.8591612,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 25,
+        "position": [
+          134,
+          66,
+          116,
+          148
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          -68,
+          79,
+          -78,
+          68
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.8592466,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 25,
+        "imu_error": 0,
+        "x_counts": 7.0002899169921875,
+        "y_counts": -1.49822998046875,
+        "heading_deg": 0.010491170565139585,
+        "yaw_deg": 1.0910817387745169,
+        "bias": -28,
+        "gz": -28,
+        "sample_us": 98949480,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 4,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.8593113,
+      "kind": "command",
+      "op": 7,
+      "seq": 26,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.9092955,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 26,
+        "position": [
+          138,
+          70,
+          116,
+          148
+        ],
+        "velocity": [
+          2,
+          2,
+          0,
+          0
+        ],
+        "pwm": [
+          -72,
+          84,
+          -83,
+          71
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.9093709,
+      "kind": "command",
+      "op": 7,
+      "seq": 27,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23718.909444,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 26,
+        "imu_error": 0,
+        "x_counts": 7.0002899169921875,
+        "y_counts": -1.49822998046875,
+        "heading_deg": 0.011365434778901218,
+        "yaw_deg": 1.0919560029882784,
+        "bias": -28,
+        "gz": -26,
+        "sample_us": 98989357,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 4,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.9592224,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 27,
+        "position": [
+          236,
+          76,
+          128,
+          150
+        ],
+        "velocity": [
+          26,
+          0,
+          2,
+          0
+        ],
+        "pwm": [
+          -73,
+          89,
+          -88,
+          75
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23718.9593174,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 27,
+        "imu_error": 0,
+        "x_counts": 7.750518798828125,
+        "y_counts": -2.2480010986328125,
+        "heading_deg": 0.013988227420186114,
+        "yaw_deg": 1.0945787956295634,
+        "bias": -28,
+        "gz": -24,
+        "sample_us": 99039815,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 5,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23718.9593836,
+      "kind": "command",
+      "op": 7,
+      "seq": 28,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23719.0092518,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 28,
+        "position": [
+          728,
+          78,
+          538,
+          152
+        ],
+        "velocity": [
+          100,
+          2,
+          124,
+          0
+        ],
+        "pwm": [
+          -63,
+          94,
+          -75,
+          79
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.0093373,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 28,
+        "imu_error": 0,
+        "x_counts": 19.250961303710938,
+        "y_counts": -4.244293212890625,
+        "heading_deg": 0.013113963206424481,
+        "yaw_deg": 1.0945787956295634,
+        "bias": -28,
+        "gz": -30,
+        "sample_us": 99099436,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 6,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.0094036,
+      "kind": "command",
+      "op": 7,
+      "seq": 29,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23719.0591906,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 29,
+        "position": [
+          1288,
+          92,
+          1250,
+          340
+        ],
+        "velocity": [
+          118,
+          0,
+          158,
+          58
+        ],
+        "pwm": [
+          -59,
+          98,
+          -71,
+          74
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.0592793,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 29,
+        "imu_error": 0,
+        "x_counts": 40.25047302246094,
+        "y_counts": -3.737579345703125,
+        "heading_deg": 0.013988227420186114,
+        "yaw_deg": 1.0937045314158018,
+        "bias": -28,
+        "gz": -34,
+        "sample_us": 99149984,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 6,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.0856137,
+      "kind": "command",
+      "op": 7,
+      "seq": 30,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23719.1092482,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 30,
+        "position": [
+          1920,
+          116,
+          2058,
+          736
+        ],
+        "velocity": [
+          132,
+          4,
+          154,
+          84
+        ],
+        "pwm": [
+          -58,
+          101,
+          -69,
+          71
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.1093353,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 30,
+        "imu_error": 0,
+        "x_counts": 69.25103759765625,
+        "y_counts": -6.7277374267578125,
+        "heading_deg": 0.014862491633947747,
+        "yaw_deg": 1.095453059843325,
+        "bias": -28,
+        "gz": -22,
+        "sample_us": 99189576,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 7,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.1464475,
+      "kind": "command",
+      "op": 7,
+      "seq": 31,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23719.1593123,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 31,
+        "position": [
+          2518,
+          412,
+          2800,
+          1196
+        ],
+        "velocity": [
+          126,
+          90,
+          146,
+          96
+        ],
+        "pwm": [
+          -54,
+          92,
+          -68,
+          68
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.159402,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 31,
+        "imu_error": 0,
+        "x_counts": 101.25123596191406,
+        "y_counts": -8.716506958007812,
+        "heading_deg": 0.017485284275232642,
+        "yaw_deg": 1.09807585248461,
+        "bias": -28,
+        "gz": -27,
+        "sample_us": 99249107,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 8,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.2071672,
+      "kind": "command",
+      "op": 7,
+      "seq": 32,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23719.2091234,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 32,
+        "position": [
+          3086,
+          1050,
+          3534,
+          1680
+        ],
+        "velocity": [
+          108,
+          130,
+          158,
+          84
+        ],
+        "pwm": [
+          -53,
+          86,
+          -62,
+          67
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.2092059,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 32,
+        "imu_error": 6,
+        "x_counts": 137.7489013671875,
+        "y_counts": -3.70379638671875,
+        "heading_deg": 0.01661102006147101,
+        "yaw_deg": 1.0972015882708483,
+        "bias": -28,
+        "gz": -38,
+        "sample_us": 99279716,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 9,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.2593389,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 32,
+        "position": [
+          3642,
+          1792,
+          4250,
+          2204
+        ],
+        "velocity": [
+          102,
+          152,
+          146,
+          118
+        ],
+        "pwm": [
+          -57,
+          75,
+          -58,
+          64
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.2594193,
+      "kind": "command",
+      "op": 7,
+      "seq": 33,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23719.259499,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 32,
+        "imu_error": 0,
+        "x_counts": 177.49612426757812,
+        "y_counts": 2.06103515625,
+        "heading_deg": 0.019233812702755905,
+        "yaw_deg": 1.0989501166983715,
+        "bias": -28,
+        "gz": -27,
+        "sample_us": 99349273,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 10,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.3091587,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": true,
+        "faults": 0,
+        "seq": 33,
+        "position": [
+          4210,
+          2522,
+          4870,
+          2732
+        ],
+        "velocity": [
+          118,
+          150,
+          126,
+          98
+        ],
+        "pwm": [
+          -50,
+          70,
+          -55,
+          66
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.3092405,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 2,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 33,
+        "imu_error": 0,
+        "x_counts": 216.4936065673828,
+        "y_counts": 6.577484130859375,
+        "heading_deg": 0.021856605344040804,
+        "yaw_deg": 1.102447173553418,
+        "bias": -28,
+        "gz": -30,
+        "sample_us": 99399821,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 10,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.3344307,
+      "kind": "command",
+      "op": 0,
+      "seq": 34,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23719.3449921,
+      "kind": "command",
+      "op": 0,
+      "seq": 35,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23719.3554275,
+      "kind": "command",
+      "op": 0,
+      "seq": 36,
+      "x": 0,
+      "limit": 8
+    },
+    {
+      "time": 23719.366005,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 33,
+        "position": [
+          4716,
+          3178,
+          5442,
+          3190
+        ],
+        "velocity": [
+          92,
+          136,
+          116,
+          88
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.3660755,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 33,
+        "imu_error": 0,
+        "x_counts": 238.49237060546875,
+        "y_counts": 8.587173461914062,
+        "heading_deg": 0.022730869557802437,
+        "yaw_deg": 1.1033214377671798,
+        "bias": -28,
+        "gz": -28,
+        "sample_us": 99439698,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 10,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 2,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.4091934,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 33,
+        "position": [
+          4756,
+          3506,
+          5726,
+          3406
+        ],
+        "velocity": [
+          -18,
+          38,
+          60,
+          36
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.4092634,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 33,
+        "imu_error": 0,
+        "x_counts": 238.49237060546875,
+        "y_counts": 8.587173461914062,
+        "heading_deg": 0.022730869557802437,
+        "yaw_deg": 1.1041957019809414,
+        "bias": -28,
+        "gz": -27,
+        "sample_us": 99499514,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 10,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.4592551,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 33,
+        "position": [
+          4642,
+          3538,
+          5666,
+          3348
+        ],
+        "velocity": [
+          -4,
+          6,
+          -24,
+          -8
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.4593275,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 33,
+        "imu_error": 0,
+        "x_counts": 238.49237060546875,
+        "y_counts": 8.587173461914062,
+        "heading_deg": 0.022730869557802437,
+        "yaw_deg": 1.105069966194703,
+        "bias": -28,
+        "gz": -20,
+        "sample_us": 99539391,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 10,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.5091531,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 33,
+        "position": [
+          4676,
+          3674,
+          5660,
+          3348
+        ],
+        "velocity": [
+          0,
+          36,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.5092281,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 33,
+        "imu_error": 0,
+        "x_counts": 238.49237060546875,
+        "y_counts": 8.587173461914062,
+        "heading_deg": 0.022730869557802437,
+        "yaw_deg": 1.1059442304084646,
+        "bias": -28,
+        "gz": -31,
+        "sample_us": 99599207,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 10,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.5592414,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 33,
+        "position": [
+          4676,
+          3676,
+          5660,
+          3348
+        ],
+        "velocity": [
+          0,
+          -2,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    },
+    {
+      "time": 23719.5593241,
+      "kind": "status",
+      "data": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 33,
+        "imu_error": 0,
+        "x_counts": 238.49237060546875,
+        "y_counts": 8.587173461914062,
+        "heading_deg": 0.022730869557802437,
+        "yaw_deg": 1.1059442304084646,
+        "bias": -28,
+        "gz": -30,
+        "sample_us": 99649755,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 10,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": true,
+        "imu_fault_pwm": true,
+        "imu_fault_outer": true,
+        "imu_stale": false
+      }
+    },
+    {
+      "time": 23719.60913,
+      "kind": "status",
+      "data": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 33,
+        "position": [
+          4676,
+          3676,
+          5660,
+          3348
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 0,
+        "control_shift": 4
+      }
+    }
+  ],
+  "transport": {
+    "transport": "udp",
+    "peer": [
+      "192.168.50.30",
+      6205
+    ],
+    "accepted": 102,
+    "rejected": 0,
+    "duplicates": 0,
+    "missing": 0,
+    "stale": 0,
+    "restart_required": false,
+    "source_age_ms": 0,
+    "age_ms": 0.167199999850709
+  },
+  "command_transport": "udp6206",
+  "serial_opened": false,
+  "hardware_tested": true,
+  "motion_requested": true,
+  "passed": true
+}

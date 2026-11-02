@@ -1,0 +1,29 @@
+{
+  "build": "C:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\build\\lidar_raw_ethernet_20261102\\mecanum\\20261102T215739Z",
+  "top": "system_mecanum_top",
+  "firmware_mode": "experimental_mecanum_raw_full_system",
+  "bitstream_sha256": "22797c7779a044874aa65f45f28bcf4f12d0483c672f760984b265a79ca3aced",
+  "pin_profile": "mecanum_p7",
+  "operation": "SRAM Program",
+  "flash_written": false,
+  "timing_signoff": false,
+  "timing_violations": {
+    "setup": 0,
+    "hold": 0
+  },
+  "min_pulse_width_slack_ns": -0.849,
+  "clock_route_warnings": [
+    "WARN  (PR1014) : Generic routing resource will be used to clock signal 'camera_pclk_d' by the specified constraint. And then it may lead to the excessive delay or skew"
+  ],
+  "camera_enabled": true,
+  "optical_flow_enabled": true,
+  "command_receiver_enabled": true,
+  "telemetry_transport": "udp",
+  "telemetry_port": 6205,
+  "lidar_mode": "raw_points",
+  "motor_commands_sent": 0,
+  "serial_bytes_written": 0,
+  "started_unix": 1793657443.333984,
+  "download_confirmed": true,
+  "finished_unix": 1793657452.823192
+}

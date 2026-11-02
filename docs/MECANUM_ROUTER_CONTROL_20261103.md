@@ -107,3 +107,5 @@ python tools/mecanum/test_system.py <冻结目录>
 
 代码和验证证据在 `docs/evidence/router_control_20261103/`。Route 0 曾报 PR0004（0 unrouted nets）并失败，原日志保留；最终使用 Route 1。
 交付包位于 `build/router_control_delivery_20261103/mecanum_router_control.zip`，包含对应位流、冻结 FPGA 工程、PC 控制台及校验记录。
+
+2026-11-03 后续已完成有线 SRAM 上板及架空低速测试，见 [上板验证](MECANUM_ROUTER_BOARD_20261103.md)。前述“未上板”描述为离线发布时的边界；无线与落地精度仍待验证。
