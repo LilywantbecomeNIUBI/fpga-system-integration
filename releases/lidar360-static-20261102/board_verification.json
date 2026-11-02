@@ -1,0 +1,183 @@
+{
+  "programmed_sram": true,
+  "flash_written": false,
+  "bitstream_sha256": "63dc4e2b3ae47e2a98eaa6d465578207e9ba09fa28acbed128029ac23a67d49e",
+  "samples": [
+    {
+      "lidar_online": true,
+      "age_ms": 53.78159694646456,
+      "scans": 612,
+      "point_count": 360,
+      "valid_points": 360,
+      "diagnostic": {
+        "device_ms": 629400,
+        "bytes": 5216788,
+        "framing_errors": 74,
+        "packets": 110972,
+        "crc_errors": 10,
+        "format_errors": 0,
+        "timeouts": 0,
+        "completed_scans": 611,
+        "skipped_scans": 0,
+        "sequence": 611,
+        "flags": 19,
+        "coverage": 360,
+        "resolution_degrees": 1,
+        "age_ms": 115.73700944063603
+      },
+      "transport": {
+        "transport": "udp",
+        "peer": [
+          "192.168.50.30",
+          6205
+        ],
+        "accepted": 110078,
+        "rejected": 0,
+        "duplicates": 0,
+        "missing": 0,
+        "stale": 0,
+        "restart_required": false,
+        "source_age_ms": 1.1368683772161603e-10,
+        "age_ms": 6.1350450005193125
+      },
+      "motor": {
+        "left_position": 0,
+        "right_position": 0,
+        "left_velocity": 0,
+        "right_velocity": 0,
+        "left_applied": 0,
+        "right_applied": 0,
+        "left_invalid": 0,
+        "right_invalid": 0,
+        "bad_frames": 0,
+        "rejected_commands": 0,
+        "packet_count": 12589,
+        "last_sequence": 0,
+        "armed": false,
+        "flags": 1,
+        "faults": 1,
+        "fault_names": [
+          "power_on_requires_clear"
+        ]
+      }
+    },
+    {
+      "lidar_online": true,
+      "age_ms": 73.24904047527525,
+      "scans": 622,
+      "point_count": 360,
+      "valid_points": 360,
+      "diagnostic": {
+        "device_ms": 630400,
+        "bytes": 5301378,
+        "framing_errors": 74,
+        "packets": 112772,
+        "crc_errors": 10,
+        "format_errors": 0,
+        "timeouts": 0,
+        "completed_scans": 621,
+        "skipped_scans": 0,
+        "sequence": 621,
+        "flags": 19,
+        "coverage": 360,
+        "resolution_degrees": 1,
+        "age_ms": 142.22796951617056
+      },
+      "transport": {
+        "transport": "udp",
+        "peer": [
+          "192.168.50.30",
+          6205
+        ],
+        "accepted": 110817,
+        "rejected": 0,
+        "duplicates": 0,
+        "missing": 0,
+        "stale": 0,
+        "restart_required": false,
+        "source_age_ms": 0.007309335956051655,
+        "age_ms": 2.5631260004956857
+      },
+      "motor": {
+        "left_position": 0,
+        "right_position": 0,
+        "left_velocity": 0,
+        "right_velocity": 0,
+        "left_applied": 0,
+        "right_applied": 0,
+        "left_invalid": 0,
+        "right_invalid": 0,
+        "bad_frames": 0,
+        "rejected_commands": 0,
+        "packet_count": 12609,
+        "last_sequence": 0,
+        "armed": false,
+        "flags": 1,
+        "faults": 1,
+        "fault_names": [
+          "power_on_requires_clear"
+        ]
+      }
+    },
+    {
+      "lidar_online": true,
+      "age_ms": 94.40128571441164,
+      "scans": 632,
+      "point_count": 360,
+      "valid_points": 360,
+      "diagnostic": {
+        "device_ms": 631400,
+        "bytes": 5385970,
+        "framing_errors": 74,
+        "packets": 114572,
+        "crc_errors": 10,
+        "format_errors": 0,
+        "timeouts": 0,
+        "completed_scans": 631,
+        "skipped_scans": 0,
+        "sequence": 631,
+        "flags": 19,
+        "coverage": 360,
+        "resolution_degrees": 1,
+        "age_ms": 170.35398790631007
+      },
+      "transport": {
+        "transport": "udp",
+        "peer": [
+          "192.168.50.30",
+          6205
+        ],
+        "accepted": 111556,
+        "rejected": 0,
+        "duplicates": 0,
+        "missing": 0,
+        "stale": 0,
+        "restart_required": false,
+        "source_age_ms": 0.06981083504342678,
+        "age_ms": 10.622052999679
+      },
+      "motor": {
+        "left_position": 0,
+        "right_position": 0,
+        "left_velocity": 0,
+        "right_velocity": 0,
+        "left_applied": 0,
+        "right_applied": 0,
+        "left_invalid": 0,
+        "right_invalid": 0,
+        "bad_frames": 0,
+        "rejected_commands": 0,
+        "packet_count": 12630,
+        "last_sequence": 0,
+        "armed": false,
+        "flags": 1,
+        "faults": 1,
+        "fault_names": [
+          "power_on_requires_clear"
+        ]
+      }
+    }
+  ],
+  "imu_healthy": false,
+  "imu_note": "WHO_AM_I=0x70; this frozen image only supports 0x68. IMU compatibility belongs to a later release."
+}
