@@ -1,0 +1,31 @@
+{
+  "pc": {
+    "board": "192.168.50.30",
+    "bind": "192.168.50.10",
+    "slot": "pc",
+    "target": "0.0.0.0",
+    "video_port": 6102,
+    "telemetry_port": 6205,
+    "enabled": false,
+    "arp_valid": false,
+    "arp_requests": 66,
+    "received_commands": 70340
+  },
+  "nano": {
+    "board": "192.168.50.30",
+    "bind": "192.168.50.10",
+    "slot": "nano",
+    "target": "192.168.50.20",
+    "video_port": 6102,
+    "telemetry_port": 6205,
+    "enabled": true,
+    "arp_valid": true,
+    "arp_requests": 66,
+    "received_commands": 70341
+  },
+  "nano_runtime": {
+    "software_version": "nano-video-20261103",
+    "read_only": true,
+    "motor_outputs_enabled": false
+  }
+}

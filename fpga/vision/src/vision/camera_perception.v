@@ -1,12 +1,13 @@
 // V2/V3 board datapath: raw DVP -> quarter-scale RGB + feature grid ->
 // immutable frame slots / historical feature tracker -> existing dual UDP MAC.
-module camera_perception #(parameter TELEMETRY_ENABLE=0)(
+module camera_perception #(parameter TELEMETRY_ENABLE=0,MOTOR_ENABLE=0)(
     input clk50m,reset_n,rgmii_rxc,input [3:0] rgmii_rxd,input rgmii_rxctl,
     output camera_sclk,inout camera_sdat,input camera_vsync,camera_href,camera_pclk,input [7:0] camera_data,
     output camera_rst_n,camera_pwdn,rgmii_gtxc,output [3:0] rgmii_txd,output rgmii_txen,
     output eth_mdc,inout eth_mdio,output eth_rst_n,output [7:0] led,output [31:0] network_debug,
     output m1_drv_en,m2_drv_en,lidar_moto_pwm,
-    input telemetry_clk,input [383:0] telemetry_frame,input telemetry_valid,output telemetry_ready
+    input telemetry_clk,input [383:0] telemetry_frame,input telemetry_valid,output telemetry_ready,
+    output motor_valid,output [191:0] motor_frame,input motor_ready,output motor_clk,motor_reset_n
 );
     wire clk50,clk125,unused_xclk,pll_lock,phy_init,cam_done,cam_id_ok,cam_error;
     (* syn_keep=1 *) wire sys_rst_n;
@@ -108,16 +109,18 @@ module camera_perception #(parameter TELEMETRY_ENABLE=0)(
         rgmii_input rx(.rxc(rgmii_rxc),.rxd(rgmii_rxd),.rxctl(rgmii_rxctl),.data(rx_data),.valid(rx_valid),.error(rx_error));
         reset_sync network_reset(.clk(clk125),.arst_n(sys_rst_n && phy_init),.rst_n(network_rst_n));
         assign telemetry_network_reset_n=network_rst_n;
+        assign motor_clk=clk125;assign motor_reset_n=network_rst_n;
         reset_sync receive_reset(.clk(rgmii_rxc),.arst_n(sys_rst_n && phy_init),.rst_n(rx_rst_n));
         assign endpoint_ready=cache2 && enabled2;
-        network_runtime_dual #(.DEFAULT_IP(0),.VISION_ENABLE(1),.EVENT_ENABLE(1),.TELEMETRY_ENABLE(TELEMETRY_ENABLE)) net(
+        network_runtime_dual #(.DEFAULT_IP(0),.VISION_ENABLE(1),.EVENT_ENABLE(1),.TELEMETRY_ENABLE(TELEMETRY_ENABLE),.MOTOR_ENABLE(MOTOR_ENABLE),.TELEMETRY_MIRROR_PRIMARY(MOTOR_ENABLE)) net(
             .clk(clk125),.rst_n(network_rst_n),.rx_clk(rgmii_rxc),.rx_rst_n(rx_rst_n),.rx_data(rx_data),.rx_valid(rx_valid),.rx_error(rx_error),
             .video_start(start),.video_first(first),.video_length(length),.video_data(payload),.video_read(read),.video_done(done),
             .tx_data(gmii),.tx_valid(tx_valid),.target_ip(),.target_port(),.cache_hit(),.target_mac(),.enabled(),.arp_requests(),.rx_packets(),.rx_debug(network_debug),
             .target2_ip(),.target2_port(),.enabled2(enabled2),.cache2_hit(cache2),.target2_mac(),
             .vision_valid(result_valid),.vision_payload(result_payload),.vision_status(status),.vision_status_valid(result_done),
             .event_valid(event_valid),.event_payload(event_payload),.event_ready(event_ready),
-            .telemetry_valid(telemetry_net_valid),.telemetry_payload(telemetry_net_payload),.telemetry_ready(telemetry_net_ready));
+            .telemetry_valid(telemetry_net_valid),.telemetry_payload(telemetry_net_payload),.telemetry_ready(telemetry_net_ready),
+            .motor_valid(motor_valid),.motor_frame(motor_frame),.motor_ready(motor_ready));
         vision_result_core #(.MAX_AGE_FRAMES(14)) semantics(.clk(clk125),.rst_n(network_rst_n),.stream_ready(endpoint_ready),
             .frame_tick(start && first),.frame_id(packet_fid),.result_valid(result_valid),.result_payload(result_payload),
             .target_valid(semantic_target),.target_direction(),.target_class(),.target_confidence(),.target_x(),.target_y(),.target_width(),.target_height(),.target_age(),

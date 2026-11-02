@@ -103,7 +103,8 @@ def main():
     profile=motor_profile()
     shift=profile['control_shift']
     parser = argparse.ArgumentParser(description='ACG720 mecanum, FL FR RL RR order')
-    parser.add_argument('--port', required=True)
+    parser.add_argument('--transport',choices=['router','serial'],default='router')
+    parser.add_argument('--port',help='Serial fallback only')
     parser.add_argument('--telemetry-bind',default='0.0.0.0')
     parser.add_argument('--fpga-ip',default='192.168.50.30')
     parser.add_argument('--action', choices=['monitor', 'stop', 'position', 'turn', 'vector'], default='monitor')
@@ -147,10 +148,11 @@ def main():
     cfg = dict(motor=0, encoder=0, kp=args.kp, ki=args.ki)
     # Validate everything before opening a physical port.
     packet(motion_op, 0, x=x, y=y, z=z, limit=args.limit,tolerance=args.tolerance, **cfg)
-    import serial
+    if args.transport=='serial' and not args.port:parser.error('--port required for serial')
     stream = Stream()
-    from transport import SplitLink
-    with SplitLink(args.port,timeout=.02,write_timeout=.2,bind=args.telemetry_bind,peer=args.fpga_ip) as port:
+    from transport import SplitLink, RouterLink
+    link_type=RouterLink if args.transport=='router' else SplitLink
+    with link_type(args.port,timeout=.02,write_timeout=.2,bind=args.telemetry_bind,peer=args.fpga_ip) as port:
         seq = 0
 
         def send(op, values=(0, 0, 0)):
@@ -183,6 +185,7 @@ def main():
             stopped=wait_state(lambda r: r['kind']=='motor' and not r['armed'])
             if stopped['control_shift']!=shift:
                 raise RuntimeError('Firmware/control-unit profile mismatch; load matching V3 firmware')
+            seq=stopped['seq']
             send(3)
             wait_state(lambda r: r['kind']=='motor' and not r['armed'] and r['faults'] == 0)
             if outer:
@@ -225,7 +228,7 @@ def main():
         finally:
             for _ in range(3):
                 try:send(0)
-                except (serial.SerialException,OSError):break
+                except OSError:break
                 time.sleep(0.01)
 
 

@@ -7,6 +7,8 @@ module network_runtime_dual #(
     parameter CLK_HZ=125000000,CACHE_SECONDS=30,
     parameter VISION_ENABLE=0,VISION_PORT=16'd6201,
     parameter EVENT_ENABLE=0,EVENT_PORT=16'd6202,
+    parameter TELEMETRY_MIRROR_PRIMARY=0,
+    parameter MOTOR_ENABLE=0,MOTOR_PORT=16'd6206,
     parameter TELEMETRY_ENABLE=0,TELEMETRY_PORT=16'd6205
 )(input clk,rst_n,input rx_clk,rx_rst_n,input [7:0] rx_data,input rx_valid,rx_error,
     input video_start,video_first,input [15:0] video_length,input [7:0] video_data,
@@ -20,7 +22,8 @@ module network_runtime_dual #(
     output reg vision_valid,output reg [255:0] vision_payload,
     input [255:0] vision_status,input vision_status_valid,
     input event_valid,input [255:0] event_payload,output event_ready,
-    input telemetry_valid,input [511:0] telemetry_payload,output telemetry_ready);
+    input telemetry_valid,input [511:0] telemetry_payload,output telemetry_ready,
+    output reg motor_valid,output reg [191:0] motor_frame,input motor_ready);
 
     function [31:0] crc_byte;
         input [31:0] crc;input [7:0] value;integer k;reg [31:0] c;
@@ -32,7 +35,7 @@ module network_runtime_dual #(
             (ip&~NETMASK)!=0 && (ip&~NETMASK)!=(~NETMASK);end
     endfunction
 
-    localparam RX_BYTES=(VISION_ENABLE || TELEMETRY_ENABLE) ? 80 : 64;
+    localparam RX_BYTES=(VISION_ENABLE || TELEMETRY_ENABLE || MOTOR_ENABLE) ? 80 : 64;
     reg [7:0] memory[0:RX_BYTES-1];
     reg [RX_BYTES-1:0] write_mask;reg [7:0] write_byte;integer w,v;
     reg request_toggle,ack_toggle,ack_sync0,ack_sync1,req_sync0,req_sync1;
@@ -216,10 +219,15 @@ module network_runtime_dual #(
 
     // Sequential checksum scan, after FCS success and while RX mailbox is locked.
     localparam P_IDLE=0,P_IP=1,P_UDP=2,P_COMMAND=3,P_CLASSIFY=4,P_IP_WAIT=5,P_UDP_WAIT=6,
-        P_VISION=7,P_VISION_WAIT=8,P_VISION_REPLY=9,P_IP_ADD=10,P_UDP_ADD=11;
+        P_VISION=7,P_VISION_WAIT=8,P_VISION_REPLY=9,P_IP_ADD=10,P_UDP_ADD=11,P_MOTOR=12;
     reg [3:0] parse_state;reg [6:0] scan_index;
     reg [15:0] scan_word;
-    reg parsing_vision,vision_pending;
+    reg parsing_vision,parsing_motor,vision_pending;
+    reg motor_shape;
+    always @(posedge clk or negedge rst_n)
+        if(!rst_n)motor_shape<=0;
+        else motor_shape<=ip_length==52 && udp_length==32 && frame_length==70 && {memory[36],memory[37]}==MOTOR_PORT;
+    wire motor_datagram=MOTOR_ENABLE && motor_shape && !motor_valid;
     reg [255:0] vision_reply;
     reg [47:0] vision_mac;reg [31:0] vision_ip;reg [15:0] vision_peer_port;
     reg cmd_clear0,cmd_clear1;
@@ -314,7 +322,11 @@ module network_runtime_dual #(
     // those snapshots must not starve telemetry or pending video.
     reg [1:0] stream_turn;
     wire want_event=EVENT_ENABLE && event_pending && enabled2 && found2;
-    wire want_telemetry=TELEMETRY_ENABLE && telemetry_pending && enabled2 && found2;
+    wire telemetry_primary_ready=TELEMETRY_MIRROR_PRIMARY && enabled && found;
+    wire telemetry_secondary_ready=enabled2 && found2;
+    wire select_primary_telemetry=telemetry_primary_pending && telemetry_primary_ready;
+    wire select_primary_telemetry_disp=telemetry_primary_pending && TELEMETRY_MIRROR_PRIMARY && enabled && found;
+    wire want_telemetry=TELEMETRY_ENABLE && ((telemetry_pending && telemetry_secondary_ready) || select_primary_telemetry);
     reg [3:0] stream_action;
     always @*begin
         case(stream_turn)
@@ -331,7 +343,7 @@ module network_runtime_dual #(
         (arp_reply_pending ? A_REPLY : control_pending ? A_CONTROL : vision_pending ? A_VISION :
          want_event ? A_EVENT : arp_due0 ? A_ARP0 : arp_due1 ? A_ARP1 : video_pending ? A_VIDEO : A_NONE);
     wire want_event_disp=EVENT_ENABLE && event_pending && enabled2 && found2_disp;
-    wire want_telemetry_disp=TELEMETRY_ENABLE && telemetry_pending && enabled2 && found2_disp;
+    wire want_telemetry_disp=TELEMETRY_ENABLE && ((telemetry_pending && enabled2 && found2_disp) || select_primary_telemetry_disp);
     reg [3:0] stream_action_disp;
     always @*begin
         case(stream_turn)
@@ -381,9 +393,9 @@ module network_runtime_dual #(
         end
     end
 
-    reg telemetry_pending,sending_telemetry;
+    reg telemetry_pending,telemetry_primary_pending,sending_telemetry;
     reg [511:0] telemetry_buffer,send_telemetry_payload;
-    assign telemetry_ready=TELEMETRY_ENABLE && rst_n && enabled2 && found2 && !telemetry_pending;
+    assign telemetry_ready=TELEMETRY_ENABLE && rst_n && (telemetry_secondary_ready || telemetry_primary_ready) && !telemetry_pending && !telemetry_primary_pending;
     reg udp_start,sending_video;wire [47:0] send_mac;wire [31:0] send_ip;
     wire [15:0] send_port,send_source_port,send_length;
     reg [5:0] control_index;
@@ -450,6 +462,7 @@ module network_runtime_dual #(
 
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
+            motor_valid<=0;motor_frame<=0;parsing_motor<=0;
             req_sync0<=0;req_sync1<=0;ack_toggle<=0;parse_state<=P_IDLE;check_sum<=0;
             enabled<=DEFAULT_IP!=0;
             enabled2<=0;wait_first2<=1;
@@ -464,17 +477,23 @@ module network_runtime_dual #(
             parsing_vision<=0;vision_valid<=0;vision_payload<=0;vision_pending<=0;
             vision_reply<=0;vision_mac<=0;vision_ip<=0;vision_peer_port<=0;
             scan_word<=0;action<=A_NONE;event_pending<=0;event_buffer<=0;arp_payload_active<=0;
-            telemetry_pending<=0;sending_telemetry<=0;telemetry_buffer<=0;stream_turn<=0;
+            telemetry_pending<=0;telemetry_primary_pending<=0;sending_telemetry<=0;telemetry_buffer<=0;stream_turn<=0;
         end else begin
             req_sync0<=request_toggle;req_sync1<=req_sync0;learn<=0;clear_cache<=0;clear_cache2<=0;clear_cache2_disp<=0;clear_cache_retry<=0;clear_cache2_retry<=0;clear_cache_disp<=0;
             udp_start<=0;video_done<=0;vision_valid<=0;
+            if(motor_valid && motor_ready)motor_valid<=0;
             if(!enabled2 || !found2)event_pending<=0;
             if(EVENT_ENABLE && event_valid && event_ready && enabled2 && found2)begin event_buffer<=event_payload;event_pending<=1;end
             // Do not acknowledge until this complete datagram has a queue slot.
             // Snapshot data independently of wide admission/ARP conditions.
             // The CDC producer holds it until acceptance; pending then locks it.
-            if(TELEMETRY_ENABLE && !telemetry_pending)telemetry_buffer<=telemetry_payload;
-            if(TELEMETRY_ENABLE && telemetry_valid && telemetry_ready)telemetry_pending<=1;
+            if(TELEMETRY_ENABLE && !telemetry_pending && !telemetry_primary_pending)telemetry_buffer<=telemetry_payload;
+            if(TELEMETRY_MIRROR_PRIMARY && !telemetry_primary_ready)telemetry_primary_pending<=0;
+            if(TELEMETRY_MIRROR_PRIMARY && !telemetry_secondary_ready)telemetry_pending<=0;
+            if(TELEMETRY_ENABLE && telemetry_valid && telemetry_ready)begin
+                telemetry_pending<=telemetry_secondary_ready;
+                telemetry_primary_pending<=telemetry_primary_ready;
+            end
             if(found && !refresh_due)begin attempts<=0;end
             if(found2 && !refresh2_due)begin attempts2<=0;end
             if(video_start)begin video_pending<=1;video_is_first<=video_first;end
@@ -498,8 +517,8 @@ module network_runtime_dual #(
                         if(memory[21]==1 && !arp_reply_pending)begin arp_reply_pending<=1;reply_ip<=arp_ip;reply_mac<=arp_mac;end
                         ack_toggle<=req_sync1;parse_state<=P_IDLE;
                     end else if(ip_envelope_ok &&
-                        (control_datagram || vision_datagram))begin
-                        parsing_vision<=vision_datagram;check_sum<=0;parse_state<=P_IP;
+                        (control_datagram || vision_datagram || motor_datagram))begin
+                        parsing_motor<=motor_datagram;parsing_vision<=vision_datagram;check_sum<=0;parse_state<=P_IP;
                     end else begin ack_toggle<=req_sync1;parse_state<=P_IDLE;end
                 end
                 P_IP:if(scan_index<34)begin
@@ -507,17 +526,23 @@ module network_runtime_dual #(
                 end else parse_state<=P_IP_WAIT;
                 P_IP_ADD:begin check_sum<=check_sum+scan_word;parse_state<=P_IP;end
                 P_IP_WAIT:if(!checksum_ok)begin ack_toggle<=req_sync1;parse_state<=P_IDLE;end
-                else if({memory[40],memory[41]}==0)parse_state<=parsing_vision ? P_VISION : P_COMMAND;
+                else if({memory[40],memory[41]}==0)parse_state<=parsing_motor ? P_MOTOR : parsing_vision ? P_VISION : P_COMMAND;
                 else begin
                     check_sum<=peer_ip[31:16]+{16'd0,peer_ip[15:0]}+{16'd0,LOCAL_IP[31:16]}+{16'd0,LOCAL_IP[15:0]}+32'd17+{16'd0,udp_length};
                     parse_state<=P_UDP;
                 end
-                P_UDP:if(scan_index<(parsing_vision ? 74 : 62))begin
+                P_UDP:if(scan_index<(parsing_motor ? 66 : parsing_vision ? 74 : 62))begin
                     scan_word<={memory[scan_index],memory[scan_index+7'd1]};parse_state<=P_UDP_ADD;
                 end else parse_state<=P_UDP_WAIT;
                 P_UDP_ADD:begin check_sum<=check_sum+scan_word;parse_state<=P_UDP;end
-                P_UDP_WAIT:if(checksum_ok)parse_state<=parsing_vision ? P_VISION : P_COMMAND;
+                P_UDP_WAIT:if(checksum_ok)parse_state<=parsing_motor ? P_MOTOR : parsing_vision ? P_VISION : P_COMMAND;
                 else begin ack_toggle<=req_sync1;parse_state<=P_IDLE;end
+                P_MOTOR:begin
+                    // Complete datagram only, after Ethernet/IP/UDP validation.
+                    // Inner V3 CRC and opcode/sequence guards run in chassis.
+                    for(v=0;v<24;v=v+1)motor_frame[v*8 +: 8]<=memory[42+v];
+                    motor_valid<=1;ack_toggle<=req_sync1;parse_state<=P_IDLE;
+                end
                 P_VISION:begin
                     for(v=0;v<32;v=v+1)vision_payload[255-v*8 -: 8]<=memory[42+v];
                     vision_valid<=1;parse_state<=P_VISION_WAIT;
@@ -566,10 +591,11 @@ module network_runtime_dual #(
                     case(action)
                     A_TELEMETRY:begin
                         stream_turn<=2;
-                        telemetry_pending<=0;sending_telemetry<=1;sending_video<=0;
+                        if(select_primary_telemetry)telemetry_primary_pending<=0;else telemetry_pending<=0;
+                        sending_telemetry<=1;sending_video<=0;
 
 
-                        if(enabled2 && found2)begin udp_start<=1;send_state<=S_UDP;end
+                        if(select_primary_telemetry || (telemetry_pending && telemetry_secondary_ready))begin udp_start<=1;send_state<=S_UDP;end
                     end
                     A_REPLY:begin
                         arp_send_mac<=reply_mac;arp_target_mac<=reply_mac;arp_target_ip<=reply_ip;arp_opcode<=2;
@@ -715,7 +741,7 @@ module network_runtime_dual #(
             else if(udp_read)send_telemetry_payload[word_index*32+:32]<=shifted;
     end endgenerate
 
-    wire [431:0] send_mac_choices={found2_mac,found2_mac,video_route_mac,48'd0,48'd0,vision_mac,control_mac,48'd0,48'd0};
+    wire [431:0] send_mac_choices={(select_primary_telemetry_disp ? found_mac : found2_mac),found2_mac,video_route_mac,48'd0,48'd0,vision_mac,control_mac,48'd0,48'd0};
     generate for(word_index=0;word_index<(48+31)/32;word_index=word_index+1)begin:send_mac_words
         localparam WIDTH=(48-word_index*32)<32 ? 48-word_index*32 : 32;
         wire [9*WIDTH-1:0] choices;
@@ -729,7 +755,7 @@ module network_runtime_dual #(
             .shift(1'b0),.shift_value({WIDTH{1'b0}}),.value(send_mac[word_index*32+:WIDTH]));
     end endgenerate
 
-    wire [287:0] send_ip_choices={target2_ip,target2_ip,video_route_ip,32'd0,32'd0,vision_ip,control_ip,32'd0,32'd0};
+    wire [287:0] send_ip_choices={(select_primary_telemetry_disp ? target_ip : target2_ip),target2_ip,video_route_ip,32'd0,32'd0,vision_ip,control_ip,32'd0,32'd0};
     generate for(word_index=0;word_index<(32+31)/32;word_index=word_index+1)begin:send_ip_words
         localparam WIDTH=(32-word_index*32)<32 ? 32-word_index*32 : 32;
         wire [9*WIDTH-1:0] choices;

@@ -19,7 +19,15 @@ module system_mecanum_top #(parameter integer CLK_HZ=50000000,BAUD=115200,LIDAR_
  wire [383:0] telemetry_frame,lidar_frame;
  wire telemetry_valid,telemetry_ready,lidar_valid,lidar_ready;
  wire [15:0] auxiliary_drops;
- mc_mecanum_top #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.TELEMETRY_ETHERNET(1)) chassis(
+ wire motor_clk,motor_reset_n,motor_valid,motor_ready,command_byte_valid;
+ wire [191:0] motor_frame;wire [7:0] command_byte;
+ wire command_reset_n;
+ reset_sync command_reset(.clk(clk50m),.arst_n(reset_n && motor_reset_n),.rst_n(command_reset_n));
+ mc_command_cdc command_bridge(.src_clk(motor_clk),.src_reset_n(motor_reset_n),
+  .src_valid(motor_valid),.src_ready(motor_ready),.src_frame(motor_frame),
+  .dst_clk(clk50m),.dst_reset_n(command_reset_n),.byte_valid(command_byte_valid),.byte_data(command_byte));
+ mc_mecanum_top #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.TELEMETRY_ETHERNET(1),.COMMAND_ETHERNET(1)) chassis(
+  .command_error(!command_reset_n),.command_byte_valid(command_byte_valid),.command_byte(command_byte),
   .clk50m(clk50m),.reset_n(reset_n),.uart_rx(uart_rx),.uart_tx(uart_tx),
   .enc_a(enc_a),.enc_b(enc_b),.in1(in1),.in2(in2),.led(led),
   .imu_scl(imu_i2c_scl),.imu_sda(imu_i2c_sda),
@@ -31,12 +39,13 @@ module system_mecanum_top #(parameter integer CLK_HZ=50000000,BAUD=115200,LIDAR_
   .telemetry_frame(telemetry_frame),.telemetry_valid(telemetry_valid),.telemetry_ready(telemetry_ready));
     wire [31:0] network_debug;
     wire [7:0] camera_led;
-    camera_perception #(.TELEMETRY_ENABLE(1)) camera(.clk50m(clk50m),.reset_n(reset_n),.rgmii_rxc(rgmii_rxc),.rgmii_rxd(rgmii_rxd),.rgmii_rxctl(rgmii_rxctl),
+    camera_perception #(.TELEMETRY_ENABLE(1),.MOTOR_ENABLE(1)) camera(.clk50m(clk50m),.reset_n(reset_n),.rgmii_rxc(rgmii_rxc),.rgmii_rxd(rgmii_rxd),.rgmii_rxctl(rgmii_rxctl),
         .camera_sclk(camera_sclk),.camera_sdat(camera_sdat),.camera_vsync(camera_vsync),.camera_href(camera_href),.camera_pclk(camera_pclk),.camera_data(camera_data),
         .camera_rst_n(camera_rst_n),.camera_pwdn(camera_pwdn),.rgmii_gtxc(rgmii_gtxc),.rgmii_txd(rgmii_txd),.rgmii_txen(rgmii_txen),
         .eth_mdc(eth_mdc),.eth_mdio(eth_mdio),.eth_rst_n(eth_rst_n),.led(camera_led),.network_debug(network_debug),
         .m1_drv_en(),.m2_drv_en(),.lidar_moto_pwm(),
-        .telemetry_clk(clk50m),.telemetry_frame(telemetry_frame),.telemetry_valid(telemetry_valid),.telemetry_ready(telemetry_ready));
+        .telemetry_clk(clk50m),.telemetry_frame(telemetry_frame),.telemetry_valid(telemetry_valid),.telemetry_ready(telemetry_ready),
+        .motor_clk(motor_clk),.motor_reset_n(motor_reset_n),.motor_valid(motor_valid),.motor_ready(motor_ready),.motor_frame(motor_frame));
     wire lbv,lerr,lpv;wire [7:0] lbyte,lint;wire [15:0] lang,ldist;wire [31:0] lpackets,lerrors,lcrc,lformat,ltimeouts;
     wire [3:0] lindex;
     stl27l_uart_rx #(.CLKS_PER_BIT((CLK_HZ+460800)/921600)) lidar_uart(

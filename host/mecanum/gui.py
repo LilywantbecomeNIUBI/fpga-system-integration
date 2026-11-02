@@ -127,6 +127,7 @@ class MotionSession:
 
 
 TELEMETRY_OPTIONS = dict(bind='0.0.0.0',peer='192.168.50.30')
+COMMAND_TRANSPORT='router'
 
 
 class SerialLink(threading.Thread):
@@ -138,9 +139,9 @@ class SerialLink(threading.Thread):
 
     def run(self):
         try:
-            import serial
-            from transport import SplitLink
-            with SplitLink(self.port,timeout=.015,write_timeout=.1,**TELEMETRY_OPTIONS) as self.device:
+            from transport import SplitLink, RouterLink
+            link_type=RouterLink if COMMAND_TRANSPORT=='router' else SplitLink
+            with link_type(self.port,timeout=.015,write_timeout=.1,**TELEMETRY_OPTIONS) as self.device:
                 self.events.put(('connected',self.port));decoder=Stream()
                 try:
                     while not self.close_requested.is_set():
@@ -163,6 +164,7 @@ class SerialLink(threading.Thread):
                         elif pending:
                             try:
                                 if self.session:raise ValueError('请先停止当前动作')
+                                if self.motor:self.sequence=self.motor[1]['seq']
                                 self.options=pending['options']
                                 self.session=MotionSession(self.send,pending,time.monotonic(),self.motor,self.pose,self.profile['control_shift'])
                                 self.events.put(('running',True));self.events.put(('log','执行：'+pending['kind']))
@@ -195,7 +197,7 @@ class SerialLink(threading.Thread):
                     # Only a deliberate STOP/session/close sends STOP. Merely
                     # opening the port starts read-only, with no automatic ARM.
                     if self.session:self.stop()
-        except Exception as exc:self.events.put(('log','串口错误：'+str(exc)))
+        except Exception as exc:self.events.put(('log','连接错误：'+str(exc)))
         finally:self.events.put(('disconnected',None))
 
     def send(self,op,values,options):
@@ -229,7 +231,7 @@ class App:
         style.configure('Treeview.Heading',font=('Microsoft YaHei UI',9),background='#eef3fa',padding=7)
         self.make_ui()
         root.protocol('WM_DELETE_WINDOW',self.close);root.bind('<Escape>',lambda e:self.stop())
-        self.refresh_ports();self.log('演示模式：所有数值为模拟数据，未打开串口' if demo else '未连接。连接后仅监测，点击执行才会ARM。')
+        self.refresh_ports();self.log('演示模式：所有数值为模拟数据，未连接硬件' if demo else '未连接。连接后仅监测，点击执行才会ARM。')
         self.export_status(force=True)
         root.after(80,self.poll)
 
@@ -249,8 +251,8 @@ class App:
         self.label(block,'MG513P30—12V  /  GMR  /  MPU6050 · MPU6500',9,'#a9b8cc').pack(anchor='w')
         self.badge=self.label(header,'演示模式 · 模拟数据' if self.demo else '离线 · 未连接',11,'#ffcf7b');self.badge.pack(side='right',padx=25)
         bar=tk.Frame(self.root,bg=self.WHITE);bar.pack(fill='x',pady=(0,1))
-        self.label(bar,'串口',10,self.MUTED).pack(side='left',padx=(24,8),pady=13)
-        self.port=tk.StringVar();self.ports=ttk.Combobox(bar,textvariable=self.port,width=16,state='readonly');self.ports.pack(side='left')
+        self.label(bar,'控制连接',10,self.MUTED).pack(side='left',padx=(24,8),pady=13)
+        self.port=tk.StringVar();self.ports=ttk.Combobox(bar,textvariable=self.port,width=32 if COMMAND_TRANSPORT=='router' else 16,state='readonly');self.ports.pack(side='left')
         self.button(bar,'刷新',self.refresh_ports).pack(side='left',padx=7,pady=8)
         self.connect_button=self.button(bar,'连接设备',self.connect,primary=True);self.connect_button.pack(side='left',padx=3)
         self.demo_button=self.button(bar,'退出演示' if self.demo else '界面演示',self.toggle_demo);self.demo_button.pack(side='left',padx=7)
@@ -342,14 +344,15 @@ class App:
             from serial.tools import list_ports
             names=[p.device for p in list_ports.comports()]
         except ImportError:names=[]
+        if COMMAND_TRANSPORT=='router':names=['路由器 UDP · '+TELEMETRY_OPTIONS['peer']]
         self.ports['values']=names
         if not self.port.get() and names:self.port.set(names[0])
 
     def connect(self):
         if self.link:
             self.link.close_requested.set();return
-        if self.demo:self.log('请先退出演示，再选择串口连接');return
-        if not self.port.get():self.log('请选择串口；刷新后再连接');return
+        if self.demo:self.log('请先退出演示，再选择控制连接');return
+        if not self.port.get():self.log('请选择控制连接；刷新后再连接');return
         self.link=SerialLink(self.port.get(),self.events,self.profile);self.link.start()
         self.log('正在连接，仅监测，不自动ARM')
 
@@ -358,7 +361,7 @@ class App:
         self.demo=not self.demo;self.demo_paused=False;self.running=False;self.latest_motor=None;self.latest_pose=None;self.history.clear();self.path.clear()
         self.badge.config(text='演示模式 · 模拟数据' if self.demo else '离线 · 未连接',fg='#ffcf7b')
         self.demo_button.config(text='退出演示' if self.demo else '界面演示');self.execute.config(text='演示执行' if self.demo else '执行动作')
-        self.log('演示模式：不打开串口、不发送命令' if self.demo else '已退出演示，可选择串口连接')
+        self.log('演示模式：不连接硬件、不发送命令' if self.demo else '已退出演示，可选择控制连接')
 
     def run_motion(self):
         try:
@@ -476,8 +479,8 @@ class App:
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--demo',action='store_true')
+    parser=argparse.ArgumentParser();parser.add_argument('--demo',action='store_true');parser.add_argument('--transport',choices=['router','serial'],default='router')
     parser.add_argument('--telemetry-bind',default='0.0.0.0');parser.add_argument('--fpga-ip',default='192.168.50.30')
-    args=parser.parse_args();TELEMETRY_OPTIONS.update(bind=args.telemetry_bind,peer=args.fpga_ip)
+    args=parser.parse_args();COMMAND_TRANSPORT=args.transport;TELEMETRY_OPTIONS.update(bind=args.telemetry_bind,peer=args.fpga_ip)
     root=tk.Tk();app=App(root,demo=args.demo)
     root.mainloop()

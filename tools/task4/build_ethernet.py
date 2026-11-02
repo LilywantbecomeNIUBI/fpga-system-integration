@@ -151,7 +151,7 @@ set_input_delay -clock eth_rx125 -clock_fall -add_delay -min 1.8 [get_ports {rgm
                 lidar_mode='raw_points' if raw else 'nearest_return_per_sector',pin_profile='mecanum_p7' if mecanum else 'task4_m2',place_option=place,route_option=route,auto_clock_routing=auto_clock,
                 replicate_resources=replicate,clock_cleanup=clock_cleanup,
                 source_sha256=hashes,programmed=False,hardware_tested=False,system=system,
-                camera_enabled=system,navigation_enabled=system and not mecanum,mecanum_pose_enabled=mecanum,command_receiver_enabled=system)
+                camera_enabled=system,navigation_enabled=system and not mecanum,mecanum_pose_enabled=mecanum,command_receiver_enabled=system,command_transport='udp6206_v3' if mecanum else 'uart')
     (out/'pin_audit.json').write_text(json.dumps(dict(passed=True,pins=rows),indent=2))
     (out/'manifest.json').write_text(json.dumps(record,indent=2))
     return out,record

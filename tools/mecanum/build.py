@@ -36,6 +36,11 @@ def constraints():
     sdc = '\n'.join(line for line in sdc.splitlines()
                     if not any(old in line for old in ('chassis/rx/', 'chassis/core/enc_l/',
                        'chassis/core/enc_r/', 'imu/reader/bus/')))+'\n'
+    # Only the async assertion pins of the destination reset synchronizer.
+    sdc+='set_false_path -to [get_pins {command_reset/release_pipe*/CLEAR}]\n'
+    sdc+='set_false_path -to [get_pins {command_bridge/ack_meta*/D command_bridge/req_meta*/D}]\n'
+    sdc+='set_max_delay -from [get_pins {command_bridge/held*/Q}] -to [get_pins {command_bridge/shift*/D}] 10.0\n'
+    sdc+='set_false_path -hold -from [get_pins {command_bridge/held*/Q}] -to [get_pins {command_bridge/shift*/D}]\n'
     for pin in ('chassis/receiver/rx_meta_s0',
                 'chassis/imu.reader/bus/scl_sync_0_s0',
                 'chassis/imu.reader/bus/sda_sync_0_s0', 'lidar_uart/rx_meta_s0'):
@@ -88,14 +93,14 @@ def prepare():
         dest.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(ROOT/name,dest)
         input_hashes[name]=hashlib.sha256(dest.read_bytes()).hexdigest()
-    constraints={name:hashlib.sha256((out/name).read_bytes()).hexdigest()
+    constraint_hashes={name:hashlib.sha256((out/name).read_bytes()).hexdigest()
                  for name in ('mecanum.cst','mecanum.sdc','build.tcl','mecanum.gprj')}
     metadata=dict(top='system_mecanum_top',source_sha256=hashes,pin_profile='mecanum_p7',
-        input_sha256=input_hashes,constraint_sha256=constraints,
+        input_sha256=input_hashes,constraint_sha256=constraint_hashes,
         base_commit='acaff0457777a5a4b50c86a7274178452ff09d20',lidar_bins=360,
         camera_enabled=True,optical_flow_enabled=True,differential_navigation_enabled=False,
         mecanum_pose_enabled=True,imu_sample_hz=100,telemetry_transport='udp',telemetry_port=6205,
-        commands='uart_v3',programmed=False,hardware_tested=False,timing_signoff=False)
+        commands='udp6206_v3',programmed=False,hardware_tested=False,timing_signoff=False)
     (out/'manifest.json').write_text(json.dumps(metadata,indent=2)+'\n')
     return out
 

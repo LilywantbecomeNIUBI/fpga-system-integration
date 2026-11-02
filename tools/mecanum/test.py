@@ -47,6 +47,12 @@ def main():
         print(text.splitlines()[0],flush=True)
     run('integration_python',[sys.executable,'-m','unittest','discover','-s',str(ROOT/'tests/mecanum'),'-p','test_*.py','-v'])
     for bench in sorted((ROOT/'tests/mecanum').glob('tb_*.sv')):
+        if bench.stem=='tb_router_mirror':
+            print(run('router_mirror',[sys.executable,'tools/mecanum/test_mirror.py']),flush=True)
+            passed.append(bench.stem);continue
+        if bench.stem=='tb_router_commands':
+            print(run('router_wire',[sys.executable,'tools/mecanum/test_router.py']),flush=True)
+            passed.append(bench.stem);continue
         output=OUT/(bench.stem+'.vvp')
         run(bench.stem+'_compile',['iverilog','-g2012','-s',bench.stem,'-o',str(output),*map(str,rtl),str(bench)])
         text=run(bench.stem,['vvp',str(output)])

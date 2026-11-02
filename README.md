@@ -1,5 +1,7 @@
 # fpga-system-integration
 
+2026-11-03 路由器控制开发：麦轮命令新增 UDP6206，电脑支持有线/Wi-Fi；使用 `start_mecanum_router.cmd`。需配套新固件及 PC 端点配置，Nano 图传端点保留，详见 [接线、状态端点与验证边界](docs/MECANUM_ROUTER_CONTROL_20261103.md)。本段为本分支开发状态，下方阶段记录保留原验收结论。
+
 ## 2026-11-03 阶段性主线
 
 当前主线合并了**全点雷达麦轮整机、队友完整 IO 电气约束，以及 Nano 实时图传修复**。
