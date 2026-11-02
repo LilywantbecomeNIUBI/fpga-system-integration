@@ -109,3 +109,5 @@ python tools/mecanum/test_system.py <冻结目录>
 交付包位于 `build/router_control_delivery_20261103/mecanum_router_control.zip`，包含对应位流、冻结 FPGA 工程、PC 控制台及校验记录。
 
 2026-11-03 后续已完成有线 SRAM 上板及架空低速测试，见 [上板验证](MECANUM_ROUTER_BOARD_20261103.md)。前述“未上板”描述为离线发布时的边界；无线与落地精度仍待验证。
+
+切换有线/无线或路由器无互联网时，使用新版自适应启动器，见 [离线 Wi-Fi 操作](ROUTER_OFFLINE_WIFI_20261103.md)。该入口会配置 PC 第一端点到实际出口 IP；独立 GUI 本身仍不自动配置。
