@@ -9,6 +9,14 @@ def audit(work,basename='system'):
     for clock in ['control50','cam_pclk']:
         pattern=r'<Report Command>:report_timing -setup -from_clock \[get_clocks \{'+clock+r'\}\] -to_clock \[get_clocks \{'+clock+r'\}\].*?^\s+1\s+([-\d.]+)'
         slacks[clock]=float(re.search(pattern,table,re.S|re.M)[1])
+    # New builds also retain an unrestricted table and all five domains.
+    # Older frozen releases only contain the original two filtered tables.
+    domain_wns=dict(slacks)
+    for clock in ['sys50','eth_rx125','eth125']:
+        pattern=r'<Report Command>:report_timing -setup -from_clock \[get_clocks \{'+clock+r'\}\] -to_clock \[get_clocks \{'+clock+r'\}\].*?^\s+1\s+([-\d.]+)'
+        found=re.search(pattern,table,re.S|re.M)
+        if found:domain_wns[clock]=float(found[1])
+    global_table=re.search(r'<Report Command>:report_timing -setup -max_paths \d+\s.*?^\s+1\s+([-\d.]+)',table,re.S|re.M)
     exceptions=text.split('3.7.1.1 Setup Analysis Report[1]')[-1].split('3.8 Timing Constraints Report')[0]
     rows=[]
     for block in exceptions.split('Path Summary:')[1:]:
@@ -33,7 +41,8 @@ def audit(work,basename='system'):
     result=dict(passed=True,global_setup_violations=int(re.search(r'<Numbers of Setup Violated Endpoints>:(\d+)',text)[1]),
                 global_hold_violations=int(re.search(r'<Numbers of Hold Violated Endpoints>:(\d+)',text)[1]),
                 control50_wns_ns=slacks['control50'],cam_pclk_wns_ns=slacks['cam_pclk'],
-                global_wns_ns=None,global_wns_note='Custom report_timing filters replace the default Setup table; do not label control50 slack as global WNS.',
+                global_wns_ns=float(global_table[1]) if global_table else None,domain_wns_ns=domain_wns,
+                global_wns_note='Unrestricted report_timing table' if global_table else 'Legacy report has only filtered clock tables; global WNS unavailable.',
                 gray_paths=gray,max_gray_data_delay_ns=max(r['data_delay_ns'] for r in gray),mailboxes=mailboxes,
                 cdc_data_budget_ns=10.0,timing_signoff=False)
     result['cdc_data_paths_passed']=True

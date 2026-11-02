@@ -1,0 +1,144 @@
+{
+  "passed": false,
+  "global_setup_violations": 881,
+  "global_hold_violations": 0,
+  "control50_wns_ns": 2.877,
+  "cam_pclk_wns_ns": 2.898,
+  "global_wns_ns": -1.811,
+  "domain_wns_ns": {
+    "control50": 2.877,
+    "cam_pclk": 2.898,
+    "sys50": -1.703,
+    "eth_rx125": -0.335,
+    "eth125": -1.811
+  },
+  "global_wns_note": "Unrestricted report_timing table",
+  "gray_paths": [
+    {
+      "source": "camera/frames_to_control50/fifo/wbin_8_s0",
+      "sink": "camera/frames_to_control50/fifo/ws0_8_s0",
+      "data_delay_ns": 1.273,
+      "slack_ns": 10.362
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/wgray_1_s0",
+      "sink": "camera/frames_to_control50/fifo/ws0_1_s0",
+      "data_delay_ns": 1.083,
+      "slack_ns": 10.575
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/wgray_5_s0",
+      "sink": "camera/frames_to_control50/fifo/ws0_5_s0",
+      "data_delay_ns": 0.984,
+      "slack_ns": 10.638
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/wgray_2_s0",
+      "sink": "camera/frames_to_control50/fifo/ws0_2_s0",
+      "data_delay_ns": 0.949,
+      "slack_ns": 10.673
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/wgray_0_s0",
+      "sink": "camera/frames_to_control50/fifo/ws0_0_s0",
+      "data_delay_ns": 0.949,
+      "slack_ns": 10.681
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/wgray_7_s0",
+      "sink": "camera/frames_to_control50/fifo/ws0_7_s0",
+      "data_delay_ns": 0.949,
+      "slack_ns": 10.686
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/wgray_3_s0",
+      "sink": "camera/frames_to_control50/fifo/ws0_3_s0",
+      "data_delay_ns": 0.949,
+      "slack_ns": 10.709
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/wgray_4_s0",
+      "sink": "camera/frames_to_control50/fifo/ws0_4_s0",
+      "data_delay_ns": 0.796,
+      "slack_ns": 10.862
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/wgray_6_s0",
+      "sink": "camera/frames_to_control50/fifo/ws0_6_s0",
+      "data_delay_ns": 0.742,
+      "slack_ns": 10.905
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/rgray_2_s0",
+      "sink": "camera/frames_to_control50/fifo/rs0_2_s0",
+      "data_delay_ns": 1.513,
+      "slack_ns": 6.667
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/rgray_5_s0",
+      "sink": "camera/frames_to_control50/fifo/rs0_5_s0",
+      "data_delay_ns": 1.325,
+      "slack_ns": 6.87
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/rgray_4_s0",
+      "sink": "camera/frames_to_control50/fifo/rs0_4_s0",
+      "data_delay_ns": 0.951,
+      "slack_ns": 7.201
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/rbin_8_s0",
+      "sink": "camera/frames_to_control50/fifo/rs0_8_s0",
+      "data_delay_ns": 0.935,
+      "slack_ns": 7.241
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/rgray_6_s0",
+      "sink": "camera/frames_to_control50/fifo/rs0_6_s0",
+      "data_delay_ns": 0.796,
+      "slack_ns": 7.366
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/rgray_1_s0",
+      "sink": "camera/frames_to_control50/fifo/rs0_1_s0",
+      "data_delay_ns": 0.761,
+      "slack_ns": 7.391
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/rgray_0_s0",
+      "sink": "camera/frames_to_control50/fifo/rs0_0_s0",
+      "data_delay_ns": 0.761,
+      "slack_ns": 7.406
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/rgray_3_s0",
+      "sink": "camera/frames_to_control50/fifo/rs0_3_s0",
+      "data_delay_ns": 0.761,
+      "slack_ns": 7.412
+    },
+    {
+      "source": "camera/frames_to_control50/fifo/rgray_7_s0",
+      "sink": "camera/frames_to_control50/fifo/rs0_7_s0",
+      "data_delay_ns": 0.744,
+      "slack_ns": 7.423
+    }
+  ],
+  "max_gray_data_delay_ns": 1.513,
+  "mailboxes": {
+    "flow_mailbox": {
+      "paths": 208,
+      "max_data_delay_ns": 1.602
+    },
+    "observation_mailbox": {
+      "paths": 184,
+      "max_data_delay_ns": 2.114
+    },
+    "seed_mailbox": {
+      "paths": 113,
+      "max_data_delay_ns": 1.66
+    }
+  },
+  "cdc_data_budget_ns": 10.0,
+  "timing_signoff": false,
+  "cdc_data_paths_passed": true
+}

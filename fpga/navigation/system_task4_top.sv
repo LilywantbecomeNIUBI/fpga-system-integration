@@ -1,5 +1,5 @@
 module system_task4_top #(
-    parameter integer CLK_HZ=50000000, BAUD=115200, PWM_LIMIT=350, WHEEL_1KHZ=0,TELEMETRY_ETHERNET=1,LIDAR_RAW=1
+    parameter integer CLK_HZ=50000000, BAUD=115200, PWM_LIMIT=350, WHEEL_1KHZ=0,TELEMETRY_ETHERNET=1,LIDAR_RAW=0
 )(
     input wire clk50m,reset_n,uart_rx,lidar_rx,
     input wire rgmii_rxc,rgmii_rxctl,input wire [3:0] rgmii_rxd,

@@ -13,24 +13,71 @@ module vision_frame_stream #(
     localparam AB=$clog2(WIDTH*ACTIVE_HEIGHT),TOTAL=WIDTH*ACTIVE_HEIGHT;
     localparam TOP=(CANVAS_HEIGHT-ACTIVE_HEIGHT)/2;
     localparam [15:0] IMAGE_W=WIDTH,IMAGE_H=CANVAS_HEIGHT;
-    reg [15:0] ram[0:(1<<(AB+1))-1];reg [15:0] descriptors[0:1];
+    reg [15:0] descriptors[0:1];
     reg [1:0] wptr,wgray,rptr,rgray,rs0,rs1,ws0,ws1;
     wire [1:0] wn=wptr+1'b1,rn=rptr+1'b1;
-    wire full=wgray==~rs1,empty=rgray==ws1;
+    wire [1:0] allocated_gray=wptr^(wptr>>1);
+    wire full=allocated_gray==~rs1,empty=rgray==ws1;
     reg active,drop;reg [AB:0] written;reg [15:0] write_fid;
-    always @(posedge wr_clk)if(pixel_valid && active && !drop && written<TOTAL)
-        ram[{wptr[0],written[AB-1:0]}]<=pixel;
+    // Two aligned command stages. Four independent address banks keep each
+    // registered write-enable/address/data group near its own BSRAMs.
+    localparam BANK_BITS=AB>=2 ? 2 : AB;
+    localparam BANKS=1<<BANK_BITS,BANK_AB=AB+1-BANK_BITS;
+    localparam BANK_SEL_BITS=BANK_BITS>0 ? BANK_BITS : 1;
+    reg wr_pending;reg [AB:0] wr_address;reg [15:0] wr_pixel;
+    reg [AB-1:0] frame_address;
+    wire [AB:0] read_address={rptr[0],frame_address};
+    wire [BANKS*16-1:0] read_words;
+    reg [BANK_SEL_BITS-1:0] read_bank;
+    wire [15:0] ram_word=read_words[read_bank*16+:16];
+    always @(posedge wr_clk)begin
+        wr_address<={wptr[0],written[AB-1:0]};wr_pixel<=pixel;
+    end
+    always @(posedge wr_clk or negedge wr_rst_n)
+        if(!wr_rst_n)wr_pending<=0;
+        else wr_pending<=pixel_valid && active && !drop && written<TOTAL;
+    always @(posedge rd_clk)read_bank<=read_address>>BANK_AB;
+    genvar bank;
+    generate for(bank=0;bank<BANKS;bank=bank+1)begin:storage_bank
+        (* syn_ramstyle="block_ram" *) reg [15:0] memory[0:(1<<BANK_AB)-1];
+        (* syn_preserve=1, syn_keep=1 *) reg write_enable;
+        reg [BANK_AB-1:0] write_address;
+        reg [15:0] write_pixel,read_pixel;
+        wire selected=wr_pending && (wr_address>>BANK_AB)==bank;
+        always @(posedge wr_clk or negedge wr_rst_n)
+            if(!wr_rst_n)write_enable<=0;else write_enable<=selected;
+        always @(posedge wr_clk)begin
+            if(selected)begin write_address<=wr_address[BANK_AB-1:0];write_pixel<=wr_pixel;end
+            if(write_enable)memory[write_address]<=write_pixel;
+        end
+        always @(posedge rd_clk)read_pixel<=memory[read_address[BANK_AB-1:0]];
+        assign read_words[bank*16+:16]=read_pixel;
+    end endgenerate
+    // Allocation advances immediately, but publish ownership only after the
+    // final pipelined RAM write. This also covers back-to-back tiny frames and
+    // arbitrary destination/source clock ratios.
+    reg [1:0] commit_valid,commit_gray0,commit_gray1;
+    wire frame_commit=frame_end && active && frame_good && !drop && written==TOTAL;
+    always @(posedge wr_clk or negedge wr_rst_n)begin
+        if(!wr_rst_n)begin commit_valid<=0;commit_gray0<=0;commit_gray1<=0;end
+        else begin
+            commit_valid<={commit_valid[0],frame_commit};
+            if(frame_commit)commit_gray0<=wn^(wn>>1);
+            commit_gray1<=commit_gray0;
+        end
+    end
     always @(posedge wr_clk or negedge wr_rst_n)begin
         if(!wr_rst_n)begin wptr<=0;wgray<=0;rs0<=0;rs1<=0;active<=0;drop<=0;written<=0;write_fid<=0;dropped_frames<=0;end
         else begin
             rs0<=rgray;rs1<=rs0;
+            if(commit_valid[1])wgray<=commit_gray1;
             if(frame_start)begin active<=1;drop<=full;written<=0;write_fid<=frame_id;end
             if(pixel_valid && active && !drop)begin
                 if(written<TOTAL)written<=written+1'b1;else drop<=1;
             end
             if(frame_end && active)begin
                 active<=0;
-                if(frame_good && !drop && written==TOTAL)begin descriptors[wptr[0]]<=write_fid;wptr<=wn;wgray<=wn^(wn>>1);end
+                if(frame_good && !drop && written==TOTAL)begin descriptors[wptr[0]]<=write_fid;wptr<=wn;end
                 else dropped_frames<=dropped_frames+1'b1;
             end
         end
@@ -38,7 +85,7 @@ module vision_frame_stream #(
     localparam IDLE=0,LOAD=1,ACTIVE=2,GAP=3,FILL=4,DRAIN=5;
     localparam CB=$clog2(WIDTH);
     reg [2:0] state;reg [4:0] gap;reg [15:0] fid,row,index;
-    reg [AB-1:0] frame_address;reg [15:0] ram_word,cached_word;
+    reg [15:0] cached_word;
     reg [15:0] line_ram[0:(1<<CB)-1];reg [15:0] line_word,line_ram_dout_r;
     reg [CB:0] fill_count;reg [CB-1:0] fill_index0,fill_index1,word_index;
     reg [1:0] fill_valid;reg central,pixel_phase;
@@ -48,7 +95,7 @@ module vision_frame_stream #(
     // so even a stall between the two bytes cannot replace the current pixel.
     wire [CB-1:0] line_prefetch=word_index+pixel_phase;
     always @(posedge rd_clk)begin
-        ram_word<=ram[{rptr[0],frame_address}];cached_word<=ram_word;
+        cached_word<=ram_word;
         if(fill_valid[1])line_ram[fill_index1]<=cached_word;
         line_word<=line_ram[line_prefetch];
         if(!pixel_phase || (payload_read && index[0]))line_ram_dout_r<=line_word;

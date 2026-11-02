@@ -269,6 +269,20 @@ module network_runtime_dual #(
     localparam S_IDLE=0,S_UDP=1,S_ARP=2,S_GAP=3,S_DISPATCH=4;
     localparam A_NONE=0,A_REPLY=1,A_CONTROL=2,A_VISION=3,A_ARP0=4,A_ARP1=5,A_VIDEO=6,A_EVENT=7;
     localparam A_TELEMETRY=8;
+    // When telemetry is enabled, rotate the three streaming classes. A camera
+    // without fresh images may emit continuous unavailable-status snapshots;
+    // those snapshots must not starve telemetry or pending video.
+    reg [1:0] stream_turn;
+    wire want_event=EVENT_ENABLE && event_pending && enabled2 && found2;
+    wire want_telemetry=TELEMETRY_ENABLE && telemetry_pending && enabled2 && found2;
+    reg [3:0] stream_action;
+    always @*begin
+        case(stream_turn)
+            1:stream_action=want_telemetry?A_TELEMETRY:video_pending?A_VIDEO:want_event?A_EVENT:A_NONE;
+            2:stream_action=video_pending?A_VIDEO:want_event?A_EVENT:want_telemetry?A_TELEMETRY:A_NONE;
+            default:stream_action=want_event?A_EVENT:want_telemetry?A_TELEMETRY:video_pending?A_VIDEO:A_NONE;
+        endcase
+    end
     reg [3:0] action;
     reg telemetry_pending,sending_telemetry;
     reg [511:0] telemetry_buffer,send_telemetry_payload;
@@ -323,7 +337,7 @@ module network_runtime_dual #(
             parsing_vision<=0;vision_valid<=0;vision_payload<=0;vision_pending<=0;send_control_payload<=0;
             vision_reply<=0;vision_mac<=0;vision_ip<=0;vision_peer_port<=0;
             scan_word<=0;action<=A_NONE;event_pending<=0;event_buffer<=0;arp_payload_active<=0;
-            telemetry_pending<=0;sending_telemetry<=0;telemetry_buffer<=0;send_telemetry_payload<=0;
+            telemetry_pending<=0;sending_telemetry<=0;telemetry_buffer<=0;send_telemetry_payload<=0;stream_turn<=0;
         end else begin
             req_sync0<=request_toggle;req_sync1<=req_sync0;learn<=0;clear_cache<=0;clear_cache2<=0;
             udp_start<=0;video_done<=0;vision_valid<=0;
@@ -420,10 +434,12 @@ module network_runtime_dual #(
             endcase
             case(send_state)
                 S_IDLE:begin
-                    action<=arp_reply_pending ? A_REPLY : control_pending ? A_CONTROL : vision_pending ? A_VISION :
-                        EVENT_ENABLE && event_pending && enabled2 && found2 ? A_EVENT :
-                        TELEMETRY_ENABLE && telemetry_pending && enabled2 && found2 ? A_TELEMETRY :
-                        arp_due0 ? A_ARP0 : arp_due1 ? A_ARP1 : video_pending ? A_VIDEO : A_NONE;
+                    if(TELEMETRY_ENABLE)
+                        action<=arp_reply_pending ? A_REPLY : control_pending ? A_CONTROL : vision_pending ? A_VISION :
+                            arp_due0 ? A_ARP0 : arp_due1 ? A_ARP1 : stream_action;
+                    else
+                        action<=arp_reply_pending ? A_REPLY : control_pending ? A_CONTROL : vision_pending ? A_VISION :
+                            want_event ? A_EVENT : arp_due0 ? A_ARP0 : arp_due1 ? A_ARP1 : video_pending ? A_VIDEO : A_NONE;
                     send_state<=S_DISPATCH;
                 end
                 S_DISPATCH:begin
@@ -432,6 +448,7 @@ module network_runtime_dual #(
                     arp_payload_active<=0;
                     case(action)
                     A_TELEMETRY:begin
+                        stream_turn<=2;
                         telemetry_pending<=0;sending_telemetry<=1;sending_video<=0;
                         send_mac<=found2_mac;send_ip<=target2_ip;send_port<=TELEMETRY_PORT;
                         send_source_port<=TELEMETRY_PORT;send_length<=64;
@@ -451,6 +468,7 @@ module network_runtime_dual #(
                         send_control_payload<=vision_reply;sending_video<=0;control_index<=0;vision_pending<=0;udp_start<=1;send_state<=S_UDP;
                     end
                     A_EVENT:begin
+                        stream_turn<=1;
                         event_pending<=0;
                         // Snapshot data unconditionally; only a valid destination
                         // permits udp_start. This removes wide destination enables.
@@ -479,6 +497,7 @@ module network_runtime_dual #(
                         end
                     end
                     A_VIDEO:begin
+                        stream_turn<=0;
                         video_pending<=0;
                         // Route selection is a separate stage from dispatch.
                         // If admission changed since that stage, drop this

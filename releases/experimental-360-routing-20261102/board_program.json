@@ -1,0 +1,31 @@
+{
+  "top": "system_task4_top",
+  "build": "E:\\Gowin_project\\fpga_project\\team_repos\\fpga-system-integration\\build\\lidar_ethernet_20261102\\system\\20261102T134609Z",
+  "firmware_mode": "experimental_full_system_360",
+  "experimental": true,
+  "timing_signoff": false,
+  "timing_violations": {
+    "setup": 881,
+    "hold": 0
+  },
+  "min_pulse_width_slack_ns": -0.849,
+  "clock_route_warnings": [
+    "WARN  (PR1014) : Generic routing resource will be used to clock signal 'camera_pclk_d' by the specified constraint. And then it may lead to the excessive delay or skew"
+  ],
+  "operation": "SRAM Program",
+  "flash_written": false,
+  "bitstream_sha256": "761696945e914e3685855dabc92544467e5f933eefae7305113223be1eeef2ff",
+  "motor_outputs_constant_low": false,
+  "command_receiver_enabled": true,
+  "camera_enabled": true,
+  "optical_flow_enabled": true,
+  "lidar_bins": 360,
+  "pin_profile": "task4_m2",
+  "serial_bytes_written": 0,
+  "telemetry_transport": "udp",
+  "telemetry_port": 6205,
+  "rollback_tag": "lidar360-mpu6500-20261102",
+  "started_unix": 1793628330.2271957,
+  "download_confirmed": true,
+  "finished_unix": 1793628340.1604333
+}

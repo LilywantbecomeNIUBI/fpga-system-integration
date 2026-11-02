@@ -1,0 +1,15 @@
+{
+  "observed_unix": 1793628536.32664,
+  "download_confirmed": true,
+  "hardware_functional_acceptance_passed": false,
+  "ethernet_adapter": {
+    "Name": "\u4ee5\u592a\u7f51",
+    "Status": "Disconnected",
+    "LinkSpeed": "1 Gbps"
+  },
+  "fpga_endpoint": "No acknowledgment",
+  "nano_http": "Timed out",
+  "nano_ssh": "Network unreachable",
+  "cause_observed": "PC physical Ethernet adapter reports Disconnected; sensor/video function not verified.",
+  "serial_bytes_written": 0
+}

@@ -53,6 +53,13 @@ def main():
     subprocess.run(['iverilog','-g2012','-s','tb_frame_payload','-o','build/tests/frame_payload.vvp',
                     'tests/vision/tb_frame_payload.v','fpga/vision/src/vision/vision_frame_stream.v'],cwd=ROOT,check=True)
     subprocess.run(['vvp','build/tests/frame_payload.vvp'],cwd=ROOT,check=True)
+    subprocess.run(['iverilog','-g2012','-s','tb_frame_banks','-o','build/tests/frame_banks.vvp',
+                    'tests/vision/tb_frame_banks.v','fpga/vision/src/vision/vision_frame_stream.v'],cwd=ROOT,check=True)
+    subprocess.run(['vvp','build/tests/frame_banks.vvp'],cwd=ROOT,check=True)
+    subprocess.run(['iverilog','-g2012','-s','tb_frame_banks','-Ptb_frame_banks.W=2',
+                    '-Ptb_frame_banks.H=1','-Ptb_frame_banks.C=3','-o','build/tests/frame_banks_tiny.vvp',
+                    'tests/vision/tb_frame_banks.v','fpga/vision/src/vision/vision_frame_stream.v'],cwd=ROOT,check=True)
+    subprocess.run(['vvp','build/tests/frame_banks_tiny.vvp'],cwd=ROOT,check=True)
     boundary_sources=['tests/vision/tb_timing_boundaries.v','fpga/vision/src/optical_flow/flow_avoidance.v',
                       'fpga/vision/src/optical_flow/flow_event_source.v',
                       'fpga/vision/src/vision/vision_result_core.v','fpga/vision/src/network_runtime_dual.v',
@@ -103,7 +110,7 @@ def main():
     inputs+=oracle_inputs
     inputs += [ROOT/'tests/vision/tb_perception_deadlines.v',ROOT/'fpga/vision/src/vision/vision_v23_bridge.v',
                ROOT/'fpga/vision/src/vision/vision_result_core.v']
-    inputs += [ROOT/'tests/vision/tb_frame_payload.v',ROOT/'fpga/vision/src/vision/vision_frame_stream.v']
+    inputs += [ROOT/'tests/vision/tb_frame_payload.v',ROOT/'tests/vision/tb_frame_banks.v',ROOT/'fpga/vision/src/vision/vision_frame_stream.v']
     inputs += [ROOT/path for path in boundary_sources]
     inputs += [ROOT/path for path in drain_sources]
     inputs += [ROOT/'tests/vision/tb_flow_elastic.v']

@@ -47,6 +47,9 @@ def audit_packets(path):
         source,port,length,_=struct.unpack_from('!4H',frame,34);payload=frame[42:42+length-8]
         if source==5000:
             assert payload==bytes((i&255)^(i>>8) for i in range(1456));video+=1
+        elif source==6202:
+            assert len(payload)==32
+            decoded.append(('perception_event',dict(magic=payload[:4].decode('ascii'))))
         elif source==6205:
             tick=HEADER.unpack_from(payload)[-1]
             inner=transport.feed(payload,('192.168.50.30',6205),now=1+tick/1000.)
@@ -74,7 +77,8 @@ def main():
         print(result.stdout,end='',flush=True)
     rows,scans,video,recorded=audit_packets(OUT/'tx.hex')
     raw_rows=[row for kind,row in rows if kind=='lidar_raw']
-    assert len(raw_rows)==2000 and video==1
+    events=sum(kind=='perception_event' for kind,row in rows)
+    assert len(raw_rows)==2000 and video==1 and events>1000
     # Independently decode each original packet, using the parser's documented
     # nearest-centidegree interpolation, then compare every emitted tuple.
     for packet_index,original in enumerate(originals):
@@ -98,7 +102,7 @@ def main():
     result=dict(passed=True,programmed=False,hardware_tested=False,fixture=fixture,
                 native_packets=1000,point_frames=len(raw_rows),all_points_checked=12000,
                 full_scans=len(scans),points_per_scan=[len(scan['points']) for scan in scans],
-                video_packets=video,deliberate_native_crc_errors=1,ethernet_crc_errors=0,
+                video_packets=video,continuous_perception_event_packets=events,deliberate_native_crc_errors=1,ethernet_crc_errors=0,
                 received_inner_crc_errors=0,source_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in sources})
     (OUT/'raw_regression.json').write_text(json.dumps(result,indent=2))
     # Exact accepted frames remain compatible with mixed-stream offline replay.
