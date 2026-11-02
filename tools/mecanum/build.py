@@ -20,11 +20,17 @@ def constraints():
     if len(rows)!=len({r['ball'] for r in rows}) or len(rows)!=len({r['signal'] for r in rows}):
         raise RuntimeError('Mecanum/camera/Ethernet physical pin collision')
     cst, sdc = base_constraints(rows)
-    # Four vector encoder inputs use external idle pullups, as in the team CST.
+    # Preserve the teammate's electrical attributes as well as ball locations.
+    # Treating all chassis pins as motor outputs incorrectly pulled I2C and
+    # board clock/reset pins down. I2C uses the board's external pullups.
+    team_cst=(ROOT/'vendor/mecanum_team/project/mecanum.cst').read_text(encoding='utf-8')
+    ports={name:line for line,name in re.findall(r'(IO_PORT "([^"]+)"[^;]+;)',team_cst)}
+    aliases={'imu_i2c_scl':'imu_scl','imu_i2c_sda':'imu_sda'}
     for pin in pins:
-        if pin['signal'].startswith(('enc_a[','enc_b[')):
-            name=re.escape(pin['signal'])
-            cst=re.sub(r'(IO_PORT "'+name+r'"[^\n]*PULL_MODE=)DOWN',r'\g<1>UP',cst)
+        name=pin['signal'];original=aliases.get(name,name)
+        if original in ports:
+            port=ports[original].replace('"'+original+'"','"'+name+'"')
+            cst=re.sub(r'^IO_PORT "'+re.escape(name)+r'"[^\n]*$',lambda m:port,cst,flags=re.M)
     # The base has differential-chassis and old IMU synchronizer names. Remove
     # only those absent-instance constraints; add real Mecanum first stages.
     sdc = '\n'.join(line for line in sdc.splitlines()
@@ -75,6 +81,7 @@ def prepare():
     (out/'build.tcl').write_text(tcl+'run all\nexit\n')
     input_hashes={}
     for name in ('hardware/mecanum.json','hardware/pins.csv','vendor/reference/robot.cst',
+                 'vendor/mecanum_team/project/mecanum.cst',
                  'vendor/reference/robot.sdc','fpga/vision/constraints/perception_cdc.sdc',
                  'tools/mecanum/build.py','tools/task4/build.py'):
         dest=out/'inputs'/name

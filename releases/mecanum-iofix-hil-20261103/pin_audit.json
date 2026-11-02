@@ -1,0 +1,651 @@
+{
+  "passed": true,
+  "pins": [
+    {
+      "group": "chassis",
+      "signal": "in1[0]",
+      "ball": "D17",
+      "p7": "21",
+      "wheel": "FL",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "in2[0]",
+      "ball": "C17",
+      "p7": "22",
+      "wheel": "FL",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "enc_a[0]",
+      "ball": "F16",
+      "p7": "31",
+      "wheel": "FL",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "enc_b[0]",
+      "ball": "E17",
+      "p7": "32",
+      "wheel": "FL",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "in1[1]",
+      "ball": "E16",
+      "p7": "23",
+      "wheel": "FR",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "in2[1]",
+      "ball": "D16",
+      "p7": "24",
+      "wheel": "FR",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "enc_a[1]",
+      "ball": "C18",
+      "p7": "27",
+      "wheel": "FR",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "enc_b[1]",
+      "ball": "D19",
+      "p7": "36",
+      "wheel": "FR",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "in1[2]",
+      "ball": "B17",
+      "p7": "25",
+      "wheel": "RL",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "in2[2]",
+      "ball": "B18",
+      "p7": "26",
+      "wheel": "RL",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "enc_a[2]",
+      "ball": "C20",
+      "p7": "34",
+      "wheel": "RL",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "enc_b[2]",
+      "ball": "E19",
+      "p7": "35",
+      "wheel": "RL",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "in1[3]",
+      "ball": "C19",
+      "p7": "28",
+      "wheel": "RR",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "in2[3]",
+      "ball": "D20",
+      "p7": "33",
+      "wheel": "RR",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "enc_a[3]",
+      "ball": "F18",
+      "p7": "37",
+      "wheel": "RR",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "enc_b[3]",
+      "ball": "E18",
+      "p7": "38",
+      "wheel": "RR",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "clk50m",
+      "ball": "Y18",
+      "p7": "",
+      "wheel": "board",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "reset_n",
+      "ball": "F15",
+      "p7": "",
+      "wheel": "board",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "uart_rx",
+      "ball": "J21",
+      "p7": "",
+      "wheel": "board",
+      "direction": "IN"
+    },
+    {
+      "group": "chassis",
+      "signal": "uart_tx",
+      "ball": "M15",
+      "p7": "",
+      "wheel": "board",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "imu_i2c_scl",
+      "ball": "F19",
+      "p7": "39",
+      "wheel": "MPU6050",
+      "direction": "INOUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "imu_i2c_sda",
+      "ball": "F20",
+      "p7": "40",
+      "wheel": "MPU6050",
+      "direction": "INOUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "led[0]",
+      "ball": "M22",
+      "p7": "",
+      "wheel": "board",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "led[1]",
+      "ball": "N22",
+      "p7": "",
+      "wheel": "board",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "led[2]",
+      "ball": "L21",
+      "p7": "",
+      "wheel": "board",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "led[3]",
+      "ball": "K21",
+      "p7": "",
+      "wheel": "board",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "led[4]",
+      "ball": "K22",
+      "p7": "",
+      "wheel": "board",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "led[5]",
+      "ball": "J22",
+      "p7": "",
+      "wheel": "board",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "led[6]",
+      "ball": "H22",
+      "p7": "",
+      "wheel": "board",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "led[7]",
+      "ball": "M21",
+      "p7": "",
+      "wheel": "board",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m1_pwm_disabled[5]",
+      "ball": "A13",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m1_pwm_disabled[4]",
+      "ball": "A14",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m1_pwm_disabled[3]",
+      "ball": "A15",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m1_pwm_disabled[2]",
+      "ball": "A16",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m1_pwm_disabled[1]",
+      "ball": "A18",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m1_pwm_disabled[0]",
+      "ball": "A19",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m2_pwm_disabled[5]",
+      "ball": "E14",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m2_pwm_disabled[4]",
+      "ball": "C13",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m2_pwm_disabled[3]",
+      "ball": "B13",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m2_pwm_disabled[2]",
+      "ball": "D14",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m2_pwm_disabled[1]",
+      "ball": "D15",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m2_pwm_disabled[0]",
+      "ball": "C14",
+      "p7": "",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m1_disable",
+      "ball": "F13",
+      "p7": "7",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_m2_disable",
+      "ball": "C15",
+      "p7": "18",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_cal_disabled[0]",
+      "ball": "F14",
+      "p7": "8",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "legacy_cal_disabled[1]",
+      "ball": "B15",
+      "p7": "19",
+      "wheel": "fixed-low",
+      "direction": "OUT"
+    },
+    {
+      "group": "chassis",
+      "signal": "lidar_rx",
+      "ball": "B16",
+      "p7": "20",
+      "wheel": "lidar",
+      "direction": "IN"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_rst_n",
+      "ball": "N20",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_pwdn",
+      "ball": "L1",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_sclk",
+      "ball": "M20",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "eth_rst_n",
+      "ball": "V22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "eth_mdc",
+      "ball": "AA18",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_txen",
+      "ball": "AA19",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_txd[3]",
+      "ball": "Y22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_txd[2]",
+      "ball": "W21",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_txd[1]",
+      "ball": "W22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_txd[0]",
+      "ball": "U21",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_gtxc",
+      "ball": "U22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_sdat",
+      "ball": "L18",
+      "direction": "INOUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "eth_mdio",
+      "ball": "W17",
+      "direction": "INOUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[7]",
+      "ball": "E1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[6]",
+      "ball": "D1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[5]",
+      "ball": "G2",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[4]",
+      "ball": "F1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[3]",
+      "ball": "H2",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[2]",
+      "ball": "G1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[1]",
+      "ball": "J1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[0]",
+      "ball": "J2",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_pclk",
+      "ball": "B1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_href",
+      "ball": "A1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_vsync",
+      "ball": "B2",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxc",
+      "ball": "W19",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxctl",
+      "ball": "AB18",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxd[0]",
+      "ball": "V17",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxd[1]",
+      "ball": "V18",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxd[2]",
+      "ball": "P19",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxd[3]",
+      "ball": "R19",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    }
+  ]
+}

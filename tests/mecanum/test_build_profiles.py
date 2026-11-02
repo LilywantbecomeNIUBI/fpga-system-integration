@@ -1,6 +1,6 @@
 """Freeze-only checks; no Gowin, programmer, sockets or serial devices."""
 from pathlib import Path
-import json, sys, unittest
+import json, re, sys, unittest
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools/task4'))
 from tools.task4.build_ethernet import prepare
@@ -20,6 +20,10 @@ class BuildProfiles(unittest.TestCase):
             mapping={p['signal']:p['ball'] for p in json.loads((folder/'pin_audit.json').read_text())['pins']}
             for p in json.loads((ROOT/'hardware/mecanum.json').read_text())['pins']:
                 self.assertEqual(mapping[p['signal']],p['ball'])
+            team=(ROOT/'vendor/mecanum_team/project/mecanum.cst').read_text()
+            for statement,name in re.findall(r'(IO_PORT "([^"]+)"[^;]+;)',team):
+                new={'imu_scl':'imu_i2c_scl','imu_sda':'imu_i2c_sda'}.get(name,name)
+                self.assertIn(statement.replace('"'+name+'"','"'+new+'"'),cst)
             self.assertNotIn('left_enc_a',mapping)
 
 

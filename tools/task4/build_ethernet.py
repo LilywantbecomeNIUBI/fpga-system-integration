@@ -23,7 +23,12 @@ def prepare(system=False,raw=False,place=2,route=0,auto_clock=False,replicate=1,
     if mecanum and not system:raise ValueError('Mecanum requires --system')
     top='system_mecanum_top' if mecanum else 'system_task4_top' if system else 'm2_sensor_eth_diag_top'
     out=ROOT/('build/lidar_raw_ethernet_20261102' if raw else 'build/lidar_ethernet_20261102')/('mecanum' if mecanum else 'system' if system else 'diagnostic')/time.strftime('%Y%m%dT%H%M%SZ',time.gmtime())
-    out.mkdir(parents=True,exist_ok=False)
+    # Freeze-only checks and an actual build can start in the same second.
+    stem=out
+    for attempt in range(100):
+        try:out.mkdir(parents=True,exist_ok=False);break
+        except FileExistsError:out=stem.with_name(stem.name+'_'+str(attempt+1))
+    else:raise RuntimeError('Unable to allocate a unique frozen build directory')
     if system:
         files=system_sources()
         if mecanum:files+=list((ROOT/'fpga/mecanum').glob('*.sv'))
@@ -44,7 +49,8 @@ def prepare(system=False,raw=False,place=2,route=0,auto_clock=False,replicate=1,
     variant=out/'source'/('fpga/mecanum/system_mecanum_top.sv' if mecanum else 'fpga/navigation/system_task4_top.sv' if system else 'fpga/diagnostics/m2_sensor_eth_diag_top.sv')
     variant.write_text(re.sub(r'LIDAR_RAW=[01]','LIDAR_RAW='+str(int(raw)),variant.read_text()))
     hashes[variant.relative_to(out/'source').as_posix()]=sha(variant)
-    rows=m2_rows(list(csv.DictReader((ROOT/'hardware/pins.csv').open(encoding='utf-8-sig'))))
+    with (ROOT/'hardware/pins.csv').open(encoding='utf-8-sig') as table:
+        rows=m2_rows(list(csv.DictReader(table)))
     if mecanum:
         import sys
         sys.path.insert(0,str(ROOT))
