@@ -1,4 +1,5 @@
 import ast
+import http.client
 import base64
 from concurrent.futures import ThreadPoolExecutor
 import json
@@ -127,8 +128,14 @@ class NanoWebTests(unittest.TestCase):
             for path in ('/camera.jpg', '/infer.jpg'):
                 with opener.open(url + path) as response:
                     self.assertEqual(response.read(), JPEG)
-            with opener.open(url + '/infer.mjpg') as response:
-                self.assertEqual(response.readline(), b'--frame\r\n')
+            connection = http.client.HTTPConnection('127.0.0.1', web.server_port)
+            for path in ('/camera.mjpg', '/infer.mjpg'):
+                connection.request('GET', path)
+                response = connection.getresponse()
+                self.assertEqual(response.status, 302)
+                self.assertEqual(response.getheader('Location'), self.vision.url + path)
+                response.read()
+            connection.close()
             with opener.open(url + '/') as response:
                 html = response.read().decode('utf8')
                 self.assertIn('[data-operator],[data-api]{display:none!important}', html)
@@ -149,6 +156,37 @@ class NanoWebTests(unittest.TestCase):
         self.assertEqual(len(calls), 1)
         self.clock += .51
         self.assertIsNone(preview.image())
+
+    def test_preview_follows_new_frames_without_ten_fps_throttle(self):
+        class Capture:
+            key = 0
+            def frame(inner):
+                return (inner.key, object(), self.clock, None)
+        capture = Capture()
+        calls = []
+        preview = LatestPreview(capture, lambda image: calls.append(image) or JPEG,
+                                clock=lambda: self.clock)
+        for i in range(30):
+            capture.key = i
+            self.clock = 10 + i/30
+            self.assertEqual(preview.image(), JPEG)
+            self.assertEqual(preview.image(), JPEG)
+        self.assertEqual(len(calls), 30)
+
+    def test_stopped_upstream_rates_expire_even_when_http_stays_online(self):
+        data = self.fixture()
+        data['inference_fps'] = 24
+        data['capture']['receiver_fps'] = 30
+        data['capture']['age_ms'] = 600
+        data['result']['age_ms'] = 600
+        with patch.object(self.vision, 'get', return_value=json.dumps(data).encode()):
+            self.vision.poll()
+        state, capture = self.vision.snapshot()
+        self.assertTrue(state['online'])
+        self.assertEqual(capture['fps'], 0)
+        self.assertEqual(capture['receiver_fps'], 0)
+        self.assertEqual(state['data']['inference_fps'], 0)
+        self.assertEqual(capture['preview_fps'], 0)
 
     def test_offline_launcher_requires_no_desktop_dependencies_and_exits_cleanly(self):
         with tempfile.TemporaryDirectory() as temp:

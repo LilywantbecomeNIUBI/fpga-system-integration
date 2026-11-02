@@ -132,6 +132,7 @@ def main():
             result=dict(state['result']) if state['result'] else None
             event=external['event'] if external else dict(state['event']) if state['event'] else None
             if result:result['age_ms']=(now-result.pop('finished'))*1000
+            recent = [t for t in completed if now-t < 2]
             return dict(profile=PROFILE,session=session,capture=capture.status(),result=result,event=event,
                         flow=external['flow'] if external else perception.flow_snapshot(now),
                         event_age_ms=external['event_age_ms'] if external else (now-state['event_stamp'])*1000 if state['event_stamp'] else None,
@@ -139,7 +140,7 @@ def main():
                         event_receiver_error=external['error'] if external else None,
                         error=state['error'],model=state['model'],backend=args.backend,
                         model_id=args.model,
-                        inference_fps=(len(completed)-1)/(completed[-1]-completed[0]) if len(completed)>1 else 0,
+                        inference_fps=(len(recent)-1)/(recent[-1]-recent[0]) if len(recent)>1 else 0,
                         offline=bool(args.offline_image),inferences=state['inferences'])
 
     class Handler(BaseHTTPRequestHandler):
@@ -155,18 +156,21 @@ def main():
                 try:self.wfile.write(encoded)
                 except OSError:pass
                 return
-            if parsed.path=='/infer.mjpg':
+            if parsed.path in ('/camera.mjpg','/infer.mjpg'):
                 self.send_response(200)
                 self.send_header('Content-Type','multipart/x-mixed-replace; boundary=frame')
                 self.send_header('Cache-Control','no-store');self.end_headers()
                 self.connection.settimeout(1);last=None
                 try:
                     while not stop.is_set():
-                        with lock:
-                            result=state['result']
-                            item=(result['sequence'],result['jpeg_b64']) if result and time.monotonic()-result['finished']<.5 else None
+                        if parsed.path=='/camera.mjpg':
+                            item=preview.frame()
+                        else:
+                            with lock:
+                                result=state['result']
+                                item=(result['sequence'],result['jpeg_b64']) if result and time.monotonic()-result['finished']<.5 else None
                         if item and item[0]!=last:
-                            last=item[0];encoded=base64.b64decode(item[1])
+                            last=item[0];encoded=item[1] if parsed.path=='/camera.mjpg' else base64.b64decode(item[1])
                             self.wfile.write(b'--frame\r\nContent-Type: image/jpeg\r\nContent-Length: '+str(len(encoded)).encode()+
                                 b'\r\nX-Frame-Key: '+(session+'-'+str(last)).encode()+b'\r\n\r\n'+encoded+b'\r\n')
                             self.wfile.flush()
