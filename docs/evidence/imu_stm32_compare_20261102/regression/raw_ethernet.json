@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "programmed": false,
+  "hardware_tested": false,
+  "fixture": {
+    "path": "C:\\Users\\leo\\Documents\\ChatGPT\\FPGA\\STL27L_check_20261025\\COM8_921600_5s.bin",
+    "sha256": "35e023e8509c19bfba2c94545d9af6f44d95156b4da43e8a0b43c92d61aaa4ee"
+  },
+  "native_packets": 1000,
+  "point_frames": 2000,
+  "all_points_checked": 12000,
+  "full_scans": 3,
+  "points_per_scan": [
+    2177,
+    2175,
+    2175
+  ],
+  "video_packets": 1,
+  "deliberate_native_crc_errors": 1,
+  "ethernet_crc_errors": 0,
+  "received_inner_crc_errors": 0,
+  "source_sha256": {
+    "tests/navigation/tb_lidar_raw_ethernet.sv": "d18983e4f175c8ace43ae7773a4bd9166ee7e3c9f673537761d8280c9572bf79",
+    "fpga/navigation/lidar_points_source.sv": "2a66c043622e960313cc90c054d1538e1046ba43b1a15806b39be7c794f8f7ac",
+    "fpga/navigation/lidar/stl27l_node_parser.v": "4840669b11221648d2d6b6516950e57600dc2180005cbdf4a47df1f45d2b8a26",
+    "fpga/motor/frame_transport.sv": "aebefc706aec37bb901ad59088194d05debda8839604310c71fa90955929a790",
+    "fpga/motor/uart_byte.sv": "d88aa96614eac7f51ab4d37d547e4fd3560c7ea4bb7ec25e97ff686e7a7d8ac0",
+    "fpga/system/telemetry_cdc.sv": "87868000f3456633d3e385b173efb9b510fa23a2940df7f1dc59c012ad93de53",
+    "fpga/vision/src/network_runtime_dual.v": "84f792df2fe3be45140ad2829bf1bf76a24ddea1ea2c49dde568b0116a4d0a8a",
+    "fpga/vision/src/eth_udp_gmii/eth_udp_tx_gmii.v": "414f4a434e925f5e5b28eeec43c338c3fe9c0e87e157ea92b35d13f35bb76204",
+    "fpga/vision/src/eth_udp_gmii/ip_checksum.v": "823e14a28765dd2bd73dd77bd8432857a1d926d257ef7b9665916ff73c016ea8",
+    "fpga/vision/src/eth_udp_gmii/crc32_d8.v": "bc5f7b1ee9d60fa0ae75b1be7db055680c545e826ecafd86138c4f842d660f3d"
+  }
+}

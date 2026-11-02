@@ -1,0 +1,2012 @@
+{
+  "8872": {
+    "profile": "system_integration_v1",
+    "mode": "live",
+    "simulation": false,
+    "replay": false,
+    "motor_outputs_enabled": false,
+    "pc": {
+      "frames": 0,
+      "packets": 0,
+      "bad": 0,
+      "missing_frames": 0,
+      "fps": 0.0,
+      "frame_id": null,
+      "age_ms": null,
+      "error": null,
+      "receive_buffer_bytes": 4194304,
+      "queue_ms_last": null,
+      "queue_ms_p50": null,
+      "queue_ms_p95": null,
+      "decode_ms": 0.0,
+      "epoch_resets": 0,
+      "catchup_events": 0,
+      "catchup_packets": 0,
+      "online": false
+    },
+    "nano": {
+      "online": true,
+      "poll_age_ms": 16.36450001387857,
+      "error": null,
+      "error_detail": null,
+      "data": {
+        "profile": "fpga_yolo_dashboard_v1",
+        "session": "c9f3caad78f444069fd1f3a5065beaad",
+        "capture": {
+          "frames": 0,
+          "receiver_frames": 0,
+          "receiver_fps": 0,
+          "fps": 0.0,
+          "packets": 0,
+          "bad": 0,
+          "missing_frames": 0,
+          "frame_id": null,
+          "age_ms": null,
+          "error": null,
+          "receiver_process": true,
+          "receiver_pid": 8024,
+          "receiver_ready": true
+        },
+        "result": null,
+        "event": null,
+        "flow": {
+          "epoch": "e10fd00ef521",
+          "stage": null,
+          "frame_id": null,
+          "newest_frame_id": null,
+          "field_status": null,
+          "vectors": [],
+          "received": 0,
+          "valid": 0,
+          "invalid": 0,
+          "missing": 190,
+          "expected": 190,
+          "image_key": null,
+          "control": {
+            "state": "unknown",
+            "stop_request": true,
+            "steer": 0,
+            "speed_limit": 0,
+            "hazard": 0,
+            "fresh": false,
+            "confident": false,
+            "age_ms": null,
+            "frame_id": null,
+            "valid_counts": [
+              0,
+              0,
+              0
+            ],
+            "risk_counts": [
+              0,
+              0,
+              0
+            ]
+          },
+          "cycles": 0,
+          "dropped_frames": 0,
+          "fps": 0.0,
+          "packets": 0,
+          "bad": 0,
+          "duplicates": 0,
+          "late": 0,
+          "ignored_source": 0,
+          "restarts": 0,
+          "video": {
+            "frames": 0,
+            "fps": 0.0,
+            "frame_id": null,
+            "age_ms": null,
+            "bad": 0,
+            "missing_frames": 0
+          },
+          "history": [],
+          "observe_only": true,
+          "automatic_control_enabled": false,
+          "diagnostic": null,
+          "health_fault": false
+        },
+        "event_age_ms": null,
+        "event_receiver": {
+          "packets": 0,
+          "bad": 0,
+          "queue_ms": 0,
+          "receive_buffer_bytes": 2097152,
+          "pid": 8026,
+          "relay_stale_drops": 0,
+          "relay_errors": 0
+        },
+        "event_receiver_error": null,
+        "error": null,
+        "model": "YOLOv8n COCO / Nano TensorRT GPU FP16",
+        "backend": "tensorrt",
+        "model_id": "yolov8n",
+        "inference_fps": 0,
+        "offline": false,
+        "inferences": 0
+      },
+      "result_fresh": false
+    },
+    "imu": {
+      "online": true,
+      "healthy": false,
+      "age_ms": 320.94360000337474,
+      "error": null,
+      "frame": {
+        "type": "status",
+        "seq": 0,
+        "raw_seq": 0,
+        "timestamp_us": 117000002,
+        "ax_raw": 0,
+        "ay_raw": 0,
+        "az_raw": 0,
+        "gx_raw": 0,
+        "gy_raw": 0,
+        "gz_raw": 0,
+        "temp_raw": 0,
+        "ax_g": 0.0,
+        "ay_g": 0.0,
+        "az_g": 0.0,
+        "gx_dps": 0.0,
+        "gy_dps": 0.0,
+        "gz_dps": 0.0,
+        "temp_c": 36.53,
+        "ready": false,
+        "fault": true,
+        "who_am_i": 0,
+        "last_error": 1,
+        "config_id": 4,
+        "error_count": 117,
+        "invalid_count": 0,
+        "tx_drop_count": 0,
+        "stale": true,
+        "temperature_valid": false,
+        "fast_bus": false,
+        "low_latency_filter": true,
+        "observe_to_commit_us": 0,
+        "raw_interval_us": 0,
+        "decimation": 20,
+        "poll_us": 150
+      },
+      "statistics": {
+        "samples": 0,
+        "status_frames": 77,
+        "serial_sequence_gaps": 0,
+        "sequence_resets": 0,
+        "duplicate_sequences": 0,
+        "crc_failures": 0,
+        "discarded_bytes": 0,
+        "unsupported_frames": 0,
+        "trailing_bytes": 0,
+        "observed_rate_hz": null,
+        "debug_rate_hz": null,
+        "raw_read_rate_hz": null,
+        "raw_stride_anomalies": 0,
+        "observe_to_commit_us": null,
+        "last_frame": {
+          "type": "status",
+          "seq": 0,
+          "raw_seq": 0,
+          "timestamp_us": 117000002,
+          "ax_raw": 0,
+          "ay_raw": 0,
+          "az_raw": 0,
+          "gx_raw": 0,
+          "gy_raw": 0,
+          "gz_raw": 0,
+          "temp_raw": 0,
+          "ax_g": 0.0,
+          "ay_g": 0.0,
+          "az_g": 0.0,
+          "gx_dps": 0.0,
+          "gy_dps": 0.0,
+          "gz_dps": 0.0,
+          "temp_c": 36.53,
+          "ready": false,
+          "fault": true,
+          "who_am_i": 0,
+          "last_error": 1,
+          "config_id": 4,
+          "error_count": 117,
+          "invalid_count": 0,
+          "tx_drop_count": 0,
+          "stale": true,
+          "temperature_valid": false,
+          "fast_bus": false,
+          "low_latency_filter": true,
+          "observe_to_commit_us": 0,
+          "raw_interval_us": 0,
+          "decimation": 20,
+          "poll_us": 150
+        },
+        "note": "seq is debug-frame sequence; raw_seq counts successful FPGA reads. Deliberate decimation is not packet loss. Observation-to-commit is not total sensor latency."
+      },
+      "attitude": {
+        "valid": false,
+        "pitch_deg": null,
+        "roll_deg": null,
+        "yaw_deg": null,
+        "convention": "sensor axes; roll about +X, pitch about +Y, upright +Z; yaw unavailable",
+        "method": "host complementary filter of decimated IMU; visualization only, no motor control"
+      }
+    },
+    "tracking": {
+      "event": null,
+      "age_ms": null,
+      "error": null,
+      "fresh": false
+    },
+    "flow": {
+      "epoch": "e10fd00ef521",
+      "stage": null,
+      "frame_id": null,
+      "newest_frame_id": null,
+      "field_status": null,
+      "vectors": [],
+      "received": 0,
+      "valid": 0,
+      "invalid": 0,
+      "missing": 190,
+      "expected": 190,
+      "image_key": null,
+      "control": {
+        "state": "unknown",
+        "stop_request": true,
+        "steer": 0,
+        "speed_limit": 0,
+        "hazard": 0,
+        "fresh": false,
+        "confident": false,
+        "age_ms": null,
+        "frame_id": null,
+        "valid_counts": [
+          0,
+          0,
+          0
+        ],
+        "risk_counts": [
+          0,
+          0,
+          0
+        ]
+      },
+      "cycles": 0,
+      "dropped_frames": 0,
+      "fps": 0.0,
+      "packets": 0,
+      "bad": 0,
+      "duplicates": 0,
+      "late": 0,
+      "ignored_source": 0,
+      "restarts": 0,
+      "video": {
+        "frames": 0,
+        "fps": 0.0,
+        "frame_id": null,
+        "age_ms": null,
+        "bad": 0,
+        "missing_frames": 0
+      },
+      "history": [],
+      "observe_only": true,
+      "automatic_control_enabled": false,
+      "diagnostic": null,
+      "health_fault": false
+    },
+    "recording": {
+      "active": false,
+      "error": null,
+      "path": "E:\\Gowin_project\\fpga_project\\tmp\\m2_mpu_20261102T063953Z\\live_console_20261102_165953\\sensing",
+      "contents": "10Hz PC status JSONL; raw serial streams are recorded on Nano; frames only on explicit save"
+    },
+    "gateway": {
+      "online": true,
+      "age_ms": 37.02079999493435,
+      "error": null,
+      "data": {
+        "profile": "system_integration_v1",
+        "mode": "live",
+        "control": {
+          "timed_test_supported": true,
+          "ground_test_supported": true,
+          "connected": true,
+          "motor_fresh": true,
+          "motor_age_ms": 34.450900013325736,
+          "motor": {
+            "left_position": 0,
+            "right_position": 0,
+            "left_velocity": 0,
+            "right_velocity": 0,
+            "left_applied": 0,
+            "right_applied": 0,
+            "left_invalid": 0,
+            "right_invalid": 0,
+            "bad_frames": 0,
+            "rejected_commands": 0,
+            "packet_count": 2345,
+            "last_sequence": 0,
+            "armed": false,
+            "flags": 1,
+            "faults": 1,
+            "fault_names": [
+              "power_on_requires_clear"
+            ]
+          },
+          "phase": "stopped",
+          "reason": "serial_connected_requires_new_arm",
+          "owned": false,
+          "targets": [
+            0,
+            0
+          ],
+          "test_remaining_ms": null,
+          "flags": 1,
+          "kp": 256,
+          "ki": 0,
+          "physical_control_enabled": false
+        },
+        "imu": {
+          "online": true,
+          "healthy": false,
+          "age_ms": 320.94360000337474,
+          "error": null,
+          "frame": {
+            "type": "status",
+            "seq": 0,
+            "raw_seq": 0,
+            "timestamp_us": 117000002,
+            "ax_raw": 0,
+            "ay_raw": 0,
+            "az_raw": 0,
+            "gx_raw": 0,
+            "gy_raw": 0,
+            "gz_raw": 0,
+            "temp_raw": 0,
+            "ax_g": 0.0,
+            "ay_g": 0.0,
+            "az_g": 0.0,
+            "gx_dps": 0.0,
+            "gy_dps": 0.0,
+            "gz_dps": 0.0,
+            "temp_c": 36.53,
+            "ready": false,
+            "fault": true,
+            "who_am_i": 0,
+            "last_error": 1,
+            "config_id": 4,
+            "error_count": 117,
+            "invalid_count": 0,
+            "tx_drop_count": 0,
+            "stale": true,
+            "temperature_valid": false,
+            "fast_bus": false,
+            "low_latency_filter": true,
+            "observe_to_commit_us": 0,
+            "raw_interval_us": 0,
+            "decimation": 20,
+            "poll_us": 150
+          },
+          "statistics": {
+            "samples": 0,
+            "status_frames": 77,
+            "serial_sequence_gaps": 0,
+            "sequence_resets": 0,
+            "duplicate_sequences": 0,
+            "crc_failures": 0,
+            "discarded_bytes": 0,
+            "unsupported_frames": 0,
+            "trailing_bytes": 0,
+            "observed_rate_hz": null,
+            "debug_rate_hz": null,
+            "raw_read_rate_hz": null,
+            "raw_stride_anomalies": 0,
+            "observe_to_commit_us": null,
+            "last_frame": {
+              "type": "status",
+              "seq": 0,
+              "raw_seq": 0,
+              "timestamp_us": 117000002,
+              "ax_raw": 0,
+              "ay_raw": 0,
+              "az_raw": 0,
+              "gx_raw": 0,
+              "gy_raw": 0,
+              "gz_raw": 0,
+              "temp_raw": 0,
+              "ax_g": 0.0,
+              "ay_g": 0.0,
+              "az_g": 0.0,
+              "gx_dps": 0.0,
+              "gy_dps": 0.0,
+              "gz_dps": 0.0,
+              "temp_c": 36.53,
+              "ready": false,
+              "fault": true,
+              "who_am_i": 0,
+              "last_error": 1,
+              "config_id": 4,
+              "error_count": 117,
+              "invalid_count": 0,
+              "tx_drop_count": 0,
+              "stale": true,
+              "temperature_valid": false,
+              "fast_bus": false,
+              "low_latency_filter": true,
+              "observe_to_commit_us": 0,
+              "raw_interval_us": 0,
+              "decimation": 20,
+              "poll_us": 150
+            },
+            "note": "seq is debug-frame sequence; raw_seq counts successful FPGA reads. Deliberate decimation is not packet loss. Observation-to-commit is not total sensor latency."
+          },
+          "attitude": {
+            "valid": false,
+            "pitch_deg": null,
+            "roll_deg": null,
+            "yaw_deg": null,
+            "convention": "sensor axes; roll about +X, pitch about +Y, upright +Z; yaw unavailable",
+            "method": "host complementary filter of decimated IMU; visualization only, no motor control"
+          }
+        },
+        "lidar": {
+          "source": "fpga_m2",
+          "enabled": true,
+          "online": true,
+          "age_ms": 65.30809999094345,
+          "scan": {
+            "sequence": 582,
+            "points": [
+              [
+                2.5,
+                1520,
+                172
+              ],
+              [
+                7.5,
+                1503,
+                209
+              ],
+              [
+                12.5,
+                1340,
+                221
+              ],
+              [
+                17.5,
+                1329,
+                222
+              ],
+              [
+                22.5,
+                1329,
+                221
+              ],
+              [
+                27.5,
+                1388,
+                232
+              ],
+              [
+                32.5,
+                1418,
+                233
+              ],
+              [
+                37.5,
+                1415,
+                220
+              ],
+              [
+                42.5,
+                1477,
+                225
+              ],
+              [
+                47.5,
+                1567,
+                230
+              ],
+              [
+                52.5,
+                1622,
+                220
+              ],
+              [
+                57.5,
+                295,
+                153
+              ],
+              [
+                62.5,
+                277,
+                252
+              ],
+              [
+                67.5,
+                262,
+                255
+              ],
+              [
+                72.5,
+                255,
+                255
+              ],
+              [
+                77.5,
+                252,
+                255
+              ],
+              [
+                82.5,
+                256,
+                255
+              ],
+              [
+                87.5,
+                279,
+                255
+              ],
+              [
+                92.5,
+                365,
+                248
+              ],
+              [
+                97.5,
+                382,
+                255
+              ],
+              [
+                102.5,
+                377,
+                78
+              ],
+              [
+                107.5,
+                371,
+                23
+              ],
+              [
+                112.5,
+                1931,
+                192
+              ],
+              [
+                117.5,
+                1352,
+                65
+              ],
+              [
+                122.5,
+                1312,
+                134
+              ],
+              [
+                127.5,
+                1300,
+                230
+              ],
+              [
+                132.5,
+                1281,
+                233
+              ],
+              [
+                137.5,
+                1293,
+                222
+              ],
+              [
+                142.5,
+                2408,
+                90
+              ],
+              [
+                147.5,
+                2671,
+                32
+              ],
+              [
+                152.5,
+                7297,
+                79
+              ],
+              [
+                157.5,
+                6841,
+                81
+              ],
+              [
+                162.5,
+                6620,
+                65
+              ],
+              [
+                167.5,
+                6533,
+                51
+              ],
+              [
+                172.5,
+                6535,
+                76
+              ],
+              [
+                177.5,
+                6290,
+                75
+              ],
+              [
+                182.5,
+                6281,
+                63
+              ],
+              [
+                187.5,
+                5625,
+                66
+              ],
+              [
+                192.5,
+                5576,
+                43
+              ],
+              [
+                197.5,
+                3355,
+                62
+              ],
+              [
+                202.5,
+                1718,
+                90
+              ],
+              [
+                207.5,
+                3344,
+                95
+              ],
+              [
+                212.5,
+                1340,
+                82
+              ],
+              [
+                217.5,
+                1669,
+                35
+              ],
+              [
+                222.5,
+                6249,
+                88
+              ],
+              [
+                227.5,
+                835,
+                76
+              ],
+              [
+                232.5,
+                852,
+                29
+              ],
+              [
+                237.5,
+                5974,
+                53
+              ],
+              [
+                242.5,
+                1356,
+                106
+              ],
+              [
+                247.5,
+                620,
+                246
+              ],
+              [
+                252.5,
+                393,
+                108
+              ],
+              [
+                257.5,
+                397,
+                146
+              ],
+              [
+                262.5,
+                591,
+                232
+              ],
+              [
+                267.5,
+                2990,
+                147
+              ],
+              [
+                272.5,
+                382,
+                27
+              ],
+              [
+                277.5,
+                2525,
+                173
+              ],
+              [
+                282.5,
+                545,
+                75
+              ],
+              [
+                287.5,
+                3201,
+                117
+              ],
+              [
+                292.5,
+                256,
+                22
+              ],
+              [
+                297.5,
+                264,
+                45
+              ],
+              [
+                302.5,
+                2472,
+                92
+              ],
+              [
+                307.5,
+                2478,
+                108
+              ],
+              [
+                312.5,
+                346,
+                238
+              ],
+              [
+                317.5,
+                302,
+                239
+              ],
+              [
+                322.5,
+                417,
+                243
+              ],
+              [
+                327.5,
+                449,
+                242
+              ],
+              [
+                332.5,
+                488,
+                210
+              ],
+              [
+                337.5,
+                530,
+                159
+              ],
+              [
+                342.5,
+                594,
+                111
+              ],
+              [
+                347.5,
+                1037,
+                220
+              ],
+              [
+                352.5,
+                1648,
+                133
+              ],
+              [
+                357.5,
+                1581,
+                142
+              ]
+            ],
+            "resolution_degrees": 5,
+            "representation": "nearest_return_per_sector"
+          },
+          "scans": 379,
+          "incomplete_scans": 0,
+          "diagnostic": {
+            "device_ms": 117200,
+            "bytes": 9914152,
+            "framing_errors": 0,
+            "packets": 210938,
+            "crc_errors": 0,
+            "format_errors": 0,
+            "timeouts": 0,
+            "completed_scans": 1162,
+            "skipped_scans": 581,
+            "sequence": 581,
+            "flags": 19,
+            "coverage": 72,
+            "age_ms": 121.15120000089519
+          },
+          "frames": 210938,
+          "bad_crc": 0,
+          "error": null,
+          "resolution_degrees": 5
+        },
+        "encoder_diagnostics": {
+          "2": {
+            "sync_a_edges": 0,
+            "sync_b_edges": 0,
+            "filtered_a_edges": 0,
+            "filtered_b_edges": 0,
+            "a_positive": 0,
+            "a_negative": 0,
+            "b_positive": 0,
+            "b_negative": 0,
+            "diagonal": 0,
+            "axis": 2,
+            "sequence": 1171,
+            "mode": "a_edge_x2_scaled4",
+            "synchronized_ab": 3,
+            "filtered_ab": 3,
+            "received_monotonic": 149552.8602036,
+            "age_ms": 135.0559999991674
+          },
+          "1": {
+            "sync_a_edges": 0,
+            "sync_b_edges": 0,
+            "filtered_a_edges": 0,
+            "filtered_b_edges": 0,
+            "a_positive": 0,
+            "a_negative": 0,
+            "b_positive": 0,
+            "b_negative": 0,
+            "diagonal": 0,
+            "axis": 1,
+            "sequence": 1172,
+            "mode": "quadrature_continuity_x4",
+            "synchronized_ab": 3,
+            "filtered_ab": 3,
+            "received_monotonic": 149552.9640953,
+            "age_ms": 31.165899999905378
+          }
+        },
+        "encoder_traces": {
+          "1": {
+            "axis": 1,
+            "sequence": 10558,
+            "event_count": 0,
+            "mode": "quadrature_continuity_x4",
+            "transitions": [],
+            "synchronized_ab": 3,
+            "filtered_ab": 3,
+            "received_monotonic": 149552.9776201,
+            "age_ms": 17.642399994656444
+          },
+          "2": {
+            "axis": 2,
+            "sequence": 10559,
+            "event_count": 0,
+            "mode": "a_edge_x2_scaled4",
+            "transitions": [],
+            "synchronized_ab": 3,
+            "filtered_ab": 3,
+            "received_monotonic": 149552.9878246,
+            "age_ms": 7.438900007400662
+          }
+        },
+        "odometry": {
+          "valid": false,
+          "x_m": 0.0,
+          "y_m": 0.0,
+          "yaw_rad": 0.0,
+          "method": "encoder dead reckoning; no SLAM or IMU fusion"
+        },
+        "serial_error": null,
+        "serial_connections": 1,
+        "uart_bad_crc": 0,
+        "recording": {
+          "active": true,
+          "drops": 0,
+          "error": null
+        }
+      }
+    },
+    "control": {
+      "timed_test_supported": true,
+      "ground_test_supported": true,
+      "connected": true,
+      "motor_fresh": true,
+      "motor_age_ms": 34.450900013325736,
+      "motor": {
+        "left_position": 0,
+        "right_position": 0,
+        "left_velocity": 0,
+        "right_velocity": 0,
+        "left_applied": 0,
+        "right_applied": 0,
+        "left_invalid": 0,
+        "right_invalid": 0,
+        "bad_frames": 0,
+        "rejected_commands": 0,
+        "packet_count": 2345,
+        "last_sequence": 0,
+        "armed": false,
+        "flags": 1,
+        "faults": 1,
+        "fault_names": [
+          "power_on_requires_clear"
+        ]
+      },
+      "phase": "stopped",
+      "reason": "serial_connected_requires_new_arm",
+      "owned": false,
+      "targets": [
+        0,
+        0
+      ],
+      "test_remaining_ms": null,
+      "flags": 1,
+      "kp": 256,
+      "ki": 0,
+      "physical_control_enabled": false
+    },
+    "lidar": {
+      "source": "fpga_m2",
+      "enabled": true,
+      "online": true,
+      "age_ms": 102.3288999858778,
+      "scan": {
+        "sequence": 582,
+        "points": [
+          [
+            2.5,
+            1520,
+            172
+          ],
+          [
+            7.5,
+            1503,
+            209
+          ],
+          [
+            12.5,
+            1340,
+            221
+          ],
+          [
+            17.5,
+            1329,
+            222
+          ],
+          [
+            22.5,
+            1329,
+            221
+          ],
+          [
+            27.5,
+            1388,
+            232
+          ],
+          [
+            32.5,
+            1418,
+            233
+          ],
+          [
+            37.5,
+            1415,
+            220
+          ],
+          [
+            42.5,
+            1477,
+            225
+          ],
+          [
+            47.5,
+            1567,
+            230
+          ],
+          [
+            52.5,
+            1622,
+            220
+          ],
+          [
+            57.5,
+            295,
+            153
+          ],
+          [
+            62.5,
+            277,
+            252
+          ],
+          [
+            67.5,
+            262,
+            255
+          ],
+          [
+            72.5,
+            255,
+            255
+          ],
+          [
+            77.5,
+            252,
+            255
+          ],
+          [
+            82.5,
+            256,
+            255
+          ],
+          [
+            87.5,
+            279,
+            255
+          ],
+          [
+            92.5,
+            365,
+            248
+          ],
+          [
+            97.5,
+            382,
+            255
+          ],
+          [
+            102.5,
+            377,
+            78
+          ],
+          [
+            107.5,
+            371,
+            23
+          ],
+          [
+            112.5,
+            1931,
+            192
+          ],
+          [
+            117.5,
+            1352,
+            65
+          ],
+          [
+            122.5,
+            1312,
+            134
+          ],
+          [
+            127.5,
+            1300,
+            230
+          ],
+          [
+            132.5,
+            1281,
+            233
+          ],
+          [
+            137.5,
+            1293,
+            222
+          ],
+          [
+            142.5,
+            2408,
+            90
+          ],
+          [
+            147.5,
+            2671,
+            32
+          ],
+          [
+            152.5,
+            7297,
+            79
+          ],
+          [
+            157.5,
+            6841,
+            81
+          ],
+          [
+            162.5,
+            6620,
+            65
+          ],
+          [
+            167.5,
+            6533,
+            51
+          ],
+          [
+            172.5,
+            6535,
+            76
+          ],
+          [
+            177.5,
+            6290,
+            75
+          ],
+          [
+            182.5,
+            6281,
+            63
+          ],
+          [
+            187.5,
+            5625,
+            66
+          ],
+          [
+            192.5,
+            5576,
+            43
+          ],
+          [
+            197.5,
+            3355,
+            62
+          ],
+          [
+            202.5,
+            1718,
+            90
+          ],
+          [
+            207.5,
+            3344,
+            95
+          ],
+          [
+            212.5,
+            1340,
+            82
+          ],
+          [
+            217.5,
+            1669,
+            35
+          ],
+          [
+            222.5,
+            6249,
+            88
+          ],
+          [
+            227.5,
+            835,
+            76
+          ],
+          [
+            232.5,
+            852,
+            29
+          ],
+          [
+            237.5,
+            5974,
+            53
+          ],
+          [
+            242.5,
+            1356,
+            106
+          ],
+          [
+            247.5,
+            620,
+            246
+          ],
+          [
+            252.5,
+            393,
+            108
+          ],
+          [
+            257.5,
+            397,
+            146
+          ],
+          [
+            262.5,
+            591,
+            232
+          ],
+          [
+            267.5,
+            2990,
+            147
+          ],
+          [
+            272.5,
+            382,
+            27
+          ],
+          [
+            277.5,
+            2525,
+            173
+          ],
+          [
+            282.5,
+            545,
+            75
+          ],
+          [
+            287.5,
+            3201,
+            117
+          ],
+          [
+            292.5,
+            256,
+            22
+          ],
+          [
+            297.5,
+            264,
+            45
+          ],
+          [
+            302.5,
+            2472,
+            92
+          ],
+          [
+            307.5,
+            2478,
+            108
+          ],
+          [
+            312.5,
+            346,
+            238
+          ],
+          [
+            317.5,
+            302,
+            239
+          ],
+          [
+            322.5,
+            417,
+            243
+          ],
+          [
+            327.5,
+            449,
+            242
+          ],
+          [
+            332.5,
+            488,
+            210
+          ],
+          [
+            337.5,
+            530,
+            159
+          ],
+          [
+            342.5,
+            594,
+            111
+          ],
+          [
+            347.5,
+            1037,
+            220
+          ],
+          [
+            352.5,
+            1648,
+            133
+          ],
+          [
+            357.5,
+            1581,
+            142
+          ]
+        ],
+        "resolution_degrees": 5,
+        "representation": "nearest_return_per_sector"
+      },
+      "scans": 379,
+      "incomplete_scans": 0,
+      "diagnostic": {
+        "device_ms": 117200,
+        "bytes": 9914152,
+        "framing_errors": 0,
+        "packets": 210938,
+        "crc_errors": 0,
+        "format_errors": 0,
+        "timeouts": 0,
+        "completed_scans": 1162,
+        "skipped_scans": 581,
+        "sequence": 581,
+        "flags": 19,
+        "coverage": 72,
+        "age_ms": 158.17199999582954
+      },
+      "frames": 210938,
+      "bad_crc": 0,
+      "error": null,
+      "resolution_degrees": 5
+    },
+    "odometry": {
+      "valid": false,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_rad": 0.0,
+      "method": "encoder dead reckoning; no SLAM or IMU fusion"
+    },
+    "firmware_mode": "M2 static sensor diagnostic / RAM scan"
+  },
+  "8876": {
+    "mode": "live",
+    "online": true,
+    "lidar": {
+      "source": "fpga_m2",
+      "enabled": true,
+      "online": true,
+      "age_ms": 106.36740000336431,
+      "scan": {
+        "sequence": 582,
+        "points": [
+          [
+            2.5,
+            1520,
+            172
+          ],
+          [
+            7.5,
+            1503,
+            209
+          ],
+          [
+            12.5,
+            1340,
+            221
+          ],
+          [
+            17.5,
+            1329,
+            222
+          ],
+          [
+            22.5,
+            1329,
+            221
+          ],
+          [
+            27.5,
+            1388,
+            232
+          ],
+          [
+            32.5,
+            1418,
+            233
+          ],
+          [
+            37.5,
+            1415,
+            220
+          ],
+          [
+            42.5,
+            1477,
+            225
+          ],
+          [
+            47.5,
+            1567,
+            230
+          ],
+          [
+            52.5,
+            1622,
+            220
+          ],
+          [
+            57.5,
+            295,
+            153
+          ],
+          [
+            62.5,
+            277,
+            252
+          ],
+          [
+            67.5,
+            262,
+            255
+          ],
+          [
+            72.5,
+            255,
+            255
+          ],
+          [
+            77.5,
+            252,
+            255
+          ],
+          [
+            82.5,
+            256,
+            255
+          ],
+          [
+            87.5,
+            279,
+            255
+          ],
+          [
+            92.5,
+            365,
+            248
+          ],
+          [
+            97.5,
+            382,
+            255
+          ],
+          [
+            102.5,
+            377,
+            78
+          ],
+          [
+            107.5,
+            371,
+            23
+          ],
+          [
+            112.5,
+            1931,
+            192
+          ],
+          [
+            117.5,
+            1352,
+            65
+          ],
+          [
+            122.5,
+            1312,
+            134
+          ],
+          [
+            127.5,
+            1300,
+            230
+          ],
+          [
+            132.5,
+            1281,
+            233
+          ],
+          [
+            137.5,
+            1293,
+            222
+          ],
+          [
+            142.5,
+            2408,
+            90
+          ],
+          [
+            147.5,
+            2671,
+            32
+          ],
+          [
+            152.5,
+            7297,
+            79
+          ],
+          [
+            157.5,
+            6841,
+            81
+          ],
+          [
+            162.5,
+            6620,
+            65
+          ],
+          [
+            167.5,
+            6533,
+            51
+          ],
+          [
+            172.5,
+            6535,
+            76
+          ],
+          [
+            177.5,
+            6290,
+            75
+          ],
+          [
+            182.5,
+            6281,
+            63
+          ],
+          [
+            187.5,
+            5625,
+            66
+          ],
+          [
+            192.5,
+            5576,
+            43
+          ],
+          [
+            197.5,
+            3355,
+            62
+          ],
+          [
+            202.5,
+            1718,
+            90
+          ],
+          [
+            207.5,
+            3344,
+            95
+          ],
+          [
+            212.5,
+            1340,
+            82
+          ],
+          [
+            217.5,
+            1669,
+            35
+          ],
+          [
+            222.5,
+            6249,
+            88
+          ],
+          [
+            227.5,
+            835,
+            76
+          ],
+          [
+            232.5,
+            852,
+            29
+          ],
+          [
+            237.5,
+            5974,
+            53
+          ],
+          [
+            242.5,
+            1356,
+            106
+          ],
+          [
+            247.5,
+            620,
+            246
+          ],
+          [
+            252.5,
+            393,
+            108
+          ],
+          [
+            257.5,
+            397,
+            146
+          ],
+          [
+            262.5,
+            591,
+            232
+          ],
+          [
+            267.5,
+            2990,
+            147
+          ],
+          [
+            272.5,
+            382,
+            27
+          ],
+          [
+            277.5,
+            2525,
+            173
+          ],
+          [
+            282.5,
+            545,
+            75
+          ],
+          [
+            287.5,
+            3201,
+            117
+          ],
+          [
+            292.5,
+            256,
+            22
+          ],
+          [
+            297.5,
+            264,
+            45
+          ],
+          [
+            302.5,
+            2472,
+            92
+          ],
+          [
+            307.5,
+            2478,
+            108
+          ],
+          [
+            312.5,
+            346,
+            238
+          ],
+          [
+            317.5,
+            302,
+            239
+          ],
+          [
+            322.5,
+            417,
+            243
+          ],
+          [
+            327.5,
+            449,
+            242
+          ],
+          [
+            332.5,
+            488,
+            210
+          ],
+          [
+            337.5,
+            530,
+            159
+          ],
+          [
+            342.5,
+            594,
+            111
+          ],
+          [
+            347.5,
+            1037,
+            220
+          ],
+          [
+            352.5,
+            1648,
+            133
+          ],
+          [
+            357.5,
+            1581,
+            142
+          ]
+        ],
+        "resolution_degrees": 5,
+        "representation": "nearest_return_per_sector"
+      },
+      "scans": 379,
+      "incomplete_scans": 0,
+      "diagnostic": {
+        "device_ms": 117200,
+        "bytes": 9914152,
+        "framing_errors": 0,
+        "packets": 210938,
+        "crc_errors": 0,
+        "format_errors": 0,
+        "timeouts": 0,
+        "completed_scans": 1162,
+        "skipped_scans": 581,
+        "sequence": 581,
+        "flags": 19,
+        "coverage": 72,
+        "age_ms": 162.32589998980984
+      },
+      "frames": 210938,
+      "bad_crc": 0,
+      "error": null,
+      "resolution_degrees": 5
+    },
+    "rows": {
+      "encoder_trace": {
+        "axis": 2,
+        "sequence": 10563,
+        "event_count": 0,
+        "mode": "a_edge_x2_scaled4",
+        "transitions": [],
+        "synchronized_ab": 3,
+        "filtered_ab": 3
+      },
+      "motor": {
+        "left_position": 0,
+        "right_position": 0,
+        "left_velocity": 0,
+        "right_velocity": 0,
+        "left_applied": 0,
+        "right_applied": 0,
+        "left_invalid": 0,
+        "right_invalid": 0,
+        "bad_frames": 0,
+        "rejected_commands": 0,
+        "packet_count": 2346,
+        "last_sequence": 0,
+        "armed": false,
+        "flags": 1,
+        "faults": 1,
+        "fault_names": [
+          "power_on_requires_clear"
+        ]
+      },
+      "encoder_diagnostics": {
+        "sync_a_edges": 0,
+        "sync_b_edges": 0,
+        "filtered_a_edges": 0,
+        "filtered_b_edges": 0,
+        "a_positive": 0,
+        "a_negative": 0,
+        "b_positive": 0,
+        "b_negative": 0,
+        "diagonal": 0,
+        "axis": 1,
+        "sequence": 1172,
+        "mode": "quadrature_continuity_x4",
+        "synchronized_ab": 3,
+        "filtered_ab": 3
+      },
+      "nav": {
+        "running": false,
+        "done": false,
+        "permit": false,
+        "waypoint_index": 0,
+        "faults": 0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "heading_degrees": 0.0,
+        "v_mm_s": 0,
+        "w_mrad_s": 0,
+        "left_target": 0,
+        "right_target": 0,
+        "front_mm": 65535,
+        "plans": 0,
+        "lidar_packets": 211118,
+        "lidar_errors": 0,
+        "rejected": 0
+      },
+      "imu": {
+        "type": "status",
+        "seq": 0,
+        "raw_seq": 0,
+        "timestamp_us": 117000002,
+        "ax_raw": 0,
+        "ay_raw": 0,
+        "az_raw": 0,
+        "gx_raw": 0,
+        "gy_raw": 0,
+        "gz_raw": 0,
+        "temp_raw": 0,
+        "ax_g": 0.0,
+        "ay_g": 0.0,
+        "az_g": 0.0,
+        "gx_dps": 0.0,
+        "gy_dps": 0.0,
+        "gz_dps": 0.0,
+        "temp_c": 36.53,
+        "ready": false,
+        "fault": true,
+        "who_am_i": 0,
+        "last_error": 1,
+        "config_id": 4,
+        "error_count": 117,
+        "invalid_count": 0,
+        "tx_drop_count": 0,
+        "stale": true,
+        "temperature_valid": false,
+        "fast_bus": false,
+        "low_latency_filter": true,
+        "observe_to_commit_us": 0,
+        "raw_interval_us": 0,
+        "decimation": 20,
+        "poll_us": 150
+      },
+      "lidar_diagnostic": {
+        "device_ms": 117200,
+        "bytes": 9914152,
+        "framing_errors": 0,
+        "packets": 210938,
+        "crc_errors": 0,
+        "format_errors": 0,
+        "timeouts": 0,
+        "completed_scans": 1162,
+        "skipped_scans": 581,
+        "sequence": 581,
+        "flags": 19,
+        "coverage": 72
+      },
+      "lidar_scan": {
+        "sequence": 582,
+        "chunk": 5,
+        "chunks": 6,
+        "source_age_ms": 24,
+        "points": [
+          [
+            2472,
+            92
+          ],
+          [
+            2478,
+            108
+          ],
+          [
+            346,
+            238
+          ],
+          [
+            302,
+            239
+          ],
+          [
+            417,
+            243
+          ],
+          [
+            449,
+            242
+          ],
+          [
+            488,
+            210
+          ],
+          [
+            530,
+            159
+          ],
+          [
+            594,
+            111
+          ],
+          [
+            1037,
+            220
+          ],
+          [
+            1648,
+            133
+          ],
+          [
+            1581,
+            142
+          ]
+        ]
+      }
+    },
+    "ages_ms": {
+      "encoder_trace": 9.0,
+      "motor": 29.0,
+      "encoder_diagnostics": 72.4,
+      "nav": 55.7,
+      "imu": 362.3,
+      "lidar_diagnostic": 162.3,
+      "lidar_scan": 64.4
+    },
+    "checks": [
+      {
+        "name": "\u6570\u636e\u6765\u6e90",
+        "state": "ok",
+        "detail": "live"
+      },
+      {
+        "name": "\u5bfc\u822a\u9065\u6d4b",
+        "state": "ok",
+        "detail": "\u5e27\u9f84 56 ms"
+      },
+      {
+        "name": "\u7535\u673a\u9065\u6d4b",
+        "state": "ok",
+        "detail": "ARM=False\uff0cfaults=0x0001"
+      },
+      {
+        "name": "IMU\u539f\u59cb\u9065\u6d4b",
+        "state": "unknown",
+        "detail": "\u53ea\u62a5\u544a\u5df2\u6536\u5230\u5b57\u6bb5\uff1b\u4e0d\u4ee5\u4e3b\u673a\u59ff\u6001\u4ee3\u66ffFPGA\u91cc\u7a0b\u8ba1"
+      },
+      {
+        "name": "\u96f7\u8fbe\u5305\u63a8\u8fdb",
+        "state": "ok",
+        "detail": "1797.1 \u5305/s"
+      },
+      {
+        "name": "\u89c4\u5212\u63a8\u8fdb",
+        "state": "unknown",
+        "detail": "0.0 \u6b21/s"
+      },
+      {
+        "name": "FPGA\u8f93\u51fa\u8bb8\u53ef",
+        "state": "bad",
+        "detail": "\u4efb\u52a1\u672a\u8fd0\u884c\u6216\u5df2\u7ecf\u7ed3\u675f"
+      },
+      {
+        "name": "\u96f7\u8fbe\u626b\u63cf\u4e0a\u4f20",
+        "state": "ok",
+        "detail": "72\u4e2a5\u00b0\u6247\u533a\u6700\u8fd1\u56de\u6ce2\uff1b\u6700\u591a5Hz"
+      },
+      {
+        "name": "\u5bfc\u822a\u5019\u9009\u65b9\u5411",
+        "state": "unknown",
+        "detail": "\u5f53\u524d\u56fa\u4ef6\u672a\u4e0a\u4f20\uff0c\u754c\u9762\u4e0d\u4f1a\u63a8\u6d4b\u6216\u4f2a\u9020"
+      }
+    ],
+    "events": [
+      {
+        "at_s": 0.303,
+        "message": "\u5bfc\u822a\u72b6\u6001\u53d8\u5316\uff1a\u8fd0\u884c=False \u5b8c\u6210=False \u8bb8\u53ef=False \u6545\u969c=0x0000"
+      }
+    ],
+    "trace": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "bytes": 607998,
+    "nav_bad_frames": 0,
+    "mixed_bad_crc": 0,
+    "error": null,
+    "recording_error": null,
+    "recording": "E:\\Gowin_project\\fpga_project\\tmp\\m2_mpu_20261102T063953Z\\live_console_20261102_165953\\navigation",
+    "elapsed_s": 76.7
+  }
+}

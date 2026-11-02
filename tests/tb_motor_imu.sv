@@ -9,7 +9,7 @@ module tb_motor_imu;
     defparam dut.with_imu.imu.POWERUP_US=100;
     defparam dut.with_imu.imu.RESET_US=1200;
     defparam dut.with_imu.imu.STARTUP_US=500;
-    icm42688_model #(.SAMPLE_NS(1000000)) sensor(.scl(scl),.sda(sda),.present(1'b1),.identity(8'h47),.corrupt_readback(1'b0),.invalid_data(1'b0),.freeze_samples(1'b0));
+    mpu6050_model #(.SAMPLE_NS(1000000)) sensor(.scl(scl),.sda(sda),.present(1'b1),.identity(8'h68),.corrupt_readback(1'b0),.invalid_data(1'b0),.freeze_samples(1'b0));
     wire [7:0] data;wire valid,error;
     uart_rx_byte #(.CLK_HZ(5000000)) monitor(.clk(clk),.reset_n(reset_n),.rx(tx),.data(data),.valid(valid),.framing_error(error));
     integer file,samples=0;

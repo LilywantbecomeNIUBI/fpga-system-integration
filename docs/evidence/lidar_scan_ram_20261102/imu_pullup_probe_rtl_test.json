@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "address": 104,
+      "error": 0,
+      "who": 112,
+      "levels": 3
+    },
+    {
+      "address": 105,
+      "error": 1,
+      "who": 0,
+      "levels": 3
+    },
+    {
+      "address": 104,
+      "error": 0,
+      "who": 112,
+      "levels": 3
+    },
+    {
+      "address": 105,
+      "error": 1,
+      "who": 0,
+      "levels": 3
+    },
+    {
+      "address": 104,
+      "error": 0,
+      "who": 112,
+      "levels": 3
+    }
+  ],
+  "source_sha256": {
+    "fpga/motor/at8236_pwm.sv": "74958eda563a9ff376fc5c7a8d674398476f436e466cca03a33c3772a9d0d561",
+    "fpga/motor/brushed_motor_top.sv": "1fbc4a91a98b3e9d5dad2c61889a5ff6374a15f05994f7511777fe280f693404",
+    "fpga/motor/encoder_ab.sv": "49e14315ba75501fa0b11cc0c7f4afd7aba0ea38fd124781c4282718f0b76567",
+    "fpga/motor/encoder_diagnostics.sv": "27e5f78554fe4d532a317082dfe9a65c5b31805ed5632e15e61c1f22a489ae8a",
+    "fpga/motor/frame_transport.sv": "9e7967b5d9aec64d299d51d8737d46e3b0a4cbe38a307fc22bddf88ff9f9940f",
+    "fpga/motor/motor_core.sv": "5ad8477d3f77d434dde67456baaa947594e736909a598aa4072dd089c08dd2b6",
+    "fpga/motor/motor_protocol.sv": "ffc307a70e0fdf8c5b4c3b9bd3e7f45305ddd7c530f47319aa99e173f69fe05c",
+    "fpga/motor/motor_telemetry.sv": "e12535c7ac9261433169be755d27357491777bb360c0d8973b75d22ef7eab7eb",
+    "fpga/motor/uart_byte.sv": "d88aa96614eac7f51ab4d37d547e4fd3560c7ea4bb7ec25e97ff686e7a7d8ac0",
+    "fpga/motor/wheel_control.sv": "5840112b8eb8a2060af6f53663cc514718fc0d66639bfee5d8b6598033c4730d",
+    "fpga/navigation/task4_chassis.sv": "f9de118e5641a64ebc2b94eee7066afc69ba4bb13fb72ac2d7627d7abaafa681",
+    "fpga/navigation/nav_command_mux.sv": "cc601c126f2dded3862dd4a26aaa1ee0d5628692281113a8b3efd6ad76edc213",
+    "fpga/navigation/nav_status_source.sv": "ea8fdb1e8c0c5321fe810b5af8de823366f6dffd84b93ec8db8da88024e487f9",
+    "fpga/navigation/lidar_scan_source.sv": "dbcc9acebbaea2de3cd6cc682ebe85a53a055c274c6ae23a06980fddcdad9b3a",
+    "fpga/navigation/lidar/stl27l_node_parser.v": "4840669b11221648d2d6b6516950e57600dc2180005cbdf4a47df1f45d2b8a26",
+    "fpga/navigation/lidar/stl27l_uart_rx.v": "c7cbb11a08187b4d55e6a2a7004385a296b3806c4e68b38ee8cea799f12d7281",
+    "fpga/system/imu_status_source.sv": "fba1f0aa67f84822f923cec42a40c9ac495a5ea45665038702ec8bfb9fb35a53",
+    "fpga/diagnostics/imu_identity_pullup_top.sv": "e3335efa234ad2ac344d8bbbb381a14c2fb38436a202eee0518b38cdf5d8d352",
+    "fpga/imu/imu_1khz_core.v": "fa4d33ec9e31642ab7f796bf888d6633a6ca42fefca05d11d71f8e99e5b83166",
+    "fpga/imu/mpu6050_reader.v": "42191d06b7deaf7e3286adc9f7352b46d269510f5a520ef15f5c8244afaa3f92",
+    "fpga/imu/imu_fast_i2c_master.v": "06365187f02ac81bf336bae6fc54c1795e9f70dcad8078d292202f165afa3368",
+    "build/imu_identity_pullup_20261102/diag.cst": "fe9e9f00c2923fa6551f26d597ad60ca5d33864160408d14a881105bfb87fbda",
+    "build/imu_identity_pullup_20261102/diag.sdc": "c60526cded18ed90e1af286c0b6be68a13663648f1dfe18a16f58b06128f7b06",
+    "build/imu_identity_pullup_20261102/diag.gprj": "65d5c5e865bd9d6f34d1350ec8e686699caebf3dfa146eb555d80af49720842d",
+    "build/imu_identity_pullup_20261102/build.tcl": "108f3e1aa02a4dc79463e90335987142b01f75b71c81b8a249e07448c4b9c038",
+    "build_imu_identity_pullup.py": "8ffc42d443c16f9653fa4271956069bb407ed38890b77f815b2f9de5cf503d9a"
+  },
+  "testbench_path": "build/imu_identity_pullup_20261102/tb_probe.sv",
+  "testbench_sha256": "b09e50b8c9a6f13d4ef20c2e22a9219873b7439664b349568b6780704df8b6d3"
+}

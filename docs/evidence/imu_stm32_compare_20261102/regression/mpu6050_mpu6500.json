@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "cases": {
+    "bus": {
+      "passed": true,
+      "log_sha256": "ef2e931a48e9e5d1299d691fbbfc85dc96d1be96dc032c95bbbf347f34962caa"
+    },
+    "mpu6500_bus": {
+      "passed": true,
+      "log_sha256": "37c086d4d1e8ebbd084a9a1879247b5fb2f71c9a047c49c032d26df193f97e36"
+    },
+    "host": {
+      "passed": true,
+      "log_sha256": "e20076730d3bb5139de6623f17c22d31651ebac4440c17f435140a3a830578b3"
+    },
+    "bringup": {
+      "passed": true,
+      "log_sha256": "014a4be2cdb948d6a9a8f10fbdbf1a47dc2e9675a938871090a7cc71afe8c52e"
+    },
+    "bringup_uart": {
+      "passed": true,
+      "imu_samples": 7,
+      "motor_packets": 0,
+      "identity_passed": true,
+      "sample_span_s": 0.120042,
+      "required_sample_span_s": 0,
+      "sequence_continuity_passed": true,
+      "healthy_samples": true,
+      "counters_zero": true,
+      "motors_stopped": false,
+      "bad_crc": 0,
+      "imu_statistics": {
+        "samples": 7,
+        "status_frames": 0,
+        "serial_sequence_gaps": 0,
+        "sequence_resets": 0,
+        "duplicate_sequences": 0,
+        "crc_failures": 0,
+        "discarded_bytes": 0,
+        "unsupported_frames": 0,
+        "trailing_bytes": 0,
+        "observed_rate_hz": 49.982506122857004,
+        "debug_rate_hz": 49.982506122857004,
+        "raw_read_rate_hz": 999.65012245714,
+        "raw_stride_anomalies": 0,
+        "observe_to_commit_us": {
+          "mean": 415.0,
+          "maximum": 415,
+          "p99": 415
+        },
+        "last_frame": {
+          "type": "sample",
+          "seq": 7,
+          "raw_seq": 140,
+          "timestamp_us": 144160,
+          "ax_raw": 1024,
+          "ay_raw": -2048,
+          "az_raw": 8192,
+          "gx_raw": -32767,
+          "gy_raw": 1000,
+          "gz_raw": 32767,
+          "temp_raw": 340,
+          "ax_g": 0.125,
+          "ay_g": -0.25,
+          "az_g": 1.0,
+          "gx_dps": -998.9939024390245,
+          "gy_dps": 30.487804878048784,
+          "gz_dps": 998.9939024390245,
+          "temp_c": 37.53,
+          "ready": true,
+          "fault": false,
+          "who_am_i": 104,
+          "last_error": 0,
+          "config_id": 4,
+          "error_count": 0,
+          "invalid_count": 0,
+          "tx_drop_count": 0,
+          "stale": false,
+          "temperature_valid": true,
+          "fast_bus": false,
+          "low_latency_filter": true,
+          "observe_to_commit_us": 415,
+          "raw_interval_us": 1121,
+          "decimation": 20,
+          "poll_us": 150
+        },
+        "note": "seq is debug-frame sequence; raw_seq counts successful FPGA reads. Deliberate decimation is not packet loss. Observation-to-commit is not total sensor latency."
+      },
+      "motor_telemetry_required": false,
+      "note": "Read-only acquisition; no motion commands. Counts successful reads, not unique sensor conversions. Axis mounting and dynamic performance need physical checks."
+    }
+  },
+  "hardware_tested": false,
+  "source_sha256": {
+    "fpga/imu/mpu6050_reader.v": "9fb566848e49a2a57f8779e68d93b9fd8a1aa0525ea8a46be09187f968bdb4c5",
+    "fpga/imu/imu_1khz_core.v": "fa4d33ec9e31642ab7f796bf888d6633a6ca42fefca05d11d71f8e99e5b83166",
+    "fpga/imu/imu_fast_i2c_master.v": "06365187f02ac81bf336bae6fc54c1795e9f70dcad8078d292202f165afa3368",
+    "tests/imu/mpu6050_model.sv": "c5bd07fdb02fbc1591016625cf6eb217335007ab2c4224486f4d8f1ffb05962a",
+    "tests/imu/tb_mpu6050_reader.sv": "295f75df733a0972501a78c896a1f45c9ba24bcf82b935b0cf85e7d44ff72342",
+    "tests/test_imu_mpu6050.py": "710dbdfab04e7addc22f7e68a8bed2ee5dc21a3b69805b30776a57f8422f4a4b",
+    "shared/imu_protocol.py": "9621ef7476e4a76e6c97427c82bc7f5cb4ce61ab03e9f23137f793edd68c9930",
+    "shared/imu_state.py": "6886ec2c5772143d8f4f346ec6b7d2b0c65cf8de53bd2ddbb4572dc7dde10e15",
+    "tools/verify_mpu6050.py": "f506ce8b945ff2db7fea8e8455496bc0adad8553f7edd4aa7a14fa86f2e1e99e",
+    "fpga/imu/mpu6050_bringup_top.sv": "d17366dac060484d4722a1acda1b25fc814440d863eec00aecf3039988d6a87b",
+    "fpga/imu/imu_fast_uart_stream.v": "921b6d0f4986ca0e91ac765b7e19fc7860c1fb512ec5346f3cae9a7d5700dc0a",
+    "tests/imu/tb_mpu6050_bringup.sv": "b554e6bbebd093a2817acb07a24ca645ea54f69edc6d32a74da1593e9bc3d1eb",
+    "fpga/system/imu_status_source.sv": "9adf7f6c4761d08bd38368381f8d02e85aa7bb7fd81ae3c6fc85c84d037a93d4",
+    "tests/imu/tb_mpu6500_reader.sv": "c949fd2ce76b0d402d92a4aa3d952bed4969d1f12e4550ee147085055cdb5ab4",
+    "tests/test_imu_mpu6500.py": "ab08f560fd4eb136203bee969e0d35d8904b4b4a76ea1b567bc0c3aded4699b7"
+  }
+}

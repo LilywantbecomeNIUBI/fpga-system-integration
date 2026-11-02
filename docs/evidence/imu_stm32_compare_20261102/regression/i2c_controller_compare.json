@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "hardware_tested": false,
+  "scl_rise_delay_ns": 700,
+  "slave_data_delay_ns": 3000,
+  "source_sha256": {
+    "tests/imu/tb_i2c_controller_compare.sv": "c2cf7e8b387a0846ebcc09826e6781988957885b660f29b45bfe9fddbec442f0",
+    "fpga/imu/imu_whoami_i2c.v": "c96b42bbe68f4459d759d53ea387e69632209d8ff077fde3ca3b346e040062d0",
+    "fpga/imu/imu_fast_i2c_master.v": "06365187f02ac81bf336bae6fc54c1795e9f70dcad8078d292202f165afa3368",
+    "tests/imu/mpu6050_model.sv": "c5bd07fdb02fbc1591016625cf6eb217335007ab2c4224486f4d8f1ffb05962a"
+  }
+}

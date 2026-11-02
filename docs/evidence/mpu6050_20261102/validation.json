@@ -1,0 +1,52 @@
+{
+  "passed_static_imu_preparation": true,
+  "hardware_tested": false,
+  "programmed": false,
+  "flash_written": false,
+  "nano_deployed": false,
+  "imu_sensor": "MPU-6050",
+  "address": "0x68",
+  "carrier": "RevB",
+  "module_ad0_pulldown_user_confirmed": true,
+  "module_clearance_user_confirmed": true,
+  "integrated_setup_hold_passed": true,
+  "integrated_timing_signoff": false,
+  "imu_check_timing_passed": true,
+  "probe_motor_pad_netlist_audit_passed": true,
+  "digital_tests": [
+    "MPU bus faults/recovery",
+    "70 Python tests + motor/UART/LK/dual network regression",
+    "full production top + mixed UART CRC",
+    "4 focused parser/acceptance tests",
+    "constant-low probe + production 50Hz UART"
+  ],
+  "source_sha256": {
+    "fpga/imu/mpu6050_reader.v": "42191d06b7deaf7e3286adc9f7352b46d269510f5a520ef15f5c8244afaa3f92",
+    "fpga/imu/imu_1khz_core.v": "fa4d33ec9e31642ab7f796bf888d6633a6ca42fefca05d11d71f8e99e5b83166",
+    "fpga/imu/imu_fast_i2c_master.v": "06365187f02ac81bf336bae6fc54c1795e9f70dcad8078d292202f165afa3368",
+    "fpga/imu/mpu6050_bringup_top.sv": "d17366dac060484d4722a1acda1b25fc814440d863eec00aecf3039988d6a87b",
+    "fpga/imu/imu_fast_uart_stream.v": "5b156950e29f5aa00b486d422587d198f5c22dc16886fcea1be49c3589ace164",
+    "fpga/system/imu_status_source.sv": "fba1f0aa67f84822f923cec42a40c9ac495a5ea45665038702ec8bfb9fb35a53",
+    "shared/imu_protocol.py": "eb94936bd40351176415ad5cac81d9f9884739ecff45061d2341168e1077129c",
+    "shared/imu_state.py": "6886ec2c5772143d8f4f346ec6b7d2b0c65cf8de53bd2ddbb4572dc7dde10e15",
+    "host/sensing_base.py": "475d986e800503dcb1d5d86ddd5993e722af86af957b60bac16b9acffacb7f89",
+    "tools/verify_mpu6050.py": "e9ee3c1809d07be34e0f7aa6bc81de350430728b439ccdc19beed8579a73f66d",
+    "tools/build_system.py": "8f3cb4ca45cd3d79d2cf75615fad42b6f3f04118a99049d24f7f6a4ff0b60fc0",
+    "tools/build_mpu6050_bringup.py": "5aa3c664a3ef4615b45f509ccee4bf3f7222613d93bb94f3cff90ced117f6159",
+    "tools/test_mpu6050.py": "b4cf5225b517fddfa65ced0d952cb3d80f1470325173682cec5cf55130ff8bc1",
+    "tests/imu/mpu6050_model.sv": "c5bd07fdb02fbc1591016625cf6eb217335007ab2c4224486f4d8f1ffb05962a",
+    "tests/imu/tb_mpu6050_reader.sv": "295f75df733a0972501a78c896a1f45c9ba24bcf82b935b0cf85e7d44ff72342",
+    "tests/imu/tb_mpu6050_bringup.sv": "b554e6bbebd093a2817acb07a24ca645ea54f69edc6d32a74da1593e9bc3d1eb",
+    "tests/test_imu_mpu6050.py": "710dbdfab04e7addc22f7e68a8bed2ee5dc21a3b69805b30776a57f8422f4a4b",
+    "hardware/pins.csv": "258dea077fc6a9cc0153ff8c5cedc4f4a5816ef02567875261b4f4c3f5d8ad33"
+  },
+  "test_log_sha256": {
+    "mpu6050.log": "13e0aa17898df5e952ab4a8a539bad571b07a060ec6509cc34e024fbcad78658",
+    "mpu6050_host.log": "53b94f27317d5cba2ef28561ee0710afc1da855cb6207b48e430dda46e36bf1a",
+    "mpu6050_bringup.log": "c8b07088e22e664a30f5a5b4288594c0abe9d420b0fb9f500dc777c4ddb45368",
+    "full_top.log": "d339b543a9e1487468f237c3ea832b0293cc7d501c626cde2c6552f062be4d28",
+    "unit_and_motor.log": "179755c320935551c639eb65386fff4a019d36a18f720095d042c0c4054ff91b",
+    "lk.log": "c24fe1deb74c1fd9c970b58eefac0b25913bc177ff3299fbf7428b97891a07ec",
+    "dual.log": "c2aac7e9a63d37a304399276e2e99b54b78e470eab88c7068e5a459d06e7b402"
+  }
+}

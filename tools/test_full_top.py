@@ -6,7 +6,7 @@ from test_system import run,ROOT
 def main():
     folder,files=prepare();sources=[str(p) for p in files if p.suffix in ('.v','.sv') and p.name!='ethernet_pll.v']
     prim=str(Path(os.environ.get('GOWIN_HOME','C:/Gowin/Gowin_V1.9.12.04_x64'))/'IDE/simlib/gw5a/prim_sim.v')
-    run('full_compile',['iverilog','-g2012','-s','tb_full_system','-s','GSR','-o','build/tests/full_system.vvp','tests/tb_full_system.sv','tests/imu/icm42688_model.sv','tests/ethernet_pll_model.v',prim]+sources)
+    run('full_compile',['iverilog','-g2012','-s','tb_full_system','-s','GSR','-o','build/tests/full_system.vvp','tests/tb_full_system.sv','tests/imu/mpu6050_model.sv','tests/ethernet_pll_model.v',prim]+sources)
     result=run('full_top',['vvp','build/tests/full_system.vvp'],timeout=600)
     sys.path.insert(0,str(ROOT));from shared.streams import MixedStream
     parser=MixedStream();rows=parser.feed((ROOT/'build/tests/full_system_uart.bin').read_bytes())

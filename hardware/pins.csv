@@ -50,8 +50,8 @@ ethernet,rgmii_rxd[1],V18,IN,,,reserved
 ethernet,rgmii_rxd[2],P19,IN,,,reserved
 ethernet,rgmii_rxd[3],R19,IN,,,reserved
 board,uart_rx,J21,IN,,,reserved
-reserved_p7,imu_i2c_scl,F19,INOUT,39,,reserved
-reserved_p7,imu_i2c_sda,F20,INOUT,40,,reserved
+imu,imu_i2c_scl,F19,INOUT,39,RevB J_IMU1-3 = MPU6050 pin3 SCL; 3.3V open-drain,mpu6050_ad0_low_bringup_pending
+imu,imu_i2c_sda,F20,INOUT,40,RevB J_IMU1-4 = MPU6050 pin4 SDA; 3.3V open-drain,mpu6050_ad0_low_bringup_pending
 chassis,right_enc_b,D19,IN,36,level shifter <- E2B / D157B J5-4,candidate_adc_remap
 reserved,p7_37_unused,F18,IN,37,unused no external permit required,closed_loop_only
 reserved_p7,lidar_moto_pwm,E18,OUT,38,,reserved

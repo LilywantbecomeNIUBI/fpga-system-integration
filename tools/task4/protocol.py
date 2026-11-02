@@ -1,16 +1,13 @@
 """Task-4 wire codec. Importing this module never opens a port."""
 import math,struct
+from binascii import crc_hqx
 REGISTER_NAMES=('confirmed_mask','left_mm_per_count_q16','right_mm_per_count_q16','track_mm','robot_radius_mm','margin_mm',
  'stop_mm','slow_mm','v_max_mm_s','w_max_mrad_s','lookahead_min_mm','lookahead_max_mm','lookahead_ms','accept_mm',
  'block_low_mm','block_high_mm','vfh_weights','lidar_timeout_ms','left_counts_per_mm_s_q16','right_counts_per_mm_s_q16',
  'gyro_axis_sign','gyro_bias_raw','gyro_step_q16','gyro_blend_q8','lidar_angle_offset_q100','lidar_reverse','min_speed_mm_s',
  'waypoint_count','valley_width','max_counts_per_tick','imu_timeout_ms','reserved')
 def crc16(data):
-    c=0xffff
-    for byte in data:
-        c^=byte<<8
-        for _ in range(8):c=((c<<1)^0x1021)&65535 if c&0x8000 else (c<<1)&65535
-    return c
+    return crc_hqx(bytes(data),0xffff)
 def packet(op,seq,a0=0,a1=0,a2=0,a3=0,flags=0):
     body=b'\xa5\x5a'+struct.pack('<BBBBHHHH',1,op,seq&255,flags,a0&65535,a1&65535,a2&65535,a3&65535)
     return body+struct.pack('<H',crc16(body))

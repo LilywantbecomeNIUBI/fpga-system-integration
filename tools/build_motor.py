@@ -46,7 +46,7 @@ def prepare(left_encoder_alt=False,pwm_limit=300,with_imu=False):
     (folder/'motor.sdc').write_text(sdc,encoding='utf-8')
     sources=sorted((ROOT/'fpga/motor').glob('*.sv'))+[folder/'motor.cst',folder/'motor.sdc']
     if with_imu:
-        sources+=[ROOT/'fpga/system/imu_status_source.sv']+[ROOT/'fpga/imu'/n for n in ('imu_1khz_core.v','icm42688_fast_reader.v','imu_fast_i2c_master.v')]
+        sources+=[ROOT/'fpga/system/imu_status_source.sv']+[ROOT/'fpga/imu'/n for n in ('imu_1khz_core.v','mpu6050_reader.v','imu_fast_i2c_master.v')]
     if pwm_limit!=300 or with_imu:
         original=ROOT/'fpga/motor/brushed_motor_top.sv'
         candidate=folder/'brushed_motor_top.sv'
@@ -70,7 +70,7 @@ def prepare(left_encoder_alt=False,pwm_limit=300,with_imu=False):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--left-encoder-alt',action='store_true',help='Isolated P7-31/F16, P7-32/E17 left encoder profile; disconnect old ENC1 module')
-    parser.add_argument('--with-imu',action='store_true',help='Add ICM42688 I2C on P7-39/40 and mixed UART telemetry')
+    parser.add_argument('--with-imu',action='store_true',help='Add MPU6050 I2C on P7-39/40 and mixed UART telemetry')
     parser.add_argument('--pwm-limit',type=int,default=300,help='Compile-time applied-PWM limit per mille; default 300')
     args=parser.parse_args()
     folder,sources=prepare(args.left_encoder_alt,args.pwm_limit,args.with_imu)

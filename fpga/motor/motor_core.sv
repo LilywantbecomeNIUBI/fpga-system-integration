@@ -3,7 +3,8 @@ module motor_core #(
     parameter integer FILTER_CYCLES=8, WATCHDOG_MS=250,
     parameter integer PWM_LIMIT=300, MAX_COUNTS=4096, STALL_TICKS=50,
     parameter integer REVERSE_TICKS=10, LEFT_ENCODER_B=0, RIGHT_ENCODER_B=0,
-    LEFT_ENCODER_RECOVERY=0, RIGHT_ENCODER_RECOVERY=0
+    LEFT_ENCODER_RECOVERY=0, RIGHT_ENCODER_RECOVERY=0,
+    parameter integer WHEEL_1KHZ=0
 )(
     input wire clk, reset_n,
     input wire left_enc_a, left_enc_b, right_enc_a, right_enc_b,
@@ -24,10 +25,16 @@ module motor_core #(
     output wire [255:0] left_encoder_trace,right_encoder_trace,
     output wire [31:0] left_encoder_trace_count,right_encoder_trace_count
 );
-    localparam integer WINDOW=CLK_HZ/CONTROL_HZ;
+    localparam integer WINDOW=CLK_HZ/(WHEEL_1KHZ ? 1000 : CONTROL_HZ);
     localparam integer WATCHDOG_CYCLES=(CLK_HZ/1000)*WATCHDOG_MS;
     integer divider, watchdog;
     reg sample_tick, control_tick;
+    reg [5:0] speed_settle;
+    reg [31:0] feedback_divider;
+    reg feedback_tick,feedback_control_tick;
+    wire encoder_tick=WHEEL_1KHZ ? feedback_tick : sample_tick;
+    wire safety_tick=WHEEL_1KHZ ? feedback_control_tick : control_tick;
+    wire speed_fault;
     reg signed [15:0] request_l,request_r;
     reg [15:0] kp,ki;
     reg [31:0] prev_invalid_l, prev_invalid_r;
@@ -37,31 +44,66 @@ module motor_core #(
     wire targets_ok=left_target>=-1024 && left_target<=1024 && right_target>=-1024 && right_target<=1024;
     wire enable=armed && faults==0 && reset_n;
     always @(posedge clk or negedge reset_n) begin
-        if (!reset_n) begin divider<=0; sample_tick<=0; control_tick<=0; end
+        if (!reset_n) begin divider<=0; sample_tick<=0; control_tick<=0; speed_settle<=0; end
         else begin
-            sample_tick<=0; control_tick<=sample_tick;
+            sample_tick<=0; control_tick<=0;
+            if(WHEEL_1KHZ)begin
+                // T estimator needs 32 clocks; consume the new atomic estimate
+                // on this same 1ms iteration, independent of selected M/T mode.
+                if(sample_tick)speed_settle<=36;
+                else if(speed_settle!=0)begin
+                    speed_settle<=speed_settle-1'b1;
+                    if(speed_settle==1)control_tick<=1;
+                end
+            end else control_tick<=sample_tick;
             if(divider==WINDOW-1) begin divider<=0; sample_tick<=1; end
             else divider<=divider+1;
         end
     end
+    // Legacy telemetry and safety windows stay at 10ms in the new profile.
+    always @(posedge clk or negedge reset_n)begin
+        if(!reset_n)begin feedback_divider<=0;feedback_tick<=0;feedback_control_tick<=0;end
+        else begin
+            feedback_tick<=0;feedback_control_tick<=feedback_tick;
+            if(feedback_divider==CLK_HZ/100-1)begin feedback_divider<=0;feedback_tick<=1;end
+            else feedback_divider<=feedback_divider+1'b1;
+        end
+    end
     encoder_ab #(.FILTER_CYCLES(FILTER_CYCLES),.COUNT_B_EDGES(LEFT_ENCODER_B),
         .RECOVER_DIAGONALS(LEFT_ENCODER_RECOVERY),.RECOVERY_MAX_GAP_CYCLES(CLK_HZ/100)) enc_l(
-        .clk(clk),.reset_n(reset_n),.a(left_enc_a),.b(left_enc_b),.sample_tick(sample_tick),
+        .clk(clk),.reset_n(reset_n),.a(left_enc_a),.b(left_enc_b),.sample_tick(encoder_tick),
         .reverse(flags[3]),.position(left_position),.velocity(left_velocity),.invalid_count(left_invalid),
         .diagnostics(left_encoder_diagnostics),.diagnostic_levels(left_encoder_levels),
         .transition_trace(left_encoder_trace),.transition_count(left_encoder_trace_count));
     encoder_ab #(.FILTER_CYCLES(FILTER_CYCLES),.COUNT_B_EDGES(RIGHT_ENCODER_B),
         .RECOVER_DIAGONALS(RIGHT_ENCODER_RECOVERY),.RECOVERY_MAX_GAP_CYCLES(CLK_HZ/100)) enc_r(
-        .clk(clk),.reset_n(reset_n),.a(right_enc_a),.b(right_enc_b),.sample_tick(sample_tick),
+        .clk(clk),.reset_n(reset_n),.a(right_enc_a),.b(right_enc_b),.sample_tick(encoder_tick),
         .reverse(flags[4]),.position(right_position),.velocity(right_velocity),.invalid_count(right_invalid),
         .diagnostics(right_encoder_diagnostics),.diagnostic_levels(right_encoder_levels),
         .transition_trace(right_encoder_trace),.transition_count(right_encoder_trace_count));
+    generate if(WHEEL_1KHZ)begin:fast_wheels
+        wire signed [31:0] lv_q8,rv_q8;
+        wire left_recent,right_recent,left_fault,right_fault;
+        wheel_speed_hybrid #(.CLK_HZ(CLK_HZ)) speed_l(.clk(clk),.reset_n(reset_n),.clear(!enable),
+            .tick(sample_tick),.position(left_position),.velocity_q8(lv_q8),.motion_recent(left_recent),.fault(left_fault),.count_mode());
+        wheel_speed_hybrid #(.CLK_HZ(CLK_HZ)) speed_r(.clk(clk),.reset_n(reset_n),.clear(!enable),
+            .tick(sample_tick),.position(right_position),.velocity_q8(rv_q8),.motion_recent(right_recent),.fault(right_fault),.count_mode());
+        assign speed_fault=left_fault || right_fault;
+        wheel_control_1khz #(.PWM_LIMIT(PWM_LIMIT),.REVERSE_TICKS(REVERSE_TICKS*10)) wheel_l(
+            .clk(clk),.reset_n(reset_n),.tick(control_tick),.enable(enable),.motor_reverse(flags[1]),
+            .feedback_stopped(!left_recent),.target(request_l),.velocity_q8(lv_q8),.kp(kp),.ki(ki),.applied(left_applied));
+        wheel_control_1khz #(.PWM_LIMIT(PWM_LIMIT),.REVERSE_TICKS(REVERSE_TICKS*10)) wheel_r(
+            .clk(clk),.reset_n(reset_n),.tick(control_tick),.enable(enable),.motor_reverse(flags[2]),
+            .feedback_stopped(!right_recent),.target(request_r),.velocity_q8(rv_q8),.kp(kp),.ki(ki),.applied(right_applied));
+    end else begin:legacy_wheels
+    assign speed_fault=0;
     wheel_control #(.PWM_LIMIT(PWM_LIMIT),.REVERSE_TICKS(REVERSE_TICKS)) wheel_l(
         .clk(clk),.reset_n(reset_n),.tick(control_tick),.enable(enable),
         .motor_reverse(flags[1]),.target(request_l),.velocity(left_velocity),.kp(kp),.ki(ki),.applied(left_applied));
     wheel_control #(.PWM_LIMIT(PWM_LIMIT),.REVERSE_TICKS(REVERSE_TICKS)) wheel_r(
         .clk(clk),.reset_n(reset_n),.tick(control_tick),.enable(enable),
         .motor_reverse(flags[2]),.target(request_r),.velocity(right_velocity),.kp(kp),.ki(ki),.applied(right_applied));
+    end endgenerate
     at8236_pwm #(.CLK_HZ(CLK_HZ),.PWM_HZ(PWM_HZ)) pwm_l(
         .clk(clk),.reset_n(reset_n),.enable(enable),.command(left_applied),.in1(left_in1),.in2(left_in2));
     at8236_pwm #(.CLK_HZ(CLK_HZ),.PWM_HZ(PWM_HZ)) pwm_r(
@@ -93,7 +135,8 @@ module motor_core #(
             end
             // Safety events have priority over every command, including CLEAR/ARM.
             if(armed && watchdog>=WATCHDOG_CYCLES-1) begin faults[1]<=1; armed<=0; end
-            if(control_tick) begin
+            if(armed && speed_fault)begin faults[2]<=1;armed<=0;end
+            if(safety_tick) begin
                 prev_invalid_l<=left_invalid; prev_invalid_r<=right_invalid;
                 if(armed) begin
                     if(left_invalid-prev_invalid_l>8 || right_invalid-prev_invalid_r>8) begin faults[2]<=1; armed<=0; end

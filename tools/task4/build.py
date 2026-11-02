@@ -12,7 +12,7 @@ def sources():
     paths=list((ROOT/'fpga/motor').glob('*.sv'))+list((ROOT/'fpga/navigation').rglob('*.sv'))+list((ROOT/'fpga/navigation').rglob('*.v'))
     paths+=list((ROOT/'fpga/system').glob('*.v'))+list((ROOT/'fpga/system').glob('*.sv'))
     paths+=list((ROOT/'fpga/vision/src').rglob('*.v'))+list((ROOT/'fpga/vision/src').rglob('*.sv'))
-    paths+=[ROOT/'fpga/imu'/n for n in ('imu_1khz_core.v','icm42688_fast_reader.v','imu_fast_i2c_master.v')]
+    paths+=[ROOT/'fpga/imu'/n for n in ('imu_1khz_core.v','mpu6050_reader.v','imu_fast_i2c_master.v')]
     return sorted(set(p for p in paths if p.name not in ('system_top.sv','camera_perception_top.v')))
 def base_constraints(rows):
     """Generate locally; do not depend on an ignored build/system directory."""
@@ -35,6 +35,14 @@ def base_constraints(rows):
     sdc+='\n'+(ROOT/'fpga/vision/constraints/perception_cdc.sdc').read_text(encoding='utf-8')
     for pin in ('chassis/rx/rx_meta_s0/D','chassis/core/enc_l/ab_meta_0_s0/D','chassis/core/enc_l/ab_meta_1_s0/D','chassis/core/enc_r/ab_meta_0_s0/D','chassis/core/enc_r/ab_meta_1_s0/D'):
         sdc+=f'set_false_path -to [get_pins {{{pin}}}]\n'
+    # Immutable Ethernet telemetry mailbox: data precedes its two-flop request,
+    # and cannot change until the acknowledgment has returned to the producer.
+    # Gowin flattens a named generate scope into the escaped instance name.
+    bridge='camera/telemetry_enabled.telemetry_bridge'
+    sdc+=f'set_max_delay -from [get_pins {{{bridge}/held*/Q}}] -to [get_pins {{{bridge}/dst_payload*/D}}] 10.0\n'
+    sdc+=f'set_false_path -hold -from [get_pins {{{bridge}/held*/Q}}] -to [get_pins {{{bridge}/dst_payload*/D}}]\n'
+    sdc+=f'set_false_path -to [get_pins {{{bridge}/ack_meta*/D {bridge}/request_meta*/D}}]\n'
+    sdc+='set_false_path -to [get_pins {camera/telemetry_enabled.telemetry_reset/release_pipe*/CLEAR}]\n'
     return '\n'.join(cst)+'\n',sdc
 def m2_rows(rows):
     profile=json.loads((ROOT/'hardware/task4_m2.json').read_text())

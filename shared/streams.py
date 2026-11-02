@@ -1,4 +1,4 @@
-"""Mixed motor V1 / IMU v2 UART and STL-27L read-only stream decoders."""
+"""Mixed motor/IMU/LiDAR frame decoders, shared by UART and UDP telemetry."""
 from pathlib import Path
 import struct,sys
 ROOT=Path(__file__).resolve().parents[1]
@@ -44,7 +44,7 @@ class MixedStream:
             if crc16(frame[:46])!=expected:
                 self.bad_crc+=1;del self.buffer[0];continue
             del self.buffer[:48]
-            if header in (b'\xc3\x3c\x05',b'\xc3\x3c\x06'):
+            if header in (b'\xc3\x3c\x05',b'\xc3\x3c\x06',b'\xc3\x3c\x07'):
                 try:rows.append(decode_lidar(frame))
                 except ValueError:self.discarded+=48
             elif header==b'\xc3\x3c\x03':

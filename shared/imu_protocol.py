@@ -20,6 +20,11 @@ FIELDS = ["host_time", "type", "seq", "timestamp_us", "ax_raw", "ay_raw", "az_ra
           "observe_to_commit_us", "raw_interval_us", "decimation", "poll_us"]
 
 
+def identity_matches(frame):
+    expected = {2: 0x47, 3: 0x47, 4: 0x68, 5: 0x68, 6: 0x70}
+    return frame.get('config_id') in expected and frame.get('who_am_i') == expected[frame['config_id']]
+
+
 def crc16(data: bytes) -> int:
     value = 0xFFFF
     for byte in data:
@@ -58,14 +63,18 @@ class Parser:
             del self.buffer[:FRAME_SIZE]
             values = BODY.unpack(packet[:46])
             _, version, kind, raw_seq, stamp, ax, ay, az, gx, gy, gz, temp, flags, who, err, config, errors, invalid, dropped, debug_seq, latency, interval, decimation, poll_us = values
-            if version != 2 or kind not in (1, 2) or config not in (2, 3) or not decimation:
+            if version != 2 or kind not in (1, 2) or config not in (2, 3, 4, 5, 6) or not decimation:
                 self.unsupported += 1
                 continue
             frames.append(dict(type="sample" if kind == 1 else "status", seq=debug_seq, raw_seq=raw_seq, timestamp_us=stamp,
                 ax_raw=ax, ay_raw=ay, az_raw=az, gx_raw=gx, gy_raw=gy, gz_raw=gz, temp_raw=temp,
                 ax_g=ax / 8192, ay_g=ay / 8192, az_g=az / 8192,
-                gx_dps=gx * 1000 / 32768, gy_dps=gy * 1000 / 32768, gz_dps=gz * 1000 / 32768,
-                temp_c=temp / 132.48 + 25, ready=bool(flags & 1), fault=bool(flags & 2),
+                gx_dps=gx / 32.8 if config in (4, 5, 6) else gx * 1000 / 32768,
+                gy_dps=gy / 32.8 if config in (4, 5, 6) else gy * 1000 / 32768,
+                gz_dps=gz / 32.8 if config in (4, 5, 6) else gz * 1000 / 32768,
+                temp_c=(temp / 333.87 + 21 if config==6 else
+                        temp / 340 + 36.53 if config in (4, 5) else temp / 132.48 + 25),
+                ready=bool(flags & 1), fault=bool(flags & 2),
                 who_am_i=who, last_error=err, config_id=config, error_count=errors,
                 invalid_count=invalid, tx_drop_count=dropped, stale=bool(flags & 4),
                 temperature_valid=bool(flags & 8), fast_bus=bool(flags & 16), low_latency_filter=bool(flags & 32),

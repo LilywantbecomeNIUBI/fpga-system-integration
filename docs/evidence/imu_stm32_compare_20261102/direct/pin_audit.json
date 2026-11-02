@@ -1,0 +1,274 @@
+{
+  "passed": true,
+  "profile": "m2_static_direct_imu_f16_e17",
+  "pins": [
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[5]",
+      "ball": "A13",
+      "direction": "OUT",
+      "p7": "1",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[4]",
+      "ball": "A14",
+      "direction": "OUT",
+      "p7": "2",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[3]",
+      "ball": "A15",
+      "direction": "OUT",
+      "p7": "3",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[2]",
+      "ball": "A16",
+      "direction": "OUT",
+      "p7": "4",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "board",
+      "signal": "reset_n",
+      "ball": "F15",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "clk50m",
+      "ball": "Y18",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[0]",
+      "ball": "M22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[1]",
+      "ball": "N22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[2]",
+      "ball": "L21",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[3]",
+      "ball": "K21",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[4]",
+      "ball": "K22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[5]",
+      "ball": "J22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[6]",
+      "ball": "H22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[7]",
+      "ball": "M21",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "uart_tx",
+      "ball": "M15",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "imu",
+      "signal": "imu_i2c_scl",
+      "ball": "F16",
+      "direction": "INOUT",
+      "p7": "39",
+      "endpoint": "RevB J_IMU1-3 = MPU6050 pin3 SCL; 3.3V open-drain",
+      "status": "mpu6050_ad0_low_bringup_pending"
+    },
+    {
+      "group": "imu",
+      "signal": "imu_i2c_sda",
+      "ball": "E17",
+      "direction": "INOUT",
+      "p7": "40",
+      "endpoint": "RevB J_IMU1-4 = MPU6050 pin4 SDA; 3.3V open-drain",
+      "status": "mpu6050_ad0_low_bringup_pending"
+    },
+    {
+      "group": "chassis",
+      "signal": "right_enc_b",
+      "ball": "B15",
+      "direction": "IN",
+      "p7": "19",
+      "endpoint": "level shifter <- E2B / D157B J5-4",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "reserved_p7",
+      "signal": "legacy_m1_disable",
+      "ball": "F13",
+      "direction": "OUT",
+      "p7": "7",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[1]",
+      "ball": "A18",
+      "direction": "OUT",
+      "p7": "5",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[0]",
+      "ball": "A19",
+      "direction": "OUT",
+      "p7": "6",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_cal_disabled[0]",
+      "ball": "F14",
+      "direction": "OUT",
+      "p7": "8",
+      "endpoint": "Old DRV8323 CAL fixed low",
+      "status": "fixed_low"
+    },
+    {
+      "group": "chassis",
+      "signal": "left_in1",
+      "ball": "E14",
+      "direction": "OUT",
+      "p7": "10",
+      "endpoint": "AIN1 / D157B J4-4",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "chassis",
+      "signal": "left_in2",
+      "ball": "C13",
+      "direction": "OUT",
+      "p7": "13",
+      "endpoint": "AIN2 / D157B J4-3",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "chassis",
+      "signal": "right_in1",
+      "ball": "B13",
+      "direction": "OUT",
+      "p7": "14",
+      "endpoint": "BIN1 / D157B J4-2",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "chassis",
+      "signal": "right_in2",
+      "ball": "D14",
+      "direction": "OUT",
+      "p7": "15",
+      "endpoint": "BIN2 / D157B J4-1",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "chassis",
+      "signal": "left_enc_a",
+      "ball": "D15",
+      "direction": "IN",
+      "p7": "16",
+      "endpoint": "level shifter <- E1A / D157B J5-1",
+      "status": "validated_encoder_profile"
+    },
+    {
+      "group": "chassis",
+      "signal": "left_enc_b",
+      "ball": "C14",
+      "direction": "IN",
+      "p7": "17",
+      "endpoint": "level shifter <- E1B / D157B J5-2",
+      "status": "validated_encoder_profile"
+    },
+    {
+      "group": "chassis",
+      "signal": "right_enc_a",
+      "ball": "C15",
+      "direction": "IN",
+      "p7": "18",
+      "endpoint": "level shifter <- E2A / D157B J5-3",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "chassis",
+      "signal": "lidar_rx",
+      "ball": "B16",
+      "direction": "IN",
+      "p7": "20"
+    }
+  ]
+}

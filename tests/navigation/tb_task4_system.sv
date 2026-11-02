@@ -12,7 +12,7 @@ module tb_task4_system;
             $fatal(1,"Old BLDC enables/PWM/CAL must stay low in all states");
     end
     // Accelerate motor/UART counters by 10x; sensor and camera/network clocks stay unchanged.
-    system_task4_top #(.CLK_HZ(5000000)) dut(.clk50m(clk),.reset_n(reset_n),.uart_rx(1'b1),.lidar_rx(lidar_rx),
+    system_task4_top #(.CLK_HZ(5000000),.TELEMETRY_ETHERNET(0)) dut(.clk50m(clk),.reset_n(reset_n),.uart_rx(1'b1),.lidar_rx(lidar_rx),
         .left_enc_a(1'b0),.left_enc_b(1'b0),.right_enc_a(1'b0),.right_enc_b(1'b0),
         .rgmii_rxc(rxc),.rgmii_rxd(4'd0),.rgmii_rxctl(1'b0),.camera_pclk(pclk),.camera_vsync(1'b0),.camera_href(1'b0),.camera_data(8'd0),
         .camera_sdat(csda),.eth_mdio(mdio),.imu_i2c_scl(scl),.imu_i2c_sda(sda),.uart_tx(tx),
@@ -39,7 +39,7 @@ module tb_task4_system;
         end
     end
     reg present=1;
-    icm42688_model #(.SAMPLE_NS(1000000)) sensor(.scl(scl),.sda(sda),.present(present),.identity(8'h47),.corrupt_readback(1'b0),.invalid_data(1'b0),.freeze_samples(1'b0));
+    mpu6050_model #(.SAMPLE_NS(1000000)) sensor(.scl(scl),.sda(sda),.present(present),.identity(8'h68),.corrupt_readback(1'b0),.invalid_data(1'b0),.freeze_samples(1'b0));
     reg cmd=0;reg [7:0] op=0,seq=0;reg signed [15:0] target=0;
     reg os=0,oe=0,ov=0;reg [15:0] pixel=0,fid=0;
     integer samples=0,control_ticks=0,eth_bytes=0,moving_bytes=0,bytes=0,file,i,j;

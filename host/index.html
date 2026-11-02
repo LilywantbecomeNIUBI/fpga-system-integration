@@ -7,11 +7,11 @@ input{background:#101827;color:#e6edf8;border:1px solid #566c88;border-radius:4p
 <div class="grid"><section><h2>底盘遥控 <span id="motorState">离线</span></h2>
 <p>默认速度单位：四倍频计数 / 10ms；运动调试请打开专用调参台。</p>
 <p><a href="/motor">打开专用轮速闭环调参台</a>：单轮限时测试、PI 参数、实时曲线和日志。</p><button id="stopMotor">STOP 停机</button><pre id="motorDetails"></pre><pre id="odom"></pre></section>
-<section><h2>STL-27L 雷达 <span id="lidarState">离线</span></h2><canvas id="lidarCanvas" width="400" height="400" style="width:100%;max-width:400px;background:#0b1220"></canvas><pre id="lidarDetails"></pre><small>传感器坐标；图中半径3m。仅观测，不自动避障。</small></section><section><h2>PC直接图传 <span id="videoStatus"></span></h2><div class="image"><span id="cameraEmpty">无新鲜视频</span><img id="camera" alt="PC直接收到的摄像头画面"></div><pre id="video"></pre></section>
+<section><h2>STL-27L 雷达 <span id="lidarState">离线</span></h2><label>显示半径 <select id="lidarRange"><option value="auto">自动适配</option><option value="3">3 m</option><option value="5">5 m</option><option value="10">10 m</option><option value="25">25 m</option></select></label><label>显示点数 <select id="lidarDensity"><option value="all">全量</option><option value="720">720 点上限</option><option value="360">360 点上限</option></select></label><canvas id="lidarCanvas" width="400" height="400" style="width:100%;max-width:400px;background:#0b1220"></canvas><pre id="lidarDetails"></pre><small>传感器坐标；默认自动适配全部有效回波，固定范围会显示超范围点数。仅观测，不自动避障。</small></section><section><h2>PC直接图传 <span id="videoStatus"></span></h2><div class="image"><span id="cameraEmpty">无新鲜视频</span><img id="camera" alt="PC直接收到的摄像头画面"></div><pre id="video"></pre></section>
 <section><h2>Nano实际推理帧 <span id="nanoStatus"></span></h2><div class="image"><span id="inferEmpty">无新鲜推理帧</span><img id="infer" alt="Nano反馈的实际推理帧"></div><pre id="detection"></pre><pre id="track"></pre></section>
 <section><h2>IMU与姿态 <span id="imuStatus"></span></h2><div class="metrics"><div class="metric">俯仰 <b id="pitch">—</b>°</div><div class="metric">横滚 <b id="roll">—</b>°</div></div><p><small>传感器坐标：+Z直立，绕+X为横滚、绕+Y为俯仰；未标定为车体坐标。Yaw不可观测。</small></p><pre id="axes"></pre><pre id="imuHealth"></pre></section>
 <section><h2>环境光流与避障 <span id="flowStatus">无数据</span></h2><canvas id="flowCanvas" width="640" height="360" style="width:100%;background:#0b1220"></canvas><p><small id="flowBackground">等待新鲜视频底图</small></p><pre id="flowDetails"></pre><small>图像坐标：右为 +u、下为 +v。底图裁去上下留边，箭头放大4倍；实时底图与光流结果未逐帧锁定。避障只作观测。</small></section>
-<section><h2>链路与记录</h2><p id="recording"></p><button data-api="/api/record/start">开始记录</button><button data-api="/api/record/stop">停止记录</button><button data-api="/api/save">保存当前图</button><button data-api="/api/shutdown">停止本控制台</button><p><small>PC记录10Hz状态；原始串口由Nano记录。视频由“保存当前图”单次保存。</small></p><p id="error" role="status"></p><pre id="health"></pre></section></div></main>
+<section><h2>链路与记录</h2><p id="recording"></p><button data-api="/api/record/start">开始记录</button><button data-api="/api/record/stop">停止记录</button><button data-api="/api/save">保存当前图</button><button data-api="/api/shutdown">停止本控制台</button><p><small>PC记录10Hz状态；原始遥测由网关记录。视频由“保存当前图”单次保存。</small></p><p id="error" role="status"></p><pre id="health"></pre></section></div></main>
 <script>
 const $=id=>document.getElementById(id),fmt=n=>typeof n==='number'?n.toFixed(2):'—';let stopped=false;
 function badge(id,on,detail=''){const e=$(id);e.textContent=(on?'在线':'离线 / 过期')+detail;e.className=on?'ok':'bad'}
@@ -56,16 +56,32 @@ function releaseControl(){const old=lease;lease=null;held=false;motionReady=fals
 function stopMotor(){releaseControl();controlRequest({action:'stop'}).catch(e=>$('error').textContent=String(e));}
 $('stopMotor').onclick=stopMotor;
 function renderControl(s){const c=s.control||{},m=c.motor||{},lidar=s.lidar||{};motionReady=!!(s.gateway&&s.gateway.online&&c.motor_fresh&&c.phase==='active');$('motorState').textContent=({offline:'离线',stopped:'已停机',claimed:'已申请',stop_ack:'确认停车',clear_ack:'清除故障',arm_ack:'等待解锁确认',active:'已解锁'})[c.phase]||'离线';for(const b of document.querySelectorAll('.drive'))b.disabled=!motionReady;$('motorDetails').textContent='目标（左 / 右） '+(c.targets||['—','—']).join(' / ')+'\n反馈（计数/10ms） '+(m.left_velocity??'—')+' / '+(m.right_velocity??'—')+'\n占空比（‰） '+(m.left_applied??'—')+' / '+(m.right_applied??'—')+'\n故障： '+((m.fault_names||[]).join('、')||'无');$('odom').textContent=((s.odometry||{}).valid?'里程计有效':'里程计：待完成轮径与编码器标定');renderLidar(lidar);if(lease&&(!s.gateway||!s.gateway.online))releaseControl();}
+let lastLidar=null;
+function drawLidar(canvas,lidar,selection,density='all'){
+ const points=(lidar?.online&&lidar.scan?lidar.scan.points:[]).filter(p=>p[1]>0&&p[2]>0);
+ const radius=selection==='auto'?Math.max(1000,Math.ceil(Math.max(0,...points.map(p=>p[1]))/1000)*1000):Number(selection)*1000;
+ let shown=points;
+ if(density!=='all'){const bins=new Map(),count=Number(density);for(const p of points){const k=Math.floor(p[0]*count/360),old=bins.get(k);if(!old||p[1]<old[1])bins.set(k,p)}shown=[...bins.values()]}
+ const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,x=w/2,y=h/2,scale=(Math.min(w,h)/2-25)/radius;
+ ctx.clearRect(0,0,w,h);ctx.strokeStyle='#44566f';ctx.fillStyle='#b5c3d8';ctx.font='11px sans-serif';
+ for(let i=1;i<=3;i++){const r=radius*i/3;ctx.beginPath();ctx.arc(x,y,r*scale,0,2*Math.PI);ctx.stroke();ctx.fillText((r/1000).toFixed(1)+'m',x+4,y-r*scale+12)}
+ ctx.fillStyle='#78e5ae';let visible=0;
+ for(const [a,d] of shown){if(d>radius)continue;const t=a*Math.PI/180;ctx.fillRect(x+Math.sin(t)*d*scale-1,y-Math.cos(t)*d*scale-1,2,2);visible++}
+ return {radius:radius/1000,received:points.length,visible,hidden:points.filter(p=>p[1]>radius).length,thinned:points.length-shown.length,total:lidar?.scan?.points.length||0};
+}
 function renderLidar(value){
- const lidar=value||{};
- $('lidarState').textContent=lidar.online?'在线':'离线 / 过期';$('lidarDetails').textContent=lidar.enabled===false?'本轮未启用':(lidar.online?'扫描在线 · CRC错误 '+(lidar.bad_crc||0):'暂无新鲜扫描');const ctx=$('lidarCanvas').getContext('2d');ctx.clearRect(0,0,400,400);ctx.strokeStyle='#44566f';ctx.beginPath();ctx.arc(200,200,190,0,2*Math.PI);ctx.stroke();ctx.fillStyle='#78e5ae';for(const [angle,distance,intensity] of (lidar.online&&lidar.scan?lidar.scan.points:[])){if(distance<=0||distance>3000||!intensity)continue;const rad=angle*Math.PI/180,range=distance/3000*190;ctx.fillRect(200+Math.sin(rad)*range,200-Math.cos(rad)*range,2,2)}
- const d=lidar.diagnostic;
+ const lidar=value||{};lastLidar=value;
+ const p=drawLidar($('lidarCanvas'),lidar,$('lidarRange').value||'auto',$('lidarDensity').value||'all'),d=lidar.diagnostic;
+ $('lidarState').textContent=lidar.online?'在线':'离线 / 过期';
+ $('lidarDetails').textContent=lidar.enabled===false?'本轮未启用':(lidar.online?'扫描在线':'暂无新鲜扫描')+' · 半径 '+p.radius+'m\n有效 '+p.received+' / 显示 '+p.visible+' / 超范围 '+p.hidden+' / 显示抽稀 '+p.thinned;
  if(lidar.source==='fpga_m2'){
-  $('lidarDetails').textContent+='\nM2 → FPGA · 72个5°扇区最近回波，最高5Hz · 扫描帧龄 '+fmt(lidar.age_ms)+' ms';
-  if(d)$('lidarDetails').textContent+='\n接收字节 '+d.bytes+' / 有效包 '+d.packets+' / 完整圈 '+d.completed_scans+'\n停止位错误 '+d.framing_errors+' / CRC '+d.crc_errors+' / 格式 '+d.format_errors+' / 超时 '+d.timeouts+'\n诊断帧龄 '+fmt(d.age_ms)+' ms / 缺片扫描 '+(lidar.incomplete_scans||0);
-  else $('lidarDetails').textContent+='\n尚未收到M2雷达接收诊断';
+  const scan=lidar.scan||{},resolution=scan.resolution_degrees||lidar.resolution_degrees||5;
+  $('lidarDetails').textContent+='\nM2 → FPGA · '+(scan.representation==='raw_points'?'全量 '+p.total+' 采样点':p.total+'点 / '+resolution+'°扇区')+' · '+(scan.angle_mode==='measured'?'保留实测角度':'扇区中心角')+' · 帧龄 '+fmt(lidar.age_ms)+'ms';
+  if(d)$('lidarDetails').textContent+='\n有效包 '+d.packets+(d.representation==='raw_points'?' / 转发原始包 '+d.forwarded_packets+' / 丢弃原始包 '+d.dropped_packets:' / 完整圈 '+d.completed_scans)+' / CRC '+d.crc_errors+' / 停止位 '+d.framing_errors+' / 超时 '+d.timeouts+' / 缺片 '+(lidar.incomplete_scans||0);
  }
 }
+$('lidarRange').onchange=$('lidarDensity').onchange=()=>renderLidar(lastLidar);
+
 </script>
 <script>requestAnimationFrame(animateFlow);update();</script>
 </html>

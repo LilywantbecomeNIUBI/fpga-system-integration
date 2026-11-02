@@ -73,6 +73,7 @@ class Session(sensing_base.Session):
         if self.mode=='live' and gateway['online']:state['imu']=data['imu']
         elif self.mode=='live':state['imu']['online']=False;state['imu']['attitude']['valid']=False
         state.update(profile='system_integration_v1',gateway=gateway,control=data.get('control'),lidar=data.get('lidar'),odometry=data.get('odometry'))
+        state.update(telemetry=data.get('telemetry'),telemetry_error=data.get('telemetry_error'),navigation=data.get('navigation'))
         if state.get('lidar'):
             # Gateway snapshots age while cached on the PC as well.
             lidar=dict(state['lidar']);poll_age=gateway.get('age_ms') or 0

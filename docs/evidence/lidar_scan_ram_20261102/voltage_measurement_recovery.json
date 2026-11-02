@@ -1,0 +1,16 @@
+{
+  "download_confirmed": true,
+  "top": "m2_sensor_diag_top",
+  "bitstream_sha256": "b91785a8b5af9994b388d1ba0d5b43ee5ad76a2a8b700cd96d134440fcd84074",
+  "operation": "SRAM Program",
+  "flash_written": false,
+  "motor_pads_constant_low": true,
+  "serial_port": "COM25",
+  "timestamp_unix": 1793612024.9285457,
+  "counts": {},
+  "bytes": 0,
+  "last": {},
+  "lidar_complete_scans": 0,
+  "mixed_bad_crc": 0,
+  "nav_bad_crc": 0
+}

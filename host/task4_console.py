@@ -68,7 +68,9 @@ class Session:
    check('FPGA输出许可','ok' if fresh and n['permit'] else 'bad','；'.join(reasons) or 'FPGA已给许可；仍需检查电机核心/接线')
    lidar=self.lidar.snapshot(now)
    if self.finished or self.error:lidar.update(online=False,scan=None)
-   check('雷达扫描上传','ok' if lidar['online'] else 'unknown','72个5°扇区最近回波；最多5Hz' if lidar['online'] else '等待六片完整扫描；旧固件未上传')
+   scan=lidar.get('scan') or {}
+   detail=('%d个原始采样点；保留实测角度'%len(scan.get('points',[]))) if scan.get('representation')=='raw_points' else ('%d点 / %d°扇区；%s'%(len(scan.get('points',[])),lidar['resolution_degrees'] or 5,'保留实测角度' if scan.get('angle_mode')=='measured' else '扇区中心角'))
+   check('雷达扫描上传','ok' if lidar['online'] else 'unknown',detail if lidar['online'] else '等待完整扫描')
    check('导航候选方向','unknown','当前固件未上传，界面不会推测或伪造')
    return dict(mode=self.mode,online=fresh,lidar=lidar,rows=dict(self.rows),ages_ms={k:round(v*1000,1) for k,v in ages.items()},checks=checks,events=list(self.events),trace=list(self.trace),bytes=self.bytes,nav_bad_frames=self.nav.bad_crc,mixed_bad_crc=self.mixed.bad_crc,error=self.error,recording_error=self.recording_error,recording=str(self.out) if self.out else None,elapsed_s=round(now-self.started,1))
  def start(self):

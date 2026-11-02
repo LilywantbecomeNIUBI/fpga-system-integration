@@ -6,7 +6,8 @@ module network_runtime_dual #(
     parameter DEFAULT_PORT=16'd6102,VIDEO_SOURCE_PORT=16'd5000,CONTROL_PORT=16'd6200,
     parameter CLK_HZ=125000000,CACHE_SECONDS=30,
     parameter VISION_ENABLE=0,VISION_PORT=16'd6201,
-    parameter EVENT_ENABLE=0,EVENT_PORT=16'd6202
+    parameter EVENT_ENABLE=0,EVENT_PORT=16'd6202,
+    parameter TELEMETRY_ENABLE=0,TELEMETRY_PORT=16'd6205
 )(input clk,rst_n,input rx_clk,rx_rst_n,input [7:0] rx_data,input rx_valid,rx_error,
     input video_start,video_first,input [15:0] video_length,input [7:0] video_data,
     output video_read,output reg video_done,
@@ -18,7 +19,8 @@ module network_runtime_dual #(
     output reg enabled2,output cache2_hit,output [47:0] target2_mac,
     output reg vision_valid,output reg [255:0] vision_payload,
     input [255:0] vision_status,input vision_status_valid,
-    input event_valid,input [255:0] event_payload,output event_ready);
+    input event_valid,input [255:0] event_payload,output event_ready,
+    input telemetry_valid,input [511:0] telemetry_payload,output telemetry_ready);
 
     function [31:0] crc_byte;
         input [31:0] crc;input [7:0] value;integer k;reg [31:0] c;
@@ -30,7 +32,7 @@ module network_runtime_dual #(
             (ip&~NETMASK)!=0 && (ip&~NETMASK)!=(~NETMASK);end
     endfunction
 
-    localparam RX_BYTES=VISION_ENABLE ? 80 : 64;
+    localparam RX_BYTES=(VISION_ENABLE || TELEMETRY_ENABLE) ? 80 : 64;
     reg [7:0] memory[0:RX_BYTES-1];
     reg [RX_BYTES-1:0] write_mask;reg [7:0] write_byte;integer w,v;
     reg request_toggle,ack_toggle,ack_sync0,ack_sync1,req_sync0,req_sync1;
@@ -132,7 +134,22 @@ module network_runtime_dual #(
     assign cache2_hit=found2;assign target2_mac=found2_mac;
     localparam SECOND_BITS=CLK_HZ<2 ? 1 : $clog2(CLK_HZ);
     reg [SECOND_BITS-1:0] second_count;reg second_tick;
-    localparam RETRY_BITS=$clog2(CLK_HZ*2+1);
+    // ARP uses millisecond retries. A 28-bit decrementer under the parser and
+    // dispatch priority tree unnecessarily lengthens the 125MHz critical path.
+    localparam RETRY_DIV=CLK_HZ>=1000 ? CLK_HZ/1000 : 1;
+    localparam RETRY_SHORT=CLK_HZ>=1000 ? 500 : CLK_HZ/2;
+    localparam RETRY_LONG=CLK_HZ>=1000 ? 2000 : CLK_HZ*2;
+    localparam RETRY_BITS=$clog2(RETRY_LONG+1);
+    localparam RETRY_DIV_BITS=RETRY_DIV<2 ? 1 : $clog2(RETRY_DIV);
+    reg [RETRY_DIV_BITS-1:0] retry_divider;
+    reg retry_tick;
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)begin retry_divider<=0;retry_tick<=RETRY_DIV==1;end
+        else begin
+            retry_tick<=RETRY_DIV==1 || (!retry_tick && retry_divider==RETRY_DIV-2);
+            if(retry_tick)retry_divider<=0;else retry_divider<=retry_divider+1'b1;
+        end
+    end
     reg [RETRY_BITS-1:0] retry_count,retry_count2;
     reg arp_due0,arp_due1;
     // Retry reductions must not sit in front of the full dispatch priority tree.
@@ -220,6 +237,17 @@ module network_runtime_dual #(
     reg wait_first,wait_first2,video_pending,video_is_first;
     wire eligible0=enabled && found && (!wait_first || video_is_first);
     wire eligible1=enabled2 && found2 && (!wait_first2 || video_is_first);
+    reg video_route0,video_route1;
+    reg [47:0] video_route_mac;reg [31:0] video_route_ip;reg [15:0] video_route_port;
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)begin video_route0<=0;video_route1<=0;video_route_mac<=0;video_route_ip<=0;video_route_port<=0;end
+        else begin
+            video_route0<=eligible0;video_route1<=eligible1;
+            video_route_mac<=eligible0?found_mac:found2_mac;
+            video_route_ip<=eligible0?target_ip:target2_ip;
+            video_route_port<=eligible0?target_port:target2_port;
+        end
+    end
     reg replay_pending,using_replay;
     reg [47:0] replay_mac;reg [31:0] replay_ip;reg [15:0] replay_port;
     // First send consumes source once; second send replays exactly the same immutable payload.
@@ -240,12 +268,17 @@ module network_runtime_dual #(
     reg [2:0] send_state;
     localparam S_IDLE=0,S_UDP=1,S_ARP=2,S_GAP=3,S_DISPATCH=4;
     localparam A_NONE=0,A_REPLY=1,A_CONTROL=2,A_VISION=3,A_ARP0=4,A_ARP1=5,A_VIDEO=6,A_EVENT=7;
-    reg [2:0] action;
+    localparam A_TELEMETRY=8;
+    reg [3:0] action;
+    reg telemetry_pending,sending_telemetry;
+    reg [511:0] telemetry_buffer,send_telemetry_payload;
+    assign telemetry_ready=TELEMETRY_ENABLE && rst_n && enabled2 && found2 && !telemetry_pending;
     reg udp_start,sending_video;reg [47:0] send_mac;reg [31:0] send_ip;
     reg [15:0] send_port,send_source_port,send_length;
     reg [5:0] control_index;
     wire udp_done,udp_read,udp_valid,udp_clock;wire [7:0] udp_data;
-    wire [7:0] udp_payload=sending_video?(using_replay?replay_word:video_data):send_control_payload[255:248];
+    wire [7:0] udp_payload=sending_video?(using_replay?replay_word:video_data):
+        sending_telemetry ? send_telemetry_payload[511:504] : send_control_payload[255:248];
     eth_udp_tx_gmii udp(.clk125m(clk),.reset_p(network_reset),.tx_en_pulse(udp_start),.tx_done(udp_done),
         .dst_mac(send_mac),.src_mac(LOCAL_MAC),.dst_ip(send_ip),.src_ip(LOCAL_IP),
         .dst_port(send_port),.src_port(send_source_port),.data_length(send_length),
@@ -253,7 +286,7 @@ module network_runtime_dual #(
     assign video_read=udp_read && sending_video && !using_replay && send_state==S_UDP;
 
     // Complete minimum-sized Ethernet ARP frame: 8-byte preamble, 60-byte frame, 4-byte FCS.
-    reg [6:0] arp_index;reg [31:0] arp_crc;
+    reg [6:0] arp_index;reg [31:0] arp_crc;reg arp_payload_active;
     reg [47:0] arp_send_mac,arp_target_mac;reg [31:0] arp_target_ip;reg [15:0] arp_opcode;
     reg [479:0] arp_body;
     reg [7:0] arp_byte;
@@ -276,7 +309,7 @@ module network_runtime_dual #(
 
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
-            req_sync0<=0;req_sync1<=0;ack_toggle<=0;parse_state<=P_IDLE;scan_index<=0;check_sum<=0;
+            req_sync0<=0;req_sync1<=0;ack_toggle<=0;parse_state<=P_IDLE;check_sum<=0;
             target_ip<=DEFAULT_IP;target_port<=DEFAULT_PORT;enabled<=DEFAULT_IP!=0;
             target2_ip<=0;target2_port<=DEFAULT_PORT;enabled2<=0;wait_first2<=1;
             replay_pending<=0;using_replay<=0;replay_mac<=0;replay_ip<=0;replay_port<=0;control_second<=0;
@@ -289,19 +322,27 @@ module network_runtime_dual #(
             arp_send_mac<=0;arp_target_mac<=0;arp_target_ip<=0;arp_opcode<=0;arp_body<=0;gap<=0;
             parsing_vision<=0;vision_valid<=0;vision_payload<=0;vision_pending<=0;send_control_payload<=0;
             vision_reply<=0;vision_mac<=0;vision_ip<=0;vision_peer_port<=0;
-            scan_word<=0;action<=A_NONE;event_pending<=0;event_buffer<=0;
+            scan_word<=0;action<=A_NONE;event_pending<=0;event_buffer<=0;arp_payload_active<=0;
+            telemetry_pending<=0;sending_telemetry<=0;telemetry_buffer<=0;send_telemetry_payload<=0;
         end else begin
             req_sync0<=request_toggle;req_sync1<=req_sync0;learn<=0;clear_cache<=0;clear_cache2<=0;
             udp_start<=0;video_done<=0;vision_valid<=0;
             if(!enabled2 || !found2)event_pending<=0;
             if(EVENT_ENABLE && event_valid && event_ready && enabled2 && found2)begin event_buffer<=event_payload;event_pending<=1;end
-            if(retry_count!=0)retry_count<=retry_count-1'b1;
+            // Do not acknowledge until this complete datagram has a queue slot.
+            // Snapshot data independently of wide admission/ARP conditions.
+            // The CDC producer holds it until acceptance; pending then locks it.
+            if(TELEMETRY_ENABLE && !telemetry_pending)telemetry_buffer<=telemetry_payload;
+            if(TELEMETRY_ENABLE && telemetry_valid && telemetry_ready)telemetry_pending<=1;
+            if(retry_tick && retry_count!=0)retry_count<=retry_count-1'b1;
             if(found && !refresh_due)begin attempts<=0;retry_count<=0;end
-            if(retry_count2!=0)retry_count2<=retry_count2-1'b1;
+            if(retry_tick && retry_count2!=0)retry_count2<=retry_count2-1'b1;
             if(found2 && !refresh2_due)begin attempts2<=0;retry_count2<=0;end
             if(video_start)begin video_pending<=1;video_is_first<=video_first;end
             if(udp_read && !sending_video)control_index<=control_index+1'b1;
-            if(udp_read && !sending_video)send_control_payload<={send_control_payload[247:0],8'd0};
+            if(udp_read && !sending_video && !sending_telemetry)send_control_payload<={send_control_payload[247:0],8'd0};
+            if(udp_read)send_telemetry_payload<={send_telemetry_payload[503:0],8'd0};
+            if(send_state==S_DISPATCH)send_telemetry_payload<=telemetry_buffer;
             if(ack_build)begin
                 control_payload<={32'h4e535441,8'd1,control_opcode|8'h80,control_error,
                     3'd0,(EVENT_ENABLE ? 1'b1 : 1'b0),control_second,1'b1,(control_second?found2:found),(control_second?enabled2:enabled),
@@ -322,23 +363,23 @@ module network_runtime_dual #(
                         ack_toggle<=req_sync1;parse_state<=P_IDLE;
                     end else if(ip_envelope_ok &&
                         (control_datagram || vision_datagram))begin
-                        parsing_vision<=vision_datagram;check_sum<=0;scan_index<=14;parse_state<=P_IP;
+                        parsing_vision<=vision_datagram;check_sum<=0;parse_state<=P_IP;
                     end else begin ack_toggle<=req_sync1;parse_state<=P_IDLE;end
                 end
                 P_IP:if(scan_index<34)begin
                     scan_word<={memory[scan_index],memory[scan_index+7'd1]};parse_state<=P_IP_ADD;
                 end else parse_state<=P_IP_WAIT;
-                P_IP_ADD:begin check_sum<=check_sum+scan_word;scan_index<=scan_index+7'd2;parse_state<=P_IP;end
+                P_IP_ADD:begin check_sum<=check_sum+scan_word;parse_state<=P_IP;end
                 P_IP_WAIT:if(!checksum_ok)begin ack_toggle<=req_sync1;parse_state<=P_IDLE;end
                 else if({memory[40],memory[41]}==0)parse_state<=parsing_vision ? P_VISION : P_COMMAND;
                 else begin
                     check_sum<=peer_ip[31:16]+{16'd0,peer_ip[15:0]}+{16'd0,LOCAL_IP[31:16]}+{16'd0,LOCAL_IP[15:0]}+32'd17+{16'd0,udp_length};
-                    scan_index<=34;parse_state<=P_UDP;
+                    parse_state<=P_UDP;
                 end
                 P_UDP:if(scan_index<(parsing_vision ? 74 : 62))begin
                     scan_word<={memory[scan_index],memory[scan_index+7'd1]};parse_state<=P_UDP_ADD;
                 end else parse_state<=P_UDP_WAIT;
-                P_UDP_ADD:begin check_sum<=check_sum+scan_word;scan_index<=scan_index+7'd2;parse_state<=P_UDP;end
+                P_UDP_ADD:begin check_sum<=check_sum+scan_word;parse_state<=P_UDP;end
                 P_UDP_WAIT:if(checksum_ok)parse_state<=parsing_vision ? P_VISION : P_COMMAND;
                 else begin ack_toggle<=req_sync1;parse_state<=P_IDLE;end
                 P_VISION:begin
@@ -381,12 +422,21 @@ module network_runtime_dual #(
                 S_IDLE:begin
                     action<=arp_reply_pending ? A_REPLY : control_pending ? A_CONTROL : vision_pending ? A_VISION :
                         EVENT_ENABLE && event_pending && enabled2 && found2 ? A_EVENT :
+                        TELEMETRY_ENABLE && telemetry_pending && enabled2 && found2 ? A_TELEMETRY :
                         arp_due0 ? A_ARP0 : arp_due1 ? A_ARP1 : video_pending ? A_VIDEO : A_NONE;
                     send_state<=S_DISPATCH;
                 end
                 S_DISPATCH:begin
                     send_state<=S_IDLE;
+                    sending_telemetry<=0;
+                    arp_payload_active<=0;
                     case(action)
+                    A_TELEMETRY:begin
+                        telemetry_pending<=0;sending_telemetry<=1;sending_video<=0;
+                        send_mac<=found2_mac;send_ip<=target2_ip;send_port<=TELEMETRY_PORT;
+                        send_source_port<=TELEMETRY_PORT;send_length<=64;
+                        if(enabled2 && found2)begin udp_start<=1;send_state<=S_UDP;end
+                    end
                     A_REPLY:begin
                         arp_send_mac<=reply_mac;arp_target_mac<=reply_mac;arp_target_ip<=reply_ip;arp_opcode<=2;
                         arp_body<={reply_mac,LOCAL_MAC,16'h0806,16'h0001,16'h0800,8'd6,8'd4,16'd2,LOCAL_MAC,LOCAL_IP,reply_mac,reply_ip,144'd0};
@@ -410,32 +460,42 @@ module network_runtime_dual #(
                             udp_start<=1;send_state<=S_UDP;
                         end
                     end
-                    A_ARP0:if(arp_due0 && enabled && (!found || refresh_due))begin
+                    A_ARP0:begin
                         arp_send_mac<=48'hffffffffffff;arp_target_mac<=0;arp_target_ip<=target_ip;arp_opcode<=1;
                         arp_body<={48'hffffffffffff,LOCAL_MAC,16'h0806,16'h0001,16'h0800,8'd6,8'd4,16'd1,LOCAL_MAC,LOCAL_IP,48'd0,target_ip,144'd0};
-                        arp_index<=0;arp_crc<=32'hffffffff;send_state<=S_ARP;arp_requests<=arp_requests+1'b1;
-                        retry_count<=attempts<3?CLK_HZ/2:CLK_HZ*2;if(attempts<3)attempts<=attempts+1'b1;
+                        arp_index<=0;arp_crc<=32'hffffffff;
+                        if(arp_due0 && enabled && (!found || refresh_due))begin
+                            send_state<=S_ARP;arp_requests<=arp_requests+1'b1;
+                            retry_count<=attempts<3?RETRY_SHORT:RETRY_LONG;if(attempts<3)attempts<=attempts+1'b1;
+                        end
                     end
-                    A_ARP1:if(arp_due1 && enabled2 && (!found2 || refresh2_due))begin
+                    A_ARP1:begin
                         arp_send_mac<=48'hffffffffffff;arp_target_mac<=0;arp_target_ip<=target2_ip;arp_opcode<=1;
                         arp_body<={48'hffffffffffff,LOCAL_MAC,16'h0806,16'h0001,16'h0800,8'd6,8'd4,16'd1,LOCAL_MAC,LOCAL_IP,48'd0,target2_ip,144'd0};
-                        arp_index<=0;arp_crc<=32'hffffffff;send_state<=S_ARP;arp_requests<=arp_requests+1'b1;
-                        retry_count2<=attempts2<3?CLK_HZ/2:CLK_HZ*2;if(attempts2<3)attempts2<=attempts2+1'b1;
+                        arp_index<=0;arp_crc<=32'hffffffff;
+                        if(arp_due1 && enabled2 && (!found2 || refresh2_due))begin
+                            send_state<=S_ARP;arp_requests<=arp_requests+1'b1;
+                            retry_count2<=attempts2<3?RETRY_SHORT:RETRY_LONG;if(attempts2<3)attempts2<=attempts2+1'b1;
+                        end
                     end
                     A_VIDEO:begin
                         video_pending<=0;
+                        // Route selection is a separate stage from dispatch.
+                        // If admission changed since that stage, drop this
+                        // source packet rather than mixing endpoint identities.
+                        send_mac<=video_route_mac;send_ip<=video_route_ip;send_port<=video_route_port;
+                        send_source_port<=VIDEO_SOURCE_PORT;
+                        replay_mac<=found2_mac;replay_ip<=target2_ip;replay_port<=target2_port;
+                        send_length<=video_length;sending_video<=1;
                         if(!found)wait_first<=1;
                         if(!found2)wait_first2<=1;
-                        if((!eligible0 && !eligible1) || !video_length_ok)begin video_done<=1;end
+                        if((!eligible0 && !eligible1) || !video_length_ok ||
+                                video_route0!=eligible0 || video_route1!=eligible1)begin video_done<=1;end
                         else begin
                             if(eligible0)wait_first<=0;
                             if(eligible1)wait_first2<=0;
-                            send_mac<=eligible0?found_mac:found2_mac;
-                            send_ip<=eligible0?target_ip:target2_ip;
-                            send_port<=eligible0?target_port:target2_port;send_source_port<=VIDEO_SOURCE_PORT;
                             replay_pending<=eligible0 && eligible1;using_replay<=0;
-                            replay_mac<=found2_mac;replay_ip<=target2_ip;replay_port<=target2_port;
-                            send_length<=video_length;sending_video<=1;udp_start<=1;send_state<=S_UDP;
+                            udp_start<=1;send_state<=S_UDP;
                         end
                     end
                     default:begin end
@@ -445,7 +505,8 @@ module network_runtime_dual #(
                     if(sending_video && !replay_pending)video_done<=1;send_state<=S_GAP;gap<=0;
                 end
                 S_ARP:begin
-                    if(arp_index>=8 && arp_index<68)begin arp_crc<=crc_byte(arp_crc,arp_byte);arp_body<={arp_body[471:0],8'd0};end
+                    arp_payload_active<=arp_index>=7 && arp_index<67;
+                    if(arp_payload_active)begin arp_crc<=crc_byte(arp_crc,arp_body[479:472]);arp_body<={arp_body[471:0],8'd0};end
                     if(arp_index==71)begin send_state<=S_GAP;gap<=0;end else arp_index<=arp_index+1'b1;
                 end
                 S_GAP:if(gap==15)begin
@@ -456,5 +517,16 @@ module network_runtime_dual #(
                 end else gap<=gap+1'b1;
             endcase
         end
+    end
+    // Index writes do not depend on envelope admission or checksum verdicts.
+    // Invalid envelopes never use it; this removes that long enable path.
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)scan_index<=0;
+        else case(parse_state)
+            P_CLASSIFY:scan_index<=14;
+            P_IP_WAIT:scan_index<=34;
+            P_IP_ADD,P_UDP_ADD:scan_index<=scan_index+7'd2;
+            default:begin end
+        endcase
     end
 endmodule

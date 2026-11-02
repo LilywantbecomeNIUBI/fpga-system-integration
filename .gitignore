@@ -19,5 +19,6 @@ config/nano.local.json
 .playwright-cli/
 .deps/
 output/
+/tests/network_dual_20261014/
 
 docs/evidence/**/config/local*.json

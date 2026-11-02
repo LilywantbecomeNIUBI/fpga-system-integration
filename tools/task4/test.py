@@ -73,7 +73,7 @@ def full_top():
     full_hashes={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sources()}
     files=[str(p) for p in sources() if p.name!='ethernet_pll.v']
     command(['iverilog','-g2012','-s','tb_task4_system','-s','GSR','-o',str(OUT/'system.vvp'),
-      'tests/navigation/tb_task4_system.sv','tests/imu/icm42688_model.sv','tests/ethernet_pll_model.v',str(prim)]+files,'full_compile')
+      'tests/navigation/tb_task4_system.sv','tests/imu/mpu6050_model.sv','tests/ethernet_pll_model.v',str(prim)]+files,'full_compile')
     text=command(['vvp',str(OUT/'system.vvp')],'full_top',600);assert 'PASS' in text;print(text.strip().splitlines()[-2:],flush=True)
     parser=StatusStream();nav=parser.feed((OUT/'full_system_uart.bin').read_bytes())
     assert nav and not parser.bad_crc and all(not r['running'] and not r['permit'] for r in nav)

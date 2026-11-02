@@ -1,5 +1,7 @@
 # 第一阶段系统集成：使用与验收
 
+2026-11-02：RevB新MPU-6050已按AD0下拉/0x68适配，首次静态上板使用电机输出固定关闭的IMU检查版；整机重新布线Setup/Hold=0/0，但eth125最小脉宽与camera_pclk_d时钟布线告警未决。本轮未下载。位流、配套解析器与命令见[更换及上板准备](IMU_MPU6050_20261102.md)。
+
 2026-11-01：M2雷达经FPGA上传扫描的配置和新版光流底图见[补充说明](task4/M2扫描与光流显示_20261101.md)。M2使用 `lidar_source: "fpga"`；本文下方双USB串口说明仍属于旧USB雷达路径。
 
 本阶段为有刷底盘遥控与感知并发候选。环境光流和避障状态以观测形式接入；自动跟随/避障运动、音频、SLAM、FOC和平衡环不在本固件内。最新架构见 [2026-10-30合并说明](PERCEPTION_MERGE_20261030.md)。原模块与无刷工程保留。软件构建和打包不会连接硬件；本文部署及运动步骤尚待现场执行。
@@ -23,7 +25,7 @@ python tools/build_system.py
 python tools/prepare_nano.py
 ```
 
-`build/system/system.gprj`是统一工程，顶层`system_top`，位流为`build/system/impl/pnr/system.fs`。`build/system/result.json`必须为passed且与当前源码哈希一致。这里的passed只检查构建、源码一致性及Setup/Hold；完整时序签核另看`docs/evidence/system_v1/timing_audit.json`，当前最小脉宽告警尚未解决，不能据此直接上板。原`tools/build_motor.py`和独立电机入口继续可用。
+`build/system/system.gprj`是统一工程，顶层`system_top`，位流为`build/system/impl/pnr/system.fs`。`build/system/result.json`必须为passed且与当前源码哈希一致。当前构建工具的passed包含源码一致性、Setup/Hold、最小脉宽、时钟布线及网表/CDC审计；原最小脉宽和时钟布线告警仍会令整机候选passed=false。本轮IMU独立检查版与整机候选分别保留结果，不能将检查版通过移作整机签核。原`tools/build_motor.py`和独立电机入口继续可用。
 
 完整数字顶层仿真需要本机Gowin原语库；CI运行协议、控制、UART、LK与双目标网络回归，不把Gowin仿真模型上传Git。完整顶层测试保持相机/网络及IMU时钟，使用缩小图像缓冲、处理后像素注入、行为传感器/PLL，并加速电机/UART计数器10倍；它验证并发与故障隔离，不能代替真实传感器、电气或实际周期验收。
 

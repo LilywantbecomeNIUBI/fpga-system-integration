@@ -3,9 +3,9 @@
 // sample_valid is ONE clock, all six axes and metadata commit together.
 // There is no UART, UI or downstream backpressure in this path.
 module imu_1khz_core #(
-    parameter integer CLK_HZ=50000000, I2C_HZ=1000000,
+    parameter integer CLK_HZ=50000000, I2C_HZ=400000,
     parameter integer POLL_US=150, STALE_WARN_US=3000,
-    parameter integer POWERUP_US=50000, RESET_US=2000, STARTUP_US=50000,
+    parameter integer POWERUP_US=100000, RESET_US=100000, STARTUP_US=100000,
     parameter integer STALE_US=10000, RETRY_US=1000000,
     parameter integer LOW_LATENCY_FILTER=1
 )(
@@ -16,7 +16,7 @@ module imu_1khz_core #(
     output [15:0] observe_to_commit_us, sample_interval_us, error_count, invalid_count,
     output [7:0] who_am_i, last_error
 );
-    icm42688_fast_reader #(.CLK_HZ(CLK_HZ),.I2C_HZ(I2C_HZ),.POLL_US(POLL_US),
+    mpu6050_reader #(.CLK_HZ(CLK_HZ),.I2C_HZ(I2C_HZ),.POLL_US(POLL_US),
         .STALE_WARN_US(STALE_WARN_US),.POWERUP_US(POWERUP_US),.RESET_US(RESET_US),.STARTUP_US(STARTUP_US),
         .STALE_US(STALE_US),.RETRY_US(RETRY_US),.LOW_LATENCY_FILTER(LOW_LATENCY_FILTER)) reader(
         .clk(clk),.rst_n(rst_n),.imu_i2c_scl(imu_i2c_scl),.imu_i2c_sda(imu_i2c_sda),
