@@ -33,10 +33,16 @@ module mpu6050_reader #(
     reg [31:0] wait_count, poll_count, age_count;
     reg [31:0] us_counter, us_divider, observation;
     reg have_sample, have_previous;
+    reg stale_due;
+    reg [31:0] stale_deadline_minus1;
+    wire us_tick=us_divider==US_DIV-1;
     wire is_mpu6500=who_am_i==8'h70;
     assign now_us=us_counter;
     assign sample_age_us=have_sample ? us_counter-commit_timestamp_us : 32'hffffffff;
-    assign sample_stale=!ready || !have_sample || sample_age_us>=STALE_WARN_US;
+    // Equality is evaluated before the microsecond counter advances. The
+    // registered stale flag therefore asserts on the original deadline edge,
+    // including wrap; no 32-bit age subtractor feeds navigation enables.
+    assign sample_stale=!ready || !have_sample || stale_due;
     always @(posedge clk or negedge rst_n)
         if (!rst_n) begin us_counter<=0; us_divider<=0; end
         else if (us_divider==US_DIV-1) begin us_counter<=us_counter+1'b1; us_divider<=0; end
@@ -103,9 +109,11 @@ module mpu6050_reader #(
             error_count<=0; invalid_count<=0; sample_seq<=0; timestamp_us<=0; observation<=0;
             ax<=0; ay<=0; az<=0; gx<=0; gy<=0; gz<=0; temperature_raw<=0;
             temperature_valid<=0; have_sample<=0; have_previous<=0; commit_timestamp_us<=0;
+            stale_due<=1;stale_deadline_minus1<=0;
             observe_to_commit_us<=0; sample_interval_us<=0;
         end else begin
             req<=0; sample_valid<=0;
+            if(us_tick && us_counter==stale_deadline_minus1)stale_due<=1;
             if (poll_count<US_DIV*POLL_US) poll_count<=poll_count+1'b1;
             if (ready && age_count<US_DIV*STALE_US) age_count<=age_count+1'b1;
             if (ready && age_count>=US_DIV*STALE_US) begin
@@ -174,6 +182,8 @@ module mpu6050_reader #(
                         timestamp_us<=observation; sample_seq<=sample_seq+1'b1;
                         sample_valid<=1; age_count<=0; temperature_valid<=1;
                         have_sample<=1; have_previous<=1; commit_timestamp_us<=us_counter;
+                        stale_deadline_minus1<=us_counter+STALE_WARN_US-1;
+                        stale_due<=STALE_WARN_US==0 || (STALE_WARN_US==1 && us_tick);
                         observe_to_commit_us<=us_counter-observation;
                         sample_interval_us<=have_previous ? us_counter-commit_timestamp_us : 0;
                         state<=POLL_WAIT;

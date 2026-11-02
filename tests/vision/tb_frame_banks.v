@@ -1,9 +1,9 @@
 `timescale 1ns/1ps
 // Exercise both ownership slots, all four address banks, full-frame dropping,
 // pointer wrap and slot reuse with a much faster receiving clock.
-module tb_frame_banks #(parameter W=4,H=2,C=4);
+module tb_frame_banks #(parameter W=4,H=2,C=4,WR_HALF=7,RD_HALF=2);
     reg wc=0,rc=0,rst=0,fs=0,fe=0,pv=0,read=0,done=0;
-    always #7 wc=~wc;always #2 rc=~rc;
+    always #(WR_HALF) wc=~wc;always #(RD_HALF) rc=~rc;
     reg [15:0] id=0,pixel=0;
     wire [7:0] payload;wire [15:0] length,fid;wire first,start;
     wire [31:0] dropped;

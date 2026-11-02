@@ -17,7 +17,9 @@ module vision_result_core #(
     localparam [31:0] TIMEOUT_CYCLES=(CLK_HZ/1000)*TIMEOUT_MS;
     reg frame_seen, sequence_seen;
     reg [15:0] current_frame, last_frame;
-    reg [31:0] idle_cycles, frame_idle_cycles, accepted, rejected;
+    localparam IDLE_BITS=TIMEOUT_CYCLES<2 ? 1 : $clog2(TIMEOUT_CYCLES+1);
+    reg [IDLE_BITS-1:0] idle_cycles,frame_idle_cycles;
+    reg [31:0] accepted,rejected;
     reg idle_due,frame_due,frame_expired;
     // reason: 0 reset/query, 1 accepted, 2 no matching target, 3 malformed,
     // 4 stale/future/unavailable, 5 duplicate/out of order, 6 timeout, 7 stream lost.
@@ -54,6 +56,42 @@ module vision_result_core #(
     assign status_payload={32'h56535441,8'd1,4'd0,stream_ready,sequence_seen,frame_seen,target_valid,
         reason,6'd0,target_direction,last_frame,current_frame,target_class,target_confidence,
         target_x,target_y,target_age,16'd0,accepted,rejected};
+
+    // Byte adders use registered look-ahead carries. Carry state advances only
+    // with this counter; synchronous clear wins, preserving every deadline.
+    wire [IDLE_BITS-1:0] idle_cycles_incremented;
+    genvar idle_cycles_lane;
+    generate for(idle_cycles_lane=0;idle_cycles_lane<(IDLE_BITS+7)/8;idle_cycles_lane=idle_cycles_lane+1)begin:idle_cycles_segments
+        localparam PART=(IDLE_BITS-idle_cycles_lane*8)<8 ? IDLE_BITS-idle_cycles_lane*8 : 8;
+        if(idle_cycles_lane==0)begin
+            assign idle_cycles_incremented[idle_cycles_lane*8+:PART]=idle_cycles[idle_cycles_lane*8+:PART]+1'b1;
+        end else begin
+            (* syn_preserve=1 *) reg carry;
+            always @(posedge clk or negedge rst_n)
+                if(!rst_n)carry<=0;
+                else if(state==3 && !query_sample && !bad_sample && stream_ready && ready_sample && fresh_sample && ordered_sample)carry<=0;
+                else if(!idle_due)carry<=idle_cycles[idle_cycles_lane*8-1:0]=={{(idle_cycles_lane*8-1){1'b1}},1'b0};
+            assign idle_cycles_incremented[idle_cycles_lane*8+:PART]=idle_cycles[idle_cycles_lane*8+:PART]+carry;
+        end
+    end endgenerate
+
+    // Byte adders use registered look-ahead carries. Carry state advances only
+    // with this counter; synchronous clear wins, preserving every deadline.
+    wire [IDLE_BITS-1:0] frame_idle_cycles_incremented;
+    genvar frame_idle_cycles_lane;
+    generate for(frame_idle_cycles_lane=0;frame_idle_cycles_lane<(IDLE_BITS+7)/8;frame_idle_cycles_lane=frame_idle_cycles_lane+1)begin:frame_idle_cycles_segments
+        localparam PART=(IDLE_BITS-frame_idle_cycles_lane*8)<8 ? IDLE_BITS-frame_idle_cycles_lane*8 : 8;
+        if(frame_idle_cycles_lane==0)begin
+            assign frame_idle_cycles_incremented[frame_idle_cycles_lane*8+:PART]=frame_idle_cycles[frame_idle_cycles_lane*8+:PART]+1'b1;
+        end else begin
+            (* syn_preserve=1 *) reg carry;
+            always @(posedge clk or negedge rst_n)
+                if(!rst_n)carry<=0;
+                else if(frame_tick)carry<=0;
+                else if(!frame_expired)carry<=frame_idle_cycles[frame_idle_cycles_lane*8-1:0]=={{(frame_idle_cycles_lane*8-1){1'b1}},1'b0};
+            assign frame_idle_cycles_incremented[frame_idle_cycles_lane*8+:PART]=frame_idle_cycles[frame_idle_cycles_lane*8+:PART]+carry;
+        end
+    end endgenerate
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
             target_valid<=0;target_direction<=0;target_class<=0;target_confidence<=0;
@@ -70,9 +108,9 @@ module vision_result_core #(
             idle_due<=idle_cycles>=TIMEOUT_CYCLES-2;
             frame_due<=frame_idle_cycles>=TIMEOUT_CYCLES-2;
             frame_expired<=frame_idle_cycles>=TIMEOUT_CYCLES-1;
-            if(!frame_expired)frame_idle_cycles<=frame_idle_cycles+1'b1;
+            if(!frame_expired)frame_idle_cycles<=frame_idle_cycles_incremented;
             if(frame_tick)begin current_frame<=frame_id;frame_seen<=1;frame_idle_cycles<=0;frame_due<=0;frame_expired<=0;end
-            if(!idle_due)idle_cycles<=idle_cycles+1'b1;
+            if(!idle_due)idle_cycles<=idle_cycles_incremented;
             if(target_valid && (idle_due || (!frame_tick && frame_due)))begin
                 target_valid<=0;target_direction<=0;reason<=6;
             end

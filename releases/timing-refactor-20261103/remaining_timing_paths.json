@@ -1,0 +1,38 @@
+[
+  {
+    "source": "camera/runtime_network.net/parse_state_0_s2",
+    "sink": "camera/runtime_network.net/retry_count2_9_s0",
+    "slack_ns": -0.058,
+    "kind": "data_setup"
+  },
+  {
+    "source": "camera/runtime_network.net/clear_cache2_s0",
+    "sink": "camera/runtime_network.net/control_words[2].word_register/operation_7_s1",
+    "slack_ns": -0.028,
+    "kind": "data_setup"
+  },
+  {
+    "source": "camera/runtime_network.net/clear_cache2_s0",
+    "sink": "camera/runtime_network.net/send_length_words[0].word_register/operation_7_s1",
+    "slack_ns": -0.021,
+    "kind": "data_setup"
+  },
+  {
+    "source": "camera/runtime_network.net/retry_count_2_s0",
+    "sink": "camera/runtime_network.net/retry_count_8_s0",
+    "slack_ns": -0.009,
+    "kind": "data_setup"
+  },
+  {
+    "source": "camera/perception_reset/release_pipe_2_s0",
+    "sink": "camera/bridge/have_latest_s7",
+    "slack_ns": -0.069,
+    "kind": "reset_release"
+  },
+  {
+    "source": "camera/perception_reset/release_pipe_2_s0",
+    "sink": "camera/bridge/have_latest_s9",
+    "slack_ns": -0.062,
+    "kind": "reset_release"
+  }
+]

@@ -96,7 +96,14 @@ set_input_delay -clock eth_rx125 -clock_fall -add_delay -min 1.8 [get_ports {rgm
         # Do not change clock periods or waive any failing setup/pulse paths.
         sdc+='\nreport_timing -setup -max_paths 50\n'
         for clock in ('sys50','cam_pclk','eth_rx125','control50','eth125'):
-            sdc+='report_timing -setup -from_clock [get_clocks {%s}] -to_clock [get_clocks {%s}] -max_paths 50\n'%(clock,clock)
+            paths=1500 if clock=='eth125' else 400 if clock=='sys50' else 50
+            sdc+='report_timing -setup -from_clock [get_clocks {%s}] -to_clock [get_clocks {%s}] -max_paths %d\n'%(clock,clock,paths)
+        # Report both halves of the bank-local read pipeline even when other
+        # modules dominate the global worst-path sample. Report only; no waiver.
+        sdc+='report_timing -setup -to [get_pins {camera/stream/storage_bank*.read_pixel_pipe*/D}] -max_paths 100\n'
+        sdc+='report_timing -setup -to [get_pins {camera/stream/cached_word*/D}] -max_paths 32\n'
+        sdc+='report_timing -setup -to [get_pins {camera/stream/frame_address*/D}] -max_paths 64\n'
+        sdc+='report_timing -setup -to [get_pins {camera/stream/storage_bank*.read_address_pipe*/D}] -max_paths 128\n'
     if clock_cleanup:
         if not system:raise ValueError('Clock cleanup is only for the full system trial')
         # SUG1018 LOCAL_CLOCK excludes non-clock control nets from clock trees.
@@ -185,6 +192,10 @@ def main():
         (out/'timing_audit.log').write_text(checked.stdout+checked.stderr,encoding='utf-8')
         audit_path=out/'timing_audit.json'
         audits['cdc_timing']=checked.returncode==0 and audit_path.exists() and json.loads(audit_path.read_text()).get('passed') is True
+        checked=subprocess.run([os.sys.executable,str(ROOT/'tools/task4/audit_frame_read_timing.py'),str(out)],cwd=ROOT,capture_output=True,text=True)
+        (out/'frame_read_timing_audit.log').write_text(checked.stdout+checked.stderr,encoding='utf-8')
+        audit_path=out/'frame_read_timing_audit.json'
+        audits['frame_read_setup']=checked.returncode==0 and audit_path.exists() and json.loads(audit_path.read_text()).get('passed') is True
         record['system_audits']=audits;record['passed']=record['passed'] and all(audits.values())
     (out/'result.json').write_text(json.dumps(record,indent=2))
     (out.parents[1]/'latest_build.txt').write_text(str(out))
