@@ -1,0 +1,44 @@
+{
+  "delivery": [
+    {
+      "stream": "camera",
+      "resolved_url": "http://192.168.50.20:8766/camera.mjpg",
+      "frames": 425,
+      "unique_keys": 425,
+      "fps": 20.658072346645785
+    },
+    {
+      "stream": "infer",
+      "resolved_url": "http://192.168.50.20:8766/infer.mjpg",
+      "frames": 388,
+      "unique_keys": 388,
+      "fps": 18.812974152272094
+    }
+  ],
+  "capture": {
+    "frames": 1838,
+    "packets": 635253,
+    "bad": 0,
+    "missing_frames": 517,
+    "fps": 15.769618200771657,
+    "frame_id": 13481,
+    "age_ms": 132.45920778075515,
+    "error": null,
+    "receive_buffer_bytes": 8388608,
+    "queue_ms_last": 42.92316478076172,
+    "queue_ms_p50": 31.159578239379883,
+    "queue_ms_p95": 69.4748560928955,
+    "decode_ms": 0.3537319999935562,
+    "epoch_resets": 0,
+    "catchup_events": 96,
+    "catchup_packets": 105939,
+    "receiver_frames": 1920,
+    "receiver_fps": 16.05430233712111,
+    "receiver_process": true,
+    "receiver_pid": 7008,
+    "receiver_ready": true,
+    "online": true,
+    "preview_fps": 5.923879609675398
+  },
+  "inference_fps": 14.522239391635361
+}

@@ -7,6 +7,7 @@ from pathlib import Path
 import argparse
 import base64
 import copy
+from collections import deque
 import json
 import os
 import secrets
@@ -71,6 +72,8 @@ class VisionClient:
         self.data = self.received = self.camera = self.inference = None
         self.error = self.camera_error = None
         self.opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+        self.camera_times = deque(maxlen=120)
+        self.inference_times = deque(maxlen=120)
         self.thread = None
         if live:
             self.thread = threading.Thread(target=self.run, daemon=True)
@@ -106,10 +109,14 @@ class VisionClient:
                 try:
                     payload = self.get('/camera.jpg', 2 * 1024 * 1024)
                     self.check_jpeg(payload)
-                    camera = (str((data.get('capture') or {}).get('frame_id')) + '-' + str(received), payload)
+                    camera = (str(data.get('session')) + '-' + str((data.get('capture') or {}).get('frame_id')), payload)
                 except (OSError, ValueError) as exc:
                     camera_error = str(exc)
             with self.lock:
+                if camera and (not self.camera or camera[0] != self.camera[0]):
+                    self.camera_times.append(received)
+                if inference and (not previous or inference[0] != previous[0]):
+                    self.inference_times.append(received)
                 self.data, self.received = data, received
                 self.inference, self.camera = inference, camera
                 self.error, self.camera_error = None, camera_error
@@ -125,14 +132,19 @@ class VisionClient:
 
     def run(self):
         while not self.stop.is_set():
+            started = self.clock()
             self.poll()
-            self.stop.wait(.1)
+            self.stop.wait(max(0, .1 - (self.clock() - started)))
 
     def snapshot(self):
         with self.lock:
             age = (self.clock() - self.received) * 1000 if self.received is not None else None
             data = copy.deepcopy(self.data) if self.data else {}
             error, camera_error = self.error, self.camera_error
+            rates = []
+            for times in (self.camera_times, self.inference_times):
+                recent = [t for t in times if self.clock() - t < 2]
+                rates.append((len(recent)-1)/(recent[-1]-recent[0]) if len(recent)>1 else 0.)
             camera_available = self.camera is not None
         online = fresh(age) and not error
         for row, name in ((data.get('capture'), 'age_ms'), (data.get('result'), 'age_ms'), (data, 'event_age_ms')):
@@ -155,15 +167,28 @@ class VisionClient:
                 flow['vectors'] = []
         capture = data.get('capture') or {}
         capture['online'] = bool(online and not data.get('offline') and fresh(capture.get('age_ms')) and camera_available)
+        capture['preview_fps'] = rates[0] if capture['online'] else 0.
+        data['preview_fps'] = rates[1] if online and fresh(result.get('age_ms')) else 0.
+        if not capture['online']:
+            capture['fps'] = capture['receiver_fps'] = 0.
+        if not (online and fresh(result.get('age_ms'))):
+            data['inference_fps'] = 0.
         capture['error'] = camera_error or capture.get('error') or error
         return dict(online=bool(online), poll_age_ms=age, error=error, data=data,
                     result_fresh=bool(online and not data.get('error') and not data.get('offline') and fresh(result.get('age_ms')))), capture
 
     def image(self, inference=False):
-        status, capture = self.snapshot()
-        if not (status['result_fresh'] if inference else capture['online']):
-            return None
+        # Video handlers must not deepcopy the full radar/flow state per frame.
         with self.lock:
+            if self.received is None or not fresh((self.clock()-self.received)*1000) or self.error:
+                return None
+            data = self.data or {}
+            if data.get('offline') or (inference and data.get('error')):
+                return None
+            row = data.get('result' if inference else 'capture') or {}
+            age = row.get('age_ms')
+            if age is None or not fresh(age + (self.clock()-self.received)*1000):
+                return None
             return self.inference if inference else self.camera
 
     def close(self):
@@ -184,6 +209,7 @@ class Session:
         event_age = vision.get('event_age_ms')
         control = data['control']
         return dict(profile='system_integration_v1', host='nano', read_only=True,
+                    software_version='nano-video-20261103',
                     mode=data['mode'], simulation=False, replay=False,
                     motor_outputs_enabled=bool(control.get('motor_fresh') and (control.get('motor') or {}).get('armed')),
                     pc=capture, nano=nano, imu=data['imu'], control=control,
@@ -236,23 +262,13 @@ def make_server(session, bind='0.0.0.0', port=8872):
                 else:
                     self.reply(dict(error='No fresh frame'), 503)
             elif path in ('/camera.mjpg', '/infer.mjpg'):
-                self.send_response(200)
-                self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=frame')
+                # Video comes directly from the owner; JSON polling cannot throttle it.
+                self.send_response(302)
+                self.send_header('Location', session.vision.url + path)
                 self.send_header('Cache-Control', 'no-store')
+                self.send_header('Content-Length', '0')
                 self.end_headers()
-                self.connection.settimeout(1)
-                previous = None
-                try:
-                    while not session.stop.is_set():
-                        item = session.vision.image(path == '/infer.mjpg')
-                        if item and item[0] != previous:
-                            previous, payload = item
-                            self.wfile.write(b'--frame\r\nContent-Type: image/jpeg\r\nContent-Length: ' +
-                                             str(len(payload)).encode('ascii') + b'\r\n\r\n' + payload + b'\r\n')
-                            self.wfile.flush()
-                        session.stop.wait(.05)
-                except OSError:
-                    pass
+
             else:
                 self.reply(dict(error='Not found'), 404)
 
