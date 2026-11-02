@@ -1,0 +1,286 @@
+{
+  "passed": true,
+  "total_read_pipeline_registers": 64,
+  "total_frame_bsram_blocks": 128,
+  "netlist_sha256": "6ef584d88e08e70ade99c7edb0b1cfbe2d811ae142a9aecb229fd5d40eca74e0",
+  "banks": {
+    "0": {
+      "read_pipeline_registers": [
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_15_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_14_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_13_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_12_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_11_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_10_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_9_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_8_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_7_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_6_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_5_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_4_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_3_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_2_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_1_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[0].read_pixel_pipe_0_s1"
+        }
+      ],
+      "bsram_blocks": 32
+    },
+    "1": {
+      "read_pipeline_registers": [
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_15_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_14_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_13_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_12_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_11_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_10_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_9_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_8_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_7_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_6_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_5_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_4_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_3_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_2_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_1_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[1].read_pixel_pipe_0_s1"
+        }
+      ],
+      "bsram_blocks": 32
+    },
+    "2": {
+      "read_pipeline_registers": [
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_15_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_14_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_13_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_12_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_11_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_10_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_9_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_8_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_7_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_6_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_5_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_4_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_3_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_2_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_1_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[2].read_pixel_pipe_0_s1"
+        }
+      ],
+      "bsram_blocks": 32
+    },
+    "3": {
+      "read_pipeline_registers": [
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_15_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_14_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_13_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_12_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_11_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_10_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_9_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_8_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_7_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_6_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_5_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_4_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_3_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_2_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_1_s1"
+        },
+        {
+          "type": "DFFCE",
+          "name": "\\storage_bank[3].read_pixel_pipe_0_s1"
+        }
+      ],
+      "bsram_blocks": 32
+    }
+  },
+  "canonical_text_netlist_sha256": "6f8c741e3507e3d2863e2b4273d42a5bb64559e8cf6f51819b5301462349cd1e",
+  "hash_correction_note": "Original ad-hoc audit hashed newline-normalized text; raw artifact hash corrected for archival. Counts and audit verdict unchanged."
+}

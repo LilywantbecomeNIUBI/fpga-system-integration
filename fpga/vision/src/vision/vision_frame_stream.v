@@ -28,21 +28,28 @@ module vision_frame_stream #(
     reg [AB-1:0] frame_address;
     wire [AB:0] read_address={rptr[0],frame_address};
     wire [BANKS*16-1:0] read_words;
-    reg [BANK_SEL_BITS-1:0] read_bank;
-    wire [15:0] ram_word=read_words[read_bank*16+:16];
+    reg [BANK_SEL_BITS-1:0] read_bank,read_bank_pipe;
+    wire [15:0] ram_word=read_words[read_bank_pipe*16+:16];
     always @(posedge wr_clk)begin
         wr_address<={wptr[0],written[AB-1:0]};wr_pixel<=pixel;
     end
     always @(posedge wr_clk or negedge wr_rst_n)
         if(!wr_rst_n)wr_pending<=0;
         else wr_pending<=pixel_valid && active && !drop && written<TOTAL;
-    always @(posedge rd_clk)read_bank<=read_address>>BANK_AB;
+    always @(posedge rd_clk)begin
+        read_bank<=read_address>>BANK_AB;
+        read_bank_pipe<=read_bank;
+    end
     genvar bank;
     generate for(bank=0;bank<BANKS;bank=bank+1)begin:storage_bank
         (* syn_ramstyle="block_ram" *) reg [15:0] memory[0:(1<<BANK_AB)-1];
         (* syn_preserve=1, syn_keep=1 *) reg write_enable;
         reg [BANK_AB-1:0] write_address;
         reg [15:0] write_pixel,read_pixel;
+        // Preserve a separate register in each bank before the shared mux:
+        // BSRAM -> local register -> bank mux -> cached_word. No reset is
+        // needed on payload flops; the fill-valid pipeline masks stale data.
+        (* syn_preserve=1, syn_keep=1 *) reg [15:0] read_pixel_pipe;
         wire selected=wr_pending && (wr_address>>BANK_AB)==bank;
         always @(posedge wr_clk or negedge wr_rst_n)
             if(!wr_rst_n)write_enable<=0;else write_enable<=selected;
@@ -50,8 +57,11 @@ module vision_frame_stream #(
             if(selected)begin write_address<=wr_address[BANK_AB-1:0];write_pixel<=wr_pixel;end
             if(write_enable)memory[write_address]<=write_pixel;
         end
-        always @(posedge rd_clk)read_pixel<=memory[read_address[BANK_AB-1:0]];
-        assign read_words[bank*16+:16]=read_pixel;
+        always @(posedge rd_clk)begin
+            read_pixel<=memory[read_address[BANK_AB-1:0]];
+            read_pixel_pipe<=read_pixel;
+        end
+        assign read_words[bank*16+:16]=read_pixel_pipe;
     end endgenerate
     // Allocation advances immediately, but publish ownership only after the
     // final pipelined RAM write. This also covers back-to-back tiny frames and
@@ -87,8 +97,8 @@ module vision_frame_stream #(
     reg [2:0] state;reg [4:0] gap;reg [15:0] fid,row,index;
     reg [15:0] cached_word;
     reg [15:0] line_ram[0:(1<<CB)-1];reg [15:0] line_word,line_ram_dout_r;
-    reg [CB:0] fill_count;reg [CB-1:0] fill_index0,fill_index1,word_index;
-    reg [1:0] fill_valid;reg central,pixel_phase;
+    reg [CB:0] fill_count;reg [CB-1:0] fill_index0,fill_index1,fill_index2,word_index;
+    reg [2:0] fill_valid;reg central,pixel_phase;
     wire fill_request=state==FILL;
     // Keep the next word at the RAM output throughout both byte phases. The
     // extra output register advances only after the current high byte is read,
@@ -96,7 +106,7 @@ module vision_frame_stream #(
     wire [CB-1:0] line_prefetch=word_index+pixel_phase;
     always @(posedge rd_clk)begin
         cached_word<=ram_word;
-        if(fill_valid[1])line_ram[fill_index1]<=cached_word;
+        if(fill_valid[2])line_ram[fill_index2]<=cached_word;
         line_word<=line_ram[line_prefetch];
         if(!pixel_phase || (payload_read && index[0]))line_ram_dout_r<=line_word;
     end
@@ -124,11 +134,12 @@ module vision_frame_stream #(
     always @(posedge rd_clk or negedge rd_rst_n)begin
         if(!rd_rst_n)begin
             rptr<=0;rgray<=0;ws0<=0;ws1<=0;state<=IDLE;gap<=0;fid<=0;row<=0;index<=0;frame_address<=0;
-            tx_start<=0;packet_first<=0;central<=0;pixel_phase<=0;fill_count<=0;fill_index0<=0;fill_index1<=0;fill_valid<=0;word_index<=0;
+            tx_start<=0;packet_first<=0;central<=0;pixel_phase<=0;fill_count<=0;fill_index0<=0;fill_index1<=0;fill_index2<=0;fill_valid<=0;word_index<=0;
         end
         else begin
             ws0<=wgray;ws1<=ws0;tx_start<=0;
-            fill_valid<={fill_valid[0],fill_request};fill_index0<=fill_count[CB-1:0];fill_index1<=fill_index0;
+            fill_valid<={fill_valid[1:0],fill_request};
+            fill_index0<=fill_count[CB-1:0];fill_index1<=fill_index0;fill_index2<=fill_index1;
             if(fill_request)frame_address<=frame_address+1'b1;
             if(payload_read)begin
                 index<=index+1'b1;if(index==15)pixel_phase<=1;
