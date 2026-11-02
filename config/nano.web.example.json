@@ -1,0 +1,26 @@
+{
+  "web_bind": "0.0.0.0",
+  "web_port": 8872,
+  "port": 8873,
+  "vision_url": "http://192.168.50.20:8766",
+  "fpga_serial": "/dev/serial/by-id/REPLACE_FPGA_USB_UART",
+  "fpga_ip": "192.168.50.30",
+  "telemetry_transport": "serial",
+  "receive_only": false,
+  "telemetry_bind": "0.0.0.0",
+  "telemetry_port": 6205,
+  "telemetry_source_port": 6205,
+  "lidar_enabled": true,
+  "lidar_source": "fpga",
+  "record_dir": "runs/gateway",
+  "calibration": {
+    "confirmed": false,
+    "left_cpr": null,
+    "right_cpr": null,
+    "left_diameter_m": null,
+    "right_diameter_m": null,
+    "track_m": null,
+    "motor_reverse_mask": null,
+    "encoder_reverse_mask": null
+  }
+}

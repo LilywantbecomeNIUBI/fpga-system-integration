@@ -22,6 +22,7 @@ from shared.capture_process import CaptureProcess
 from shared.perception_process import PerceptionProcess
 from vision_protocol import parse_status
 from vision_models import MODEL_IDS,model_paths,resolve_model
+from nano.preview import LatestPreview
 
 
 class Server(ThreadingMixIn,HTTPServer):
@@ -63,6 +64,7 @@ def main():
     if not 128<=args.capture_buffer_kib<=8192:ap.error('capture-buffer-kib must be 128..8192')
     capture_class=CaptureProcess if args.capture_process else Capture
     capture=StaticCapture(args.offline_image) if args.offline_image else capture_class(args.bind,source=args.fpga,encode_preview=False,buffer_kib=args.capture_buffer_kib)
+    preview=LatestPreview(capture,jpeg)
     stop=threading.Event();lock=threading.Lock()
     session=uuid.uuid4().hex;state=dict(result=None,event=None,event_stamp=None,error=None,inferences=0,model='正在加载模型')
     perception=PerceptionEvents()
@@ -144,6 +146,15 @@ def main():
         def log_message(self,*args):pass
         def do_GET(self):
             parsed=urlsplit(self.path)
+            if parsed.path=='/camera.jpg':
+                encoded=preview.image()
+                if encoded is None:self.send_error(503,'No fresh camera frame');return
+                self.send_response(200);self.send_header('Content-Type','image/jpeg')
+                self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(encoded)))
+                self.end_headers()
+                try:self.wfile.write(encoded)
+                except OSError:pass
+                return
             if parsed.path=='/infer.mjpg':
                 self.send_response(200)
                 self.send_header('Content-Type','multipart/x-mixed-replace; boundary=frame')

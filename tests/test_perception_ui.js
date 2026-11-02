@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const html=fs.readFileSync('host/index.html','utf8'),elements=new Map(),calls=[];
 const images=[];
-const canvas={drawImage(...args){images.push(args)},save(){},restore(){},clearRect(){},beginPath(){},moveTo(){},lineTo(){},stroke(){},arc(){},fillRect(){}};
+const canvas={drawImage(...args){images.push(args)},save(){},restore(){},clearRect(){},beginPath(){},moveTo(){},lineTo(){},stroke(){},arc(){},fillRect(){},fillText(){}};
 const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',style:{},removeAttribute(){},getContext(){return canvas}});return elements.get(id)};
 const ctx=vm.createContext({document:{getElementById:element,querySelectorAll(){return []}},setTimeout(){},Date,Math,console,
  fetch:async(url,opts)=>{if(opts)calls.push(url);return {ok:false,status:503}}});
