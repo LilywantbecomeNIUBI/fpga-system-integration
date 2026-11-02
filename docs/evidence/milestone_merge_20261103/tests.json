@@ -1,0 +1,8 @@
+{
+  "nano_web": true,
+  "capture_latency": true,
+  "udp": true,
+  "system": true,
+  "mecanum": true,
+  "nano_ui": true
+}

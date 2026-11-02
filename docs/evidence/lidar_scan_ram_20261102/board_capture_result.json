@@ -1,0 +1,969 @@
+{
+  "started_unix": 1793609483.2828534,
+  "top": "m2_sensor_diag_top",
+  "pin_profile": "task4_m2",
+  "firmware_mode": "static_sensors_only",
+  "operation": "SRAM Program",
+  "flash_written": false,
+  "bitstream_sha256": "b91785a8b5af9994b388d1ba0d5b43ee5ad76a2a8b700cd96d134440fcd84074",
+  "timing_passed": true,
+  "motor_pads_constant_low": true,
+  "command_receiver_enabled": false,
+  "serial_bytes_written": 0,
+  "camera_enabled": false,
+  "navigation_enabled": false,
+  "lidar_parser_enabled": true,
+  "serial_port": "COM25",
+  "build": "E:\\Gowin_project\\fpga_project\\tmp\\m2_mpu_20261102T063953Z\\build\\m2_sensor_diag_ram_20261102",
+  "download_confirmed": true,
+  "counts": {
+    "lidar_scan": 296,
+    "encoder_trace": 900,
+    "motor": 200,
+    "encoder_diagnostics": 100,
+    "nav": 100,
+    "lidar_diagnostic": 50,
+    "imu": 10
+  },
+  "last": {
+    "lidar_scan": {
+      "sequence": 55,
+      "chunk": 5,
+      "chunks": 6,
+      "source_age_ms": 58,
+      "points": [
+        [
+          2511,
+          132
+        ],
+        [
+          2517,
+          159
+        ],
+        [
+          373,
+          27
+        ],
+        [
+          398,
+          237
+        ],
+        [
+          416,
+          244
+        ],
+        [
+          447,
+          241
+        ],
+        [
+          486,
+          212
+        ],
+        [
+          530,
+          160
+        ],
+        [
+          592,
+          112
+        ],
+        [
+          1038,
+          224
+        ],
+        [
+          1650,
+          133
+        ],
+        [
+          1587,
+          142
+        ]
+      ]
+    },
+    "encoder_trace": {
+      "axis": 1,
+      "sequence": 1004,
+      "event_count": 0,
+      "mode": "quadrature_continuity_x4",
+      "transitions": [],
+      "synchronized_ab": 3,
+      "filtered_ab": 3
+    },
+    "motor": {
+      "left_position": 0,
+      "right_position": 0,
+      "left_velocity": 0,
+      "right_velocity": 0,
+      "left_applied": 0,
+      "right_applied": 0,
+      "left_invalid": 0,
+      "right_invalid": 0,
+      "bad_frames": 0,
+      "rejected_commands": 0,
+      "packet_count": 222,
+      "last_sequence": 0,
+      "armed": false,
+      "flags": 1,
+      "faults": 1,
+      "fault_names": [
+        "power_on_requires_clear"
+      ]
+    },
+    "encoder_diagnostics": {
+      "sync_a_edges": 0,
+      "sync_b_edges": 0,
+      "filtered_a_edges": 0,
+      "filtered_b_edges": 0,
+      "a_positive": 0,
+      "a_negative": 0,
+      "b_positive": 0,
+      "b_negative": 0,
+      "diagonal": 0,
+      "axis": 1,
+      "sequence": 110,
+      "mode": "quadrature_continuity_x4",
+      "synchronized_ab": 3,
+      "filtered_ab": 3
+    },
+    "nav": {
+      "running": false,
+      "done": false,
+      "permit": false,
+      "waypoint_index": 0,
+      "faults": 0,
+      "x_mm": 0.0,
+      "y_mm": 0.0,
+      "heading_degrees": 0.0,
+      "v_mm_s": 0,
+      "w_mrad_s": 0,
+      "left_target": 0,
+      "right_target": 0,
+      "front_mm": 65535,
+      "plans": 0,
+      "lidar_packets": 19977,
+      "lidar_errors": 3,
+      "rejected": 0
+    },
+    "lidar_diagnostic": {
+      "device_ms": 11000,
+      "bytes": 930505,
+      "framing_errors": 3,
+      "packets": 19797,
+      "crc_errors": 0,
+      "format_errors": 0,
+      "timeouts": 0,
+      "completed_scans": 108,
+      "skipped_scans": 54,
+      "sequence": 54,
+      "flags": 19,
+      "coverage": 72
+    },
+    "imu": {
+      "type": "status",
+      "seq": 0,
+      "raw_seq": 0,
+      "timestamp_us": 11000000,
+      "ax_raw": 0,
+      "ay_raw": 0,
+      "az_raw": 0,
+      "gx_raw": 0,
+      "gy_raw": 0,
+      "gz_raw": 0,
+      "temp_raw": 0,
+      "ax_g": 0.0,
+      "ay_g": 0.0,
+      "az_g": 0.0,
+      "gx_dps": 0.0,
+      "gy_dps": 0.0,
+      "gz_dps": 0.0,
+      "temp_c": 36.53,
+      "ready": false,
+      "fault": true,
+      "who_am_i": 0,
+      "last_error": 1,
+      "config_id": 4,
+      "error_count": 11,
+      "invalid_count": 0,
+      "tx_drop_count": 0,
+      "stale": true,
+      "temperature_valid": false,
+      "fast_bus": false,
+      "low_latency_filter": true,
+      "observe_to_commit_us": 0,
+      "raw_interval_us": 0,
+      "decimation": 20,
+      "poll_us": 150
+    }
+  },
+  "bad_crc": 0,
+  "nav_bad_crc": 0,
+  "static_uart_passed": false,
+  "motor_status_stopped": true,
+  "lidar_complete_scans": 49,
+  "lidar_last_scan": {
+    "sequence": 55,
+    "points": [
+      [
+        2.5,
+        1519,
+        168
+      ],
+      [
+        7.5,
+        1506,
+        214
+      ],
+      [
+        12.5,
+        1338,
+        223
+      ],
+      [
+        17.5,
+        1328,
+        222
+      ],
+      [
+        22.5,
+        1328,
+        221
+      ],
+      [
+        27.5,
+        1386,
+        231
+      ],
+      [
+        32.5,
+        269,
+        98
+      ],
+      [
+        37.5,
+        253,
+        186
+      ],
+      [
+        42.5,
+        248,
+        211
+      ],
+      [
+        47.5,
+        245,
+        255
+      ],
+      [
+        52.5,
+        242,
+        255
+      ],
+      [
+        57.5,
+        241,
+        255
+      ],
+      [
+        62.5,
+        246,
+        255
+      ],
+      [
+        67.5,
+        260,
+        255
+      ],
+      [
+        72.5,
+        285,
+        255
+      ],
+      [
+        77.5,
+        330,
+        250
+      ],
+      [
+        82.5,
+        360,
+        255
+      ],
+      [
+        87.5,
+        347,
+        255
+      ],
+      [
+        92.5,
+        345,
+        255
+      ],
+      [
+        97.5,
+        349,
+        254
+      ],
+      [
+        102.5,
+        1932,
+        192
+      ],
+      [
+        107.5,
+        1932,
+        197
+      ],
+      [
+        112.5,
+        1932,
+        192
+      ],
+      [
+        117.5,
+        1174,
+        225
+      ],
+      [
+        122.5,
+        1157,
+        234
+      ],
+      [
+        127.5,
+        1199,
+        227
+      ],
+      [
+        132.5,
+        1302,
+        182
+      ],
+      [
+        137.5,
+        2943,
+        28
+      ],
+      [
+        142.5,
+        2391,
+        36
+      ],
+      [
+        147.5,
+        2670,
+        87
+      ],
+      [
+        152.5,
+        7314,
+        78
+      ],
+      [
+        157.5,
+        6845,
+        81
+      ],
+      [
+        162.5,
+        6628,
+        63
+      ],
+      [
+        167.5,
+        6528,
+        52
+      ],
+      [
+        172.5,
+        6544,
+        81
+      ],
+      [
+        177.5,
+        6303,
+        77
+      ],
+      [
+        182.5,
+        6282,
+        56
+      ],
+      [
+        187.5,
+        5645,
+        65
+      ],
+      [
+        192.5,
+        5582,
+        58
+      ],
+      [
+        197.5,
+        3360,
+        16
+      ],
+      [
+        202.5,
+        1727,
+        61
+      ],
+      [
+        207.5,
+        3344,
+        96
+      ],
+      [
+        212.5,
+        1320,
+        85
+      ],
+      [
+        217.5,
+        1670,
+        27
+      ],
+      [
+        222.5,
+        6253,
+        86
+      ],
+      [
+        227.5,
+        829,
+        79
+      ],
+      [
+        232.5,
+        849,
+        40
+      ],
+      [
+        237.5,
+        5978,
+        27
+      ],
+      [
+        242.5,
+        1357,
+        85
+      ],
+      [
+        247.5,
+        620,
+        245
+      ],
+      [
+        252.5,
+        390,
+        93
+      ],
+      [
+        257.5,
+        395,
+        147
+      ],
+      [
+        262.5,
+        588,
+        232
+      ],
+      [
+        267.5,
+        2826,
+        135
+      ],
+      [
+        272.5,
+        377,
+        23
+      ],
+      [
+        277.5,
+        2781,
+        163
+      ],
+      [
+        282.5,
+        550,
+        106
+      ],
+      [
+        287.5,
+        3210,
+        97
+      ],
+      [
+        292.5,
+        247,
+        26
+      ],
+      [
+        297.5,
+        279,
+        93
+      ],
+      [
+        302.5,
+        2511,
+        132
+      ],
+      [
+        307.5,
+        2517,
+        159
+      ],
+      [
+        312.5,
+        373,
+        27
+      ],
+      [
+        317.5,
+        398,
+        237
+      ],
+      [
+        322.5,
+        416,
+        244
+      ],
+      [
+        327.5,
+        447,
+        241
+      ],
+      [
+        332.5,
+        486,
+        212
+      ],
+      [
+        337.5,
+        530,
+        160
+      ],
+      [
+        342.5,
+        592,
+        112
+      ],
+      [
+        347.5,
+        1038,
+        224
+      ],
+      [
+        352.5,
+        1650,
+        133
+      ],
+      [
+        357.5,
+        1587,
+        142
+      ]
+    ],
+    "resolution_degrees": 5,
+    "representation": "nearest_return_per_sector"
+  },
+  "lidar_snapshot": {
+    "source": "fpga_m2",
+    "enabled": true,
+    "online": true,
+    "age_ms": 156.52639998006634,
+    "scan": {
+      "sequence": 55,
+      "points": [
+        [
+          2.5,
+          1519,
+          168
+        ],
+        [
+          7.5,
+          1506,
+          214
+        ],
+        [
+          12.5,
+          1338,
+          223
+        ],
+        [
+          17.5,
+          1328,
+          222
+        ],
+        [
+          22.5,
+          1328,
+          221
+        ],
+        [
+          27.5,
+          1386,
+          231
+        ],
+        [
+          32.5,
+          269,
+          98
+        ],
+        [
+          37.5,
+          253,
+          186
+        ],
+        [
+          42.5,
+          248,
+          211
+        ],
+        [
+          47.5,
+          245,
+          255
+        ],
+        [
+          52.5,
+          242,
+          255
+        ],
+        [
+          57.5,
+          241,
+          255
+        ],
+        [
+          62.5,
+          246,
+          255
+        ],
+        [
+          67.5,
+          260,
+          255
+        ],
+        [
+          72.5,
+          285,
+          255
+        ],
+        [
+          77.5,
+          330,
+          250
+        ],
+        [
+          82.5,
+          360,
+          255
+        ],
+        [
+          87.5,
+          347,
+          255
+        ],
+        [
+          92.5,
+          345,
+          255
+        ],
+        [
+          97.5,
+          349,
+          254
+        ],
+        [
+          102.5,
+          1932,
+          192
+        ],
+        [
+          107.5,
+          1932,
+          197
+        ],
+        [
+          112.5,
+          1932,
+          192
+        ],
+        [
+          117.5,
+          1174,
+          225
+        ],
+        [
+          122.5,
+          1157,
+          234
+        ],
+        [
+          127.5,
+          1199,
+          227
+        ],
+        [
+          132.5,
+          1302,
+          182
+        ],
+        [
+          137.5,
+          2943,
+          28
+        ],
+        [
+          142.5,
+          2391,
+          36
+        ],
+        [
+          147.5,
+          2670,
+          87
+        ],
+        [
+          152.5,
+          7314,
+          78
+        ],
+        [
+          157.5,
+          6845,
+          81
+        ],
+        [
+          162.5,
+          6628,
+          63
+        ],
+        [
+          167.5,
+          6528,
+          52
+        ],
+        [
+          172.5,
+          6544,
+          81
+        ],
+        [
+          177.5,
+          6303,
+          77
+        ],
+        [
+          182.5,
+          6282,
+          56
+        ],
+        [
+          187.5,
+          5645,
+          65
+        ],
+        [
+          192.5,
+          5582,
+          58
+        ],
+        [
+          197.5,
+          3360,
+          16
+        ],
+        [
+          202.5,
+          1727,
+          61
+        ],
+        [
+          207.5,
+          3344,
+          96
+        ],
+        [
+          212.5,
+          1320,
+          85
+        ],
+        [
+          217.5,
+          1670,
+          27
+        ],
+        [
+          222.5,
+          6253,
+          86
+        ],
+        [
+          227.5,
+          829,
+          79
+        ],
+        [
+          232.5,
+          849,
+          40
+        ],
+        [
+          237.5,
+          5978,
+          27
+        ],
+        [
+          242.5,
+          1357,
+          85
+        ],
+        [
+          247.5,
+          620,
+          245
+        ],
+        [
+          252.5,
+          390,
+          93
+        ],
+        [
+          257.5,
+          395,
+          147
+        ],
+        [
+          262.5,
+          588,
+          232
+        ],
+        [
+          267.5,
+          2826,
+          135
+        ],
+        [
+          272.5,
+          377,
+          23
+        ],
+        [
+          277.5,
+          2781,
+          163
+        ],
+        [
+          282.5,
+          550,
+          106
+        ],
+        [
+          287.5,
+          3210,
+          97
+        ],
+        [
+          292.5,
+          247,
+          26
+        ],
+        [
+          297.5,
+          279,
+          93
+        ],
+        [
+          302.5,
+          2511,
+          132
+        ],
+        [
+          307.5,
+          2517,
+          159
+        ],
+        [
+          312.5,
+          373,
+          27
+        ],
+        [
+          317.5,
+          398,
+          237
+        ],
+        [
+          322.5,
+          416,
+          244
+        ],
+        [
+          327.5,
+          447,
+          241
+        ],
+        [
+          332.5,
+          486,
+          212
+        ],
+        [
+          337.5,
+          530,
+          160
+        ],
+        [
+          342.5,
+          592,
+          112
+        ],
+        [
+          347.5,
+          1038,
+          224
+        ],
+        [
+          352.5,
+          1650,
+          133
+        ],
+        [
+          357.5,
+          1587,
+          142
+        ]
+      ],
+      "resolution_degrees": 5,
+      "representation": "nearest_return_per_sector"
+    },
+    "scans": 49,
+    "incomplete_scans": 1,
+    "diagnostic": {
+      "device_ms": 11000,
+      "bytes": 930505,
+      "framing_errors": 3,
+      "packets": 19797,
+      "crc_errors": 0,
+      "format_errors": 0,
+      "timeouts": 0,
+      "completed_scans": 108,
+      "skipped_scans": 54,
+      "sequence": 54,
+      "flags": 19,
+      "coverage": 72,
+      "age_ms": 142.6285000052303
+    },
+    "frames": 19797,
+    "bad_crc": 0,
+    "error": null,
+    "resolution_degrees": 5
+  },
+  "imu_healthy": false,
+  "error": "Static UART verification failed",
+  "finished_unix": 1793609502.2014492
+}

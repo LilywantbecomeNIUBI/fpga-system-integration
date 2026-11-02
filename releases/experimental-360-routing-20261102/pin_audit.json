@@ -1,0 +1,696 @@
+{
+  "passed": true,
+  "pins": [
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[5]",
+      "ball": "A13",
+      "direction": "OUT",
+      "p7": "1",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[4]",
+      "ball": "A14",
+      "direction": "OUT",
+      "p7": "2",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[3]",
+      "ball": "A15",
+      "direction": "OUT",
+      "p7": "3",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[2]",
+      "ball": "A16",
+      "direction": "OUT",
+      "p7": "4",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_rst_n",
+      "ball": "N20",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_pwdn",
+      "ball": "L1",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_sclk",
+      "ball": "M20",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "eth_rst_n",
+      "ball": "V22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "eth_mdc",
+      "ball": "AA18",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_txen",
+      "ball": "AA19",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_txd[3]",
+      "ball": "Y22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_txd[2]",
+      "ball": "W21",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_txd[1]",
+      "ball": "W22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_txd[0]",
+      "ball": "U21",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_gtxc",
+      "ball": "U22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_sdat",
+      "ball": "L18",
+      "direction": "INOUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "eth_mdio",
+      "ball": "W17",
+      "direction": "INOUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[7]",
+      "ball": "E1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[6]",
+      "ball": "D1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[5]",
+      "ball": "G2",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[4]",
+      "ball": "F1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[3]",
+      "ball": "H2",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[2]",
+      "ball": "G1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[1]",
+      "ball": "J1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_data[0]",
+      "ball": "J2",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_pclk",
+      "ball": "B1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_href",
+      "ball": "A1",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "camera",
+      "signal": "camera_vsync",
+      "ball": "B2",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "reset_n",
+      "ball": "F15",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "clk50m",
+      "ball": "Y18",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[0]",
+      "ball": "M22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[1]",
+      "ball": "N22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[2]",
+      "ball": "L21",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[3]",
+      "ball": "K21",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[4]",
+      "ball": "K22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[5]",
+      "ball": "J22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[6]",
+      "ball": "H22",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "led[7]",
+      "ball": "M21",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "uart_tx",
+      "ball": "M15",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxc",
+      "ball": "W19",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxctl",
+      "ball": "AB18",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxd[0]",
+      "ball": "V17",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxd[1]",
+      "ball": "V18",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxd[2]",
+      "ball": "P19",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "ethernet",
+      "signal": "rgmii_rxd[3]",
+      "ball": "R19",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "board",
+      "signal": "uart_rx",
+      "ball": "J21",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "imu",
+      "signal": "imu_i2c_scl",
+      "ball": "F19",
+      "direction": "INOUT",
+      "p7": "39",
+      "endpoint": "RevB J_IMU1-3 = MPU6050 pin3 SCL; 3.3V open-drain",
+      "status": "mpu6050_ad0_low_bringup_pending"
+    },
+    {
+      "group": "imu",
+      "signal": "imu_i2c_sda",
+      "ball": "F20",
+      "direction": "INOUT",
+      "p7": "40",
+      "endpoint": "RevB J_IMU1-4 = MPU6050 pin4 SDA; 3.3V open-drain",
+      "status": "mpu6050_ad0_low_bringup_pending"
+    },
+    {
+      "group": "chassis",
+      "signal": "right_enc_b",
+      "ball": "B15",
+      "direction": "IN",
+      "p7": "19",
+      "endpoint": "level shifter <- E2B / D157B J5-4",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "reserved",
+      "signal": "p7_37_unused",
+      "ball": "F18",
+      "direction": "IN",
+      "p7": "37",
+      "endpoint": "unused no external permit required",
+      "status": "closed_loop_only"
+    },
+    {
+      "group": "reserved_p7",
+      "signal": "lidar_moto_pwm",
+      "ball": "E18",
+      "direction": "OUT",
+      "p7": "38",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "reserved_p7",
+      "signal": "legacy_m1_disable",
+      "ball": "F13",
+      "direction": "OUT",
+      "p7": "7",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "audio",
+      "signal": "audio_mclk",
+      "ball": "V20",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "audio",
+      "signal": "audio_bclk",
+      "ball": "U20",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "audio",
+      "signal": "audio_lrck",
+      "ball": "W20",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "audio",
+      "signal": "audio_adc",
+      "ball": "AA21",
+      "direction": "IN",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "audio",
+      "signal": "audio_dac",
+      "ball": "AA20",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "audio",
+      "signal": "codec_scl",
+      "ball": "M13",
+      "direction": "OUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "audio",
+      "signal": "codec_sda",
+      "ball": "M16",
+      "direction": "INOUT",
+      "p7": "",
+      "endpoint": "",
+      "status": "reserved"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[1]",
+      "ball": "A18",
+      "direction": "OUT",
+      "p7": "5",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_m1_pwm_disabled[0]",
+      "ball": "A19",
+      "direction": "OUT",
+      "p7": "6",
+      "endpoint": "Old DRV8323 PWM fixed low; not D157B",
+      "status": "fixed_low"
+    },
+    {
+      "group": "legacy_disabled",
+      "signal": "legacy_cal_disabled[0]",
+      "ball": "F14",
+      "direction": "OUT",
+      "p7": "8",
+      "endpoint": "Old DRV8323 CAL fixed low",
+      "status": "fixed_low"
+    },
+    {
+      "group": "spare_p7",
+      "signal": "spare_p7_9",
+      "ball": "E13",
+      "direction": "UNASSIGNED",
+      "p7": "9",
+      "endpoint": "M1_FAULT_N (old connection; disconnect before reuse)",
+      "status": "reserved"
+    },
+    {
+      "group": "chassis",
+      "signal": "left_in1",
+      "ball": "E14",
+      "direction": "OUT",
+      "p7": "10",
+      "endpoint": "AIN1 / D157B J4-4",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "chassis",
+      "signal": "left_in2",
+      "ball": "C13",
+      "direction": "OUT",
+      "p7": "13",
+      "endpoint": "AIN2 / D157B J4-3",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "chassis",
+      "signal": "right_in1",
+      "ball": "B13",
+      "direction": "OUT",
+      "p7": "14",
+      "endpoint": "BIN1 / D157B J4-2",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "chassis",
+      "signal": "right_in2",
+      "ball": "D14",
+      "direction": "OUT",
+      "p7": "15",
+      "endpoint": "BIN2 / D157B J4-1",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "chassis",
+      "signal": "left_enc_a",
+      "ball": "D15",
+      "direction": "IN",
+      "p7": "16",
+      "endpoint": "level shifter <- E1A / D157B J5-1",
+      "status": "validated_encoder_profile"
+    },
+    {
+      "group": "chassis",
+      "signal": "left_enc_b",
+      "ball": "C14",
+      "direction": "IN",
+      "p7": "17",
+      "endpoint": "level shifter <- E1B / D157B J5-2",
+      "status": "validated_encoder_profile"
+    },
+    {
+      "group": "chassis",
+      "signal": "right_enc_a",
+      "ball": "C15",
+      "direction": "IN",
+      "p7": "18",
+      "endpoint": "level shifter <- E2A / D157B J5-3",
+      "status": "candidate_adc_remap"
+    },
+    {
+      "group": "spare_p7",
+      "signal": "spare_p7_28",
+      "ball": "C19",
+      "direction": "UNASSIGNED",
+      "p7": "28",
+      "endpoint": "ENC1_CS_N (old connection; disconnect before reuse)",
+      "status": "reserved"
+    },
+    {
+      "group": "spare_p7",
+      "signal": "spare_p7_25",
+      "ball": "B17",
+      "direction": "UNASSIGNED",
+      "p7": "25",
+      "endpoint": "Old ADC remap endpoint; disconnected before validated encoder profile",
+      "status": "reserved"
+    },
+    {
+      "group": "spare_p7",
+      "signal": "spare_p7_26",
+      "ball": "B18",
+      "direction": "UNASSIGNED",
+      "p7": "26",
+      "endpoint": "Old ADC remap endpoint; disconnected before validated encoder profile",
+      "status": "reserved"
+    },
+    {
+      "group": "spare_p7",
+      "signal": "spare_p7_33",
+      "ball": "D20",
+      "direction": "UNASSIGNED",
+      "p7": "33",
+      "endpoint": "ENC2_CS_N (old connection; disconnect before reuse)",
+      "status": "reserved"
+    },
+    {
+      "group": "spare_p7",
+      "signal": "spare_p7_34",
+      "ball": "C20",
+      "direction": "UNASSIGNED",
+      "p7": "34",
+      "endpoint": "ENC2_CLK (old connection; disconnect before reuse)",
+      "status": "reserved"
+    },
+    {
+      "group": "spare_p7",
+      "signal": "spare_p7_35",
+      "ball": "E19",
+      "direction": "UNASSIGNED",
+      "p7": "35",
+      "endpoint": "ENC2_DO (old connection; disconnect before reuse)",
+      "status": "reserved"
+    },
+    {
+      "group": "chassis",
+      "signal": "lidar_rx",
+      "ball": "B16",
+      "direction": "IN",
+      "p7": "20"
+    }
+  ]
+}

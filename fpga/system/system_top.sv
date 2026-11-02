@@ -1,5 +1,5 @@
 module system_top #(
-    parameter integer CLK_HZ=50000000, BAUD=115200, PWM_LIMIT=350
+    parameter integer CLK_HZ=50000000, BAUD=115200, PWM_LIMIT=350, WHEEL_1KHZ=0
 )(
     input wire clk50m,reset_n,uart_rx,
     input wire rgmii_rxc,rgmii_rxctl,input wire [3:0] rgmii_rxd,
@@ -23,7 +23,7 @@ module system_top #(
     wire [383:0] imu_frame;wire imu_valid;wire [15:0] imu_drops;
     // Only the auxiliary framed telemetry crosses this boundary. IMU/perception
     // health never bypasses manual ARM, STOP, command lease or wheel watchdog.
-    brushed_chassis #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.PWM_LIMIT(PWM_LIMIT)) chassis(
+    brushed_chassis #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.PWM_LIMIT(PWM_LIMIT),.WHEEL_1KHZ(WHEEL_1KHZ)) chassis(
         .clk50m(clk50m),.reset_n(reset_n),.uart_rx(uart_rx),.uart_tx(uart_tx),
         .left_enc_a(left_enc_a),.left_enc_b(left_enc_b),.right_enc_a(right_enc_a),.right_enc_b(right_enc_b),
         .left_in1(left_in1),.left_in2(left_in2),.right_in1(right_in1),.right_in2(right_in2),

@@ -185,11 +185,15 @@
     },
     "fpga/imu/imu_1khz_core.v": {
       "source": "fpga/imu/imu_1khz_core.v",
-      "sha256": "b423c14c5ba2e9d690722b5afd50eb25c000090785b0d1d585d73bc1fe664452"
+      "sha256": "b423c14c5ba2e9d690722b5afd50eb25c000090785b0d1d585d73bc1fe664452",
+      "adapted": true,
+      "adaptation_note": "MPU6050 integration 2026-11-02; original ICM-only tests explicitly instantiate the retained legacy reader."
     },
     "fpga/imu/imu_1khz_top.v": {
       "source": "fpga/imu/imu_1khz_top.v",
-      "sha256": "d57e9a7d3f70392d242cc3a3cc94bbd497bf5af1a0eb123ed859c2da0d5623ce"
+      "sha256": "d57e9a7d3f70392d242cc3a3cc94bbd497bf5af1a0eb123ed859c2da0d5623ce",
+      "adapted": true,
+      "adaptation_note": "MPU6050 integration 2026-11-02; original ICM-only tests explicitly instantiate the retained legacy reader."
     },
     "fpga/imu/imu_fast_i2c_master.v": {
       "source": "fpga/imu/imu_fast_i2c_master.v",
@@ -197,7 +201,9 @@
     },
     "fpga/imu/imu_fast_uart_stream.v": {
       "source": "fpga/imu/imu_fast_uart_stream.v",
-      "sha256": "da0a7f5bafed773774264dd25c4ac6d62e2c64ffc3b1115829989c138884e04b"
+      "sha256": "da0a7f5bafed773774264dd25c4ac6d62e2c64ffc3b1115829989c138884e04b",
+      "adapted": true,
+      "adaptation_note": "MPU6050 integration 2026-11-02; original ICM-only tests explicitly instantiate the retained legacy reader."
     },
     "vendor/vision/camera_protocol.py": {
       "source": "vendor/vision/camera_protocol.py",
@@ -309,7 +315,9 @@
     },
     "tests/imu/tb_fast_end_to_end.sv": {
       "source": "tests/imu/tb_fast_end_to_end.sv",
-      "sha256": "02d3e28049067c2c6d0aa4f0c1cfe3d8de6a3f9905384ad243394faf7122196d"
+      "sha256": "02d3e28049067c2c6d0aa4f0c1cfe3d8de6a3f9905384ad243394faf7122196d",
+      "adapted": true,
+      "adaptation_note": "MPU6050 integration 2026-11-02; original ICM-only tests explicitly instantiate the retained legacy reader."
     },
     "tests/imu/tb_fast_i2c_master.sv": {
       "source": "tests/imu/tb_fast_i2c_master.sv",
@@ -317,7 +325,9 @@
     },
     "tests/imu/tb_fast_reader.sv": {
       "source": "tests/imu/tb_fast_reader.sv",
-      "sha256": "0f2b2913b92289a798de24f84f30d2b13586250c05a6ebb037a3db58a05a13d6"
+      "sha256": "0f2b2913b92289a798de24f84f30d2b13586250c05a6ebb037a3db58a05a13d6",
+      "adapted": true,
+      "adaptation_note": "MPU6050 integration 2026-11-02; original ICM-only tests explicitly instantiate the retained legacy reader."
     },
     "tests/imu/tb_fast_uart_stream.sv": {
       "source": "tests/imu/tb_fast_uart_stream.sv",

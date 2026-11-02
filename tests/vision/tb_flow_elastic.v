@@ -21,7 +21,10 @@ module tb_flow_elastic;
             end
             ready=1;
             for(k=1;k<=3;k=k+1)begin
-                wait(valid);expected=batch*3+k;
+                // A conservative registered queue may insert a valid bubble.
+                // Sample after the clock's NBA/continuous-assignment settling,
+                // never on the same delta in which valid first rises.
+                while(!valid)@(negedge clk);expected=batch*3+k;
                 if(packet[255:224]!=32'h4f464c57 || packet[191:176]!=expected)$fatal(1,"FIFO ordering/wrap got=%0d expected=%0d",packet[191:176],expected);
                 @(negedge clk);
             end

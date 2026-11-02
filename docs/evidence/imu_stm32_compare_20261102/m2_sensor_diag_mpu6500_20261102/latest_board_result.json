@@ -1,0 +1,202 @@
+{
+  "download_confirmed": true,
+  "operation": "SRAM Program",
+  "flash_written": false,
+  "top": "m2_sensor_diag_top",
+  "bitstream_sha256": "27041d4af03f2731b279ed69d39d01e049025728bfda43438f920066971670e7",
+  "source_workspace": "E:\\Gowin_project\\fpga_project\\tmp\\m2_mpu_20261102T063953Z",
+  "build": "E:\\Gowin_project\\fpga_project\\tmp\\m2_mpu_20261102T063953Z\\build\\m2_sensor_diag_mpu6500_20261102",
+  "serial_port": "COM25",
+  "motor_pads_constant_low": true,
+  "last_programmer_log": "E:\\Gowin_project\\fpga_project\\tmp\\m2_mpu_20261102T063953Z\\build\\imu_i2c_swap_20261102\\programmer.log",
+  "bytes": 79568,
+  "counts": {
+    "encoder_trace": 899,
+    "motor": 200,
+    "encoder_diagnostics": 100,
+    "nav": 100,
+    "lidar_scan": 298,
+    "imu": 10,
+    "lidar_diagnostic": 50
+  },
+  "last": {
+    "encoder_trace": {
+      "axis": 1,
+      "sequence": 27886,
+      "event_count": 0,
+      "mode": "quadrature_continuity_x4",
+      "transitions": [],
+      "synchronized_ab": 3,
+      "filtered_ab": 3
+    },
+    "motor": {
+      "left_position": 0,
+      "right_position": 0,
+      "left_velocity": 0,
+      "right_velocity": 0,
+      "left_applied": 0,
+      "right_applied": 0,
+      "left_invalid": 0,
+      "right_invalid": 0,
+      "bad_frames": 0,
+      "rejected_commands": 0,
+      "packet_count": 6196,
+      "last_sequence": 0,
+      "armed": false,
+      "flags": 1,
+      "faults": 1,
+      "fault_names": [
+        "power_on_requires_clear"
+      ]
+    },
+    "encoder_diagnostics": {
+      "sync_a_edges": 0,
+      "sync_b_edges": 0,
+      "filtered_a_edges": 0,
+      "filtered_b_edges": 0,
+      "a_positive": 0,
+      "a_negative": 0,
+      "b_positive": 0,
+      "b_negative": 0,
+      "diagonal": 0,
+      "axis": 2,
+      "sequence": 3097,
+      "mode": "a_edge_x2_scaled4",
+      "synchronized_ab": 3,
+      "filtered_ab": 3
+    },
+    "nav": {
+      "running": false,
+      "done": false,
+      "permit": false,
+      "waypoint_index": 0,
+      "faults": 0,
+      "x_mm": 0.0,
+      "y_mm": 0.0,
+      "heading_degrees": 0.0,
+      "v_mm_s": 0,
+      "w_mrad_s": 0,
+      "left_target": 0,
+      "right_target": 0,
+      "front_mm": 65535,
+      "plans": 0,
+      "lidar_packets": 557584,
+      "lidar_errors": 2,
+      "rejected": 0
+    },
+    "lidar_scan": {
+      "sequence": 1538,
+      "chunk": 3,
+      "chunks": 6,
+      "source_age_ms": 8,
+      "points": [
+        [
+          5690,
+          63
+        ],
+        [
+          5528,
+          43
+        ],
+        [
+          3336,
+          25
+        ],
+        [
+          1696,
+          141
+        ],
+        [
+          3304,
+          136
+        ],
+        [
+          1368,
+          163
+        ],
+        [
+          1123,
+          46
+        ],
+        [
+          1450,
+          24
+        ],
+        [
+          807,
+          73
+        ],
+        [
+          814,
+          75
+        ],
+        [
+          5960,
+          27
+        ],
+        [
+          4986,
+          23
+        ]
+      ]
+    },
+    "imu": {
+      "type": "status",
+      "seq": 0,
+      "raw_seq": 0,
+      "timestamp_us": 309000006,
+      "ax_raw": 0,
+      "ay_raw": 0,
+      "az_raw": 0,
+      "gx_raw": 0,
+      "gy_raw": 0,
+      "gz_raw": 0,
+      "temp_raw": 0,
+      "ax_g": 0.0,
+      "ay_g": 0.0,
+      "az_g": 0.0,
+      "gx_dps": 0.0,
+      "gy_dps": 0.0,
+      "gz_dps": 0.0,
+      "temp_c": 36.53,
+      "ready": false,
+      "fault": true,
+      "who_am_i": 0,
+      "last_error": 1,
+      "config_id": 4,
+      "error_count": 309,
+      "invalid_count": 0,
+      "tx_drop_count": 0,
+      "stale": true,
+      "temperature_valid": false,
+      "fast_bus": false,
+      "low_latency_filter": true,
+      "observe_to_commit_us": 0,
+      "raw_interval_us": 0,
+      "decimation": 20,
+      "poll_us": 150
+    },
+    "lidar_diagnostic": {
+      "device_ms": 309800,
+      "bytes": 26206487,
+      "framing_errors": 2,
+      "packets": 557584,
+      "crc_errors": 0,
+      "format_errors": 0,
+      "timeouts": 0,
+      "completed_scans": 3074,
+      "skipped_scans": 1537,
+      "sequence": 1537,
+      "flags": 19,
+      "coverage": 72
+    }
+  },
+  "bad_crc": 0,
+  "nav_bad_crc": 0,
+  "lidar_complete_scans": 49,
+  "imu_healthy": false,
+  "motor_status_stopped": true,
+  "gpio_mapping": "F19=SCL,F20=SDA",
+  "carrier_scl_pullup_removed_user_report": true,
+  "hardware_imu_passed": false
+}

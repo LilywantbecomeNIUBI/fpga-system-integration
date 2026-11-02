@@ -1,0 +1,17 @@
+{
+  "release": "nano-video-20261103",
+  "files": {
+    "nano/web_console.py": "9ce8b327252a545fc43f46125359dee27013654aaac794db164b6249ad8bfe76",
+    "nano/preview.py": "48afaa158d74b05ec4cf66f78365c4c13927a4e36c9773e74620b66f49036f13",
+    "nano/vision/vision_dashboard_agent.py": "bc1dddddb19ba9d2aa5b365896a05a7095651cd4ffcb4dd502e1c21e1109e960",
+    "shared/capture_process.py": "ec373608887faf1e93544931ba1371f9fede3663e3dcbfdda44a6fd8c758fcc8",
+    "host/index.html": "199ea47b931a68df93f479ef265c2c1726d0b10971f5ff66d93ee7c0a7893fdf"
+  },
+  "remote_files": {
+    "nano/web_console.py": "9ce8b327252a545fc43f46125359dee27013654aaac794db164b6249ad8bfe76",
+    "nano/preview.py": "48afaa158d74b05ec4cf66f78365c4c13927a4e36c9773e74620b66f49036f13",
+    "nano/vision/vision_dashboard_agent.py": "bc1dddddb19ba9d2aa5b365896a05a7095651cd4ffcb4dd502e1c21e1109e960",
+    "shared/capture_process.py": "ec373608887faf1e93544931ba1371f9fede3663e3dcbfdda44a6fd8c758fcc8",
+    "host/index.html": "199ea47b931a68df93f479ef265c2c1726d0b10971f5ff66d93ee7c0a7893fdf"
+  }
+}

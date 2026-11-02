@@ -29,12 +29,14 @@ module frame_crc #(parameter HIGH_FIRST=0)(
 endmodule
 
 // Complete 48-byte packet ownership; one physical UART; newest pending snapshot wins.
-module frame_uart_mux #(parameter CLK_HZ=50000000,BAUD=115200,AUX_ENABLED=0)(
+module frame_uart_mux #(parameter CLK_HZ=50000000,BAUD=115200,AUX_ENABLED=0,ETHERNET=0)(
     input wire clk,reset_n,motor_valid,imu_valid,
     input wire [383:0] motor_frame,imu_frame,
     input wire aux_valid,input wire [383:0] aux_frame,
-    output wire tx,output reg [15:0] aux_drops,output reg [15:0] imu_drops
+    output wire tx,output wire aux_ready,output reg [15:0] aux_drops,output reg [15:0] imu_drops,
+    output wire [383:0] ethernet_frame,output wire ethernet_valid,input wire ethernet_ready
 );
+    assign aux_ready=AUX_ENABLED && !have_aux;
     reg [383:0] motor_pending,imu_pending,active;
     reg have_motor,have_imu,have_aux;reg [383:0] aux_pending;
     reg [1:0] state;
@@ -42,6 +44,8 @@ module frame_uart_mux #(parameter CLK_HZ=50000000,BAUD=115200,AUX_ENABLED=0)(
     reg start;
     reg [7:0] data;
     wire busy;
+    assign ethernet_frame=active;
+    assign ethernet_valid=ETHERNET && state==1;
     uart_tx_byte #(.CLK_HZ(CLK_HZ),.BAUD(BAUD)) uart(.clk(clk),.reset_n(reset_n),.start(start),.data(data),.tx(tx),.busy(busy));
     always @(posedge clk or negedge reset_n)begin
         if(!reset_n)begin
@@ -62,7 +66,8 @@ module frame_uart_mux #(parameter CLK_HZ=50000000,BAUD=115200,AUX_ENABLED=0)(
                 0: if(have_motor)begin active<=motor_pending;have_motor<=motor_valid;index<=0;state<=1;end
                    else if(have_imu)begin active<=imu_pending;have_imu<=imu_valid;index<=0;state<=1;end
                    else if(AUX_ENABLED && have_aux)begin active<=aux_pending;have_aux<=aux_valid;index<=0;state<=1;end
-                1: if(!busy)begin data<=active[index*8+:8];start<=1;state<=2;end
+                1: if(ETHERNET)begin if(ethernet_ready)state<=0;end
+                   else if(!busy)begin data<=active[index*8+:8];start<=1;state<=2;end
                 2: if(busy)state<=3;
                 3: if(!busy)begin
                     if(index==47)state<=0;

@@ -16,8 +16,10 @@ dist/
 config/local*.json
 config/pc.local.json
 config/nano.local.json
+config/*.local.json
 .playwright-cli/
 .deps/
 output/
+/tests/network_dual_20261014/
 
 docs/evidence/**/config/local*.json

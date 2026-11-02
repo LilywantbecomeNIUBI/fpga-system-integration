@@ -9,7 +9,7 @@ module tb_fast_reader;
     wire [31:0] seq,stamp,commit_stamp,age,now_us;
     wire [7:0] who,error;
     wire [15:0] errors,invalids,read_us,interval_us;
-    imu_1khz_core #(.POWERUP_US(100),.RESET_US(1200),.STARTUP_US(500),.RETRY_US(2000)) dut(
+    icm42688_fast_reader #(.POWERUP_US(100),.RESET_US(1200),.STARTUP_US(500),.RETRY_US(2000)) dut(
         .clk(clk),.rst_n(rst_n),.imu_i2c_scl(scl),.imu_i2c_sda(sda),
         .ready(ready),.fault(fault),.sample_valid(valid),.sample_stale(stale),.temperature_valid(temp_valid),
         .ax(ax),.ay(ay),.az(az),.gx(gx),.gy(gy),.gz(gz),.temperature_raw(temp),
@@ -62,5 +62,5 @@ module tb_fast_reader;
         $display("PASS fast reader: 1kHz profile, 12-byte atomic axes, slow temp, metadata, 3ms stale, faults/recovery");
         $finish;
     end
-    initial begin #120000000; $fatal(1,"fast reader timeout state=%0d step=%0d error=%h",dut.reader.state,dut.reader.step,error); end
+    initial begin #120000000; $fatal(1,"fast reader timeout state=%0d step=%0d error=%h",dut.state,dut.step,error); end
 endmodule

@@ -5,7 +5,7 @@
 // Payload byte order is little endian; CRC is high byte first. See README.md.
 module imu_fast_uart_stream #(
     parameter integer CLK_HZ=50000000, BAUD=115200, STATUS_US=1000000,
-    parameter integer DECIMATION=5, POLL_US=150, FAST_BUS=1, LOW_LATENCY_FILTER=1
+    parameter integer DECIMATION=5, POLL_US=150, FAST_BUS=1, LOW_LATENCY_FILTER=1, PROFILE_ID=2
 )(
     input clk, input rst_n, input sample_valid, input ready, input fault,
     input signed [15:0] ax, ay, az, gx, gy, gz, temperature_raw,
@@ -28,7 +28,8 @@ module imu_fast_uart_stream #(
     reg [15:0] decimation_count;
     wire selected=sample_valid && decimation_count==DECIMATION-1;
     wire [7:0] flags={2'b0,(LOW_LATENCY_FILTER!=0),(FAST_BUS!=0),temperature_valid,sample_stale,fault,ready};
-    wire [7:0] profile_id=LOW_LATENCY_FILTER ? 8'h02 : 8'h03;
+    wire [7:0] profile_id=(PROFILE_ID==4 && who_am_i==8'h70) ? 8'd6 :
+        (LOW_LATENCY_FILTER ? PROFILE_ID : PROFILE_ID+1);
     localparam [7:0] DECIMATION_BYTE=DECIMATION, POLL_BYTE=POLL_US;
     reg [9:0] shift;
     reg [3:0] bits_left;

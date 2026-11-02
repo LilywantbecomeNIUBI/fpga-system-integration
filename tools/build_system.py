@@ -18,8 +18,9 @@ ROOT=Path(__file__).resolve().parents[1]
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def prepare():
-    folder=ROOT/'build/system'; folder.mkdir(parents=True,exist_ok=True)
+def prepare(folder=None):
+    folder=Path(folder) if folder is not None else ROOT/'build/system'
+    folder.mkdir(parents=True,exist_ok=True)
     rows=list(csv.DictReader((ROOT/'hardware/pins.csv').open(encoding='utf-8-sig')))
     names={'clk50m','reset_n','uart_rx','uart_tx','legacy_m1_disable','legacy_m2_disable','imu_i2c_scl','imu_i2c_sda'}
     selected=[r for r in rows if r['group'] in ('chassis','legacy_disabled','camera','ethernet') or r['signal'] in names or r['signal'].startswith('led[')]
@@ -48,7 +49,7 @@ def prepare():
     sources=sorted((ROOT/'fpga/control').glob('*.sv'))+sorted((ROOT/'fpga/motor').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.sv'))+sorted((ROOT/'fpga/system').glob('*.v'))
     sources+=sorted(p for p in (ROOT/'fpga/vision/src').rglob('*.v') if p.name!='camera_perception_top.v')
     sources+=sorted((ROOT/'fpga/vision/src').rglob('*.sv'))
-    sources+=[ROOT/'fpga/imu'/name for name in ('imu_1khz_core.v','icm42688_fast_reader.v','imu_fast_i2c_master.v')]
+    sources+=[ROOT/'fpga/imu'/name for name in ('imu_1khz_core.v','mpu6050_reader.v','imu_fast_i2c_master.v')]
     sources+=[folder/'system.cst',folder/'system.sdc']
     project=ET.Element('Project')
     ET.SubElement(project,'Template').text='FPGA'; ET.SubElement(project,'Version').text='5'
@@ -62,12 +63,16 @@ def prepare():
     place=json.loads(profile.read_text())['place_option'] if profile.exists() else 2
     for k,v in [('top_module','system_top'),('verilog_std','sysv2017'),('output_base_name','system'),('max_fanout','32'),('replicate_resources',str(json.loads(profile.read_text()).get('replicate_resources',1)) if profile.exists() else '1'),('timing_driven','1'),('retiming_resource','bsram'),('use_sspi_as_gpio','1'),('use_cpu_as_gpio','1'),('place_option',str(place)),('route_option','1')]:
         tcl+=f'set_option -{k} {v}\n'
-    (folder/'build.tcl').write_text(tcl+'run all\n',encoding='utf-8')
+    (folder/'build.tcl').write_text(tcl+'run all\nexit\n',encoding='utf-8')
     return folder,sources
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--prepare-only',action='store_true');args=parser.parse_args()
-    folder,sources=prepare()
+    parser=argparse.ArgumentParser();parser.add_argument('--prepare-only',action='store_true')
+    parser.add_argument('--output-dir',type=Path,help='Isolated output directory within this repository')
+    args=parser.parse_args()
+    output=(ROOT/args.output_dir).resolve() if args.output_dir else ROOT/'build/system'
+    output.relative_to(ROOT)
+    folder,sources=prepare(output)
     if args.prepare_only: print(folder/'system.gprj');return
     if os.name=='nt':
         active=subprocess.run(['powershell','-NoProfile','-Command','Get-Process gw_sh,gw_syn,gw_pnr -ErrorAction SilentlyContinue | Where-Object { -not $_.HasExited } | Select-Object -ExpandProperty Id'],capture_output=True,text=True)
@@ -80,16 +85,18 @@ def main():
         hashes[(folder/name).relative_to(ROOT).as_posix()]=sha(folder/name)
         shutil.copyfile(folder/name,attempt/name)
     options=dict(re.findall(r'set_option -(\w+) ([^\n]+)',(folder/'build.tcl').read_text(encoding='utf-8')))
-    with (attempt/'build.log').open('w',encoding='utf-8') as log:
-        result=subprocess.run([str(exe),str(folder/'build.tcl')],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
+    from gowin_runner import run_gowin
+    tool_result=run_gowin(str(exe),folder/'build.tcl',attempt/'build.log',pnr=True)
+    completed=tool_result['exit_code']==0 or tool_result['cli_terminated_after_completed_outputs']
     timing=folder/'impl/pnr/system_tr_content.html'; bit=folder/'impl/pnr/system.fs'
-    record=dict(started_utc=stamp,exit_code=result.returncode,source_sha256=hashes,options=options,tool=str(exe),tool_sha256=sha(exe),programmed=False,hardware_tested=False)
-    audit=subprocess.run([sys.executable,str(ROOT/'tools/audit_lk_state.py')],cwd=ROOT,capture_output=True,text=True) if result.returncode==0 else None
+    record=dict(started_utc=stamp,**tool_result,source_sha256=hashes,options=options,tool=str(exe),tool_sha256=sha(exe),programmed=False,hardware_tested=False,
+        imu_sensor='MPU-6050',imu_address='0x68',imu_i2c_max_hz=400000,imu_config_id=4)
+    audit=subprocess.run([sys.executable,str(ROOT/'tools/audit_lk_state.py'),'--netlist',str(folder/'impl/gwsynthesis/system.vg'),'--output',str(attempt/'lk_state_audit.json')],cwd=ROOT,capture_output=True,text=True) if completed else None
     record['state_register_audit_passed']=bool(audit is not None and audit.returncode==0)
     if audit is not None:(attempt/'lk_state_audit.txt').write_text(audit.stdout+audit.stderr,encoding='utf-8')
     record.update(pwm_limit_per_mille=350, left_encoder_profile='P7-31/F16, P7-32/E17', avoidance_mode='observe_only')
     record['sources_unchanged']=all(sha(ROOT/p)==h for p,h in hashes.items())
-    if timing.exists() and result.returncode==0:
+    if timing.exists() and completed:
         content=timing.read_text(encoding='utf-8',errors='replace')
         record['violations']={}
         for kind in ('Setup','Hold'):
@@ -105,14 +112,20 @@ def main():
                     record['reported_min_pulse_width'].append(dict(slack_ns=float(cells[1]),actual_ns=float(cells[2]),required_ns=float(cells[3]),kind=cells[4],clock=cells[5],object=cells[6]))
         record['pulse_width_passed']=bool(record['reported_min_pulse_width']) and all(p['slack_ns']>=0 for p in record['reported_min_pulse_width'])
     pnr_log=folder/'impl/pnr/system.log'
-    if result.returncode==0 and pnr_log.exists():
+    if completed and pnr_log.exists():
         record['clock_route_warnings']=[line for line in pnr_log.read_text(encoding='utf-8',errors='replace').splitlines() if 'PR1014' in line]
         record['clock_routing_passed']=not record['clock_route_warnings']
-    if result.returncode==0 and bit.exists(): record['bitstream_sha256']=sha(bit)
-    record['setup_hold_passed']=result.returncode==0 and record.get('violations')=={'setup':0,'hold':0}
-    record['passed']=record['setup_hold_passed'] and record.get('pulse_width_passed',False) and record.get('clock_routing_passed',False) and record['sources_unchanged'] and record['state_register_audit_passed'] and 'bitstream_sha256' in record
+    if completed and bit.exists(): record['bitstream_sha256']=sha(bit)
+    for name,arguments in (
+        ('control50',[str(ROOT/'tools/audit_control50.py'),'--netlist',str(folder/'impl/gwsynthesis/system.vg'),'--output',str(attempt/'control50_audit.json')]),
+        ('cdc_timing',[str(ROOT/'tools/audit_control50_timing.py'),str(folder)])):
+        audit=subprocess.run([sys.executable]+arguments,cwd=ROOT,capture_output=True,text=True) if completed else None
+        record[name+'_audit_passed']=audit is not None and audit.returncode==0
+        if audit is not None:(attempt/(name+'_audit.log')).write_text(audit.stdout+audit.stderr,encoding='utf-8')
+    record['setup_hold_passed']=completed and record.get('violations')=={'setup':0,'hold':0}
+    record['passed']=record['setup_hold_passed'] and record.get('pulse_width_passed',False) and record.get('clock_routing_passed',False) and record['sources_unchanged'] and record['state_register_audit_passed'] and record['control50_audit_passed'] and record['cdc_timing_audit_passed'] and 'bitstream_sha256' in record
     for src,name in ((timing,'timing.html'),(folder/'impl/pnr/system.tr','timing.txt'),(folder/'impl/pnr/system.rpt.txt','pnr_report.txt'),(pnr_log,'pnr.log'),(folder/'system.sdc','system.sdc'),(folder/'system.cst','system.cst')):
-        if result.returncode==0 and src.exists():shutil.copyfile(src,attempt/name)
+        if completed and src.exists():shutil.copyfile(src,attempt/name)
     for p in (attempt/'result.json',folder/'result.json'):p.write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({k:v for k,v in record.items() if k!='source_sha256'},indent=2))
     raise SystemExit(0 if record['passed'] else 1)

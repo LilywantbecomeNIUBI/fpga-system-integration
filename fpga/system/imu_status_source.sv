@@ -11,7 +11,8 @@ module imu_status_source #(parameter CLK_HZ=50000000,DECIMATION=10)(
     reg [367:0] body;
     reg capture;
     wire selected=sample_valid && decimation_count==DECIMATION-1;
-    wire [7:0] flags={2'b0,2'b11,temperature_valid,sample_stale,fault,ready};
+    wire [7:0] flags={2'b0,2'b10,temperature_valid,sample_stale,fault,ready};
+    wire [7:0] profile_id=who_am_i==8'h70 ? 8'd6 : 8'd4;
     localparam [7:0] DECIMATION_BYTE=DECIMATION;
     always @(posedge clk or negedge reset_n)begin
         if(!reset_n)begin decimation_count<=0;silence<=0;debug_seq<=0;body<=0;capture<=0;end
@@ -25,7 +26,7 @@ module imu_status_source #(parameter CLK_HZ=50000000,DECIMATION=10)(
             if(selected || silence>=CLK_HZ)begin
                 body<={8'd150,DECIMATION_BYTE,sample_interval_us,observe_to_commit_us,
                     (selected ? debug_seq+32'd1 : debug_seq),drop_count,invalid_count,error_count,
-                    8'h02,last_error,who_am_i,flags,temperature_raw,gz,gy,gx,az,ay,ax,
+                    profile_id,last_error,who_am_i,flags,temperature_raw,gz,gy,gx,az,ay,ax,
                     (selected ? timestamp_us : now_us),sample_seq,
                     (selected ? 8'h01 : 8'h02),8'h02,16'h5aa5};
                 silence<=0;capture<=1;

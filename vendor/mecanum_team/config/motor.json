@@ -1,0 +1,16 @@
+{
+  "motor": "WHEELTEC MG513P30-12V",
+  "encoder": "GMR",
+  "rated_voltage_v": 12,
+  "gear_ratio": 30,
+  "encoder_ppr": 500,
+  "quadrature_equivalent_factor": 4,
+  "raw_counts_per_rev": 60000,
+  "control_shift": 4,
+  "initial_kp_q8": 512,
+  "initial_ki_q8": 32,
+  "wheel_diameter_mm": 75,
+  "wheel_diameter_basis": "matching R550 mecanum reference; verify installed wheel",
+  "counts_basis": "manufacturer nominal, user confirmed motor and encoder type",
+  "measured_on_hardware": false
+}

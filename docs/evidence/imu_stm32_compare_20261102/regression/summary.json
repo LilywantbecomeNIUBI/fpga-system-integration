@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-02",
+  "purpose": "Pre-upload offline regression of current code snapshot",
+  "hardware_tested_by_this_regression": false,
+  "python_host_tests": {
+    "passed": true,
+    "count": 88,
+    "command": "C:/ProgramData/anaconda3/python.exe -m unittest discover -s tests -p test_*.py -q",
+    "environment_note": "System Python lacked cv2; rerun with existing Anaconda environment passed."
+  },
+  "cases": {
+    "mpu6050_mpu6500": {
+      "passed": true,
+      "result": "mpu6050_mpu6500.json"
+    },
+    "i2c_controller_compare": {
+      "passed": true,
+      "result": "i2c_controller_compare.json"
+    },
+    "scan_ram": {
+      "passed": true,
+      "result": "scan_ram.json"
+    },
+    "wheel_1khz": {
+      "passed": true,
+      "result": "wheel_1khz.json"
+    },
+    "raw_fifo": {
+      "passed": true,
+      "result": "raw_fifo.json"
+    },
+    "raw_ethernet": {
+      "passed": true,
+      "result": "raw_ethernet.json"
+    }
+  },
+  "not_claimed": [
+    "Direct IMU hardware communication",
+    "Full integrated place-and-route signoff",
+    "Dynamic vehicle navigation acceptance"
+  ]
+}

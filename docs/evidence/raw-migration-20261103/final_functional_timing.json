@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "results": {
+    "same_cycle_125000000_30": true,
+    "same_cycle_125000000_1": true,
+    "same_cycle_999_30": true,
+    "same_cycle_999_1": true,
+    "same_cycle_1_30": true,
+    "same_cycle_1_1": true,
+    "retry_125000000": true,
+    "retry_999": true,
+    "retry_1": true,
+    "mailbox_257": true,
+    "mailbox_256": true,
+    "mailbox_1": true
+  },
+  "reference_sha256": "0376dacbc4fe05a59e928f719fce302b9f70779aac5e61d1d20f1b540e15307a",
+  "verified360_network_sha256": "28c4c01c562903759751459662dc843fdf6a119d07f6b46153de286e9a8975a7"
+}

@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "hardware_tested": false,
+  "programmed": false,
+  "uart_bytes": 576,
+  "records": {
+    "motor": 5,
+    "lidar_scan": 6,
+    "lidar_diagnostic": 1
+  },
+  "bins": 72,
+  "diagnostic": {
+    "device_ms": 200,
+    "bytes": 5123,
+    "framing_errors": 0,
+    "packets": 108,
+    "crc_errors": 1,
+    "format_errors": 0,
+    "timeouts": 0,
+    "completed_scans": 1,
+    "skipped_scans": 0,
+    "sequence": 1,
+    "flags": 19,
+    "coverage": 72
+  },
+  "source_sha256": {
+    "tests/navigation/tb_lidar_display.sv": "27eaebb4f02775fb86c1d6c77b88a8d2a79e2e898e4ed46441e40a8eb5ec15e5",
+    "fpga/navigation/lidar_scan_source.sv": "1e4a1085b32d07590d5114fcd61ee79c1179937b3a378b09a27451d5107e53d9",
+    "fpga/navigation/lidar/stl27l_uart_rx.v": "c7cbb11a08187b4d55e6a2a7004385a296b3806c4e68b38ee8cea799f12d7281",
+    "fpga/navigation/lidar/stl27l_node_parser.v": "4840669b11221648d2d6b6516950e57600dc2180005cbdf4a47df1f45d2b8a26",
+    "fpga/motor/frame_transport.sv": "9e7967b5d9aec64d299d51d8737d46e3b0a4cbe38a307fc22bddf88ff9f9940f",
+    "fpga/motor/uart_byte.sv": "d88aa96614eac7f51ab4d37d547e4fd3560c7ea4bb7ec25e97ff686e7a7d8ac0",
+    "fpga/motor/motor_telemetry.sv": "e12535c7ac9261433169be755d27357491777bb360c0d8973b75d22ef7eab7eb"
+  }
+}

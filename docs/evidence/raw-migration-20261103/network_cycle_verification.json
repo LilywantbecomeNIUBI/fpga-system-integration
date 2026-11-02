@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "frames_checked": 47,
+  "public_outputs_cycle_equivalent": true,
+  "tx_bytes_cycle_equivalent": true,
+  "retry_counters_cycle_equivalent": true,
+  "local_target_replicas_equivalent": true,
+  "network_sha256": "97be62e3f491ace9298a97f5363caa87f8599b0bcb8f595a788daba037c243e6",
+  "reference_sha256": "28c4c01c562903759751459662dc843fdf6a119d07f6b46153de286e9a8975a7",
+  "generated_bench_sha256": "1797de69349600387db558f537263d062a7ab4e1466cc6f8c07105b9d1089568"
+}

@@ -1,16 +1,13 @@
 """Task-4 wire codec. Importing this module never opens a port."""
 import math,struct
+from binascii import crc_hqx
 REGISTER_NAMES=('confirmed_mask','left_mm_per_count_q16','right_mm_per_count_q16','track_mm','robot_radius_mm','margin_mm',
  'stop_mm','slow_mm','v_max_mm_s','w_max_mrad_s','lookahead_min_mm','lookahead_max_mm','lookahead_ms','accept_mm',
  'block_low_mm','block_high_mm','vfh_weights','lidar_timeout_ms','left_counts_per_mm_s_q16','right_counts_per_mm_s_q16',
  'gyro_axis_sign','gyro_bias_raw','gyro_step_q16','gyro_blend_q8','lidar_angle_offset_q100','lidar_reverse','min_speed_mm_s',
  'waypoint_count','valley_width','max_counts_per_tick','imu_timeout_ms','reserved')
 def crc16(data):
-    c=0xffff
-    for byte in data:
-        c^=byte<<8
-        for _ in range(8):c=((c<<1)^0x1021)&65535 if c&0x8000 else (c<<1)&65535
-    return c
+    return crc_hqx(bytes(data),0xffff)
 def packet(op,seq,a0=0,a1=0,a2=0,a3=0,flags=0):
     body=b'\xa5\x5a'+struct.pack('<BBBBHHHH',1,op,seq&255,flags,a0&65535,a1&65535,a2&65535,a3&65535)
     return body+struct.pack('<H',crc16(body))
@@ -66,12 +63,18 @@ class StatusStream:
     def __init__(self):self.buffer=bytearray();self.bad_crc=0
     def feed(self,data):
         self.buffer.extend(data);out=[]
-        while True:
-            at=self.buffer.find(b'\xc3\x3c\x04\x01')
-            if at<0:self.buffer[:]=self.buffer[-3:];break
-            del self.buffer[:at]
+        while len(self.buffer)>=3:
+            header=bytes(self.buffer[:3])
+            if header[:2]!=b'\xc3\x3c' and header!=b'\xa5\x5a\x02':
+                del self.buffer[0];continue
             if len(self.buffer)<48:break
-            try:row=decode_status(bytes(self.buffer[:48]))
-            except ValueError:self.bad_crc+=1;del self.buffer[0];continue
-            del self.buffer[:48];out.append(row)
+            frame=bytes(self.buffer[:48])
+            expected=struct.unpack_from('<H' if header[:2]==b'\xc3\x3c' else '>H',frame,46)[0]
+            if crc16(frame[:46])!=expected:
+                if header==b'\xc3\x3c\x04':self.bad_crc+=1
+                del self.buffer[0];continue
+            del self.buffer[:48]
+            if header==b'\xc3\x3c\x04':
+                try:out.append(decode_status(frame))
+                except ValueError:self.bad_crc+=1
         return out

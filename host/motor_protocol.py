@@ -1,17 +1,13 @@
 """Pure codec. No hardware access and no assumed encoder CPR/gearing."""
 import struct
+from binascii import crc_hqx
 
 COMMAND_HEADER=b'\xa5\x5a'
 STATUS_HEADER=b'\xc3\x3c'
 FAULT_NAMES={0:'power_on_requires_clear',1:'command_timeout',2:'encoder_invalid',3:'encoder_speed_limit',4:'no_encoder_motion'}
 
 def crc16(data):
-    crc=0xffff
-    for value in data:
-        crc^=value<<8
-        for _ in range(8):
-            crc=((crc<<1)^0x1021)&0xffff if crc&0x8000 else (crc<<1)&0xffff
-    return crc
+    return crc_hqx(bytes(data),0xffff)
 
 def command(opcode,sequence,flags=1,left=0,right=0,kp=256,ki=0):
     if opcode not in (0,1,2,3):raise ValueError('opcode must be STOP=0 ARM=1 DRIVE=2 CLEAR=3')

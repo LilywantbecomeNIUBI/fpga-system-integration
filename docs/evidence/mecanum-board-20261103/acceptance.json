@@ -1,0 +1,56 @@
+{
+  "bitstream_sha256": "301375bdc7a0986f922ff4993270adc94a04d638824f10f2bb3c58d8ca80ef51",
+  "sram_download_confirmed": true,
+  "flash_written": false,
+  "io_electrical_constraints_match_teammate": true,
+  "setup_hold_violations": {
+    "setup": 0,
+    "hold": 0
+  },
+  "imu_who_am_i": 112,
+  "imu_healthy": true,
+  "imu_motion_bus_errors": 4,
+  "imu_last_error_context_motor_pwm": true,
+  "controls": {
+    "serial_clear_ack": true,
+    "zero_arm_ack": true,
+    "stop_ack": true,
+    "watchdog_stops_zero_arm": true,
+    "imu_recalibration_command_ack": true,
+    "imu_recovered": true,
+    "final_stop_confirmed": true
+  },
+  "raised_wheel_forward_passed": true,
+  "wheel_position_delta_raw": [
+    4978,
+    3554,
+    5114,
+    2422
+  ],
+  "motor_armed": false,
+  "motor_pwm": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "motor_velocity": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "video_online": true,
+  "flow_fresh": true,
+  "video_bad_delta": 0,
+  "flow_bad_delta": 0,
+  "radar_deferred_by_user": true,
+  "ground_translation_or_heading_accuracy_tested": false,
+  "full_hardware_acceptance_passed": false,
+  "incomplete_reasons": [
+    "radar not connected: explicitly deferred",
+    "4 transient I2C NACKs observed under motor PWM",
+    "ground motion accuracy not tested"
+  ],
+  "last_observation_unix": 1793653481.4045343
+}

@@ -1,0 +1,187 @@
+{
+  "samples": [
+    {
+      "video": {
+        "frames": 17555,
+        "frame_id": 10240,
+        "fps": 27.925769164421613,
+        "age_ms": 43.59802977251093,
+        "bad": 0,
+        "missing_frames": 448
+      },
+      "flow": {
+        "frame_id": 10239,
+        "fps": 26.439811658950596,
+        "packets": 3222002,
+        "bad": 0
+      },
+      "flow_control": {
+        "state": "right",
+        "stop_request": false,
+        "steer": 1,
+        "speed_limit": 96,
+        "hazard": 1,
+        "fresh": true,
+        "confident": true,
+        "age_ms": 56.22116708923386,
+        "frame_id": 10239,
+        "valid_counts": [
+          49,
+          53,
+          45
+        ],
+        "risk_counts": [
+          14,
+          8,
+          0
+        ]
+      },
+      "feedback": {
+        "kind": "none",
+        "threshold": 0.5,
+        "reply": {
+          "result_frame": 10238,
+          "current_frame": 10240,
+          "class_id": 0,
+          "confidence": 0,
+          "center_x": 0,
+          "center_y": 0,
+          "age_frames": 2,
+          "accepted": 7401,
+          "rejected": 0,
+          "target_valid": false,
+          "frame_seen": true,
+          "sequence_seen": true,
+          "stream_ready": true,
+          "reason": 2,
+          "direction": "none"
+        },
+        "error": null
+      }
+    },
+    {
+      "video": {
+        "frames": 17621,
+        "frame_id": 10307,
+        "fps": 29.55538274862953,
+        "age_ms": 62.03879647205213,
+        "bad": 0,
+        "missing_frames": 449
+      },
+      "flow": {
+        "frame_id": 10307,
+        "fps": 28.919806138121103,
+        "packets": 3234505,
+        "bad": 0
+      },
+      "flow_control": {
+        "state": "brake",
+        "stop_request": true,
+        "steer": 0,
+        "speed_limit": 0,
+        "hazard": 7,
+        "fresh": true,
+        "confident": true,
+        "age_ms": 42.44677189808499,
+        "frame_id": 10307,
+        "valid_counts": [
+          39,
+          54,
+          32
+        ],
+        "risk_counts": [
+          13,
+          17,
+          11
+        ]
+      },
+      "feedback": {
+        "kind": "none",
+        "threshold": 0.5,
+        "reply": {
+          "result_frame": 10306,
+          "current_frame": 10308,
+          "class_id": 0,
+          "confidence": 0,
+          "center_x": 0,
+          "center_y": 0,
+          "age_frames": 2,
+          "accepted": 7467,
+          "rejected": 0,
+          "target_valid": false,
+          "frame_seen": true,
+          "sequence_seen": true,
+          "stream_ready": true,
+          "reason": 2,
+          "direction": "none"
+        },
+        "error": null
+      }
+    },
+    {
+      "video": {
+        "frames": 17678,
+        "frame_id": 10369,
+        "fps": 27.35083760433188,
+        "age_ms": 34.29250150975349,
+        "bad": 0,
+        "missing_frames": 454
+      },
+      "flow": {
+        "frame_id": 10368,
+        "fps": 25.585629819573203,
+        "packets": 3244458,
+        "bad": 0
+      },
+      "flow_control": {
+        "state": "forward",
+        "stop_request": false,
+        "steer": 0,
+        "speed_limit": 255,
+        "hazard": 0,
+        "fresh": true,
+        "confident": true,
+        "age_ms": 49.45985082667903,
+        "frame_id": 10368,
+        "valid_counts": [
+          41,
+          49,
+          44
+        ],
+        "risk_counts": [
+          0,
+          4,
+          1
+        ]
+      },
+      "feedback": {
+        "kind": "none",
+        "threshold": 0.5,
+        "reply": {
+          "result_frame": 10367,
+          "current_frame": 10369,
+          "class_id": 0,
+          "confidence": 0,
+          "center_x": 0,
+          "center_y": 0,
+          "age_frames": 2,
+          "accepted": 7523,
+          "rejected": 0,
+          "target_valid": false,
+          "frame_seen": true,
+          "sequence_seen": true,
+          "stream_ready": true,
+          "reason": 2,
+          "direction": "none"
+        },
+        "error": null
+      }
+    }
+  ],
+  "video_online": true,
+  "flow_fresh": true,
+  "video_frames_delta": 123,
+  "video_bad_delta": 0,
+  "video_missing_delta": 6,
+  "flow_bad_delta": 0
+}

@@ -1,0 +1,240 @@
+{
+  "perception": {
+    "passed": true,
+    "source": "build\\tests\\perception_result.json",
+    "sha256": "96b591a3d69349ca2615b752bfc9bb6b2e7c8a220026161b676838ad2f38a18e"
+  },
+  "timing_refactor": {
+    "passed": true,
+    "source": "build\\tests\\timing_refactor\\result.json",
+    "sha256": "1fd7684bd3235e3d41f37e10758dc9a739869a402f22f487e4ddc448b6f29798"
+  },
+  "full_top": {
+    "passed": true,
+    "source": "build\\lidar_ethernet_20261102\\system\\20261102T172152Z\\test_result.json",
+    "sha256": "ba3f2c3ca3e27e7934df8ab030a78794bd0a8dcab538e461ae9142f42832b8fb"
+  },
+  "tb_navigation": {
+    "passed": true
+  },
+  "tb_pose_fusion": {
+    "passed": true
+  },
+  "tb_rpp": {
+    "passed": true
+  },
+  "vfh": {
+    "passed": true,
+    "cases": 226,
+    "max_cycles": 6302
+  },
+  "mpu6050_model": {
+    "passed": true,
+    "checks": [
+      "3ms warning",
+      "10ms watchdog",
+      "atomic 14-byte burst",
+      "NACK/WHO/config/reset recovery"
+    ]
+  },
+  "network_golden": {
+    "status": "PASS",
+    "frames_checked": 47,
+    "video": [
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 1456
+      },
+      {
+        "ip": "192.168.50.20",
+        "mac": "48b02d5bd174",
+        "port": 6102,
+        "length": 1456
+      },
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.20",
+        "mac": "48b02d5bd174",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 1
+      },
+      {
+        "ip": "192.168.50.20",
+        "mac": "48b02d5bd174",
+        "port": 6102,
+        "length": 1
+      },
+      {
+        "ip": "192.168.50.20",
+        "mac": "48b02d5bd174",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.20",
+        "mac": "48b02d5bd174",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.20",
+        "mac": "48b02d5bd174",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.20",
+        "mac": "48b02d5bd174",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 1456
+      },
+      {
+        "ip": "192.168.50.20",
+        "mac": "48b02d5bd174",
+        "port": 6102,
+        "length": 1456
+      },
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.21",
+        "mac": "021122334455",
+        "port": 7000,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.100",
+        "mac": "7e51518f44b4",
+        "port": 6102,
+        "length": 31
+      },
+      {
+        "ip": "192.168.50.20",
+        "mac": "48b02d5bd174",
+        "port": 6102,
+        "length": 31
+      }
+    ],
+    "acks": [
+      {
+        "op": 130,
+        "error": 0
+      },
+      {
+        "op": 133,
+        "error": 0
+      },
+      {
+        "op": 133,
+        "error": 1
+      },
+      {
+        "op": 133,
+        "error": 1
+      },
+      {
+        "op": 132,
+        "error": 0
+      },
+      {
+        "op": 131,
+        "error": 0
+      },
+      {
+        "op": 130,
+        "error": 0
+      },
+      {
+        "op": 133,
+        "error": 0
+      },
+      {
+        "op": 134,
+        "error": 0
+      },
+      {
+        "op": 133,
+        "error": 0
+      },
+      {
+        "op": 136,
+        "error": 0
+      },
+      {
+        "op": 129,
+        "error": 0
+      },
+      {
+        "op": 135,
+        "error": 0
+      }
+    ],
+    "checks": [
+      "byte identical copies including 1456/31/1-byte payloads",
+      "source read once and released after copies",
+      "PC .100/Nano .20 cache collision avoided",
+      "independent cache clear/stop and offline target",
+      "in-flight destination snapshot",
+      "per-target complete-frame start",
+      "bad FCS/IP/UDP/fragment rejection",
+      "TTL",
+      "CRC and IP checksum"
+    ]
+  },
+  "format_only_root_differences": [
+    "fpga/vision/src/network_runtime_dual.v"
+  ]
+}

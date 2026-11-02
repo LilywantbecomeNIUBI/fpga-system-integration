@@ -1,0 +1,12 @@
+{
+  "programmed": false,
+  "hardware_tested": false,
+  "place": 3,
+  "route": 0,
+  "exit_code": 1,
+  "elapsed_s": 1200.5652846999947,
+  "timed_out": true,
+  "cli_cleanup": false,
+  "netlist_unchanged": false,
+  "timing_signoff": false
+}

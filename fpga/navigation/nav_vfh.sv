@@ -23,6 +23,8 @@ module nav_vfh(input wire clk,rst_n,start,input wire [15:0] now_ms,
  reg [6:0] cursor,first,last,width,candidate,candidate_phase;
  reg in_valley;reg [23:0] trial_cost;
  reg signed [15:0] candidate_heading;
+ reg [6:0] left_edge,right_edge;
+ reg signed [15:0] left_edge_heading,right_edge_heading;
  reg [31:0] captured_sequence;
  function automatic [6:0] distbin(input [6:0] a,b);
   reg [6:0] t;begin t=a>b?a-b:b-a;distbin=t>36?72-t:t;end
@@ -217,7 +219,8 @@ module nav_vfh(input wire clk,rst_n,start,input wire [15:0] now_ms,
    blocked<={72{1'b1}};observed<=0;binary<={72{1'b1}};best_cost<=24'hffffff;
    i<=0;j<=0;spread<=0;step<=0;d<=0;product<=0;px<=0;py<=0;xx<=0;yy<=0;
    circle_bound<=0;left_limit<=9000;right_limit<=-9000;cursor<=0;first<=0;last<=0;
-   width<=0;candidate<=0;candidate_phase<=0;in_valley<=0;trial_cost<=0;candidate_heading<=0;captured_sequence<=0;known_q<=0;hit_q<=0;input_distance<=0;input_known<=0;candidate_q<=0;delta_t<=0;delta_c<=0;delta_p<=0;cost_t<=0;cost_c<=0;cost_p<=0;end
+   width<=0;candidate<=0;candidate_phase<=0;in_valley<=0;trial_cost<=0;candidate_heading<=0;captured_sequence<=0;known_q<=0;hit_q<=0;input_distance<=0;input_known<=0;candidate_q<=0;delta_t<=0;delta_c<=0;delta_p<=0;cost_t<=0;cost_c<=0;cost_p<=0;
+   left_edge<=0;right_edge<=0;left_edge_heading<=0;right_edge_heading<=0;end
   else begin
    done<=0;clear_hazard<=0;
    case(state)
@@ -291,10 +294,7 @@ module nav_vfh(input wire clk,rst_n,start,input wire [15:0] now_ms,
      else if(candidate_phase==0)begin candidate<=first+(valley_width>>1);state<=13;end
      else if(candidate_phase==1)begin candidate<=last-(valley_width>>1);state<=13;end
      else if(candidate_phase==2)begin
-      // The exact target is quantized to the sector containing it.
-      if(target_heading>=heading(first+(valley_width>>1))-250 && target_heading<=heading(last-(valley_width>>1))+249)begin
-       candidate<=first+(valley_width>>1);state<=15;
-      end else state<=11;
+      left_edge<=first+(valley_width>>1);right_edge<=last-(valley_width>>1);state<=26;
      end else state<=11;
     end
     13:begin candidate_q<=candidate;state<=20;end
@@ -308,7 +308,16 @@ module nav_vfh(input wire clk,rst_n,start,input wire [15:0] now_ms,
      if(!found || trial_cost<best_cost)begin found<=1;best_cost<=trial_cost;safe_heading<=candidate_heading;end
      candidate_phase<=candidate_phase+1'b1;state<=12;
     end
-    15:if(target_heading<heading(candidate)+250 || candidate>=last-(valley_width>>1))state<=13;else candidate<=candidate+1'b1;
+    26:begin left_edge_heading<=heading(left_edge);right_edge_heading<=heading(right_edge);state<=27;end
+    27:begin
+     if(target_heading>=left_edge_heading-250 && target_heading<=right_edge_heading+249)begin
+      candidate<=left_edge;state<=15;
+     end else state<=11;
+    end
+    15:begin candidate_q<=candidate;state<=28;end
+    28:begin candidate_heading<=heading(candidate_q);state<=29;end
+    29:if(target_heading<candidate_heading+250 || candidate>=right_edge)state<=21;
+       else begin candidate<=candidate+1'b1;state<=15;end
     16:begin
      // The histogram re-checks the generation; a newer raw hazard wins.
      if(front_known && front_min>stop_mm)begin clear_hazard<=1;clear_sequence<=captured_sequence;end

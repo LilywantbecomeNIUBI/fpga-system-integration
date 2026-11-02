@@ -1,17 +1,18 @@
 // Chassis adapter: UART wheel commands + wheel PI + feedback. No sensor drivers or perception policy.
 module task4_chassis #(
-    parameter integer CLK_HZ=50000000, BAUD=115200, PWM_LIMIT=350
+    parameter integer CLK_HZ=50000000, BAUD=115200, PWM_LIMIT=350, WHEEL_1KHZ=0,TELEMETRY_ETHERNET=0
 )(
     input wire clk50m,reset_n,uart_rx,
     input wire auxiliary_valid,input wire [383:0] auxiliary_frame,
-    output wire [15:0] auxiliary_drops,
+    output wire [15:0] auxiliary_drops,output wire auxiliary_ready,
     input wire left_enc_a,left_enc_b,right_enc_a,right_enc_b,
     output wire left_in1,left_in2,right_in1,right_in2,uart_tx,
     input wire nav_running,nav_permit,input wire signed [15:0] nav_left,nav_right,
     output wire nav_command_valid,output wire [7:0] nav_opcode,nav_sequence,
     output wire [15:0] nav_arg0,nav_arg1,nav_arg2,nav_arg3,
     output wire signed [31:0] nav_left_position,nav_right_position,output wire nav_armed,
-    output wire [7:0] led
+    output wire [7:0] led,
+    output wire [383:0] telemetry_frame,output wire telemetry_valid,input wire telemetry_ready
 );
     // Async assertion, two-clock release. Input CDC endpoints are in the SDC.
     (* syn_preserve=1 *) reg reset_meta, reset_sync;
@@ -50,7 +51,7 @@ module task4_chassis #(
     // only for a healthy auto intent or after the motor core has disarmed.
     assign left_in1=raw_l1 && !inhibit,left_in2=raw_l2 && !inhibit;
     assign right_in1=raw_r1 && !inhibit,right_in2=raw_r2 && !inhibit;
-    motor_core #(.CLK_HZ(CLK_HZ),.PWM_LIMIT(PWM_LIMIT),.LEFT_ENCODER_B(1),.LEFT_ENCODER_RECOVERY(1)) core(
+    motor_core #(.CLK_HZ(CLK_HZ),.PWM_LIMIT(PWM_LIMIT),.WHEEL_1KHZ(WHEEL_1KHZ),.LEFT_ENCODER_B(1),.LEFT_ENCODER_RECOVERY(1)) core(
         .clk(clk50m),.reset_n(reset_sync),
         .left_enc_a(left_enc_a),.left_enc_b(left_enc_b),.right_enc_a(right_enc_a),.right_enc_b(right_enc_b),
         .command_valid(cv),.opcode(cop),.sequence_id(cid),.command_flags(cflags),
@@ -64,15 +65,16 @@ module task4_chassis #(
         .left_encoder_levels(left_encoder_levels),.right_encoder_levels(right_encoder_levels),
         .left_encoder_trace(left_encoder_trace),.right_encoder_trace(right_encoder_trace),
         .left_encoder_trace_count(left_encoder_trace_count),.right_encoder_trace_count(right_encoder_trace_count));
-    motor_telemetry #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.ENCODER_DIAGNOSTICS(1),.ENCODER_B_MASK(1),.ENCODER_RECOVERY_MASK(1),.IMU_ENABLED(1)) telemetry(
+    motor_telemetry #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.ENCODER_DIAGNOSTICS(1),.ENCODER_B_MASK(1),.ENCODER_RECOVERY_MASK(1),.IMU_ENABLED(1),.ETHERNET(TELEMETRY_ETHERNET)) telemetry(
         .clk(clk50m),.reset_n(reset_sync),.armed(armed),.flags(flags),.last_sequence(last_sequence),.faults(faults),
         .left_position(left_position),.right_position(right_position),.left_velocity(left_velocity),.right_velocity(right_velocity),
         .left_applied(left_applied),.right_applied(right_applied),.left_invalid(left_invalid),.right_invalid(right_invalid),
         .bad_frames(bad_frames),.rejected_commands(rejected_commands),.tx(uart_tx),
-        .imu_frame(auxiliary_frame),.imu_valid(auxiliary_valid),.imu_drops(auxiliary_drops),
+        .imu_frame(auxiliary_frame),.imu_valid(auxiliary_valid),.imu_ready(auxiliary_ready),.imu_drops(auxiliary_drops),
         .left_encoder_diagnostics(left_encoder_diagnostics),.right_encoder_diagnostics(right_encoder_diagnostics),
         .left_encoder_levels(left_encoder_levels),.right_encoder_levels(right_encoder_levels),
         .left_encoder_trace(left_encoder_trace),.right_encoder_trace(right_encoder_trace),
-        .left_encoder_trace_count(left_encoder_trace_count),.right_encoder_trace_count(right_encoder_trace_count));
+        .left_encoder_trace_count(left_encoder_trace_count),.right_encoder_trace_count(right_encoder_trace_count),
+        .ethernet_frame(telemetry_frame),.ethernet_valid(telemetry_valid),.ethernet_ready(telemetry_ready));
     assign led={faults[4:0],flags[0],armed,reset_sync};
 endmodule

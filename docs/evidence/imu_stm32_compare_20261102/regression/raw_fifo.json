@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "hardware_tested": false,
+  "all_points_checked": 1248,
+  "frames_by_phase": {
+    "1": 182,
+    "2": 20,
+    "3": 2,
+    "4": 4
+  },
+  "source_sha256": {
+    "tests/navigation/tb_lidar_points.sv": "55c0dca0dc6b1fe23ed030a692103c007dc9d0261758aeb221ce5836152da80f",
+    "fpga/navigation/lidar_points_source.sv": "2a66c043622e960313cc90c054d1538e1046ba43b1a15806b39be7c794f8f7ac",
+    "fpga/motor/frame_transport.sv": "aebefc706aec37bb901ad59088194d05debda8839604310c71fa90955929a790"
+  }
+}

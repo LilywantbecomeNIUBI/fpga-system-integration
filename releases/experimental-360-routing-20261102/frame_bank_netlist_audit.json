@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "banks": {
+    "0": {
+      "bsram_blocks": 32,
+      "write_enable_ports": [
+        "\\storage_bank[0].write_enable_6"
+      ]
+    },
+    "1": {
+      "bsram_blocks": 32,
+      "write_enable_ports": [
+        "\\storage_bank[1].write_enable_6"
+      ]
+    },
+    "2": {
+      "bsram_blocks": 32,
+      "write_enable_ports": [
+        "\\storage_bank[2].write_enable_6"
+      ]
+    },
+    "3": {
+      "bsram_blocks": 32,
+      "write_enable_ports": [
+        "\\storage_bank[3].write_enable_6"
+      ]
+    }
+  }
+}

@@ -1,0 +1,253 @@
+{
+  "operation": "temporary SRAM identity probe then restore",
+  "flash_written": false,
+  "serial_port": "COM25",
+  "i2c_hz": 100000,
+  "motor_outputs_constant_low": true,
+  "probe_programmed": true,
+  "bytes": 1440,
+  "bad_crc": 0,
+  "rows": [
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 12
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 13
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 14
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 15
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 16
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 17
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 18
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 19
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 20
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 21
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 22
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 23
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 24
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 25
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 26
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 27
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 28
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 29
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 30
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 31
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 32
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 33
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 34
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 35
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 36
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 37
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 38
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 39
+    },
+    {
+      "address": 104,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 40
+    },
+    {
+      "address": 105,
+      "bus_error": 1,
+      "who_am_i": 0,
+      "idle_scl": true,
+      "idle_sda": true,
+      "sequence": 41
+    }
+  ],
+  "ram_diagnostic_restored": true
+}

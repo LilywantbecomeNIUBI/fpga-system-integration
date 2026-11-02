@@ -10,7 +10,13 @@ def main():
     files=[]
     for name in ('nano','shared','vendor/imu/pc','vendor/vision','vendor/notices'):
         files.extend(p for p in (ROOT/name).rglob('*') if p.is_file() and '__pycache__' not in p.parts)
-    files += [ROOT/'host/motor_protocol.py',ROOT/'config/nano.example.json',ROOT/'docs/system_runbook.md']
+    files += [ROOT/'host/motor_protocol.py',ROOT/'host/index.html',ROOT/'tools/install_nano_web.py',
+        ROOT/'config/nano.web.example.json',ROOT/'config/nano.vision.example.json',ROOT/'docs/NANO_WEB_CONSOLE.md',
+        ROOT/'config/nano.example.json',ROOT/'config/nano.m2.example.json',ROOT/'docs/system_runbook.md',ROOT/'docs/task4/M2扫描与光流显示_20261101.md',
+        ROOT/'config/nano.m2.ethernet.example.json',ROOT/'tools/task4/protocol.py',
+        ROOT/'config/nano.mecanum.ethernet.example.json',
+        ROOT/'tools/task4/telemetry_endpoint.py',ROOT/'tools/task4/verify_ethernet.py',ROOT/'docs/task4/LIDAR_ETHERNET_360_20261102.md',ROOT/'docs/task4/LIDAR_RAW_ETHERNET_20261102.md',
+        ROOT/'docs/IMU_MPU6050_20261102.md',ROOT/'tools/verify_mpu6050.py']
     hashes={}
     for p in files:
         rel=p.relative_to(ROOT);dest=target/rel;dest.parent.mkdir(parents=True,exist_ok=True)

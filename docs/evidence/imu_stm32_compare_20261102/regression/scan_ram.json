@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "hardware_tested": false,
+  "programmed": false,
+  "source_sha256": {
+    "tests/navigation/tb_lidar_scan_ram.sv": "6ce0caadb0c57d15f03b5ad252a728ac7912a3df1e2622a38aeb0e2202b8d82c",
+    "fpga/navigation/lidar_scan_source.sv": "dbcc9acebbaea2de3cd6cc682ebe85a53a055c274c6ae23a06980fddcdad9b3a",
+    "fpga/motor/frame_transport.sv": "aebefc706aec37bb901ad59088194d05debda8839604310c71fa90955929a790"
+  }
+}

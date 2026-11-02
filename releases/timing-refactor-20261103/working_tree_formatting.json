@@ -1,0 +1,7 @@
+{
+  "file": "fpga/vision/src/network_runtime_dual.v",
+  "change": "Remove trailing spaces only; frozen compiled RTL untouched",
+  "before_sha256": "ef1987d166ad524244dcd9ff4c17930f84d84447e2ac0036e140cf9574f81eda",
+  "after_sha256": "82f9c7b9518cfbe034e9719e3c1e97c0006301b4f0ee851b223395fad1d80308",
+  "normalized_text_identical": true
+}

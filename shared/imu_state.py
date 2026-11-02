@@ -18,7 +18,7 @@ class ImuState:
             for row in (self.parser.feed(payload) if rows is None else rows):
                 self.stats.add(row)
                 self.last, self.received = row, now
-                good = row['type']=='sample' and row['ready'] and not row['fault'] and not row['stale'] and row['who_am_i']==0x47
+                good = row['type']=='sample' and row['ready'] and not row['fault'] and not row['stale'] and imu_protocol.identity_matches(row)
                 if not good:
                     self.previous = None
                     self.pitch = self.roll = None
@@ -47,7 +47,7 @@ class ImuState:
         with self.lock:
             age = now-self.received if self.received is not None else None
             row=dict(self.last) if self.last else None
-            healthy = bool(row and row['type']=='sample' and row['ready'] and not row['fault'] and not row['stale'] and row['who_am_i']==0x47)
+            healthy = bool(row and row['type']=='sample' and row['ready'] and not row['fault'] and not row['stale'] and imu_protocol.identity_matches(row))
             return dict(online=age is not None and age<.5 and not self.error, healthy=healthy,
                 age_ms=age*1000 if age is not None else None,error=self.error,
                 frame=row,statistics=self.stats.report(self.parser),

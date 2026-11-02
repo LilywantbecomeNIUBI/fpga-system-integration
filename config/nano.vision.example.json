@@ -1,0 +1,10 @@
+{
+  "bind": "192.168.50.20",
+  "port": 8766,
+  "fpga": "192.168.50.30",
+  "model": "yolov8n",
+  "backend": "tensorrt",
+  "model_dir": "/home/liwei/robot_camera_yolo_dashboard_trt/models/yolov8n-coco-320",
+  "engine": "/home/liwei/robot_camera_yolo_dashboard_trt/models/yolov8n-coco-320/yolov8n-320-fp16.engine",
+  "out": "runs/vision"
+}

@@ -70,7 +70,7 @@ class CaptureProcess:
             status=dict(self.last_status)
             child_frames=status.get('frames',0)
             recent=[t for t in self.delivered_times if time.monotonic()-t<2]
-            receiver_fps=status.get('fps',0)
+            receiver_fps=status.get('fps',0) if self.latest and 0 <= time.monotonic()-self.latest[2] < .5 else 0.
             status.update(frames=self.delivered,receiver_frames=child_frames,
                 receiver_fps=receiver_fps,fps=(len(recent)-1)/(recent[-1]-recent[0]) if len(recent)>1 else 0.,
                 packets=status.get('packets',0),bad=status.get('bad',0),missing_frames=status.get('missing_frames',0),

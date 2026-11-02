@@ -1,0 +1,17 @@
+{
+  "firmware.fs.gz": {
+    "original": "impl/pnr/sensor.fs",
+    "original_sha256": "4136ca0bdae7aab54f010c21470890ce47fb3f5dd3ec7cfdd406d80fab831d3f",
+    "original_bytes": 41470557
+  },
+  "sensor.tr.gz": {
+    "original": "impl/pnr/sensor.tr",
+    "original_sha256": "e844c3e6d8fcb96c135a7bb4bd09760b087e9aeefbd13a2b8f55aad5d302ce32",
+    "original_bytes": 4533801
+  },
+  "sensor.vg.gz": {
+    "original": "impl/gwsynthesis/sensor.vg",
+    "original_sha256": "6ef584d88e08e70ade99c7edb0b1cfbe2d811ae142a9aecb229fd5d40eca74e0",
+    "original_bytes": 18576267
+  }
+}

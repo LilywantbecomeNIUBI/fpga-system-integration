@@ -10,7 +10,7 @@ module tb_fast_end_to_end;
     wire [15:0] errors,invalids,read_us,interval_us,drops;
     wire slow_tx;
     wire [15:0] slow_drops;
-    imu_1khz_core #(.POWERUP_US(100),.RESET_US(1200),.STARTUP_US(500)) core(
+    icm42688_fast_reader #(.POWERUP_US(100),.RESET_US(1200),.STARTUP_US(500)) core(
         .clk(clk),.rst_n(rst_n),.imu_i2c_scl(scl),.imu_i2c_sda(sda),
         .ready(ready),.fault(fault),.sample_valid(valid),.sample_stale(stale),.temperature_valid(temp_valid),
         .ax(ax),.ay(ay),.az(az),.gx(gx),.gy(gy),.gz(gz),.temperature_raw(temp),

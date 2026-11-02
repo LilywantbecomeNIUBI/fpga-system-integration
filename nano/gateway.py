@@ -1,14 +1,17 @@
 """Nano gateway, Python 3.6+. No IO until explicitly started in live mode."""
 from pathlib import Path
-import argparse,hmac,json,os,queue,signal,sys,threading,time
+import argparse,hmac,ipaddress,json,os,queue,signal,socket,sys,threading,time
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from socketserver import ThreadingMixIn
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'host'));sys.path.insert(0,str(ROOT/'nano'))
 from control import Control
 from shared.streams import MixedStream,LidarStream
+from shared.lidar_display import FpgaLidar
 from shared.imu_state import ImuState
 from shared.calibration import Odometry
+from shared.telemetry_udp import TelemetryUDP
+from tools.task4.protocol import StatusStream
 
 class Recorder:
     def __init__(self,path):
@@ -20,15 +23,22 @@ class Recorder:
     def run(self):
         try:
             with (self.path/'events.jsonl').open('x',encoding='utf-8') as events,(self.path/'fpga_uart.bin').open('xb') as uart,(self.path/'lidar_uart.bin').open('xb') as lidar:
+                pending=0;flushed=time.monotonic()
                 while True:
-                    item=self.queue.get()
+                    try:item=self.queue.get(timeout=.1)
+                    except queue.Empty:
+                        events.flush();uart.flush();lidar.flush();pending=0;flushed=time.monotonic()
+                        continue
                     if item is None:break
                     kind,data,received,wall=item
                     if kind in ('uart','lidar'):
                         stream=uart if kind=='uart' else lidar
                         offset=stream.tell();stream.write(data)
                         data=dict(offset=offset,length=len(data),file='fpga_uart.bin' if kind=='uart' else 'lidar_uart.bin')
-                    events.write(json.dumps(dict(monotonic=received,wall_time=wall,kind=kind,data=data),allow_nan=False)+'\n');events.flush()
+                    events.write(json.dumps(dict(monotonic=received,wall_time=wall,kind=kind,data=data),allow_nan=False)+'\n')
+                    pending+=1
+                    if pending>=64 or time.monotonic()-flushed>=.1:
+                        events.flush();uart.flush();lidar.flush();pending=0;flushed=time.monotonic()
         except OSError as exc:self.error=str(exc)
     def close(self):
         try:self.queue.put(None,timeout=1)
@@ -44,53 +54,101 @@ class Gateway:
         self.lidar_frames_base=0;self.lidar_scans_base=0;self.lidar_crc_base=0
         self.encoder_diagnostics={}
         self.encoder_traces={}
+        self.mecanum={}
+        self.chassis_type=self.config.get('chassis_type','differential')
+        if self.chassis_type not in ('differential','mecanum'):raise ValueError('Invalid chassis_type')
+        self.fpga_lidar=FpgaLidar()
+        self.telemetry_transport=self.config.get('telemetry_transport','serial')
+        if self.telemetry_transport not in ('serial','udp'):raise ValueError('telemetry_transport must be serial or udp')
+        if self.chassis_type=='mecanum' and self.telemetry_transport!='udp':raise ValueError('Mecanum gateway requires UDP status')
+        peer=str(ipaddress.IPv4Address(self.config.get('fpga_ip','192.168.50.30')))
+        self.udp_telemetry=TelemetryUDP(peer,self.config.get('telemetry_source_port',6205))
+        self.udp_error=None;self.navigation=StatusStream();self.navigation_row=None
+        self.lidar_source=self.config.get('lidar_source','usb')
+        if self.lidar_source not in ('usb','fpga'):raise ValueError('lidar_source must be usb or fpga')
     def start(self):
         if not self.live:return
-        import serial # Fail before opening listeners' device workers if dependency is missing.
         lidar_enabled=self.config.get('lidar_enabled',True)
         if not isinstance(lidar_enabled,bool):raise ValueError('lidar_enabled must be boolean')
+        if self.chassis_type=='differential' or (lidar_enabled and self.lidar_source=='usb'):
+            import serial # Fail before opening workers only if a serial device is needed.
         ports=[self.config.get('fpga_serial'),self.config.get('lidar_serial')]
-        if not ports[0] or (lidar_enabled and (not ports[1] or ports[0]==ports[1])):raise ValueError('Configure FPGA serial and, when enabled, a distinct lidar serial')
+        if self.chassis_type=='differential' and not ports[0]:raise ValueError('Configure FPGA command serial')
+        if lidar_enabled and self.lidar_source=='usb' and (not ports[1] or ports[0]==ports[1]):raise ValueError('Configure a distinct lidar serial')
         self.recorder=Recorder(Path(self.config.get('record_dir','runs/gateway'))/(time.strftime('%Y%m%d_%H%M%S')+'_'+os.urandom(4).hex()))
         self.control.event_sink=lambda event:self.recorder.put('control_event',event)
-        targets=[self.serial_loop,self.record_loop]
-        if lidar_enabled:targets.append(self.lidar_loop)
+        # The old HTTP controller encodes differential commands. In Mecanum
+        # mode this gateway only receives status; the V3 GUI owns command UART.
+        targets=[self.record_loop]
+        if self.chassis_type=='differential':targets.append(self.serial_loop)
+        if self.telemetry_transport=='udp':targets.append(self.telemetry_loop)
+        if lidar_enabled and self.lidar_source=='usb':targets.append(self.lidar_loop)
         for target in targets:
             t=threading.Thread(target=target,daemon=True);self.threads.append(t);t.start()
-    def ingest_uart(self,data):
+    def ingest_uart(self,data,now=None):
+        now=time.monotonic() if now is None else now
         if self.recorder:self.recorder.put('uart',data)
+        for row in self.navigation.feed(data):
+            with self.lock:self.navigation_row=dict(row,received_monotonic=now)
         for kind,row in self.mixed.feed(data):
             if kind=='motor':
                 previous_faults=self.control.motor.get('faults') if self.control.motor else None
-                accepted=self.control.ingest(row)
+                accepted=self.control.ingest(row,now=now)
                 if accepted and self.recorder and row['faults']!=previous_faults:
                     self.recorder.put('motor_fault',dict(previous=previous_faults,current=row['faults'],packet_count=row.get('packet_count')))
                 if accepted:
                     with self.lock:
                         if accepted=='restart':self.odometry.reset_reference()
                         self.odometry.update(row)
+            elif kind in ('mecanum_motor','mecanum_pose'):
+                with self.lock:
+                    self.mecanum[kind]=dict(row,received_monotonic=now)
             elif kind=='encoder_diagnostics':
                 with self.lock:
-                    self.encoder_diagnostics[row['axis']]=dict(row,received_monotonic=time.monotonic())
+                    self.encoder_diagnostics[row['axis']]=dict(row,received_monotonic=now)
             elif kind=='encoder_trace':
                 with self.lock:
-                    self.encoder_traces[row['axis']]=dict(row,received_monotonic=time.monotonic())
-            else:self.imu.feed(b'',rows=[row])
+                    self.encoder_traces[row['axis']]=dict(row,received_monotonic=now)
+            elif kind in ('lidar_scan','lidar_diagnostic','lidar_raw'):
+                with self.lock:self.fpga_lidar.ingest(kind,row,now=now)
+            elif kind=='imu':self.imu.feed(b'',rows=[row],now=now)
+    def ingest_udp(self,data,peer):
+        with self.lock:frame=self.udp_telemetry.feed(data,peer)
+        if frame is not None:
+            if self.recorder:self.recorder.put('udp_telemetry',dict(peer=list(peer),hex=data.hex()))
+            self.ingest_uart(frame,now=time.monotonic()-self.udp_telemetry.frame_age)
+        return frame is not None
+    def telemetry_loop(self):
+        try:
+            with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as stream:
+                stream.setsockopt(socket.SOL_SOCKET,socket.SO_RCVBUF,1024*1024)
+                stream.bind((self.config.get('telemetry_bind','0.0.0.0'),self.config.get('telemetry_port',6205)))
+                stream.settimeout(.1)
+                while not self.stop.is_set():
+                    try:data,peer=stream.recvfrom(2048)
+                    except socket.timeout:continue
+                    self.ingest_udp(data,peer)
+                    self.udp_error='FPGA复位：请重连网关以绑定新遥测序列' if self.udp_telemetry.restart_required else None
+        except OSError as exc:self.udp_error=str(exc)
     def serial_loop(self):
         import serial
         while not self.stop.is_set():
             try:
                 with serial.Serial(self.config['fpga_serial'],115200,timeout=.005,write_timeout=.05,exclusive=True) as stream:
-                    self.uart_crc_base+=self.mixed.bad_crc;self.mixed=MixedStream();self.serial_connections+=1;self.control.connect()
-                    with self.lock:self.encoder_diagnostics={};self.encoder_traces={}
+                    self.serial_connections+=1;self.control.connect()
+                    if self.telemetry_transport=='serial':
+                        self.uart_crc_base+=self.mixed.bad_crc;self.mixed=MixedStream()
+                        with self.lock:self.encoder_diagnostics={};self.encoder_traces={};self.fpga_lidar.reset()
                     with self.lock:self.odometry.reset_reference()
                     while not self.stop.is_set():
                         # Check deadlines before any potentially blocking serial operation.
                         for packet in self.control.poll():
                             if stream.write(packet)!=len(packet):raise OSError('Short FPGA write')
                             if self.recorder:self.recorder.put('command',dict(sequence=packet[4],opcode=packet[3],flags=packet[5],left=int.from_bytes(packet[6:8],'little',signed=True),right=int.from_bytes(packet[8:10],'little',signed=True)))
-                        data=stream.read(min(max(stream.in_waiting,1),4096))
-                        if data:self.ingest_uart(data)
+                        if self.telemetry_transport=='serial':
+                            data=stream.read(min(max(stream.in_waiting,1),4096))
+                            if data:self.ingest_uart(data)
+                        else:self.stop.wait(.005)
                         self.serial_error=None
                     self.control.revoke('gateway_shutdown')
                     for packet in self.control.poll():stream.write(packet)
@@ -124,6 +182,8 @@ class Gateway:
             lidar=dict(enabled=self.config.get('lidar_enabled',True),online=self.config.get('lidar_enabled',True) and age is not None and age<.5,age_ms=age*1000 if age is not None else None,error=self.lidar_error,
                 frames=self.lidar_frames_base+self.lidar.frames,scans=self.lidar_scans_base+self.lidar.scans,bad_crc=self.lidar_crc_base+self.lidar.bad_crc,
                 connections=self.lidar_connections,scan=self.lidar.last_scan if age is not None and age<.5 else None)
+            if self.lidar_source=='fpga':lidar=self.fpga_lidar.snapshot(enabled=self.config.get('lidar_enabled',True))
+            else:lidar['source']='nano_usb'
             odometry=self.odometry.snapshot()
         control=self.control.snapshot();odometry['valid']=odometry['valid'] and control['motor_fresh']
         with self.lock:
@@ -131,7 +191,12 @@ class Gateway:
                                  for axis,row in self.encoder_diagnostics.items()}
             encoder_traces={str(axis):dict(row,age_ms=(time.monotonic()-row['received_monotonic'])*1000)
                             for axis,row in self.encoder_traces.items()}
-        return dict(profile='system_integration_v1',mode='live' if self.live else 'offline',control=control,imu=self.imu.snapshot(),lidar=lidar,
+            transport=self.udp_telemetry.snapshot() if self.telemetry_transport=='udp' else dict(transport='serial')
+            navigation=dict(self.navigation_row,age_ms=(time.monotonic()-self.navigation_row['received_monotonic'])*1000) if self.navigation_row else None
+            mecanum={kind:dict(row,age_ms=(time.monotonic()-row['received_monotonic'])*1000)
+                     for kind,row in self.mecanum.items()}
+        return dict(profile='system_integration_v1',chassis_type=self.chassis_type,mode='live' if self.live else 'offline',control=control,imu=self.imu.snapshot(),lidar=lidar,
+            telemetry=transport,telemetry_error=self.udp_error,navigation=navigation,mecanum=mecanum,
             encoder_diagnostics=encoder_diagnostics,
             encoder_traces=encoder_traces,
             odometry=odometry,serial_error=self.serial_error,serial_connections=self.serial_connections,uart_bad_crc=self.uart_crc_base+self.mixed.bad_crc,recording=dict(active=bool(self.recorder),drops=self.recorder.drops if self.recorder else 0,error=self.recorder.error if self.recorder else None))
@@ -163,6 +228,7 @@ def make_server(gateway,bind,port,token):
         def do_POST(self):
             if not self.authorized():self.reply(dict(error='Forbidden'),403);return
             if self.path!='/api/control':self.reply(dict(error='Not found'),404);return
+            if gateway.chassis_type=='mecanum':self.reply(dict(error='Use the Mecanum V3 UART console; differential HTTP commands are unavailable'),409);return
             try:
                 self.connection.settimeout(.1);size=int(self.headers.get('Content-Length','0'))
                 if not 0<size<=2048:raise ValueError('Invalid body size')

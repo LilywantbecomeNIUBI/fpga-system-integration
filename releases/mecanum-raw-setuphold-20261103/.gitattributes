@@ -1,0 +1,3 @@
+* -text
+# Frozen upstream bytes retain their original whitespace.
+source/** -whitespace

@@ -17,7 +17,7 @@ def main():
     for bench in sorted((ROOT/'tests').glob('tb_*.sv')):
         if bench.stem=='tb_full_system':continue
         image=folder/(bench.stem+'.vvp')
-        compile_result=subprocess.run([compiler,'-g2012','-Wall','-s',bench.stem,'-o',str(image),*map(str,sources),*(['tests/imu/icm42688_model.sv'] if bench.stem=='tb_motor_imu' else []),str(bench)],capture_output=True,text=True)
+        compile_result=subprocess.run([compiler,'-g2012','-Wall','-s',bench.stem,'-o',str(image),*map(str,sources),*(['tests/imu/mpu6050_model.sv'] if bench.stem=='tb_motor_imu' else []),str(bench)],capture_output=True,text=True)
         if compile_result.returncode: print(compile_result.stdout+compile_result.stderr);raise SystemExit(1)
         run=subprocess.run([runner,str(image)],capture_output=True,text=True,timeout=90)
         output=run.stdout+run.stderr;print(output.strip())

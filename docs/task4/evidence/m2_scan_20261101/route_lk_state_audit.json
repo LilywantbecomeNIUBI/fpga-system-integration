@@ -1,0 +1,130 @@
+{
+  "passed": true,
+  "netlist_sha256": "cfefab8e80ed4bbaa9a0cdea5d04c1183e4597e96288b36415f55926032b6be0",
+  "instances": [
+    {
+      "module": "flow_lk_patch",
+      "state_ff_count": 5,
+      "bits": {
+        "3": [
+          {
+            "cell": "state_3_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[3]),\n    .D(next_state[3]),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "2": [
+          {
+            "cell": "state_2_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[2]),\n    .D(next_state[2]),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "1": [
+          {
+            "cell": "state_1_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[1]),\n    .D(next_state[1]),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "0": [
+          {
+            "cell": "state_0_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[0]),\n    .D(next_state[0]),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "4": [
+          {
+            "cell": "state_4_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[4]),\n    .D(next_state[4]),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ]
+      }
+    },
+    {
+      "module": "flow_lk_patch_0",
+      "state_ff_count": 5,
+      "bits": {
+        "3": [
+          {
+            "cell": "state_3_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[3]),\n    .D(next_state[3]),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "2": [
+          {
+            "cell": "state_2_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[2]),\n    .D(next_state[2]),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "1": [
+          {
+            "cell": "state_1_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[1]),\n    .D(next_state[1]),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "0": [
+          {
+            "cell": "state_0_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[0]),\n    .D(next_state[0]),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "4": [
+          {
+            "cell": "state_4_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[4]),\n    .D(next_state[4]),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ]
+      }
+    },
+    {
+      "module": "vision_tracker",
+      "state_ff_count": 5,
+      "bits": {
+        "4": [
+          {
+            "cell": "state_4_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[4]),\n    .D(n6487_6),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "3": [
+          {
+            "cell": "state_3_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[3]),\n    .D(n6488_7),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "2": [
+          {
+            "cell": "state_2_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[2]),\n    .D(n6489_6),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "1": [
+          {
+            "cell": "state_1_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[1]),\n    .D(n6490_7),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ],
+        "0": [
+          {
+            "cell": "state_0_s1",
+            "type": "DFFCE",
+            "ports": ".Q(state[0]),\n    .D(n6491_6),\n    .CLK(clk50),\n    .CLEAR(n24_6),\n    .CE(VCC)"
+          }
+        ]
+      }
+    }
+  ],
+  "limitation": "Counts synthesis FFs by preserved state names; routed implementation still needs verification."
+}

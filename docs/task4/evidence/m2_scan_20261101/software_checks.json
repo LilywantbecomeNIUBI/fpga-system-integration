@@ -1,0 +1,41 @@
+{
+  "hardware_tested": false,
+  "programmed": false,
+  "baseline_commit": "63aca08",
+  "python_tests": 68,
+  "python_passed": true,
+  "ui_script_passed": true,
+  "motor_rtl_cases": 10,
+  "motor_rtl_passed": true,
+  "browser_synthetic_video_and_scan_visible": true,
+  "browser_errors": 0,
+  "notes": [
+    "Synthetic browser fixture; no hardware IO",
+    "Live background and optical flow are not frame-locked"
+  ],
+  "source_sha256": {
+    "config/nano.example.json": "d3647f5b101255e73ef190f3ccb5687a25dcac1cec2114baa57b0dc43e1ab82d",
+    "fpga/motor/frame_transport.sv": "9e7967b5d9aec64d299d51d8737d46e3b0a4cbe38a307fc22bddf88ff9f9940f",
+    "fpga/motor/motor_telemetry.sv": "e12535c7ac9261433169be755d27357491777bb360c0d8973b75d22ef7eab7eb",
+    "fpga/navigation/system_task4_top.sv": "b430d5ac0cac761a62eb6f26e393dbd95c1d5b380cf41043e7a8dd8a8c1892fe",
+    "fpga/navigation/task4_chassis.sv": "f9de118e5641a64ebc2b94eee7066afc69ba4bb13fb72ac2d7627d7abaafa681",
+    "host/dashboard.py": "8b043d05aca83c7f3efb39c90ed945d1d89e1f00cc3564fdd06c050887fdacaf",
+    "host/index.html": "faf68f2e31afddd145f77f0f24dafeb6353c05f80200361591a7933ce48f2b31",
+    "host/task4_console.html": "3704b56decfdda399aca76eba970e3abf35dc13f5174471f49a4f7b132f25f92",
+    "host/task4_console.py": "76776d847d0a6564c12bd69b99b3b333568609ea42dbb98f1a4d63ab26659ea7",
+    "nano/gateway.py": "32a7fb904d00b79bb4f68bfbb7265a781413d6275cbd39460e4e9c41599b8c51",
+    "shared/streams.py": "0d54fce954528fc2e185dc7d4ee2c9b3acf83aac92c40d94929a58201cbbd4a2",
+    "tests/navigation/tb_task4_system.sv": "3b07f3013450580ed0665a8688c06c82d16701a379bfead6d564e8b92e836112",
+    "tests/test_perception_ui.js": "cafe8f4dc69abed928a17e745850b174283ad91ae705c94741193c218a8285a0",
+    "tools/prepare_nano.py": "f5aa3de7e13e5f0d3982b33b15c4e722809f90b534911999f1c2373132eb6192",
+    "tools/task4/protocol.py": "001749afeae71c5b72c5bdc6448855ba36df3b6d44c2a3841caf0ced1288dcb4",
+    "tools/task4/test.py": "5fbd37982ca9873d475cde077a96a8237f39399f9006dd3b9ecb4b7e5b7e45cc",
+    "config/nano.m2.example.json": "4dfbf71cd82605ce14230056643087a399c2708abc492bb851acd6ab87dc80b7",
+    "fpga/navigation/lidar_scan_source.sv": "1e4a1085b32d07590d5114fcd61ee79c1179937b3a378b09a27451d5107e53d9",
+    "shared/lidar_display.py": "634a86c992052a8191c108c02cc85c81976239dc1ecd1d353070ae16003a6287",
+    "tests/navigation/tb_lidar_display.sv": "27eaebb4f02775fb86c1d6c77b88a8d2a79e2e898e4ed46441e40a8eb5ec15e5",
+    "tests/test_lidar_display.py": "5b3b5d36a5b46ed35963138eefb2aceb39c3e566ab83c4454fab477054813e92",
+    "tools/task4/test_display.py": "54ec03aa7fd51189277d7188f3b18d3a4efb8d82f466fb3cdebabb495d66f1e7",
+    "tools/task4/verify_lidar.py": "cc8baabed5400a0f9541a83ec80c81e950a907690d166c82528fd389f6427377"
+  }
+}

@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-module imu_1khz_top # (parameter integer I2C_HZ=1000000)(
+module imu_1khz_top # (parameter integer I2C_HZ=400000)(
     input clk50m, input reset_n, inout imu_i2c_scl, inout imu_i2c_sda,
     output uart_tx, output [7:0] led,
     output m1_pwm_ah, m1_pwm_al, m1_pwm_bh, m1_pwm_bl, m1_pwm_ch, m1_pwm_cl,
@@ -22,7 +22,7 @@ module imu_1khz_top # (parameter integer I2C_HZ=1000000)(
         .sample_seq(seq),.timestamp_us(stamp),.commit_timestamp_us(commit_stamp),.sample_age_us(age_us),
         .now_us(now_us),.observe_to_commit_us(read_us),.sample_interval_us(interval_us),
         .error_count(errors),.invalid_count(invalid),.who_am_i(who),.last_error(error));
-    imu_fast_uart_stream #(.FAST_BUS(I2C_HZ>400000)) debug_stream(.clk(clk50m),.rst_n(rst_n),
+    imu_fast_uart_stream #(.FAST_BUS(0),.PROFILE_ID(4)) debug_stream(.clk(clk50m),.rst_n(rst_n),
         .sample_valid(valid),.ready(ready),.fault(fault),.sample_stale(stale),.temperature_valid(temp_valid),
         .ax(ax),.ay(ay),.az(az),.gx(gx),.gy(gy),.gz(gz),.temperature_raw(temp),
         .sample_seq(seq),.timestamp_us(stamp),.now_us(now_us),.who_am_i(who),.last_error(error),

@@ -1,0 +1,13 @@
+{
+  "chassis_type": "mecanum",
+  "bind": "0.0.0.0",
+  "port": 8873,
+  "fpga_ip": "192.168.50.30",
+  "telemetry_transport": "udp",
+  "telemetry_bind": "0.0.0.0",
+  "telemetry_port": 6205,
+  "telemetry_source_port": 6205,
+  "lidar_enabled": true,
+  "lidar_source": "fpga",
+  "record_dir": "runs/mecanum_gateway"
+}

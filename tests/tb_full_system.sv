@@ -27,7 +27,7 @@ module tb_full_system;
     defparam dut.camera.stream.ACTIVE_HEIGHT=8;
     defparam dut.camera.stream.CANVAS_HEIGHT=16;
     reg present=1;
-    icm42688_model #(.SAMPLE_NS(1000000)) sensor(.scl(scl),.sda(sda),.present(present),.identity(8'h47),.corrupt_readback(1'b0),.invalid_data(1'b0),.freeze_samples(1'b0));
+    mpu6050_model #(.SAMPLE_NS(1000000)) sensor(.scl(scl),.sda(sda),.present(present),.identity(8'h68),.corrupt_readback(1'b0),.invalid_data(1'b0),.freeze_samples(1'b0));
     reg cmd=0;reg [7:0] op=0,seq=0;reg signed [15:0] target=0;
     reg os=0,oe=0,ov=0;reg [15:0] pixel=0,fid=0;
     integer samples=0,control_ticks=0,eth_bytes=0,moving_bytes=0,bytes=0,file,i,j;
