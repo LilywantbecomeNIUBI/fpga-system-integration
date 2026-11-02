@@ -11,23 +11,12 @@ sys.path.insert(0, str(ROOT/'tools/task4'))
 from build import sources, base_constraints
 
 
-def prepare():
-    out = ROOT/'build/mecanum'/time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
-    out.mkdir(parents=True, exist_ok=False)
-    files = sorted(set(sources()+list((ROOT/'fpga/mecanum').glob('*.sv'))))
-    hashes = {}
-    for p in files:
-        dest = out/'source'/p.relative_to(ROOT)
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(p, dest)
-        hashes[p.relative_to(ROOT).as_posix()] = hashlib.sha256(dest.read_bytes()).hexdigest()
-    if any(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()!=h for p,h in hashes.items()):
-        raise RuntimeError('Source changed while preparing snapshot')
+def constraints():
     profile = json.loads((ROOT/'hardware/mecanum.json').read_text())
     pins = profile['pins']
     rows = [dict(group='chassis', **p) for p in pins]
-    rows += [r for r in csv.DictReader((ROOT/'hardware/pins.csv').open(encoding='utf-8-sig'))
-             if r['group'] in ('camera', 'ethernet')]
+    with (ROOT/'hardware/pins.csv').open(encoding='utf-8-sig') as stream:
+        rows += [r for r in csv.DictReader(stream) if r['group'] in ('camera', 'ethernet')]
     if len(rows)!=len({r['ball'] for r in rows}) or len(rows)!=len({r['signal'] for r in rows}):
         raise RuntimeError('Mecanum/camera/Ethernet physical pin collision')
     cst, sdc = base_constraints(rows)
@@ -50,6 +39,22 @@ def prepare():
             sdc += 'set_false_path -to [get_pins {chassis/core/wheels[%d].encoder/ab_meta_%d_s0/D}]\n'%(wheel,bit)
     for clock in ('sys50','control50','cam_pclk','eth125','eth_rx125'):
         sdc += 'report_timing -setup -from_clock [get_clocks {%s}] -to_clock [get_clocks {%s}] -max_paths 100\n'%(clock,clock)
+    return rows,cst,sdc
+
+
+def prepare():
+    out = ROOT/'build/mecanum'/time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
+    out.mkdir(parents=True, exist_ok=False)
+    files = sorted(set(sources()+list((ROOT/'fpga/mecanum').glob('*.sv'))))
+    hashes = {}
+    for p in files:
+        dest = out/'source'/p.relative_to(ROOT)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(p, dest)
+        hashes[p.relative_to(ROOT).as_posix()] = hashlib.sha256(dest.read_bytes()).hexdigest()
+    if any(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()!=h for p,h in hashes.items()):
+        raise RuntimeError('Source changed while preparing snapshot')
+    rows,cst,sdc=constraints()
     (out/'mecanum.cst').write_text(cst)
     (out/'mecanum.sdc').write_text(sdc)
     (out/'pin_audit.json').write_text(json.dumps(dict(passed=True,pins=rows),indent=2))

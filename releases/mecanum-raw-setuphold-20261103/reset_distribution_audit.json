@@ -1,0 +1,4427 @@
+{
+  "passed": true,
+  "branches": [
+    {
+      "flipflop": "release_pipe_10_s1",
+      "net": "release_pipe_1[10]",
+      "fanout": 128,
+      "clear_pins": 128,
+      "sinks": [
+        {
+          "cell": "camera/flow_mailbox/dst_data_127_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_126_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_125_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_124_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_123_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_122_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_121_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_120_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_119_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_118_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_117_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_116_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_115_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_114_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_113_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_112_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_111_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_110_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_109_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_108_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_107_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_106_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_105_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_104_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_103_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_102_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_101_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_100_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_99_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_98_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_97_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_96_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_95_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_94_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_93_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_92_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_91_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_90_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_89_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_88_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_87_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_86_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_85_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_84_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_83_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_82_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_81_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_80_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_79_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_78_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_77_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_76_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_75_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_74_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_73_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_72_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_71_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_70_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_69_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_68_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_67_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_66_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_65_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_64_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_63_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_62_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_61_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_60_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_59_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_58_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_57_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_56_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_55_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_54_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_53_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_52_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_51_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_50_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_49_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_48_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_47_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_46_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_45_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_44_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_43_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_42_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_41_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_40_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_39_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_38_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_37_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_36_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_35_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_34_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_33_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_32_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_31_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_30_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_29_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_28_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_27_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_26_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_25_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_24_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_23_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_22_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_21_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_20_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_19_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_18_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_17_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_16_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_15_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_14_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_13_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_12_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_11_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_10_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_9_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_8_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_7_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_6_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_5_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_4_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_3_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_2_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_1_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_0_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        }
+      ]
+    },
+    {
+      "flipflop": "release_pipe_9_s1",
+      "net": "release_pipe_1[9]",
+      "fanout": 77,
+      "clear_pins": 77,
+      "sinks": [
+        {
+          "cell": "camera/observation_mailbox/dst_data_215_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_213_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_212_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_211_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_210_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_209_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_208_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_203_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_202_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_201_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_200_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_193_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_192_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_191_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_190_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_189_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_188_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_187_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_186_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_185_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_184_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_183_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_182_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_181_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_180_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_179_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_178_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_177_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_176_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_175_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_174_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_173_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_172_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_171_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_170_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_169_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_168_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_167_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_166_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_165_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_164_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_163_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_162_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_161_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_160_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_159_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_158_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_157_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_156_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_155_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_154_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_153_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_152_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_151_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_150_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_149_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_148_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_147_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_146_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_145_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_144_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_143_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_142_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_141_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_140_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_139_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_138_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_137_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_136_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_135_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_134_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_133_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_132_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_131_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_130_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_129_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_128_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        }
+      ]
+    },
+    {
+      "flipflop": "release_pipe_8_s1",
+      "net": "release_pipe_1[8]",
+      "fanout": 107,
+      "clear_pins": 107,
+      "sinks": [
+        {
+          "cell": "camera/observation_mailbox/dst_data_127_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_126_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_125_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_124_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_123_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_122_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_121_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_120_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_119_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_118_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_117_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_116_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_115_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_114_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_113_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_112_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_111_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_110_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_109_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_108_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_107_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_106_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_105_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_104_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_103_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_102_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_101_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_100_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_99_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_98_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_97_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_96_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_95_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_94_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_93_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_92_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_91_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_90_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_89_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_88_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_87_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_86_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_85_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_84_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_83_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_82_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_81_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_80_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_79_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_78_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_77_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_76_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_75_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_74_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_73_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_72_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_71_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_70_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_69_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_68_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_67_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_66_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_65_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_64_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_63_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_62_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_61_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_60_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_59_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_58_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_57_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_56_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_55_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_54_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_53_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_52_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_51_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_50_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_49_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_48_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_42_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_41_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_40_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_39_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_38_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_37_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_36_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_35_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_34_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_33_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_32_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_31_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_30_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_29_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_28_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_27_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_26_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_25_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_24_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_23_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_22_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_21_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_20_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_19_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_18_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_17_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_data_16_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        }
+      ]
+    },
+    {
+      "flipflop": "release_pipe_7_s1",
+      "net": "release_pipe_1[7]",
+      "fanout": 28,
+      "clear_pins": 28,
+      "sinks": [
+        {
+          "cell": "camera/seed_mailbox/held_256_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_207_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_206_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_205_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_204_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_203_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_202_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_201_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_200_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_199_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_198_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_197_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_196_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_195_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_256_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_207_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_206_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_205_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_204_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_203_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_202_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_201_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_200_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_199_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_198_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_197_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_196_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_195_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        }
+      ]
+    },
+    {
+      "flipflop": "release_pipe_6_s1",
+      "net": "release_pipe_1[6]",
+      "fanout": 66,
+      "clear_pins": 66,
+      "sinks": [
+        {
+          "cell": "camera/seed_mailbox/held_194_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_193_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_192_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_159_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_158_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_157_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_156_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_155_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_154_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_153_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_152_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_151_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_150_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_149_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_148_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_147_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_146_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_145_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_144_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_143_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_142_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_141_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_140_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_139_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_138_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_137_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_136_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_135_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_134_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_133_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_132_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_131_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_130_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_194_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_193_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_192_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_159_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_158_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_157_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_156_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_155_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_154_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_153_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_152_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_151_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_150_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_149_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_148_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_147_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_146_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_145_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_144_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_143_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_142_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_141_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_140_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_139_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_138_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_137_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_136_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_135_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_134_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_133_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_132_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_131_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_130_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        }
+      ]
+    },
+    {
+      "flipflop": "release_pipe_5_s1",
+      "net": "release_pipe_1[5]",
+      "fanout": 130,
+      "clear_pins": 130,
+      "sinks": [
+        {
+          "cell": "camera/seed_mailbox/held_129_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_128_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_127_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_126_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_125_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_124_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_123_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_122_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_121_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_120_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_119_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_118_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_117_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_116_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_115_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_114_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_113_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_112_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_111_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_110_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_109_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_108_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_107_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_106_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_105_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_104_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_103_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_102_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_101_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_100_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_99_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_98_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_97_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_96_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_95_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_94_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_93_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_92_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_91_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_90_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_89_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_88_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_87_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_86_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_85_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_84_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_83_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_82_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_81_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_80_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_79_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_78_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_77_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_76_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_75_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_74_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_73_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_72_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_71_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_70_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_69_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_68_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_67_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_66_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/held_65_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_129_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_128_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_127_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_126_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_125_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_124_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_123_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_122_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_121_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_120_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_119_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_118_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_117_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_116_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_115_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_114_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_113_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_112_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_111_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_110_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_109_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_108_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_107_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_106_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_105_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_104_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_103_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_102_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_101_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_100_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_99_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_98_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_97_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_96_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_95_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_94_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_93_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_92_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_91_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_90_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_89_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_88_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_87_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_86_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_85_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_84_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_83_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_82_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_81_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_80_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_79_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_78_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_77_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_76_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_75_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_74_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_73_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_72_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_71_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_70_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_69_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_68_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_67_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_66_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_65_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        }
+      ]
+    },
+    {
+      "flipflop": "release_pipe_4_s1",
+      "net": "release_pipe_1[4]",
+      "fanout": 2,
+      "clear_pins": 2,
+      "sinks": [
+        {
+          "cell": "camera/seed_mailbox/held_64_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/newest_64_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        }
+      ]
+    },
+    {
+      "flipflop": "release_pipe_3_s1",
+      "net": "release_pipe_1[3]",
+      "fanout": 111,
+      "clear_pins": 109,
+      "sinks": [
+        {
+          "cell": "camera/flow_bridge/have_status_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/have_latest_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/ready_d_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/deadline_due_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/latest_epoch_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_segments[1].carry_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_segments[2].carry_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_sample_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/ready_sample_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_kind_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_write_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_bank_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_sample_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/ready_sample_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_kind_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_write_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_bank_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_sample_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/ready_sample_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_kind_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_write_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_bank_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_sample_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/ready_sample_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_kind_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_write_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_bank_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_sample_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/ready_sample_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_kind_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_write_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_bank_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_sample_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/ready_sample_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_kind_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_write_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_bank_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_sample_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/ready_sample_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_kind_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_write_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_bank_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_sample_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/ready_sample_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_kind_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_write_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/stage_bank_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_dirty_s1",
+          "type": "DFFPE",
+          "pin": "PRESET"
+        },
+        {
+          "cell": "camera/flow_bridge/age_23_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_20_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_17_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_15_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_12_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_9_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/fast_epoch_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/write_bank_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/expired_s1",
+          "type": "DFFPE",
+          "pin": "PRESET"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_dirty_s4",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_22_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_21_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_19_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_18_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_16_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_14_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_13_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_11_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_10_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_8_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_6_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_4_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_3_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_1_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/age_0_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/count_1_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/count_0_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/have_latest_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/have_latest_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/have_latest_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/have_latest_s4",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/have_latest_s5",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/have_latest_s6",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_0_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_sample_0_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/vector_sample_0_s4",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_0_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_1_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_2_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/status_sample_2_s4",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_2_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_3_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_4_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_bridge/read_bank_5_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        }
+      ]
+    },
+    {
+      "flipflop": "release_pipe_2_s1",
+      "net": "eth_rst_stream",
+      "fanout": 139,
+      "clear_pins": 138,
+      "sinks": [
+        {
+          "cell": "camera/observer_ready_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/as0_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/as1_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/pending_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/seed_mailbox/req_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/ack_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/qs0_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/qs1_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_valid_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_valid_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_valid_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/observation_mailbox/dst_valid_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_observation_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/ready_d_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_d_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_15_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_14_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_13_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_12_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_11_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_10_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_9_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_8_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_7_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_6_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_5_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_4_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_3_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_2_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_1_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/semantic_fid_0_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/deadline_due_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_latest_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/latest_epoch_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_segments[1].carry_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_segments[2].carry_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_segments[3].carry_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/ready_sample_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_write_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_bank_0_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/ready_sample_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_write_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_bank_1_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/ready_sample_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_write_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_bank_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/ready_sample_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_write_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_bank_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/ready_sample_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_write_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_bank_4_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/ready_sample_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_write_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_bank_5_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/ready_sample_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_write_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_bank_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/ready_sample_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_write_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/stage_bank_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_25_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_23_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_20_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_17_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_15_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_12_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_9_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_7_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_6_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_3_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_2_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/fast_epoch_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/write_bank_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/dirty_s1",
+          "type": "DFFPE",
+          "pin": "PRESET"
+        },
+        {
+          "cell": "camera/bridge/expired_s5",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_24_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_22_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_21_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_19_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_18_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_16_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_14_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_13_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_11_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_10_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_8_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_5_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_4_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_1_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/age_0_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/count_1_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/count_0_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_latest_s1",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_latest_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_latest_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_latest_s4",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_latest_s5",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_latest_s6",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_latest_s7",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_latest_s8",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/have_latest_s9",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_0_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_1_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_1_s4",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_2_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_2_s4",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_2_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_3_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_3_s4",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_3_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_4_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_4_s4",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_4_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_5_s3",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/observation_sample_valid_5_s4",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/bridge/read_bank_5_s2",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/ack_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/qs0_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/qs1_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_valid_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/event_mux/out_valid_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/event_mux/prefer_b_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        }
+      ]
+    },
+    {
+      "flipflop": "release_pipe_11_s1",
+      "net": "release_pipe_1[11]",
+      "fanout": 80,
+      "clear_pins": 80,
+      "sinks": [
+        {
+          "cell": "camera/flow_mailbox/dst_data_254_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_236_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_235_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_234_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_228_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_207_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_206_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_205_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_204_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_203_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_202_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_201_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_200_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_194_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_193_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_192_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_191_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_190_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_189_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_188_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_187_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_186_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_185_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_184_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_183_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_182_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_181_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_180_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_179_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_178_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_177_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_176_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_175_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_174_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_173_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_172_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_171_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_170_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_169_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_168_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_167_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_166_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_165_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_164_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_163_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_162_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_161_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_160_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_159_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_158_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_157_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_156_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_155_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_154_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_153_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_152_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_151_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_150_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_149_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_148_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_147_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_146_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_145_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_144_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_143_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_142_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_141_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_140_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_139_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_138_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_137_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_136_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_135_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_134_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_133_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_132_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_131_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_130_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_129_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        },
+        {
+          "cell": "camera/flow_mailbox/dst_data_128_s0",
+          "type": "DFFCE",
+          "pin": "CLEAR"
+        }
+      ]
+    }
+  ],
+  "maximum_fanout": 139,
+  "note": "Synthesis leaf input loads through reset polarity inverters; routed fanout is checked separately."
+}

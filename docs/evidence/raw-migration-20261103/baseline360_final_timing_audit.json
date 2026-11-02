@@ -1,0 +1,50 @@
+{
+  "setup_hold_closure_passed": true,
+  "full_system_signoff_passed": false,
+  "violations": {
+    "setup": 0,
+    "hold": 0
+  },
+  "unchanged_constraints": {
+    "sdc": true,
+    "cst": true
+  },
+  "changed_rtl": [
+    "fpga/vision/src/network_runtime_dual.v",
+    "fpga/vision/src/reset_sync.v",
+    "fpga/vision/src/vision/camera_perception.v",
+    "fpga/vision/src/vision/vision_mailbox.v"
+  ],
+  "worst_setup_path": {
+    "number": 1,
+    "slack_ns": 0.001,
+    "source": "camera/runtime_network.net/refresh2_due_s0/Q",
+    "sink": "camera/runtime_network.net/retry_count2_4_s1/CE",
+    "source_clock": "eth125:[R]",
+    "destination_clock": "eth125:[R]",
+    "relation_ns": 8.0,
+    "skew_ns": 0.024,
+    "data_delay_ns": 7.695
+  },
+  "worst_reported_recovery": {
+    "slack_ns": 0.974,
+    "source": "camera/runtime_network.receive_reset/release_pipe_2_s2/Q",
+    "sink": "camera/runtime_network.net/rx_byte_error_s0/CLEAR",
+    "clock": "eth_rx125"
+  },
+  "worst_perception_recovery": {
+    "slack_ns": 1.615,
+    "source": "camera/perception_reset/release_pipe_2_s1/Q",
+    "sink": "camera/flow_mailbox/dst_valid_s0/CLEAR",
+    "clock": "eth125"
+  },
+  "minimum_pulse_width_slack_ns": -0.849,
+  "clock_route_warnings": [
+    "WARN  (PR1014) : Generic routing resource will be used to clock signal 'camera_pclk_d' by the specified constraint. And then it may lead to the excessive delay or skew"
+  ],
+  "reset_maximum_leaf_fanout": 139,
+  "bitstream_sha256": "cd55f67fb9ccf73d0c54f5edb4863272d2b78d14aebd3e12af3fe7604dc8b870",
+  "frozen_sources_unchanged": true,
+  "programmed": false,
+  "passed": true
+}

@@ -8,7 +8,8 @@ module camera_perception #(parameter TELEMETRY_ENABLE=0)(
     output m1_drv_en,m2_drv_en,lidar_moto_pwm,
     input telemetry_clk,input [383:0] telemetry_frame,input telemetry_valid,output telemetry_ready
 );
-    wire clk50,clk125,unused_xclk,pll_lock,sys_rst_n,phy_init,cam_done,cam_id_ok,cam_error;
+    wire clk50,clk125,unused_xclk,pll_lock,phy_init,cam_done,cam_id_ok,cam_error;
+    (* syn_keep=1 *) wire sys_rst_n;
     wire [15:0] phy_status;
     wire telemetry_src_reset_n,telemetry_network_reset_n;
     wire telemetry_net_valid,telemetry_net_ready;wire [511:0] telemetry_net_payload;
@@ -27,11 +28,14 @@ module camera_perception #(parameter TELEMETRY_ENABLE=0)(
     ov5640_config #(.IMAGE_WIDTH(1280),.IMAGE_HEIGHT(720),.IMAGE_FLIP_EN(1),.IMAGE_MIRROR_EN(1),.OUTPUT_JPEG(0),.FRAME_RATE(30)) config_camera(
         .clk(clk50),.rst_n(sys_rst_n),.camera_rst_n(camera_rst_n),.camera_pwdn(camera_pwdn),.sclk(camera_sclk),.sdat(camera_sdat),
         .id_ok(cam_id_ok),.done(cam_done),.error(cam_error));
-    wire cap_rst_n,eth_rst_stream,eth_video_rst_n,front_rst_n;
+    wire cap_rst_n,eth_video_rst_n,front_rst_n;
+    (* syn_keep=1 *) wire eth_rst_stream;
     wire common_reset_n=sys_rst_n && phy_init && cam_done;
     reset_sync cap_reset(.clk(camera_pclk),.arst_n(common_reset_n),.rst_n(cap_rst_n));
     // Processing/mailbox reset is independent of camera/PHY configuration.
-    reset_sync perception_reset(.clk(clk125),.arst_n(sys_rst_n),.rst_n(eth_rst_stream));
+    wire [9:0] perception_reset_bank;
+    reset_sync #(.COPIES(10)) perception_reset(.clk(clk125),.arst_n(sys_rst_n),
+        .rst_n(eth_rst_stream),.rst_copies(perception_reset_bank));
     reset_sync video_reset(.clk(clk125),.arst_n(common_reset_n),.rst_n(eth_video_rst_n));
     reset_sync front_reset(.clk(camera_pclk),.arst_n(sys_rst_n),.rst_n(front_rst_n));
     wire pv,fs,fe,fg,format_error;wire [15:0] pixel,x,y,fid;
@@ -59,13 +63,15 @@ module camera_perception #(parameter TELEMETRY_ENABLE=0)(
         .payload_length(length),.packet_frame_id(packet_fid),.packet_first(first),.tx_start(start),.dropped_frames());
     wire semantic_update,semantic_target;wire [255:0] semantic_payload;
     wire seed_valid;wire [256:0] seed;
-    vision_mailbox #(.WIDTH(257)) seed_mailbox(.src_clk(clk125),.src_rst_n(eth_rst_stream),.src_valid(semantic_update),
-        .src_data({semantic_target,semantic_payload}),.dst_clk(clk50),.dst_rst_n(sys_rst_n),.dst_valid(seed_valid),.dst_data(seed));
+    vision_mailbox #(.WIDTH(257),.SPLIT_RESET(1)) seed_mailbox(.src_clk(clk125),.src_rst_n(eth_rst_stream),.src_valid(semantic_update),
+        .src_data({semantic_target,semantic_payload}),.dst_clk(clk50),.dst_rst_n(sys_rst_n),.dst_valid(seed_valid),.dst_data(seed),
+        .src_reset_bank(perception_reset_bank[5:2]),.dst_reset_bank({2{sys_rst_n}}));
     wire perception_valid,observation_valid;wire [255:0] perception_payload,observation_payload;
     vision_tracker tracker(.clk(clk50),.rst_n(sys_rst_n),.invalidate(proc_invalidate),.frame_start(proc_fs),.frame_end(proc_fe),.frame_good(proc_fg),.frame_id(proc_fid),
         .feature_valid(fv),.feature_address(fa),.feature(feature),.seed_valid(seed_valid),.seed_data(seed),.status_valid(perception_valid),.status_payload(perception_payload));
-    vision_mailbox observation_mailbox(.src_clk(clk50),.src_rst_n(sys_rst_n),.src_valid(perception_valid),.src_data(perception_payload),
-        .dst_clk(clk125),.dst_rst_n(eth_rst_stream),.dst_valid(observation_valid),.dst_data(observation_payload));
+    vision_mailbox #(.SPLIT_RESET(1)) observation_mailbox(.src_clk(clk50),.src_rst_n(sys_rst_n),.src_valid(perception_valid),.src_data(perception_payload),
+        .dst_clk(clk125),.dst_rst_n(eth_rst_stream),.dst_valid(observation_valid),.dst_data(observation_payload),
+        .src_reset_bank({4{sys_rst_n}}),.dst_reset_bank(perception_reset_bank[7:6]));
     wire event_valid,event_ready,tracker_event_valid,tracker_event_ready;wire [255:0] event_payload,tracker_event_payload;wire [3:0] vision_led;
     wire endpoint_ready;
     // Local observer availability may lag one TX clock (8 ns). Network admission
@@ -83,10 +89,11 @@ module camera_perception #(parameter TELEMETRY_ENABLE=0)(
     flow_observer flow_sensor(.clk(clk50),.rst_n(sys_rst_n),.invalidate(proc_invalidate),
         .ov(proc_pv),.os(proc_fs),.oe(proc_fe),.og(proc_fg),.ox(proc_x),.oy(proc_y),.ofid(proc_fid),.luma(proc_luma),
         .event_valid(flow_obs_valid),.event_payload(flow_obs));
-    vision_mailbox flow_mailbox(.src_clk(clk50),.src_rst_n(sys_rst_n),
+    vision_mailbox #(.SPLIT_RESET(1)) flow_mailbox(.src_clk(clk50),.src_rst_n(sys_rst_n),
         .src_valid(flow_obs_valid),.src_data(flow_obs),.dst_clk(clk125),.dst_rst_n(eth_rst_stream),
-        .dst_valid(flow_observation_valid),.dst_data(flow_observation));
-    flow_event_bridge flow_bridge(.clk(clk125),.rst_n(eth_rst_stream),.stream_ready(observer_ready),
+        .dst_valid(flow_observation_valid),.dst_data(flow_observation),
+        .src_reset_bank({4{sys_rst_n}}),.dst_reset_bank(perception_reset_bank[9:8]));
+    flow_event_bridge flow_bridge(.clk(clk125),.rst_n(perception_reset_bank[1]),.stream_ready(observer_ready),
         .observation_valid(flow_observation_valid),.observation_payload(flow_observation),
         .event_ready(flow_event_ready),.event_valid(flow_event_valid),.event_payload(flow_event_payload),
         .stop_request(),.steer(),.speed_limit(),.control_state());
@@ -95,7 +102,8 @@ module camera_perception #(parameter TELEMETRY_ENABLE=0)(
         .b_valid(flow_event_valid),.b_payload(flow_event_payload),.b_ready(flow_event_ready),
         .out_valid(event_valid),.out_payload(event_payload),.out_ready(event_ready && endpoint_ready));
     generate if(1)begin:runtime_network
-        wire [7:0] rx_data;wire rx_valid,rx_error,rx_rst_n,network_rst_n,cache2,enabled2,result_valid,result_done;
+        wire [7:0] rx_data;wire rx_valid,rx_error,rx_rst_n,cache2,enabled2,result_valid,result_done;
+        (* syn_keep=1 *) wire network_rst_n;
         wire [255:0] result_payload,status;
         rgmii_input rx(.rxc(rgmii_rxc),.rxd(rgmii_rxd),.rxctl(rgmii_rxctl),.data(rx_data),.valid(rx_valid),.error(rx_error));
         reset_sync network_reset(.clk(clk125),.arst_n(sys_rst_n && phy_init),.rst_n(network_rst_n));

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "register_counts": {
+    "target_ip": 32,
+    "target2_ip": 32,
+    "retry_target_ip0": 32,
+    "retry_target_ip1": 32,
+    "cmd_set0": 2,
+    "cmd_set1": 2,
+    "cmd_set0_lookup": 1,
+    "cmd_set1_lookup": 1
+  }
+}

@@ -5,6 +5,8 @@
 
 麦轮源码集成分支：`codex/mecanum-integration-20261103`，从 `timing-refactor-20261103` 创建独立 worktree。
 这是待整机时序/实板验证的源码版本，不替代下表的稳定传感器固件；说明见 [麦轮集成记录](MECANUM_INTEGRATION_20261103.md)。
+后续离线检查点 `mecanum-raw-setuphold-20261103`：队友麦轮引脚、全点雷达，Setup/Hold 0/0；原重试端点 +0.275 ns。
+PCLK 的 MPW/PR1014 仍未通过，未上板；详情见 [全点时序迁移](RAW_MECANUM_TIMING_20261103.md)。
 
 | 标签 | 内容 | 验证/用途 |
 |---|---|---|
