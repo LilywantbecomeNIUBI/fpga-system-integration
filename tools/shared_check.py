@@ -5,7 +5,11 @@ def check():
     for name in ('integration_sources.json','perception_sources.json'):
         manifest=json.loads((ROOT/'docs'/name).read_text(encoding='utf-8'))
         for rel,row in manifest['files'].items():
-            if not row.get('adapted'):assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()==row['sha256'],rel
+            expected = row.get('adapted_sha256')
+            if not row.get('adapted'):
+                expected = row['sha256']
+            if expected is not None:
+                assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest() == expected, rel
     from build_system import prepare
     folder,sources=prepare()
     for p in sources:p.resolve().relative_to(ROOT);assert p.is_file(),p

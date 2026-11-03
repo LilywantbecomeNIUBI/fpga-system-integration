@@ -126,7 +126,10 @@
     },
     "fpga/vision/src/reset_sync.v": {
       "source": "src/reset_sync.v",
-      "sha256": "9032a61c45ada932d9b65aff7360bad58f3b4669914808cef6eeb01f65cfabb4"
+      "sha256": "9032a61c45ada932d9b65aff7360bad58f3b4669914808cef6eeb01f65cfabb4",
+      "adapted": true,
+      "adapted_sha256": "69952ca5a6edbf38e73154a1177ff7808084be5a42748f802f4f321ff16d76df",
+      "adaptation_note": "Parallel synchronous reset release stages from 7fb7d8a."
     },
     "fpga/vision/src/rgmii_input.v": {
       "source": "src/rgmii_input.v",
@@ -166,7 +169,10 @@
     },
     "fpga/vision/src/vision/vision_mailbox.v": {
       "source": "src/vision/vision_mailbox.v",
-      "sha256": "0376dacbc4fe05a59e928f719fce302b9f70779aac5e61d1d20f1b540e15307a"
+      "sha256": "0376dacbc4fe05a59e928f719fce302b9f70779aac5e61d1d20f1b540e15307a",
+      "adapted": true,
+      "adapted_sha256": "edd55f16c5e30a0a1b2794e0bc244562c3f01558d2de4857807511a1a1f3a6a6",
+      "adaptation_note": "Optional split reset banks for payload registers from 7fb7d8a."
     },
     "fpga/vision/src/vision/vision_pixel_pipeline.v": {
       "source": "src/vision/vision_pixel_pipeline.v",
