@@ -1,0 +1,2 @@
+PASS pipelined PI: 4000 seeded boundary/random transactions, 208087 cycle checks, bit-exact raw/integral/PWM and disable
+C:\Users\leo\.codex\worktrees\mecanum-integration\fpga-system-integration\tests\mecanum\tb_pipeline_pi.sv:41: $finish called at 2080910000 (1ps)

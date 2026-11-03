@@ -1,0 +1,2 @@
+PASS pose pipeline: 600 bit-exact tick snapshots, changing live positions, signed/wrap/yaw/reversed-lateral/new-goal and cancellation
+C:\Users\leo\.codex\worktrees\mecanum-integration\fpga-system-integration\tests\mecanum\tb_pipeline_pose.sv:38: $finish called at 180450000 (1ps)

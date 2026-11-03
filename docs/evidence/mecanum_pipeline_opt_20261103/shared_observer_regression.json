@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "tb_core_1khz",
+      "passed": true,
+      "output": "PASS 1kHz core: exact periods, 10ms command/telemetry units, CLEAR/ARM, STOP, watchdog, unchanged 500ms stall, wheel isolation\nC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\tests\\corridor\\tb_core_1khz.sv:66: $finish called at 10052100000 (1ps)\n"
+    },
+    {
+      "case": "tb_speed_hybrid",
+      "passed": true,
+      "output": "PASS hybrid speed: fractional +/-1/2 steps, aging/stop, position/time wrap, M/T hysteresis, reversal, discontinuity, reset\nC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\tests\\corridor\\tb_speed_hybrid.sv:75: $finish called at 6160220000 (1ps)\n"
+    },
+    {
+      "case": "tb_wheel_1khz",
+      "passed": true,
+      "output": "PASS 1kHz PI: equal-time legacy slew/integration, small +/-Ki, fractional feedback, antiwindup, 100ms reverse wait, zero/disable, ideal plant convergence\nC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\tests\\corridor\\tb_wheel_1khz.sv:53: $finish called at 2919210000 (1ps)\n"
+    },
+    {
+      "case": "tb_wheel_1khz_pwm350",
+      "passed": true,
+      "output": "PASS 1kHz PI: equal-time legacy slew/integration, small +/-Ki, fractional feedback, antiwindup, 100ms reverse wait, zero/disable, ideal plant convergence\nC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\tests\\corridor\\tb_wheel_1khz.sv:53: $finish called at 2930960000 (1ps)\n"
+    }
+  ],
+  "hardware_tested": false,
+  "programmed": false,
+  "low_speed_metrics": {
+    "synthetic_only": true,
+    "samples": 43,
+    "units": "position_units/10ms",
+    "expected": 3.6363636363636362,
+    "hybrid_mean": 3.6328125,
+    "hybrid_stddev": 0.0,
+    "one_ms_count_stddev": 7.383492030877927
+  },
+  "source_sha256": {
+    "fpga/motor/at8236_pwm.sv": "74958eda563a9ff376fc5c7a8d674398476f436e466cca03a33c3772a9d0d561",
+    "fpga/motor/brushed_motor_top.sv": "b3eccec1699367a75b6cdf05853f887780d5f3bd9eb102cca1ee201c1f63a0a7",
+    "fpga/motor/encoder_ab.sv": "49e14315ba75501fa0b11cc0c7f4afd7aba0ea38fd124781c4282718f0b76567",
+    "fpga/motor/encoder_diagnostics.sv": "27e5f78554fe4d532a317082dfe9a65c5b31805ed5632e15e61c1f22a489ae8a",
+    "fpga/motor/frame_transport.sv": "aebefc706aec37bb901ad59088194d05debda8839604310c71fa90955929a790",
+    "fpga/motor/motor_core.sv": "3ba1e9e0afca159db4ac884be955ca0a9759be5bb081a9b65f98aae137597404",
+    "fpga/motor/motor_protocol.sv": "ffc307a70e0fdf8c5b4c3b9bd3e7f45305ddd7c530f47319aa99e173f69fe05c",
+    "fpga/motor/motor_telemetry.sv": "96dc30d0876d4f531441767b2308137d9f33be8ecd1459093285a41ad9f8f1ce",
+    "fpga/motor/uart_byte.sv": "d88aa96614eac7f51ab4d37d547e4fd3560c7ea4bb7ec25e97ff686e7a7d8ac0",
+    "fpga/motor/wheel_control.sv": "5840112b8eb8a2060af6f53663cc514718fc0d66639bfee5d8b6598033c4730d",
+    "fpga/motor/wheel_control_1khz.sv": "ff157c685719be3297f87e61d31dc642721efdfcc380deb76ac711489148414e",
+    "fpga/motor/wheel_speed_hybrid.sv": "19283e12804068861501570742be29356ccf006a0e29ae7316e97ed43ab0f537",
+    "tests/corridor/tb_core_1khz.sv": "d84068fa680ffb1c1d80635cc130ed68dfb74a42f7548ab95ec61a7e1145b7e2",
+    "tests/corridor/tb_speed_hybrid.sv": "24d9fcc3fc4f1b6c7eaa9b2618bda3049fe1d4099018696fb5c3ff3d86958faf",
+    "tests/corridor/tb_wheel_1khz.sv": "d4f41f8174efd694298c2a0a8a1517d934d729b55bf96a32c7251ef310a7a255"
+  }
+}

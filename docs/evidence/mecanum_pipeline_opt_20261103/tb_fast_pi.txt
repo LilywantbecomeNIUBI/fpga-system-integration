@@ -1,0 +1,2 @@
+PASS 1kHz PI: matched 100Hz-reference integral/slew, signed feedforward, reversal and STOP
+C:\Users\leo\.codex\worktrees\mecanum-integration\fpga-system-integration\tests\mecanum\tb_fast_pi.sv:29: $finish called at 759300000 (1ps)

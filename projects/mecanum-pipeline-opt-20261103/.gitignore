@@ -1,0 +1,12 @@
+impl/
+temp/
+*.user
+*.log
+*.vvp
+*.tr
+*.db
+*.pr
+*.p
+reference_baseline/
+reference/pnr_reference.zip
+reference/*.tmp

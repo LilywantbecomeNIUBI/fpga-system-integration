@@ -1,0 +1,327 @@
+{
+  "scope": "Read-only RTL/netlist/build-log audit; no implementation changes, no new build or programming",
+  "snapshots": {
+    "20261102T215739Z": {
+      "netlist_sha256": "15017d0dd3388d48b2e9cc137b72b40bedb68a3be11cb9116e3b2f780291965e",
+      "module_instances": {
+        "mc_mecanum_pose_control": {
+          "LUT4": 967,
+          "LUT3": 299,
+          "LUT2": 281,
+          "DFFCE": 703,
+          "MULT27X36": 16,
+          "MULTALU27X18": 1,
+          "ALU": 941,
+          "INV": 1,
+          "mc_cordic_sincos": 1,
+          "VCC": 1,
+          "GND": 1
+        },
+        "mc_wheel_control": {
+          "LUT3": 128,
+          "LUT4": 286,
+          "LUT2": 18,
+          "DFFCE": 311,
+          "MULTALU27X18": 2,
+          "ALU": 105,
+          "VCC": 1,
+          "GND": 1
+        },
+        "mc_wheel_control_0": {
+          "LUT4": 318,
+          "LUT3": 82,
+          "LUT2": 25,
+          "DFFCE": 311,
+          "MULTALU27X18": 2,
+          "ALU": 105,
+          "VCC": 1,
+          "GND": 1
+        },
+        "mc_wheel_control_1": {
+          "LUT4": 304,
+          "LUT3": 124,
+          "LUT2": 14,
+          "DFFCE": 311,
+          "MULTALU27X18": 2,
+          "ALU": 105,
+          "VCC": 1,
+          "GND": 1
+        },
+        "mc_wheel_control_2": {
+          "LUT4": 318,
+          "LUT3": 96,
+          "LUT2": 19,
+          "DFFCE": 311,
+          "MULTALU27X18": 2,
+          "ALU": 105,
+          "VCC": 1,
+          "GND": 1
+        },
+        "mc_mecanum_core": {
+          "LUT3": 261,
+          "LUT4": 441,
+          "LUT2": 51,
+          "DFFCE": 413,
+          "DFFPE": 5,
+          "ALU": 22,
+          "INV": 1,
+          "mc_lateral_pwm_compensation": 1,
+          "mc_mecanum_pose_control": 1,
+          "mc_mecanum_mixer": 1,
+          "mc_encoder_ab": 1,
+          "mc_encoder_control_scale": 1,
+          "mc_wheel_control": 1,
+          "mc_at8236_pwm": 1,
+          "mc_encoder_ab_0": 1,
+          "mc_encoder_control_scale_0": 1,
+          "mc_wheel_control_0": 1,
+          "mc_at8236_pwm_0": 1,
+          "mc_encoder_ab_1": 1,
+          "mc_encoder_control_scale_1": 1,
+          "mc_wheel_control_1": 1,
+          "mc_at8236_pwm_1": 1,
+          "mc_encoder_ab_2": 1,
+          "mc_encoder_control_scale_2": 1,
+          "mc_wheel_control_2": 1,
+          "mc_at8236_pwm_2": 1,
+          "VCC": 1,
+          "GND": 1
+        }
+      }
+    },
+    "20261102T231025Z": {
+      "netlist_sha256": "cc96fa0ce804ba13bbe60d8cc9d4cda58252be1558345167198655d695b5d341",
+      "module_instances": {
+        "mc_mecanum_pose_control": {
+          "LUT3": 362,
+          "LUT2": 296,
+          "LUT4": 1154,
+          "DFFCE": 768,
+          "MULT27X36": 17,
+          "ALU": 1006,
+          "MUX2_LUT5": 1,
+          "INV": 2,
+          "mc_cordic_sincos": 1,
+          "VCC": 1,
+          "GND": 1
+        },
+        "wheel_speed_hybrid": {
+          "LUT3": 297,
+          "LUT2": 71,
+          "LUT4": 393,
+          "DFFCE": 768,
+          "DFFPE": 9,
+          "MULT27X36": 1,
+          "ALU": 332,
+          "MUX2_LUT5": 96,
+          "MUX2_LUT6": 48,
+          "INV": 2,
+          "VCC": 1,
+          "GND": 1
+        },
+        "mc_wheel_control_1khz": {
+          "LUT4": 446,
+          "LUT3": 222,
+          "LUT2": 31,
+          "DFFCE": 348,
+          "MULT27X36": 2,
+          "MULTALU27X18": 3,
+          "ALU": 138,
+          "VCC": 1,
+          "GND": 1
+        },
+        "wheel_speed_hybrid_0": {
+          "LUT3": 290,
+          "LUT2": 73,
+          "LUT4": 377,
+          "DFFCE": 768,
+          "DFFPE": 9,
+          "MULT27X36": 1,
+          "ALU": 332,
+          "MUX2_LUT5": 96,
+          "MUX2_LUT6": 48,
+          "INV": 1,
+          "VCC": 1,
+          "GND": 1
+        },
+        "mc_wheel_control_1khz_0": {
+          "LUT4": 434,
+          "LUT3": 169,
+          "LUT2": 39,
+          "DFFCE": 347,
+          "MULT27X36": 2,
+          "MULTALU27X18": 3,
+          "ALU": 138,
+          "VCC": 1,
+          "GND": 1
+        },
+        "wheel_speed_hybrid_1": {
+          "LUT3": 315,
+          "LUT2": 80,
+          "LUT4": 374,
+          "DFFCE": 768,
+          "DFFPE": 9,
+          "MULT27X36": 1,
+          "ALU": 332,
+          "MUX2_LUT5": 96,
+          "MUX2_LUT6": 48,
+          "INV": 1,
+          "VCC": 1,
+          "GND": 1
+        },
+        "mc_wheel_control_1khz_1": {
+          "LUT4": 445,
+          "LUT3": 197,
+          "LUT2": 26,
+          "DFFCE": 348,
+          "MULT27X36": 2,
+          "MULTALU27X18": 3,
+          "ALU": 138,
+          "VCC": 1,
+          "GND": 1
+        },
+        "wheel_speed_hybrid_2": {
+          "LUT3": 317,
+          "LUT2": 80,
+          "LUT4": 373,
+          "DFFCE": 768,
+          "DFFPE": 9,
+          "MULT27X36": 1,
+          "ALU": 332,
+          "MUX2_LUT5": 96,
+          "MUX2_LUT6": 48,
+          "INV": 1,
+          "VCC": 1,
+          "GND": 1
+        },
+        "mc_wheel_control_1khz_2": {
+          "LUT4": 435,
+          "LUT3": 174,
+          "LUT2": 36,
+          "DFFCE": 347,
+          "MULT27X36": 2,
+          "MULTALU27X18": 3,
+          "ALU": 138,
+          "VCC": 1,
+          "GND": 1
+        },
+        "mc_mecanum_core": {
+          "LUT3": 280,
+          "LUT2": 43,
+          "LUT4": 514,
+          "DFFCE": 501,
+          "DFFPE": 5,
+          "MULTALU27X18": 1,
+          "ALU": 23,
+          "mc_lateral_pwm_compensation": 1,
+          "mc_mecanum_pose_control": 1,
+          "mc_mecanum_mixer": 1,
+          "mc_encoder_ab": 1,
+          "mc_encoder_control_scale": 1,
+          "wheel_speed_hybrid": 1,
+          "mc_wheel_control_1khz": 1,
+          "mc_at8236_pwm": 1,
+          "mc_encoder_ab_0": 1,
+          "mc_encoder_control_scale_0": 1,
+          "wheel_speed_hybrid_0": 1,
+          "mc_wheel_control_1khz_0": 1,
+          "mc_at8236_pwm_0": 1,
+          "mc_encoder_ab_1": 1,
+          "mc_encoder_control_scale_1": 1,
+          "wheel_speed_hybrid_1": 1,
+          "mc_wheel_control_1khz_1": 1,
+          "mc_at8236_pwm_1": 1,
+          "mc_encoder_ab_2": 1,
+          "mc_encoder_control_scale_2": 1,
+          "wheel_speed_hybrid_2": 1,
+          "mc_wheel_control_1khz_2": 1,
+          "mc_at8236_pwm_2": 1,
+          "VCC": 1,
+          "GND": 1
+        }
+      }
+    }
+  },
+  "build_history": [
+    {
+      "snapshot": "20261102T195424Z",
+      "elapsed_s": 150.5910888999988,
+      "timed_out": false,
+      "passed": false
+    },
+    {
+      "snapshot": "20261102T195814Z",
+      "elapsed_s": 528.8968053999997,
+      "timed_out": false,
+      "passed": false
+    },
+    {
+      "snapshot": "20261102T201012Z",
+      "elapsed_s": 516.9648617000003,
+      "timed_out": false,
+      "passed": false
+    },
+    {
+      "snapshot": "20261102T204810Z",
+      "elapsed_s": 482.78416930000094,
+      "timed_out": false,
+      "passed": false
+    },
+    {
+      "snapshot": "20261102T212407Z",
+      "elapsed_s": 595.0158248000007,
+      "timed_out": false,
+      "passed": false
+    },
+    {
+      "snapshot": "20261102T213453Z",
+      "elapsed_s": 654.7878182999993,
+      "timed_out": false,
+      "passed": false
+    },
+    {
+      "snapshot": "20261102T214732Z",
+      "elapsed_s": 590.8775715000011,
+      "timed_out": false,
+      "passed": false
+    },
+    {
+      "snapshot": "20261102T215739Z",
+      "elapsed_s": 538.8341341999985,
+      "timed_out": false,
+      "passed": false
+    },
+    {
+      "snapshot": "20261102T231025Z",
+      "elapsed_s": 1801.2210187000019,
+      "timed_out": true,
+      "passed": false
+    }
+  ],
+  "timeout_log_tail": [
+    "Physical Constraint parsed completed",
+    "Running placement......",
+    "[10%] Placement Phase 0 completed",
+    "[20%] Placement Phase 1 completed",
+    "[30%] Placement Phase 2 completed",
+    "[50%] Placement Phase 3 completed",
+    "Running routing......",
+    "[60%] Routing Phase 0 completed",
+    "[70%] Routing Phase 1 completed",
+    "[80%] Routing Phase 2 completed",
+    "WARN  (PR1014) : Generic routing resource will be used to clock signal 'camera_pclk_d' by the specified constraint. And then it may lead to the excessive delay or skew",
+    "[90%] Routing Phase 3 completed",
+    "Running timing analysis......",
+    "[95%] Timing analysis completed",
+    "Placement and routing completed",
+    "Bitstream generation in progress......"
+  ],
+  "observer_totals": {
+    "DFFCE": 3072,
+    "DFFPE": 36,
+    "MUX2_LUT5": 384,
+    "MUX2_LUT6": 192,
+    "ALU": 1328,
+    "MULT27X36": 4
+  }
+}

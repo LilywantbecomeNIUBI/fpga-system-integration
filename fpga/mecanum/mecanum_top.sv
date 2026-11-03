@@ -1,7 +1,7 @@
 module mc_mecanum_top #(parameter CLK_HZ=50000000,BAUD=115200,CONTROL_HZ=100,IMU_ENABLED=1,IMU_ADDRESS=7'h68,IMU_REVERSE=0,IMU_CAL_LOG2=8,CONTROL_SHIFT=4,
  parameter [3:0] BASE_ENCODER_REVERSE=4'b0101,BASE_MOTOR_REVERSE=4'b0101,
  parameter LATERAL_START_PWM=150,LATERAL_TAPER_COUNTS=160,LATERAL_REVERSE=0,
- parameter TELEMETRY_ETHERNET=0,COMMAND_ETHERNET=0)(
+ parameter TELEMETRY_ETHERNET=0,COMMAND_ETHERNET=0,FAST_SPEED_LOOP=0)(
  input wire command_error,input wire command_byte_valid,input wire [7:0] command_byte,
  input wire clk50m,reset_n,uart_rx,input wire [3:0] enc_a,enc_b,
  inout wire imu_scl,imu_sda,
@@ -65,7 +65,7 @@ module mc_mecanum_top #(parameter CLK_HZ=50000000,BAUD=115200,CONTROL_HZ=100,IMU
  assign in2={wheel_in2[3:2],wheel_in2[0],wheel_in2[1]};
  // Physical calibration: left-front and left-rear feedback are reversed.
  // Host encoder masks are additional corrections; normally leave them zero.
- mc_mecanum_core #(.CLK_HZ(CLK_HZ),.CONTROL_HZ(CONTROL_HZ),.CONTROL_SHIFT(CONTROL_SHIFT),.BASE_ENCODER_REVERSE(BASE_ENCODER_REVERSE),.BASE_MOTOR_REVERSE(BASE_MOTOR_REVERSE),.LATERAL_START_PWM(LATERAL_START_PWM),.LATERAL_TAPER_COUNTS(LATERAL_TAPER_COUNTS),.LATERAL_REVERSE(LATERAL_REVERSE)) core(.clk(clk50m),.reset_n(rst),.enc_a(wheel_enc_a),.enc_b(wheel_enc_b),.command_valid(core_command_valid),.command_body(body),
+ mc_mecanum_core #(.CLK_HZ(CLK_HZ),.FAST_SPEED_LOOP(FAST_SPEED_LOOP),.CONTROL_HZ(CONTROL_HZ),.CONTROL_SHIFT(CONTROL_SHIFT),.BASE_ENCODER_REVERSE(BASE_ENCODER_REVERSE),.BASE_MOTOR_REVERSE(BASE_MOTOR_REVERSE),.LATERAL_START_PWM(LATERAL_START_PWM),.LATERAL_TAPER_COUNTS(LATERAL_TAPER_COUNTS),.LATERAL_REVERSE(LATERAL_REVERSE)) core(.clk(clk50m),.reset_n(rst),.enc_a(wheel_enc_a),.enc_b(wheel_enc_b),.command_valid(core_command_valid),.command_body(body),
   .yaw_ok(yaw_ok),.yaw_q16(yaw),.control_mode(mode),.arrived(arrived),.imu_recalibrate(imu_recalibrate),.pose_x(pose_x),.pose_y(pose_y),.pose_heading(pose_heading),
   .in1(wheel_in1),.in2(wheel_in2),.armed(armed),.faults(faults),.last_sequence(seq),.rejected(rejected),.positions(pos),.velocities(vel),.applied(pwm),.targets(target));
  // 20 Hz atomic snapshot: M4, version2, armed, faults16, seq, reserved,
@@ -91,7 +91,7 @@ module mc_mecanum_top #(parameter CLK_HZ=50000000,BAUD=115200,CONTROL_HZ=100,IMU
     snapshot[47:32]<=faults;snapshot[55:48]<=seq;snapshot[191:64]<=pos;
     for(i=0;i<4;i=i+1)snapshot[192+i*16+:16]<=vel[i*32+:16];
     snapshot[319:256]<=pwm;snapshot[335:320]<=bad[15:0];snapshot[351:336]<=rejected[15:0];
-    snapshot[359:352]<=CONTROL_SHIFT;
+    snapshot[359:352]<=CONTROL_SHIFT;snapshot[367:360]<={6'd0,1'b1,(FAST_SPEED_LOOP!=0)};
     pose_snapshot<=0;pose_snapshot[15:0]<=16'h3450;pose_snapshot[23:16]<=PROTOCOL_VERSION;
     pose_snapshot[31:24]<={2'b0,imu_fault,(mode==2),(mode==1),arrived,calibrated,yaw_ok};
     pose_snapshot[47:32]<=faults;pose_snapshot[55:48]<=seq;pose_snapshot[63:56]<={4'b0,imu_error};

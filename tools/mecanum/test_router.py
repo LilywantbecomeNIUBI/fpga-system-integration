@@ -31,7 +31,7 @@ def wire(payload,port=6206,bad=None,zero=False):
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
     frames={name:wire(packet(3,1),bad=name) for name in ('udp','ip','fragment','subnet','mac','fcs')}
-    frames.update(clear=wire(packet(3,1)),arm=wire(packet(1,2)),pose=wire(packet(6,3)),keep=wire(packet(7,4)),stop=wire(packet(0,5)),arm6=wire(packet(1,6),zero=True),wrong_port=wire(packet(3,1),port=6200),short=wire(packet(3,1)[:-1]),long=wire(packet(3,1)+b'\0'))
+    frames.update(clear=wire(packet(3,1)),arm=wire(packet(1,2)),pose=wire(packet(6,3)),keep=wire(packet(7,4)),turn360=wire(packet(9,5,z=3600)),stop=wire(packet(0,5)),arm6=wire(packet(1,6),zero=True),wrong_port=wire(packet(3,1),port=6200),short=wire(packet(3,1)[:-1]),long=wire(packet(3,1)+b'\0'))
     bad=bytearray(packet(3,1));bad[-1]^=1;frames['inner']=wire(bad)
     for name,data in frames.items():(OUT/(name+'.hex')).write_text('\n'.join('%02x'%b for b in data))
     files=[*sorted((ROOT/'fpga/mecanum').glob('*.sv')),ROOT/'fpga/motor/frame_transport.sv',ROOT/'fpga/motor/uart_byte.sv',ROOT/'fpga/vision/src/network_runtime_dual.v',*sorted((ROOT/'fpga/vision/src/eth_udp_gmii').glob('*.v'))]

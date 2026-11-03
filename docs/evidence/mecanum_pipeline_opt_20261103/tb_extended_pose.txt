@@ -1,0 +1,10 @@
+PASS continuous turn 36000 centidegrees, crossed IMU wrap, measured 359.10 degrees
+PASS continuous turn -36000 centidegrees, crossed IMU wrap, measured -359.10 degrees
+PASS continuous turn 72000 centidegrees, crossed IMU wrap, measured 719.10 degrees
+PASS continuous turn -72000 centidegrees, crossed IMU wrap, measured -719.10 degrees
+PASS long translation 13926/0 control units, no wrap/overflow
+PASS long translation 9847/9847 control units, no wrap/overflow
+PASS long translation -13926/0 control units, no wrap/overflow
+PASS long translation 15915/0 control units, no wrap/overflow
+PASS extended pose: signed 360/720 full turns and 3.5m straight/diagonal, 4m boundary
+C:\Users\leo\.codex\worktrees\mecanum-integration\fpga-system-integration\tests\mecanum\tb_extended_pose.sv:42: $finish called at 3291220000 (1ps)

@@ -1,0 +1,30 @@
+{
+  "reference_path": "reference_baseline/impl/pnr/sensor.pr",
+  "reference_sha256": "2b52f02dbb34674fc23cdda08bb8ffdbc765ab09e43912d86b6f4dc6bee878f5",
+  "archive_sha256": "cf5aa95c96601f5f922c5a11edadbdfc19ad0bffc4f604f7dccb5ebe8ec43c37",
+  "uncompressed_size": 186959222,
+  "archive_size": 106084405,
+  "baseline": "20261102T231025Z",
+  "timing_signoff": false,
+  "archive_parts": [
+    {
+      "name": "pnr_reference.zip.part1",
+      "size": 41943040,
+      "sha256": "4a985dbd5537a34a06a6545978f4d02c0cb389610aa18be41be9257896c3e780"
+    },
+    {
+      "name": "pnr_reference.zip.part2",
+      "size": 41943040,
+      "sha256": "8556a1db24715fd166edacdaa35046baea0ae0e14cb66e6eeea2a143c0371307"
+    },
+    {
+      "name": "pnr_reference.zip.part3",
+      "size": 22198325,
+      "sha256": "b43fb82538dc1d07cf502656303183cd2331a9df70de7443a36dc0c9a90aa199"
+    }
+  ],
+  "baseline_violations": {
+    "setup": 1,
+    "hold": 0
+  }
+}

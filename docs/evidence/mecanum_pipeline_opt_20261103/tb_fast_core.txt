@@ -1,0 +1,2 @@
+PASS four parallel 1kHz M/T+PI loops, 100Hz outer loop, raw telemetry retained, observer health and STOP
+C:\Users\leo\.codex\worktrees\mecanum-integration\fpga-system-integration\tests\mecanum\tb_fast_core.sv:36: $finish called at 1200160000 (1ps)

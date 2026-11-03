@@ -39,7 +39,7 @@ class Stream:
                              velocity=struct.unpack_from('<4h', frame, 24),
                              pwm=struct.unpack_from('<4h', frame, 32),
                              bad=struct.unpack_from('<H', frame, 40)[0],
-                             rejected=struct.unpack_from('<H', frame, 42)[0],control_shift=frame[44]))
+                             rejected=struct.unpack_from('<H', frame, 42)[0],control_shift=frame[44],capabilities=frame[45],speed_loop_hz=1000 if frame[45]&1 else 100))
             del self.buffer[:48]
         return rows
 

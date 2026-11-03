@@ -22,12 +22,16 @@ def main():
     run('upstream_python',[sys.executable,'-m','unittest','discover','-s',str(TEAM/'tests'),'-p','test_*.py','-v'])
     modules=manifest['module_names']
     pattern=re.compile(r'\b('+'|'.join(map(re.escape,modules))+r')\b')
+    overrides=json.loads((ROOT/'fpga/mecanum/local_overrides.json').read_text())
     for p in (TEAM/'rtl').glob('*.sv'):
         if p.name!='mecanum_top.sv':
             expected=pattern.sub(lambda m:modules[m[0]],p.read_text(encoding='utf-8-sig'))
-            assert expected==(ROOT/'fpga/mecanum'/p.name).read_text(encoding='utf-8'),p
+            if p.name in overrides:
+                assert hashlib.sha256((ROOT/'fpga/mecanum'/p.name).read_bytes()).hexdigest()==overrides[p.name]['sha256'],p
+            else:assert expected==(ROOT/'fpga/mecanum'/p.name).read_text(encoding='utf-8'),p
     rtl=list((ROOT/'fpga/mecanum').glob('*.sv'))
-    rtl+=[ROOT/'fpga/motor/frame_transport.sv',ROOT/'fpga/motor/uart_byte.sv']
+    rtl+=list((ROOT/'tests/mecanum/reference').glob('*.sv'))
+    rtl+=[ROOT/'fpga/motor/frame_transport.sv',ROOT/'fpga/motor/uart_byte.sv',ROOT/'fpga/motor/wheel_speed_hybrid.sv']
     # Upstream test.py omits the I2C sensor model for tb_pose_serial_top.
     # Include its existing source explicitly; selecting -s prevents its other
     # top-level testbench from running as an accidental simulation root.

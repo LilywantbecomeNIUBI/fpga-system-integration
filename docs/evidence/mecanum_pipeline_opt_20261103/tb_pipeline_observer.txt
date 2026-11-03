@@ -1,0 +1,2 @@
+PASS observer pipeline: 307 reference samples, 40-clock deadline, signed full buckets, wrap/reverse/stop/random and overflow fault
+C:\Users\leo\.codex\worktrees\mecanum-integration\fpga-system-integration\tests\mecanum\tb_pipeline_observer.sv:47: $finish called at 3072090000 (1ps)
