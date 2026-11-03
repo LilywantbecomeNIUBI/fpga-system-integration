@@ -1,5 +1,7 @@
 # 麦轮路由器控制（2026-11-03）
 
+后续已上板的1kHz内环、4m行程和整圈旋转版本见[扩展控制与重新架空实测](MECANUM_1KHZ_EXTENDED_20261103.md)。本文旧交付包保留为100Hz阶段快照。
+
 从 `main` 阶段提交 `dbbb4e3` 开发，分支 `codex/mecanum-router-control-20261103`。
 当前整机的运动命令改走 UDP 6206，保留 V3 的 24 字节内容及 CRC16。
 FPGA 通过板载 RJ45 接路由器 LAN 口；电脑既可插 LAN 网线，也可连同一路由器 Wi-Fi。

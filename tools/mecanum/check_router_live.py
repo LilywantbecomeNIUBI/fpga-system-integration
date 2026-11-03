@@ -1,4 +1,4 @@
-"""Router-only board acceptance; optional explicit raised-wheel 1.1 s motion."""
+"""Router-only board acceptance; optional explicitly bounded raised-wheel motion."""
 from pathlib import Path
 import argparse,json,sys,time
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
@@ -8,8 +8,10 @@ from host.mecanum.transport import RouterLink
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--bind',default='192.168.50.10')
     ap.add_argument('--limit',type=int,default=2);ap.add_argument('--motion',action='store_true');ap.add_argument('--wheels-raised',action='store_true')
+    ap.add_argument('--motion-seconds',type=float,default=1.1,help='Raised-wheel probe duration after goal acknowledgment, 0.2..3 seconds')
     ap.add_argument('--output',type=Path,required=True);args=ap.parse_args()
     if args.motion and not args.wheels_raised:ap.error('Motion requires confirmed --wheels-raised')
+    if not .2<=args.motion_seconds<=3:ap.error('--motion-seconds must be 0.2..3')
     args.output.mkdir(parents=True,exist_ok=False)
     profile=motor_profile()
     latest={};received={};events=[];checks={};seq=0;last_packet=None;decoder=Stream()
@@ -55,10 +57,10 @@ def main():
                 baseline=latest['motor']['position'];initial_imu_errors=latest['pose']['imu_fault_count']
                 arm=send(1);wait('motor',lambda r:r['armed'] and r['seq']==arm and not r['faults'],.3)
                 # Keep the position loop at the requested speed cap for this
-                # timed raised-wheel probe; STOP ends it after 1.1 seconds.
+                # timed raised-wheel probe; STOP ends it at the selected bound.
                 goal=send(6,4096);wait('motor',lambda r:r['armed'] and r['seq']==goal and not r['faults'],.3)
                 start=time.monotonic();next_send=start
-                while time.monotonic()-start<1.1:
+                while time.monotonic()-start<args.motion_seconds:
                     now=time.monotonic()
                     if now>=next_send:send(7);next_send=now+.05
                     receive();now=time.monotonic();m=latest['motor'];p=latest['pose']
@@ -70,11 +72,13 @@ def main():
                 checks['position_delta_raw']=[v-b for v,b in zip(latest['motor']['position'],baseline)]
                 checks['four_feedback_positive']=all(v>0 for v in checks['position_delta_raw'])
                 checks['imu_errors_during_motion']=latest['pose']['imu_fault_count']-initial_imu_errors
+                window_start=max(0,args.motion_seconds-.4)
                 steady=[e['data'] for e in events if e['kind']=='status' and e['data']['kind']=='motor'
-                        and start+.7<=e['time']<=time.monotonic() and e['data']['armed']]
+                        and start+window_start<=e['time']<=time.monotonic() and e['data']['armed']]
                 if steady:
-                    checks['steady_mean_raw_velocity']=[round(sum(r['velocity'][i] for r in steady)/len(steady),2) for i in range(4)]
-                    checks['steady_mean_pwm']=[round(sum(r['pwm'][i] for r in steady)/len(steady),2) for i in range(4)]
+                    checks['late_mean_raw_velocity']=[round(sum(r['velocity'][i] for r in steady)/len(steady),2) for i in range(4)]
+                    checks['late_mean_pwm']=[round(sum(r['pwm'][i] for r in steady)/len(steady),2) for i in range(4)]
+                checks['motion_duration_s']=args.motion_seconds
                 checks['requested_raw_velocity']=args.limit*(1<<profile['control_shift'])
         except Exception as exc:checks['error']=str(exc)
         finally:
@@ -92,7 +96,7 @@ def main():
         checks['max_abs_raw_speed']=max((abs(v) for r in motor_rows for v in r['velocity']),default=0)
         result=dict(checks=checks,latest=latest,events=events,transport=link.decoder.snapshot(),
                     command_transport='udp6206',serial_opened=False,hardware_tested=True,
-                    motion_requested=args.motion,passed=not checks.get('error') and checks.get('final_stop_confirmed') and (not args.motion or checks.get('four_feedback_positive')))
+                    motion_requested=args.motion,wheels_raised_confirmed=args.wheels_raised,passed=not checks.get('error') and checks.get('final_stop_confirmed') and (not args.motion or checks.get('four_feedback_positive')))
         (args.output/'result.json').write_text(json.dumps(result,indent=2)+'\n')
         print(json.dumps({k:v for k,v in result.items() if k!='events'},indent=2))
     if not result['passed']:raise SystemExit(1)

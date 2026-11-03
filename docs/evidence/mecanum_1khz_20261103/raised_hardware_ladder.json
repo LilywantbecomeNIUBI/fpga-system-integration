@@ -1,0 +1,380 @@
+{
+  "raised_ladder": [
+    {
+      "limit": 2,
+      "checks": {
+        "udp_clear_ack": true,
+        "zero_arm_ack": true,
+        "stop_ack": true,
+        "watchdog_stop_observed_s_after_arm_ack": 0.2498455000022659,
+        "old_arm_rejected_after_clear": true,
+        "motion_completed": true,
+        "position_delta_raw": [
+          6566,
+          6122,
+          7844,
+          6116
+        ],
+        "four_feedback_positive": true,
+        "imu_errors_during_motion": 17,
+        "late_mean_raw_velocity": [
+          122.0,
+          131.75,
+          113.25,
+          110.25
+        ],
+        "late_mean_pwm": [
+          -60.88,
+          67.5,
+          -54.88,
+          64.0
+        ],
+        "motion_duration_s": 1.1,
+        "requested_raw_velocity": 128,
+        "final_stop_confirmed": true,
+        "final_velocity_zero": true,
+        "max_abs_pwm": 91,
+        "max_abs_raw_speed": 144
+      },
+      "late_wheel_mm_s": [
+        47.90928796724434,
+        51.738104013806904,
+        44.473171002380504,
+        43.295073757284335
+      ],
+      "late_average_mm_s": 46.85390918517902,
+      "wheel_spread_percent": 18.019905709795704,
+      "transport": {
+        "transport": "udp",
+        "peer": [
+          "192.168.50.30",
+          6205
+        ],
+        "accepted": 100,
+        "rejected": 0,
+        "duplicates": 0,
+        "missing": 0,
+        "stale": 0,
+        "restart_required": false,
+        "source_age_ms": 0.7848389982427761,
+        "age_ms": 0.2564000023994595
+      },
+      "final": {
+        "motor": {
+          "kind": "motor",
+          "armed": false,
+          "faults": 0,
+          "seq": 119,
+          "position": [
+            26656,
+            49636,
+            46956,
+            56710
+          ],
+          "velocity": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "pwm": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "bad": 0,
+          "rejected": 0,
+          "control_shift": 6,
+          "capabilities": 3,
+          "speed_loop_hz": 1000
+        },
+        "pose": {
+          "kind": "pose",
+          "healthy": true,
+          "calibrated": true,
+          "arrived": false,
+          "mode": 0,
+          "imu_fault": false,
+          "faults": 0,
+          "seq": 119,
+          "imu_error": 0,
+          "x_counts": 107.75347900390625,
+          "y_counts": 5.158355712890625,
+          "heading_deg": -0.0655698160321224,
+          "yaw_deg": -1.3297558691314424,
+          "bias": -20,
+          "gz": -18,
+          "sample_us": 588842625,
+          "who": 112,
+          "control_shift": 6,
+          "raw_counts_per_rev": 60000,
+          "imu_diag_version": 1,
+          "imu_fault_count": 2429,
+          "imu_bus_error": 1,
+          "imu_bus_lines": 3,
+          "imu_fault_armed": true,
+          "imu_fault_pwm": true,
+          "imu_fault_outer": true,
+          "imu_stale": false
+        }
+      },
+      "raw_run": "runs\\commissioning\\fast1khz_20261103_raised_limit2\\result.json",
+      "raw_sha256": "372d0e94b2ccd434dd070de0017d5f57a8972d68a0fe85cf94e2c03a7ef281a6",
+      "condition": "raised; confirmed after user correction"
+    },
+    {
+      "limit": 4,
+      "checks": {
+        "udp_clear_ack": true,
+        "zero_arm_ack": true,
+        "stop_ack": true,
+        "watchdog_stop_observed_s_after_arm_ack": 0.2510511000000406,
+        "old_arm_rejected_after_clear": true,
+        "motion_completed": true,
+        "position_delta_raw": [
+          17756,
+          17376,
+          18096,
+          16862
+        ],
+        "four_feedback_positive": true,
+        "imu_errors_during_motion": 8,
+        "late_mean_raw_velocity": [
+          226.75,
+          228.5,
+          221.75,
+          219.0
+        ],
+        "late_mean_pwm": [
+          -87.88,
+          94.12,
+          -88.62,
+          95.12
+        ],
+        "motion_duration_s": 1.1,
+        "requested_raw_velocity": 256,
+        "final_stop_confirmed": true,
+        "final_velocity_zero": true,
+        "max_abs_pwm": 106,
+        "max_abs_raw_speed": 240
+      },
+      "late_wheel_mm_s": [
+        89.0445167751857,
+        89.73174016815847,
+        87.08102136669207,
+        86.0010988920206
+      ],
+      "late_average_mm_s": 87.96459430051421,
+      "wheel_spread_percent": 4.241071428571429,
+      "transport": {
+        "transport": "udp",
+        "peer": [
+          "192.168.50.30",
+          6205
+        ],
+        "accepted": 102,
+        "rejected": 0,
+        "duplicates": 0,
+        "missing": 0,
+        "stale": 0,
+        "restart_required": false,
+        "source_age_ms": 0.14294337870524032,
+        "age_ms": 0.1480999999330379
+      },
+      "final": {
+        "motor": {
+          "kind": "motor",
+          "armed": false,
+          "faults": 0,
+          "seq": 148,
+          "position": [
+            46308,
+            68972,
+            66976,
+            75358
+          ],
+          "velocity": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "pwm": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "bad": 0,
+          "rejected": 0,
+          "control_shift": 6,
+          "capabilities": 3,
+          "speed_loop_hz": 1000
+        },
+        "pose": {
+          "kind": "pose",
+          "healthy": true,
+          "calibrated": true,
+          "arrived": false,
+          "mode": 0,
+          "imu_fault": false,
+          "faults": 0,
+          "seq": 148,
+          "imu_error": 0,
+          "x_counts": 273.25819396972656,
+          "y_counts": 3.0974884033203125,
+          "heading_deg": -0.0489587959706514,
+          "yaw_deg": -2.14806717321233,
+          "bias": -20,
+          "gz": -31,
+          "sample_us": 606446749,
+          "who": 112,
+          "control_shift": 6,
+          "raw_counts_per_rev": 60000,
+          "imu_diag_version": 1,
+          "imu_fault_count": 2438,
+          "imu_bus_error": 1,
+          "imu_bus_lines": 3,
+          "imu_fault_armed": true,
+          "imu_fault_pwm": true,
+          "imu_fault_outer": true,
+          "imu_stale": false
+        }
+      },
+      "raw_run": "runs\\commissioning\\fast1khz_20261103_raised_limit4\\result.json",
+      "raw_sha256": "50791fd4bf7b948a72a90b745113b464f411cd441d690c30ab09892b1c49ea55",
+      "condition": "raised; confirmed after user correction"
+    },
+    {
+      "limit": 6,
+      "checks": {
+        "udp_clear_ack": true,
+        "zero_arm_ack": true,
+        "stop_ack": true,
+        "watchdog_stop_observed_s_after_arm_ack": 0.25052660000073956,
+        "old_arm_rejected_after_clear": true,
+        "motion_completed": true,
+        "position_delta_raw": [
+          61714,
+          61748,
+          61746,
+          60522
+        ],
+        "four_feedback_positive": true,
+        "imu_errors_during_motion": 26,
+        "late_mean_raw_velocity": [
+          376.0,
+          380.89,
+          380.44,
+          375.11
+        ],
+        "late_mean_pwm": [
+          -129.67,
+          131.11,
+          -131.22,
+          138.78
+        ],
+        "motion_duration_s": 2.0,
+        "requested_raw_velocity": 384,
+        "final_stop_confirmed": true,
+        "final_velocity_zero": true,
+        "max_abs_pwm": 146,
+        "max_abs_raw_speed": 388
+      },
+      "late_wheel_mm_s": [
+        147.65485471872026,
+        149.57515322822704,
+        149.39843864146263,
+        147.30535253600843
+      ],
+      "late_average_mm_s": 148.48344978110458,
+      "wheel_spread_percent": 1.5286556822088737,
+      "transport": {
+        "transport": "udp",
+        "peer": [
+          "192.168.50.30",
+          6205
+        ],
+        "accepted": 147,
+        "rejected": 0,
+        "duplicates": 0,
+        "missing": 0,
+        "stale": 0,
+        "restart_required": false,
+        "source_age_ms": 0.2918376177376558,
+        "age_ms": 0.2013000048464164
+      },
+      "final": {
+        "motor": {
+          "kind": "motor",
+          "armed": false,
+          "faults": 0,
+          "seq": 192,
+          "position": [
+            112638,
+            135634,
+            133620,
+            140342
+          ],
+          "velocity": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "pwm": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "bad": 0,
+          "rejected": 0,
+          "control_shift": 6,
+          "capabilities": 3,
+          "speed_loop_hz": 1000
+        },
+        "pose": {
+          "kind": "pose",
+          "healthy": true,
+          "calibrated": true,
+          "arrived": false,
+          "mode": 0,
+          "imu_fault": false,
+          "faults": 0,
+          "seq": 192,
+          "imu_error": 0,
+          "x_counts": 959.2683410644531,
+          "y_counts": 4.418731689453125,
+          "heading_deg": -0.08130657187983178,
+          "yaw_deg": -2.7224587616537224,
+          "bias": -20,
+          "gz": -35,
+          "sample_us": 619741773,
+          "who": 112,
+          "control_shift": 6,
+          "raw_counts_per_rev": 60000,
+          "imu_diag_version": 1,
+          "imu_fault_count": 2465,
+          "imu_bus_error": 1,
+          "imu_bus_lines": 3,
+          "imu_fault_armed": true,
+          "imu_fault_pwm": true,
+          "imu_fault_outer": true,
+          "imu_stale": false
+        }
+      },
+      "raw_run": "runs\\commissioning\\fast1khz_20261103_raised_limit6_2s\\result.json",
+      "raw_sha256": "5980536e8af450f5e81de52c71e2cef1bf16beb7891d84f101cb3b12ffb9c02a",
+      "condition": "raised; confirmed after user correction"
+    }
+  ],
+  "idle_observation_seconds": 5,
+  "idle_imu_error_increment": 0,
+  "final_gui_pid": 33820,
+  "ground_distance_or_turn_precision_verified": false,
+  "imu_error_free": false,
+  "serial_opened": false,
+  "firmware_loop_hz": 1000
+}
