@@ -1,0 +1,10 @@
+{
+  "files": {
+    "fpga/mecanum/wheel_control_1khz.sv": "ce3d0c286e61e3b980148485c8fa97cecb2a0f87fe7be8e65d8627ff67d983d0",
+    "fpga/motor/wheel_speed_hybrid.sv": "affe934106a9be0d73dde7dc1d57d19f44eef209e38f0f20f07f33e1097463af"
+  },
+  "speed_loop_hz": 1000,
+  "outer_loop_hz": 100,
+  "pwm_hz": 10000,
+  "hardware_tested": false
+}

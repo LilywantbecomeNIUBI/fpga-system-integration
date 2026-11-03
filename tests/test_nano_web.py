@@ -251,6 +251,26 @@ class NanoWebTests(unittest.TestCase):
             finally:
                 gateway.close()
 
+    def test_udp_observer_can_receive_without_packet_recording(self):
+        gateway = ViewerGateway(dict(receive_only=True, telemetry_transport='udp',
+                                     lidar_source='fpga', record_telemetry=False), live=True)
+        try:
+            with patch('nano.web_console.Recorder') as recorder, \
+                    patch.object(gateway, 'telemetry_loop') as receiver, \
+                    patch.object(gateway, 'record_loop') as record:
+                gateway.start()
+                for worker in gateway.threads:
+                    worker.join(1)
+                receiver.assert_called_once()
+                recorder.assert_not_called()
+                record.assert_not_called()
+                self.assertFalse(gateway.state()['recording']['active'])
+                self.assertEqual(gateway.serial_connections, 0)
+                with self.assertRaises(ValueError):
+                    gateway.control.request(dict(action='claim'))
+        finally:
+            gateway.close()
+
 
 if __name__ == '__main__':
     unittest.main()

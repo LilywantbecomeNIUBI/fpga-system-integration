@@ -22,12 +22,16 @@ def main():
     run('upstream_python',[sys.executable,'-m','unittest','discover','-s',str(TEAM/'tests'),'-p','test_*.py','-v'])
     modules=manifest['module_names']
     pattern=re.compile(r'\b('+'|'.join(map(re.escape,modules))+r')\b')
+    overrides=json.loads((ROOT/'fpga/mecanum/local_overrides.json').read_text())
     for p in (TEAM/'rtl').glob('*.sv'):
         if p.name!='mecanum_top.sv':
             expected=pattern.sub(lambda m:modules[m[0]],p.read_text(encoding='utf-8-sig'))
-            assert expected==(ROOT/'fpga/mecanum'/p.name).read_text(encoding='utf-8'),p
+            if p.name in overrides:
+                assert hashlib.sha256((ROOT/'fpga/mecanum'/p.name).read_bytes()).hexdigest()==overrides[p.name]['sha256'],p
+            else:assert expected==(ROOT/'fpga/mecanum'/p.name).read_text(encoding='utf-8'),p
     rtl=list((ROOT/'fpga/mecanum').glob('*.sv'))
-    rtl+=[ROOT/'fpga/motor/frame_transport.sv',ROOT/'fpga/motor/uart_byte.sv']
+    rtl+=list((ROOT/'tests/mecanum/reference').glob('*.sv'))
+    rtl+=[ROOT/'fpga/motor/frame_transport.sv',ROOT/'fpga/motor/uart_byte.sv',ROOT/'fpga/motor/wheel_speed_hybrid.sv']
     # Upstream test.py omits the I2C sensor model for tb_pose_serial_top.
     # Include its existing source explicitly; selecting -s prevents its other
     # top-level testbench from running as an accidental simulation root.
@@ -47,6 +51,12 @@ def main():
         print(text.splitlines()[0],flush=True)
     run('integration_python',[sys.executable,'-m','unittest','discover','-s',str(ROOT/'tests/mecanum'),'-p','test_*.py','-v'])
     for bench in sorted((ROOT/'tests/mecanum').glob('tb_*.sv')):
+        if bench.stem=='tb_router_mirror':
+            print(run('router_mirror',[sys.executable,'tools/mecanum/test_mirror.py']),flush=True)
+            passed.append(bench.stem);continue
+        if bench.stem=='tb_router_commands':
+            print(run('router_wire',[sys.executable,'tools/mecanum/test_router.py']),flush=True)
+            passed.append(bench.stem);continue
         output=OUT/(bench.stem+'.vvp')
         run(bench.stem+'_compile',['iverilog','-g2012','-s',bench.stem,'-o',str(output),*map(str,rtl),str(bench)])
         text=run(bench.stem,['vvp',str(output)])

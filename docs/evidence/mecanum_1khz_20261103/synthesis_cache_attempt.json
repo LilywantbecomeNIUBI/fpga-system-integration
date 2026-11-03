@@ -1,0 +1,6 @@
+{
+  "cache_provided": true,
+  "reuse_effective": false,
+  "reason": "Gowin ran synthesis again despite cached netlist, completed flow metadata and run pnr",
+  "build": "build/lidar_raw_ethernet_20261102/mecanum/20261103T013936Z"
+}

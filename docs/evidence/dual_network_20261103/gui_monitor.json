@@ -1,0 +1,1814 @@
+{
+  "latest": {
+    "state": "fresh",
+    "pid": 5328,
+    "running": false,
+    "motor": {
+      "kind": "motor",
+      "armed": false,
+      "faults": 0,
+      "seq": 203,
+      "position": [
+        -922010,
+        1892294,
+        -111006,
+        1092712
+      ],
+      "velocity": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pwm": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bad": 0,
+      "rejected": 1,
+      "control_shift": 4
+    },
+    "pose": {
+      "kind": "pose",
+      "healthy": true,
+      "calibrated": true,
+      "arrived": false,
+      "mode": 0,
+      "imu_fault": false,
+      "faults": 0,
+      "seq": 203,
+      "imu_error": 0,
+      "x_counts": -3.215362548828125,
+      "y_counts": -2.6090545654296875,
+      "heading_deg": 176.72376816977632,
+      "yaw_deg": 160.8147822719559,
+      "bias": -28,
+      "gz": -33,
+      "sample_us": 2130548470,
+      "who": 112,
+      "control_shift": 4,
+      "raw_counts_per_rev": 60000,
+      "imu_diag_version": 1,
+      "imu_fault_count": 1910,
+      "imu_bus_error": 1,
+      "imu_bus_lines": 3,
+      "imu_fault_armed": false,
+      "imu_fault_pwm": false,
+      "imu_fault_outer": false,
+      "imu_stale": false
+    },
+    "motor_age_ms": 0,
+    "pose_age_ms": 0,
+    "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+    "source_pids": [
+      5328
+    ]
+  },
+  "samples": [
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.82877049937608,
+        "bias": -28,
+        "gz": -19,
+        "sample_us": 2125640204,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.82877049937608,
+        "bias": -28,
+        "gz": -19,
+        "sample_us": 2125640204,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.82877049937608,
+        "bias": -28,
+        "gz": -28,
+        "sample_us": 2126140074,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 2,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.82877049937608,
+        "bias": -28,
+        "gz": -28,
+        "sample_us": 2126140074,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 2,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.82877049937608,
+        "bias": -28,
+        "gz": -28,
+        "sample_us": 2126140074,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 2,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.82090212145224,
+        "bias": -28,
+        "gz": -24,
+        "sample_us": 2126699759,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 1,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.82090212145224,
+        "bias": -28,
+        "gz": -24,
+        "sample_us": 2126699759,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 1,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.82090212145224,
+        "bias": -28,
+        "gz": -24,
+        "sample_us": 2126699759,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 1,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.81827932881095,
+        "bias": -28,
+        "gz": -23,
+        "sample_us": 2127290053,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 2,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 1,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.81827932881095,
+        "bias": -28,
+        "gz": -23,
+        "sample_us": 2127290053,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 2,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 1,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.80866242245958,
+        "bias": -28,
+        "gz": -23,
+        "sample_us": 2127789922,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.80866242245958,
+        "bias": -28,
+        "gz": -23,
+        "sample_us": 2127789922,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.80866242245958,
+        "bias": -28,
+        "gz": -23,
+        "sample_us": 2127789922,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 0,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8077881582458,
+        "bias": -28,
+        "gz": -35,
+        "sample_us": 2128389484,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8077881582458,
+        "bias": -28,
+        "gz": -35,
+        "sample_us": 2128389484,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8077881582458,
+        "bias": -28,
+        "gz": -35,
+        "sample_us": 2128389484,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8060396298183,
+        "bias": -28,
+        "gz": -31,
+        "sample_us": 2128889353,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8060396298183,
+        "bias": -28,
+        "gz": -31,
+        "sample_us": 2128889353,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8060396298183,
+        "bias": -28,
+        "gz": -31,
+        "sample_us": 2128889353,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 1,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.81303374352836,
+        "bias": -28,
+        "gz": -25,
+        "sample_us": 2129449039,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.81303374352836,
+        "bias": -28,
+        "gz": -25,
+        "sample_us": 2129449039,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8121594793146,
+        "bias": -28,
+        "gz": -25,
+        "sample_us": 2129999456,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8121594793146,
+        "bias": -28,
+        "gz": -25,
+        "sample_us": 2129999456,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8121594793146,
+        "bias": -28,
+        "gz": -25,
+        "sample_us": 2129999456,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 1,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8147822719559,
+        "bias": -28,
+        "gz": -33,
+        "sample_us": 2130548470,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    },
+    {
+      "state": "fresh",
+      "pid": 5328,
+      "running": false,
+      "motor": {
+        "kind": "motor",
+        "armed": false,
+        "faults": 0,
+        "seq": 203,
+        "position": [
+          -922010,
+          1892294,
+          -111006,
+          1092712
+        ],
+        "velocity": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pwm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bad": 0,
+        "rejected": 1,
+        "control_shift": 4
+      },
+      "pose": {
+        "kind": "pose",
+        "healthy": true,
+        "calibrated": true,
+        "arrived": false,
+        "mode": 0,
+        "imu_fault": false,
+        "faults": 0,
+        "seq": 203,
+        "imu_error": 0,
+        "x_counts": -3.215362548828125,
+        "y_counts": -2.6090545654296875,
+        "heading_deg": 176.72376816977632,
+        "yaw_deg": 160.8147822719559,
+        "bias": -28,
+        "gz": -33,
+        "sample_us": 2130548470,
+        "who": 112,
+        "control_shift": 4,
+        "raw_counts_per_rev": 60000,
+        "imu_diag_version": 1,
+        "imu_fault_count": 1910,
+        "imu_bus_error": 1,
+        "imu_bus_lines": 3,
+        "imu_fault_armed": false,
+        "imu_fault_pwm": false,
+        "imu_fault_outer": false,
+        "imu_stale": false
+      },
+      "motor_age_ms": 0,
+      "pose_age_ms": 0,
+      "message": "IMU\u6545\u969c\u5df2\u8bb0\u5f55\uff1aC:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_064615_863852.json",
+      "source_pids": [
+        5328
+      ]
+    }
+  ],
+  "read_only": true
+}

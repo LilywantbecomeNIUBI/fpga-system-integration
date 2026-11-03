@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "speed_loop_hz": 1000,
+  "control_shift": 6,
+  "extended_turns": true,
+  "telemetry_frames_checked": 26
+}

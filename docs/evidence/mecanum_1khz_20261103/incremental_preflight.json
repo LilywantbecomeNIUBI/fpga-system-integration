@@ -1,0 +1,19 @@
+{
+  "gowin_option_roundtrip_passed": true,
+  "incremental_pnr": {
+    "requested": true,
+    "baseline_build": "C:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\build\\lidar_raw_ethernet_20261102\\mecanum\\20261102T231025Z",
+    "reference_path": "incremental_base/sensor.pr",
+    "reference_sha256": "2b52f02dbb34674fc23cdda08bb8ffdbc765ab09e43912d86b6f4dc6bee878f5",
+    "baseline_bitstream_sha256": "aed01008f0be810566f9e3ca58986db42b1122d2a92fe4718e5c516f29ae5e99",
+    "baseline_violations": {
+      "setup": 1,
+      "hold": 0
+    },
+    "constraints_unchanged": true,
+    "full_rebuild_fallback": false
+  },
+  "snapshot": "C:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\build\\lidar_raw_ethernet_20261102\\mecanum\\20261103T002217Z",
+  "pnr_started": false,
+  "hardware_programmed": false
+}

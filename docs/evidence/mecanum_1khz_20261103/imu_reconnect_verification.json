@@ -1,0 +1,156 @@
+{
+  "user_report": "IMU cable had been disconnected; user reconnected it before this test",
+  "firmware": "a6c985da256170d09ab8c46de288c0465298cb4d9b6af44e0ce6ce2a079b5bd5",
+  "calibration_succeeded": true,
+  "gyro_bias_before": -20,
+  "gyro_bias_after": -32,
+  "recalibration_error_increment": 1,
+  "idle_before_motion": {
+    "seconds": 8,
+    "pose_samples": 160,
+    "imu_error_delta": 0,
+    "all_healthy": true,
+    "motors_stopped": true,
+    "yaw_change_deg": -0.02273086955780243,
+    "transport": {
+      "transport": "udp",
+      "peer": [
+        "192.168.50.30",
+        6205
+      ],
+      "accepted": 360,
+      "rejected": 0,
+      "duplicates": 0,
+      "missing": 0,
+      "stale": 0,
+      "restart_required": false,
+      "source_age_ms": 0.8471985258893255,
+      "age_ms": 22.24279999791179
+    }
+  },
+  "low_speed_motion": {
+    "udp_clear_ack": true,
+    "zero_arm_ack": true,
+    "stop_ack": true,
+    "watchdog_stop_observed_s_after_arm_ack": 0.24928240000008373,
+    "old_arm_rejected_after_clear": true,
+    "motion_completed": true,
+    "position_delta_raw": [
+      7068,
+      5862,
+      7216,
+      6040
+    ],
+    "four_feedback_positive": true,
+    "imu_errors_during_motion": 10,
+    "late_mean_raw_velocity": [
+      123.75,
+      136.75,
+      117.25,
+      126.0
+    ],
+    "late_mean_pwm": [
+      -59.38,
+      67.38,
+      -56.62,
+      67.25
+    ],
+    "motion_duration_s": 1.1,
+    "requested_raw_velocity": 128,
+    "final_stop_confirmed": true,
+    "final_velocity_zero": true,
+    "max_abs_pwm": 85,
+    "max_abs_raw_speed": 152
+  },
+  "idle_after_motion": {
+    "seconds": 8,
+    "pose_samples": 160,
+    "imu_error_delta": 0,
+    "all_healthy": true,
+    "motors_stopped": true,
+    "yaw_change_deg": -0.002622792641284899,
+    "transport": {
+      "transport": "udp",
+      "peer": [
+        "192.168.50.30",
+        6205
+      ],
+      "accepted": 360,
+      "rejected": 0,
+      "duplicates": 0,
+      "missing": 0,
+      "stale": 0,
+      "restart_required": false,
+      "source_age_ms": 2.5185821707509604,
+      "age_ms": 27.503500001330394
+    }
+  },
+  "final_motor": {
+    "kind": "motor",
+    "armed": false,
+    "faults": 0,
+    "seq": 222,
+    "position": [
+      120310,
+      141972,
+      141318,
+      147000
+    ],
+    "velocity": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "pwm": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "bad": 0,
+    "rejected": 0,
+    "control_shift": 6,
+    "capabilities": 3,
+    "speed_loop_hz": 1000
+  },
+  "final_pose": {
+    "kind": "pose",
+    "healthy": true,
+    "calibrated": true,
+    "arrived": false,
+    "mode": 0,
+    "imu_fault": false,
+    "faults": 0,
+    "seq": 222,
+    "imu_error": 0,
+    "x_counts": 102.00436401367188,
+    "y_counts": -0.0092926025390625,
+    "heading_deg": -0.004371321068808161,
+    "yaw_deg": 0.07168966552845384,
+    "bias": -32,
+    "gz": -23,
+    "sample_us": 1388799018,
+    "who": 112,
+    "control_shift": 6,
+    "raw_counts_per_rev": 60000,
+    "imu_diag_version": 1,
+    "imu_fault_count": 2476,
+    "imu_bus_error": 1,
+    "imu_bus_lines": 3,
+    "imu_fault_armed": true,
+    "imu_fault_pwm": true,
+    "imu_fault_outer": true,
+    "imu_stale": false
+  },
+  "result": "Static communication clean after calibration; NACK still reproduced during motor motion; no root cause proven",
+  "gui_restored_pid": 34176,
+  "source_run": "runs\\commissioning\\imu_reconnect_20261103_101209",
+  "files": {
+    "after_calibration_idle.json": "51860cacac69563b5d1273a6077f9a1af185976d978e5a6445ab123d5188872e",
+    "after_motion_idle.json": "ba7bf78255d0170dc028a3cfc1f8f1295c2638bb82e1d52b2d2132e1fea571dd",
+    "before_calibration.json": "48e38034cdcd9d63285af62d2678ef25e96be47ae00fbded40638ba6dfd51023",
+    "calibration.json": "ffb5bf5f3876c9dd7e20a285790ddecaf13f994a3c91155f2e5764caeba19a6a",
+    "limit2/result.json": "45933665effabc1b4db5e1df25178429ea49984aaebe7d1c7ecf606e7523d6e7"
+  }
+}

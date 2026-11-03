@@ -1,5 +1,12 @@
 # Nano 默认固定版本
 
+2026-11-03 雷达恢复更新：`robot-web` 已按用户修复在线点云的要求切到独立版本
+`nano-lidar-20261103-r4`（`/home/liwei/robot_releases/nano-lidar-20261103-r4`），
+由 `95-lidar-receive.conf` 覆盖网页入口。`robot-vision`、模型和 engine 继续使用下述
+`nano-video-20261103` 冻结基线，原基线目录保持完整。网页 API 当前版本应为
+`nano-lidar-20261103-r4`；后续网页恢复不要误切回旧的雷达接收线程。
+详见 [雷达在线恢复](LIDAR_LIVE_FIX_20261103.md)。以下保留原冻结版本及备份信息。
+
 后续默认使用 **nano-video-20261103**，Git 标签 `nano-video-20261103`。不要再依据目录日期或旧PC图传记录判断版本。
 
 - 网页：http://192.168.50.20:8872

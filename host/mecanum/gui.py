@@ -16,7 +16,7 @@ from collections import deque
 import tkinter as tk
 from tkinter import ttk, messagebox
 from console import Stream, packet, motor_profile, mm_to_control_counts, polar_displacement
-from live_status import LiveStatusWriter
+from live_status import LiveStatusWriter, TelemetryJournal
 
 
 def imu_readout(row):
@@ -76,9 +76,10 @@ def motion_spec(kind, dx, dy, angle, limit, tolerance, duration, cfg, profile, *
                      mm_to_control_counts(dy,profile['raw_counts_per_rev'],profile['wheel_diameter_mm'],profile['control_shift']),round(angle*100))
     elif kind=='定角': op=6;values=(0,0,round(angle*100))
     else: raise ValueError('仅支持定角、相对位置和任意角度移动')
+    if kind=='定角' or (abs(angle)>=180 and kind!='任意角度'):op=9;values=(values[0],values[1],round(angle*10))
     options=dict(cfg,limit=limit,tolerance=tolerance)
     packet(op,1,x=values[0],y=values[1],z=values[2],**options)
-    return dict(op=op,values=values,options=options,duration=duration,outer=op in (5,6),kind=kind)
+    return dict(op=op,values=values,options=options,duration=duration,outer=op in (6,9),kind=kind)
 
 
 class MotionSession:
@@ -86,6 +87,7 @@ class MotionSession:
     def __init__(self,send,spec,now,motor,pose,shift):
         if not motor or now-motor[0]>.3 or motor[1]['control_shift']!=shift:
             raise ValueError('需要最新的V3电机遥测，且控制单位必须匹配')
+        if spec['op']==9 and not (motor[1].get('capabilities',0)&2):raise ValueError('当前固件不支持整圈旋转，请下载扩展运动固件')
         if spec['outer'] and (not pose or now-pose[0]>.3 or not pose[1]['healthy']):
             raise ValueError('IMU尚未完成静止校准或反馈无效')
         self.send=send;self.spec=spec;self.phase='stop';self.sent=now;self.deadline=now+.2
@@ -110,10 +112,13 @@ class MotionSession:
             if self.spec['outer']:
                 if not pose or now-pose[0]>.3 or not pose[1]['healthy'] or pose[1]['faults']:
                     raise RuntimeError('姿态反馈中断或无效，停止执行')
-                if self.spec['op']==6 and pose[1]['mode']==2 and pose[1]['arrived']:
+                # M4/P4 are sent separately. A delayed completion from the
+                # previous goal must not terminate this motion after its ACK.
+                if (self.spec['op'] in (6,9) and pose[0]>self.sent
+                    and pose[1].get('seq')==m['seq'] and pose[1]['mode']==2 and pose[1]['arrived']):
                     return '目标已到达'
             if now>=self.end:
-                if self.spec['op']==6:raise RuntimeError('到达超时，已停止；未判定到达')
+                if self.spec['op'] in (6,9):raise RuntimeError('到达超时，已停止；未判定到达')
                 return '执行时限结束'
             if now>=self.next_send:
                 self.send(7 if self.spec['outer'] else self.spec['op'],(0,0,0) if self.spec['outer'] else self.spec['values'],self.spec['options'])
@@ -127,20 +132,23 @@ class MotionSession:
 
 
 TELEMETRY_OPTIONS = dict(bind='0.0.0.0',peer='192.168.50.30')
+COMMAND_TRANSPORT='router'
 
 
 class SerialLink(threading.Thread):
     def __init__(self,port,events,profile):
         super().__init__(daemon=True);self.port=port;self.events=events;self.profile=profile
-        self.requests=queue.Queue();self.close_requested=threading.Event();self.sequence=0
-        self.session=None;self.motor=None;self.pose=None;self.options=dict(motor=0,encoder=0,kp=512,ki=32)
+        self.journal=None;self.requests=queue.Queue();self.close_requested=threading.Event();self.sequence=0
+        self.session=None;self.motor=None;self.pose=None;self.options=dict(motor=0,encoder=0,kp=profile['initial_kp_q8'],ki=profile['initial_ki_q8'])
         self.recent_frames=deque(maxlen=100);self.previous_imu_fault=False;self.previous_imu_count=0;self.last_fault_record=-1e9
 
     def run(self):
         try:
-            import serial
-            from transport import SplitLink
-            with SplitLink(self.port,timeout=.015,write_timeout=.1,**TELEMETRY_OPTIONS) as self.device:
+            from transport import SplitLink, RouterLink
+            link_type=RouterLink if COMMAND_TRANSPORT=='router' else SplitLink
+            with link_type(self.port,timeout=.015,write_timeout=.1,**TELEMETRY_OPTIONS) as self.device:
+                self.journal=TelemetryJournal(Path(__file__).resolve().parents[1]/'runs')
+                self.journal.record('connected',transport=COMMAND_TRANSPORT,**TELEMETRY_OPTIONS)
                 self.events.put(('connected',self.port));decoder=Stream()
                 try:
                     while not self.close_requested.is_set():
@@ -163,12 +171,14 @@ class SerialLink(threading.Thread):
                         elif pending:
                             try:
                                 if self.session:raise ValueError('请先停止当前动作')
+                                if self.motor:self.sequence=self.motor[1]['seq']
                                 self.options=pending['options']
                                 self.session=MotionSession(self.send,pending,time.monotonic(),self.motor,self.pose,self.profile['control_shift'])
                                 self.events.put(('running',True));self.events.put(('log','执行：'+pending['kind']))
                             except ValueError as exc:self.events.put(('log',str(exc)))
                         for row in decoder.feed(self.device.read(256)):
                             now=time.monotonic()
+                            self.journal.record('telemetry',row=row)
                             self.recent_frames.append(dict(received_monotonic=now,**row))
                             if row['kind']=='motor':self.motor=(now,row)
                             else:
@@ -195,12 +205,15 @@ class SerialLink(threading.Thread):
                     # Only a deliberate STOP/session/close sends STOP. Merely
                     # opening the port starts read-only, with no automatic ARM.
                     if self.session:self.stop()
-        except Exception as exc:self.events.put(('log','串口错误：'+str(exc)))
-        finally:self.events.put(('disconnected',None))
+        except Exception as exc:self.events.put(('log','连接错误：'+str(exc)))
+        finally:
+            if self.journal:self.journal.close()
+            self.events.put(('disconnected',None))
 
     def send(self,op,values,options):
         self.sequence=(self.sequence+1)&255
         self.device.write(packet(op,self.sequence,x=values[0],y=values[1],z=values[2],**options))
+        if self.journal:self.journal.record('command',op=op,seq=self.sequence,values=values,options=options)
         return self.sequence
 
     def stop(self):
@@ -229,7 +242,7 @@ class App:
         style.configure('Treeview.Heading',font=('Microsoft YaHei UI',9),background='#eef3fa',padding=7)
         self.make_ui()
         root.protocol('WM_DELETE_WINDOW',self.close);root.bind('<Escape>',lambda e:self.stop())
-        self.refresh_ports();self.log('演示模式：所有数值为模拟数据，未打开串口' if demo else '未连接。连接后仅监测，点击执行才会ARM。')
+        self.refresh_ports();self.log('演示模式：所有数值为模拟数据，未连接硬件' if demo else '未连接。连接后仅监测，点击执行才会ARM。')
         self.export_status(force=True)
         root.after(80,self.poll)
 
@@ -249,8 +262,8 @@ class App:
         self.label(block,'MG513P30—12V  /  GMR  /  MPU6050 · MPU6500',9,'#a9b8cc').pack(anchor='w')
         self.badge=self.label(header,'演示模式 · 模拟数据' if self.demo else '离线 · 未连接',11,'#ffcf7b');self.badge.pack(side='right',padx=25)
         bar=tk.Frame(self.root,bg=self.WHITE);bar.pack(fill='x',pady=(0,1))
-        self.label(bar,'串口',10,self.MUTED).pack(side='left',padx=(24,8),pady=13)
-        self.port=tk.StringVar();self.ports=ttk.Combobox(bar,textvariable=self.port,width=16,state='readonly');self.ports.pack(side='left')
+        self.label(bar,'控制连接',10,self.MUTED).pack(side='left',padx=(24,8),pady=13)
+        self.port=tk.StringVar();self.ports=ttk.Combobox(bar,textvariable=self.port,width=32 if COMMAND_TRANSPORT=='router' else 16,state='readonly');self.ports.pack(side='left')
         self.button(bar,'刷新',self.refresh_ports).pack(side='left',padx=7,pady=8)
         self.connect_button=self.button(bar,'连接设备',self.connect,primary=True);self.connect_button.pack(side='left',padx=3)
         self.demo_button=self.button(bar,'退出演示' if self.demo else '界面演示',self.toggle_demo);self.demo_button.pack(side='left',padx=7)
@@ -288,22 +301,22 @@ class App:
         self.tabs.add(heading,text='定角');self.tabs.add(position,text='相对位置')
         vector=tk.Frame(self.tabs,bg=self.WHITE);self.tabs.add(vector,text='任意角度')
         self.bearing=tk.DoubleVar(value=45);self.distance=tk.DoubleVar(value=200)
-        self.field(vector,'移动方向 ° · 相对本次起始车头',self.bearing,-180,180)
-        self.field(vector,'移动距离 · mm',self.distance,1,1000)
+        self.field(vector,'移动方向 ° · 相对本次起始车头',self.bearing,-360,360)
+        self.field(vector,'移动距离 · mm',self.distance,1,4000)
         self.label(vector,'0° 向前　90° 向左\n−90° 向右　±180° 向后\n车身保持起始朝向，按距离闭环停车。',9,self.MUTED,justify='left').pack(anchor='w',padx=16,pady=12)
         self.button(vector,'位置参数',self.position_settings).pack(anchor='e',padx=16,pady=5)
-        self.angle=tk.DoubleVar(value=90);self.field(heading,'相对角度 ° · 逆时针为正',self.angle,-180,180)
+        self.angle=tk.DoubleVar(value=90);self.field(heading,'相对角度 ° · 逆时针为正',self.angle,-720,720)
         self.label(heading,'原地旋转到目标角度，到位停车。\n正角度逆时针，负角度顺时针。',9,self.MUTED,justify='left').pack(anchor='w',padx=16,pady=12)
         self.dx=tk.DoubleVar(value=200);self.dy=tk.DoubleVar(value=0);self.position_angle=tk.DoubleVar(value=0)
-        self.field(position,'前进 X · mm',self.dx,-1000,1000);self.field(position,'左移 Y · mm',self.dy,-1000,1000);self.field(position,'终点相对角度 °',self.position_angle,-180,180)
+        self.field(position,'前进 X · mm',self.dx,-4000,4000);self.field(position,'左移 Y · mm',self.dy,-4000,4000);self.field(position,'终点相对角度 °',self.position_angle,-720,720)
         positionbar=tk.Frame(position,bg=self.WHITE);positionbar.pack(fill='x',padx=15,pady=5)
         self.label(positionbar,'以本次起点为原点',9,self.MUTED).pack(side='left')
         self.button(positionbar,'位置参数',self.position_settings).pack(side='right')
         limits=tk.Frame(right,bg=self.WHITE);limits.grid(row=2,column=0,sticky='ew',padx=14,pady=(12,4))
-        self.duration=tk.DoubleVar(value=15);self.limit=tk.IntVar(value=20)
-        self.small_field(limits,'时限 / s',self.duration,0);self.small_field(limits,'外环速度上限',self.limit,1)
+        self.duration=tk.DoubleVar(value=60);self.limit=tk.IntVar(value=self.profile['default_speed_limit'])
+        self.small_field(limits,'时限 / s',self.duration,0);self.small_field(limits,'速度档 · 约25mm/s/档',self.limit,1)
         config=tk.Frame(right,bg='#f5f8fc');config.grid(row=3,column=0,sticky='ew',padx=14,pady=6)
-        self.label(config,'速度 PI',10,self.MUTED).grid(row=0,column=0,columnspan=2,sticky='w',padx=10,pady=8)
+        self.pi_title=self.label(config,'速度 PI · 未连接',10,self.MUTED);self.pi_title.grid(row=0,column=0,columnspan=2,sticky='w',padx=10,pady=8)
         self.kp=tk.IntVar(value=self.profile['initial_kp_q8']);self.ki=tk.IntVar(value=self.profile['initial_ki_q8'])
         for row,(caption,var) in enumerate([('Kp / Q8',self.kp),('Ki / Q8',self.ki)],1):
             part=tk.Frame(config,bg='#f5f8fc');part.grid(row=1+(row-1)//2,column=(row-1)%2,sticky='ew',padx=8,pady=5)
@@ -321,8 +334,8 @@ class App:
     def position_settings(self):
         if self.running:self.log('请先停止当前动作，再修改测试参数');return
         self.kp.set(self.profile['initial_kp_q8']);self.ki.set(self.profile['initial_ki_q8'])
-        self.duration.set(5);self.limit.set(20)
-        self.log('已填位置参数：Kp512、Ki32、时限5秒、上限20；目标距离保持原值，未执行')
+        self.duration.set(60);self.limit.set(self.profile['default_speed_limit'])
+        self.log(f"已填位置参数：Kp{self.kp.get()}、Ki{self.ki.get()}、时限60秒、上限{self.limit.get()}；未执行")
 
     def calibrate_imu(self):
         if self.demo:self.log('演示模式不发送校零指令');return
@@ -342,14 +355,15 @@ class App:
             from serial.tools import list_ports
             names=[p.device for p in list_ports.comports()]
         except ImportError:names=[]
+        if COMMAND_TRANSPORT=='router':names=['路由器 UDP · '+TELEMETRY_OPTIONS['peer']]
         self.ports['values']=names
         if not self.port.get() and names:self.port.set(names[0])
 
     def connect(self):
         if self.link:
             self.link.close_requested.set();return
-        if self.demo:self.log('请先退出演示，再选择串口连接');return
-        if not self.port.get():self.log('请选择串口；刷新后再连接');return
+        if self.demo:self.log('请先退出演示，再选择控制连接');return
+        if not self.port.get():self.log('请选择控制连接；刷新后再连接');return
         self.link=SerialLink(self.port.get(),self.events,self.profile);self.link.start()
         self.log('正在连接，仅监测，不自动ARM')
 
@@ -358,7 +372,7 @@ class App:
         self.demo=not self.demo;self.demo_paused=False;self.running=False;self.latest_motor=None;self.latest_pose=None;self.history.clear();self.path.clear()
         self.badge.config(text='演示模式 · 模拟数据' if self.demo else '离线 · 未连接',fg='#ffcf7b')
         self.demo_button.config(text='退出演示' if self.demo else '界面演示');self.execute.config(text='演示执行' if self.demo else '执行动作')
-        self.log('演示模式：不打开串口、不发送命令' if self.demo else '已退出演示，可选择串口连接')
+        self.log('演示模式：不连接硬件、不发送命令' if self.demo else '已退出演示，可选择控制连接')
 
     def run_motion(self):
         try:
@@ -418,6 +432,7 @@ class App:
     def consume(self,row):
         if row['kind']=='motor':
             self.motor_received=time.monotonic()
+            self.pi_title.config(text=f"速度 PI · {row.get('speed_loop_hz',100)} Hz")
             self.latest_motor=row
             for i in range(4):
                 self.table.set(str(i),'rpm',f"{row['velocity'][i]*6000/self.profile['raw_counts_per_rev']:.1f}");self.table.set(str(i),'pwm',f"{row['pwm'][i]/10:+.1f}%")
@@ -428,7 +443,7 @@ class App:
             self.latest_pose=row;x=row['x_counts']*self.mm_per_count;y=row['y_counts']*self.mm_per_count
             self.path.append((x,y));self.stat_values['position'].config(text=f'{x:.0f}, {y:.0f} mm')
             readings=imu_readout(row);self.stat_values['heading'].config(text=readings['yaw'])
-            self.imu_hint.config(text='俯视：逆时针角速度为正、航向增大。\n'+('演示数据' if self.demo else imu_diagnostic(row)))
+            self.imu_hint.config(text=f"本次累计转角 {row['heading_deg']:+.1f}° · 逆时针为正\n"+('演示数据' if self.demo else imu_diagnostic(row)))
             sensor={0x68:'6050',0x70:'6500'}.get(row.get('who'),'IMU')
             holding=row.get('imu_stale') or row.get('imu_fault') or row.get('imu_error',0) in (5,6)
             self.stat_values['imu'].config(text='模拟已就绪' if self.demo else sensor+' 数据保持' if row['healthy'] and holding else sensor+' 已就绪' if row['healthy'] else sensor+' 重连 / 校准中',fg=self.BLUE if row['healthy'] else self.MUTED)
@@ -447,7 +462,7 @@ class App:
         if len(points)>=4:c.create_line(*points,fill=self.BLUE,width=2,smooth=True)
         c.create_oval(cx-4,cy-4,cx+4,cy+4,fill='#879ab3',outline='')
         if self.latest_pose:
-            p=self.latest_pose;px=cx-p['y_counts']*self.mm_per_count*scale;py=cy-p['x_counts']*self.mm_per_count*scale;theta=-math.radians(p.get('yaw_deg',p['heading_deg']))
+            p=self.latest_pose;px=cx-p['y_counts']*self.mm_per_count*scale;py=cy-p['x_counts']*self.mm_per_count*scale;theta=-math.radians(p['heading_deg'])
         else:px=cx;py=cy;theta=0
         glyph_scale=max(.15,min(1,(h-24)/110))
         def point(x,y):return (px+(x*math.cos(theta)-y*math.sin(theta))*glyph_scale,py+(x*math.sin(theta)+y*math.cos(theta))*glyph_scale)
@@ -476,8 +491,9 @@ class App:
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--demo',action='store_true')
+    parser=argparse.ArgumentParser();parser.add_argument('--demo',action='store_true');parser.add_argument('--connect',action='store_true',help='Connect for read-only monitoring on startup');parser.add_argument('--transport',choices=['router','serial'],default='router')
     parser.add_argument('--telemetry-bind',default='0.0.0.0');parser.add_argument('--fpga-ip',default='192.168.50.30')
-    args=parser.parse_args();TELEMETRY_OPTIONS.update(bind=args.telemetry_bind,peer=args.fpga_ip)
+    args=parser.parse_args();COMMAND_TRANSPORT=args.transport;TELEMETRY_OPTIONS.update(bind=args.telemetry_bind,peer=args.fpga_ip)
     root=tk.Tk();app=App(root,demo=args.demo)
+    if args.connect and not args.demo:root.after(100,app.connect)
     root.mainloop()

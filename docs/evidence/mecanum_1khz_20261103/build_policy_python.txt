@@ -1,0 +1,34 @@
+test_real_capture_network_and_teammate_pins_in_both_modes (test_build_profiles.BuildProfiles.test_real_capture_network_and_teammate_pins_in_both_modes) ... ok
+test_default_speed_and_gain_conversion_preserve_physics (test_extended_motion.ExtendedMotion.test_default_speed_and_gain_conversion_preserve_physics) ... ok
+test_delayed_previous_goal_completion_does_not_stop_new_turn (test_extended_motion.ExtendedMotion.test_delayed_previous_goal_completion_does_not_stop_new_turn) ... ok
+test_full_turns_use_explicit_new_opcode (test_extended_motion.ExtendedMotion.test_full_turns_use_explicit_new_opcode) ... ok
+test_long_moves_fit_real_fixed_point_range (test_extended_motion.ExtendedMotion.test_long_moves_fit_real_fixed_point_range) ... ok
+test_unsupported_firmware_never_sends_arm (test_extended_motion.ExtendedMotion.test_unsupported_firmware_never_sends_arm) ... ok
+C:\Users\leo\AppData\Local\Temp\tmpu7cfvlhw
+Explicit whole-system full rebuild requested
+test_explicit_fast_full_build_does_not_attach_old_reference (test_incremental_build.IncrementalBuild.test_explicit_fast_full_build_does_not_attach_old_reference) ... ok
+test_incompatible_or_incomplete_reference_cannot_start_pnr (test_incremental_build.IncrementalBuild.test_incompatible_or_incomplete_reference_cannot_start_pnr) ... ok
+test_reference_is_frozen_and_explicitly_used (test_incremental_build.IncrementalBuild.test_reference_is_frozen_and_explicitly_used) ... ok
+C:\Users\leo\AppData\Local\Temp\tmpj6h85qn9
+Whole-system incremental PnR reference: C:\Users\leo\AppData\Local\Temp\tmpj6h85qn9
+C:\Users\leo\AppData\Local\Temp\tmpohkb1573
+Whole-system incremental PnR reference: C:\Users\leo\AppData\Local\Temp\tmpohkb1573
+test_vendor_clean_build_fallback_is_terminated_and_recorded (test_incremental_build.IncrementalBuild.test_vendor_clean_build_fallback_is_terminated_and_recorded) ... ok
+test_gateway_does_not_feed_four_wheels_to_two_wheel_control (test_integration.Integration.test_gateway_does_not_feed_four_wheels_to_two_wheel_control) ... ok
+test_mecanum_gateway_never_starts_legacy_command_worker (test_integration.Integration.test_mecanum_gateway_never_starts_legacy_command_worker) ... ok
+test_removed_modes_are_still_rejected (test_integration.Integration.test_removed_modes_are_still_rejected) ... ok
+test_signed_four_wheels_and_pose_fragmentation (test_integration.Integration.test_signed_four_wheels_and_pose_fragmentation) ... ok
+test_split_link_read_never_uses_uart_status (test_integration.Integration.test_split_link_read_never_uses_uart_status) ... ok
+test_udp_identity_crc_peer_replay_and_legacy (test_integration.Integration.test_udp_identity_crc_peer_replay_and_legacy) ... ok
+test_demo_and_disconnected_are_not_real_feedback (test_observer.ObserverTests.test_demo_and_disconnected_are_not_real_feedback) ... ok
+test_journal_records_commands_and_feedback (test_observer.ObserverTests.test_journal_records_commands_and_feedback) ... ok
+test_stale_other_gui_cannot_hide_fresh_process (test_observer.ObserverTests.test_stale_other_gui_cannot_hide_fresh_process) ... ok
+test_endpoint_slot_selects_existing_protocol_without_touching_other_slot (test_router.RouterTests.test_endpoint_slot_selects_existing_protocol_without_touching_other_slot) ... ok
+test_failed_command_open_closes_status_socket (test_router.RouterTests.test_failed_command_open_closes_status_socket) ... ok
+test_monitor_timeout_is_empty (test_router.RouterTests.test_monitor_timeout_is_empty) ... ok
+test_router_binds_without_sending_or_importing_serial (test_router.RouterTests.test_router_binds_without_sending_or_importing_serial) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.464s
+
+OK

@@ -1,0 +1,12 @@
+{
+  "source": "User correction: previous tests were not raised; user has now raised the vehicle again",
+  "prior_runs": [
+    "fast1khz_20261103_limit2",
+    "fast1khz_20261103_limit4",
+    "fast1khz_20261103_limit6"
+  ],
+  "corrected_condition": "wheels contacting ground",
+  "use_as_raised_wheel_acceptance": false,
+  "raw_logs_preserved": true,
+  "new_raised_tests_required": true
+}

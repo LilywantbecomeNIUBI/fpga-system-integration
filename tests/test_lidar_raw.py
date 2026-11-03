@@ -1,9 +1,11 @@
 import struct
 import unittest
+from unittest.mock import patch
 from host.motor_protocol import crc16
 from shared.streams import MixedStream
 from shared.lidar_display import FpgaLidar
 from nano.gateway import Gateway
+from nano.web_console import ViewerGateway
 from shared.telemetry_udp import HEADER
 
 
@@ -26,6 +28,26 @@ def point_frame(seq,half,capture=None,flags=0,age=0,points=None):
 
 
 class RawTests(unittest.TestCase):
+    def test_observer_fast_path_matches_uart_decoding_and_rejects_bad_crc(self):
+        observer = ViewerGateway(dict(receive_only=True, telemetry_transport='udp',
+                                      lidar_source='fpga', record_telemetry=False))
+        reference = Gateway(dict(telemetry_transport='udp', lidar_source='fpga'))
+        for seq in range(1, 122):
+            for half in (0, 1):
+                if seq == 47 or (seq == 45 and half == 1):
+                    continue
+                packet = HEADER.pack(b'TLM1', 1, bytes(3), seq*2+half, seq) + point_frame(seq, half)
+                with patch('time.monotonic', return_value=1+seq/1000.):
+                    self.assertEqual(observer.ingest_udp(packet, ('192.168.50.30', 6205)),
+                                     reference.ingest_udp(packet, ('192.168.50.30', 6205)))
+        self.assertGreater(observer.fpga_lidar.scans, 0)
+        self.assertEqual(observer.fpga_lidar.snapshot(1.122), reference.fpga_lidar.snapshot(1.122))
+        before = observer.fpga_lidar.raw.packets
+        corrupt = bytearray(packet); corrupt[-1] ^= 1
+        self.assertFalse(observer.ingest_udp(bytes(corrupt), ('192.168.50.30', 6205)))
+        self.assertFalse(observer.ingest_udp(packet, ('192.168.50.31', 6205)))
+        self.assertEqual(observer.fpga_lidar.raw.packets, before)
+
     def ingest(self,state,frame,now):
         rows=MixedStream().feed(frame)
         self.assertEqual(len(rows),1)

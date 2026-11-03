@@ -1,0 +1,19 @@
+{
+  "bitstream_sha256": "22797c7779a044874aa65f45f28bcf4f12d0483c672f760984b265a79ca3aced",
+  "transport": "router_udp6206",
+  "tested_interface": "Ethernet 192.168.50.10",
+  "serial_opened": false,
+  "wheels_raised_confirmed_by_user": true,
+  "low_speed_motion_seconds": 1.1,
+  "passed": true,
+  "watchdog_stop_observed_s": 0.249963199999911,
+  "four_feedback_positive": true,
+  "max_pwm_permille": 101,
+  "final_armed": false,
+  "final_faults": 0,
+  "imu_nack_during_motion": 10,
+  "wifi_hardware_tested": false,
+  "lidar_deferred": true,
+  "flash_written": false,
+  "full_system_acceptance_passed": false
+}

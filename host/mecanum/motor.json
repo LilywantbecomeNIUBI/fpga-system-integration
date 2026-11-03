@@ -6,11 +6,16 @@
   "encoder_ppr": 500,
   "quadrature_equivalent_factor": 4,
   "raw_counts_per_rev": 60000,
-  "control_shift": 4,
-  "initial_kp_q8": 512,
-  "initial_ki_q8": 32,
+  "control_shift": 6,
+  "initial_kp_q8": 2048,
+  "initial_ki_q8": 128,
   "wheel_diameter_mm": 75,
   "wheel_diameter_basis": "matching R550 mecanum reference; verify installed wheel",
   "counts_basis": "manufacturer nominal, user confirmed motor and encoder type",
-  "measured_on_hardware": false
+  "measured_on_hardware": false,
+  "default_speed_limit": 6,
+  "commissioning_speed_limit": 2,
+  "max_distance_mm": 4000,
+  "max_turn_deg": 720,
+  "speed_loop_hz": 1000
 }

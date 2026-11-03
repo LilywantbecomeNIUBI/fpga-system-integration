@@ -1,0 +1,48 @@
+{
+  "scope": "Only eth125 setup of bank output registers and cached_word",
+  "passed": true,
+  "stages": {
+    "bank_output": {
+      "coverage_passed": true,
+      "expected_endpoints": 64,
+      "reported_endpoints": 64,
+      "reported_paths": 64,
+      "worst_path": {
+        "number": 1,
+        "slack_ns": 1.056,
+        "source": "camera/stream/storage_bank[1].memory_storage_bank[1].memory_1_0_s/DO[0]",
+        "sink": "camera/stream/storage_bank[1].read_pixel_pipe_0_s1/D",
+        "source_clock": "eth125:[R]",
+        "destination_clock": "eth125:[R]",
+        "relation_ns": 8.0,
+        "skew_ns": -0.033,
+        "data_delay_ns": 6.92
+      },
+      "worst_slack_ns": 1.056,
+      "max_data_delay_ns": 6.92,
+      "passed": true
+    },
+    "cached_word": {
+      "coverage_passed": true,
+      "expected_endpoints": 16,
+      "reported_endpoints": 16,
+      "reported_paths": 16,
+      "worst_path": {
+        "number": 1,
+        "slack_ns": 3.79,
+        "source": "camera/stream/storage_bank[0].read_pixel_pipe_1_s1/Q",
+        "sink": "camera/stream/cached_word_1_s0/D",
+        "source_clock": "eth125:[R]",
+        "destination_clock": "eth125:[R]",
+        "relation_ns": 8.0,
+        "skew_ns": 0.007,
+        "data_delay_ns": 4.146
+      },
+      "worst_slack_ns": 3.79,
+      "max_data_delay_ns": 4.146,
+      "passed": true
+    }
+  },
+  "full_system_timing_signoff": false,
+  "min_pulse_width_slack_ns": -0.849
+}

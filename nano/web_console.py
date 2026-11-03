@@ -23,6 +23,7 @@ from socketserver import ThreadingMixIn
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from nano.gateway import Gateway, Recorder, make_server as gateway_server
+from shared.lidar_display import decode_lidar
 
 
 def fresh(age, limit=500):
@@ -36,6 +37,15 @@ class ViewerGateway(Gateway):
         self.receive_only = self.config.get('receive_only', False)
         if not isinstance(self.receive_only, bool):
             raise ValueError('receive_only must be boolean')
+        self.record_telemetry = self.config.get('record_telemetry', True)
+        if not isinstance(self.record_telemetry, bool):
+            raise ValueError('record_telemetry must be boolean')
+        self.receiver = None
+        self.telemetry_process = self.config.get('telemetry_process', False)
+        if not isinstance(self.telemetry_process, bool):
+            raise ValueError('telemetry_process must be boolean')
+        if self.telemetry_process and (not self.receive_only or self.record_telemetry):
+            raise ValueError('telemetry_process requires a receive-only viewer without packet recording')
         if self.receive_only:
             if self.telemetry_transport != 'udp' or self.lidar_source != 'fpga':
                 raise ValueError('receive_only requires UDP telemetry and FPGA lidar')
@@ -45,19 +55,65 @@ class ViewerGateway(Gateway):
     def reject_command(data):
         raise ValueError('Receive-only gateway has no command path')
 
+    def ingest_udp(self, data, peer):
+        if not self.receive_only:
+            return super().ingest_udp(data, peer)
+        with self.lock:
+            frame = self.udp_telemetry.feed(data, peer)
+        if frame is None:
+            return False
+        now = time.monotonic() - self.udp_telemetry.frame_age
+        if self.recorder:
+            self.recorder.put('udp_telemetry', dict(peer=list(peer), hex=data.hex()))
+        if frame[:4] == b'\xc3\x3c\x07\x01':
+            # UDP already checked frame boundaries and CRC. Avoid running every
+            # raw point packet through two independent UART stream parsers.
+            if self.recorder:
+                self.recorder.put('uart', frame)
+            try:
+                kind, row = decode_lidar(frame)
+            except ValueError:
+                return False
+            with self.lock:
+                self.fpga_lidar.ingest(kind, row, now=now)
+        else:
+            self.ingest_uart(frame, now=now)
+        return True
+
     def start(self):
         if not self.receive_only:
             return super().start()
         if not self.live:
             return
-        self.recorder = Recorder(Path(self.config.get('record_dir', 'runs/gateway')) /
-                                 (time.strftime('%Y%m%d_%H%M%S') + '_' + secrets.token_hex(4)))
+        if self.telemetry_process:
+            from nano.telemetry_receiver import TelemetryReceiver
+            self.receiver = TelemetryReceiver(self.config)
+            self.receiver.start()
+            return
+        if self.record_telemetry:
+            self.recorder = Recorder(Path(self.config.get('record_dir', 'runs/gateway')) /
+                                     (time.strftime('%Y%m%d_%H%M%S') + '_' + secrets.token_hex(4)))
         self.control.connect()
         self.control.reason = 'receive_only'
-        for target in (self.telemetry_loop, self.record_loop):
+        targets = [self.telemetry_loop]
+        if self.recorder:
+            targets.append(self.record_loop)
+        for target in targets:
             worker = threading.Thread(target=target, daemon=True)
             self.threads.append(worker)
             worker.start()
+
+    def state(self):
+        if self.receiver:
+            state = self.receiver.state()
+            if state is not None:
+                return state
+        return super().state()
+
+    def close(self):
+        if self.receiver:
+            self.receiver.close()
+        super().close()
 
 
 class VisionClient:
@@ -209,7 +265,7 @@ class Session:
         event_age = vision.get('event_age_ms')
         control = data['control']
         return dict(profile='system_integration_v1', host='nano', read_only=True,
-                    software_version='nano-video-20261103',
+                    software_version=self.gateway.config.get('software_version', 'nano-video-20261103'),
                     mode=data['mode'], simulation=False, replay=False,
                     motor_outputs_enabled=bool(control.get('motor_fresh') and (control.get('motor') or {}).get('armed')),
                     pc=capture, nano=nano, imu=data['imu'], control=control,

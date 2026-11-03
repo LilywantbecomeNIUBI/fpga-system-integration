@@ -1,0 +1,183 @@
+{
+  "counts": {
+    "mecanum_motor": 81,
+    "mecanum_pose": 80,
+    "lidar_diagnostic": 20
+  },
+  "latest": {
+    "mecanum_motor": {
+      "kind": "motor",
+      "armed": false,
+      "faults": 0,
+      "seq": 33,
+      "position": [
+        4676,
+        3672,
+        5660,
+        3348
+      ],
+      "velocity": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pwm": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bad": 0,
+      "rejected": 0,
+      "control_shift": 4
+    },
+    "mecanum_pose": {
+      "kind": "pose",
+      "healthy": true,
+      "calibrated": true,
+      "arrived": false,
+      "mode": 0,
+      "imu_fault": false,
+      "faults": 0,
+      "seq": 33,
+      "imu_error": 0,
+      "x_counts": 238.49237060546875,
+      "y_counts": 8.587173461914062,
+      "heading_deg": 0.022730869557802437,
+      "yaw_deg": 0.6775547656652648,
+      "bias": -28,
+      "gz": -22,
+      "sample_us": 145492530,
+      "who": 112,
+      "control_shift": 4,
+      "raw_counts_per_rev": 60000,
+      "imu_diag_version": 1,
+      "imu_fault_count": 10,
+      "imu_bus_error": 1,
+      "imu_bus_lines": 3,
+      "imu_fault_armed": true,
+      "imu_fault_pwm": true,
+      "imu_fault_outer": true,
+      "imu_stale": false
+    },
+    "lidar_diagnostic": {
+      "device_ms": 145400,
+      "bytes": 0,
+      "framing_errors": 0,
+      "packets": 0,
+      "crc_errors": 0,
+      "format_errors": 0,
+      "timeouts": 0,
+      "forwarded_packets": 0,
+      "dropped_packets": 0,
+      "sequence": 0,
+      "flags": 1,
+      "queued_packets": 0,
+      "representation": "raw_points",
+      "resolution_degrees": null
+    }
+  },
+  "first": {
+    "mecanum_motor": {
+      "kind": "motor",
+      "armed": false,
+      "faults": 0,
+      "seq": 33,
+      "position": [
+        4676,
+        3672,
+        5660,
+        3348
+      ],
+      "velocity": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pwm": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bad": 0,
+      "rejected": 0,
+      "control_shift": 4
+    },
+    "mecanum_pose": {
+      "kind": "pose",
+      "healthy": true,
+      "calibrated": true,
+      "arrived": false,
+      "mode": 0,
+      "imu_fault": false,
+      "faults": 0,
+      "seq": 33,
+      "imu_error": 0,
+      "x_counts": 238.49237060546875,
+      "y_counts": 8.587173461914062,
+      "heading_deg": 0.022730869557802437,
+      "yaw_deg": 0.7387532606285792,
+      "bias": -28,
+      "gz": -27,
+      "sample_us": 141544125,
+      "who": 112,
+      "control_shift": 4,
+      "raw_counts_per_rev": 60000,
+      "imu_diag_version": 1,
+      "imu_fault_count": 10,
+      "imu_bus_error": 1,
+      "imu_bus_lines": 3,
+      "imu_fault_armed": true,
+      "imu_fault_pwm": true,
+      "imu_fault_outer": true,
+      "imu_stale": false
+    },
+    "lidar_diagnostic": {
+      "device_ms": 141600,
+      "bytes": 0,
+      "framing_errors": 0,
+      "packets": 0,
+      "crc_errors": 0,
+      "format_errors": 0,
+      "timeouts": 0,
+      "forwarded_packets": 0,
+      "dropped_packets": 0,
+      "sequence": 0,
+      "flags": 1,
+      "queued_packets": 0,
+      "representation": "raw_points",
+      "resolution_degrees": null
+    }
+  },
+  "transport": {
+    "transport": "udp",
+    "peer": [
+      "192.168.50.30",
+      6205
+    ],
+    "accepted": 181,
+    "rejected": 0,
+    "duplicates": 0,
+    "missing": 0,
+    "stale": 0,
+    "restart_required": false,
+    "source_age_ms": 0.18754647877017305,
+    "age_ms": 0.3876999981002882
+  },
+  "mixed_bad_crc": 0,
+  "complete_scans": 0,
+  "scan_point_counts": [],
+  "raw_missing_packets": 0,
+  "raw_stale_packets": 0,
+  "motors_stopped": true,
+  "imu_healthy": true,
+  "lidar_receiving": false,
+  "commands_sent": 0,
+  "hardware_tested": true,
+  "lidar_deferred": true,
+  "scope": "static_mecanum_imu_transport",
+  "passed": true
+}
