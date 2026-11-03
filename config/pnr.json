@@ -3,5 +3,7 @@
   "route_option": 1,
   "timing_driven": 1,
   "evidence": "docs/evidence/control50_migration_20261031",
-  "replicate_resources": 0
+  "replicate_resources": 0,
+  "incremental_pnr": true,
+  "incremental_base": "build/lidar_raw_ethernet_20261102/mecanum/20261102T231025Z"
 }

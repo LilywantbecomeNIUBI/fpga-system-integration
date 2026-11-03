@@ -164,8 +164,21 @@ def main():
     parser.add_argument('--place',type=int,choices=(2,3,4),default=2);parser.add_argument('--route-option',type=int,choices=(0,1,2),default=0)
     parser.add_argument('--replicate-resources',type=int,choices=(0,1),default=1)
     parser.add_argument('--clock-cleanup',action='store_true',help='Experimental: keep controls off clock trees and reserve real clocks')
-    parser.add_argument('--auto-clock-routing',action='store_true');parser.add_argument('--timeout-seconds',type=int,default=1800);args=parser.parse_args()
+    parser.add_argument('--incremental-from',type=Path,help='Complete whole-system build directory or .pr; defaults to config/pnr.json')
+    parser.add_argument('--auto-clock-routing',action='store_true');parser.add_argument('--timeout-seconds',type=int,default=5400);args=parser.parse_args()
+    if not args.system and not args.prepare_only:parser.error('Use --system: board builds must use whole-system incremental PnR')
     out,record=prepare(args.system,raw=args.raw_points,place=args.place,route=args.route_option,auto_clock=args.auto_clock_routing,replicate=args.replicate_resources,clock_cleanup=args.clock_cleanup,mecanum=args.mecanum);print(out,flush=True)
+    if args.system:
+        from incremental import attach
+        baseline=args.incremental_from
+        if baseline is None:
+            config=json.loads((ROOT/'config/pnr.json').read_text())
+            baseline=config.get('incremental_base')
+        if not baseline:raise SystemExit('No whole-system .pr baseline configured; no full rebuild fallback')
+        baseline=Path(baseline)
+        if not baseline.is_absolute():baseline=ROOT/baseline
+        record=attach(out,baseline)
+        print('Whole-system incremental PnR reference: '+str(baseline),flush=True)
     if args.prepare_only:return
     active=subprocess.run(['powershell','-NoProfile','-Command','Get-Process gw_sh,gw_syn,gw_pnr -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Id'],capture_output=True,text=True) if os.name=='nt' else None
     if active and active.stdout.strip():raise SystemExit('Another Gowin build is running; frozen snapshot prepared only')
@@ -176,7 +189,7 @@ def main():
         while proc.poll() is None:
             time.sleep(2)
             text=(out/'build.log').read_text(encoding='utf-8',errors='replace')
-            complete='[100%] Power analysis completed' in text and (out/'impl/pnr/sensor.fs').exists()
+            complete='[100%] Power analysis completed' in text and 'sensor.tr" completed' in text and (out/'impl/pnr/sensor.fs').exists()
             if complete and finished is None:finished=time.monotonic()
             if finished is not None and time.monotonic()-finished>30:
                 proc.terminate();proc.wait(timeout=15);terminated=True;break
@@ -201,6 +214,12 @@ def main():
     bit=out/'impl/pnr/sensor.fs'
     if bit.exists():record['bitstream_sha256']=sha(bit)
     record['frozen_sources_unchanged']=all(sha(out/'source'/p)==h for p,h in record['source_sha256'].items())
+    if args.system:
+        reference=record['incremental_pnr']
+        reference['reference_unchanged_after_run']=sha(out/reference['reference_path'])==reference['reference_sha256']
+        if not reference['reference_unchanged_after_run']:raise RuntimeError('Incremental reference changed during PnR')
+        command=out/'impl/pnr/cmd.do'
+        reference['tool_command_evidence']=[line for line in command.read_text(errors='replace').splitlines() if 'inc' in line.lower() or 'sensor.pr' in line] if command.exists() else []
     record['passed']=(proc.returncode==0 or terminated) and violations==dict(setup=0,hold=0) and bool(pulse) and min(pulse)>=0 and not warnings and bit.exists() and record['frozen_sources_unchanged'] and (args.system or static)
     if args.system and net_path.exists():
         audits={}
@@ -220,6 +239,12 @@ def main():
         audits['frame_read_setup']=checked.returncode==0 and audit_path.exists() and json.loads(audit_path.read_text()).get('passed') is True
         record['system_audits']=audits;record['passed']=record['passed'] and all(audits.values())
     (out/'result.json').write_text(json.dumps(record,indent=2))
+    # Advance only to a complete whole-system route that passes setup/hold and
+    # the functional timing audits. Keep the accepted MPW warning explicit.
+    if args.system and proc.returncode==0 and violations==dict(setup=0,hold=0) and record['frozen_sources_unchanged'] and record.get('system_audits') and all(record['system_audits'].values()):
+        config_path=ROOT/'config/pnr.json';config=json.loads(config_path.read_text())
+        config['incremental_pnr']=True;config['incremental_base']=out.relative_to(ROOT).as_posix()
+        temporary=config_path.with_suffix('.tmp');temporary.write_text(json.dumps(config,indent=2)+'\n');temporary.replace(config_path)
     (out.parents[1]/'latest_build.txt').write_text(str(out))
     print(json.dumps({k:v for k,v in record.items() if k!='source_sha256'},indent=2),flush=True)
     raise SystemExit(0 if record['passed'] else 1)
