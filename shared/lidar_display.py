@@ -6,16 +6,19 @@ import struct
 import time
 from shared.lidar_raw import RawLidar
 
+RAW_POINTS = struct.Struct('<' + 'HHB'*6)
+
 
 def decode_lidar(frame):
     # The mixed UART decoder checks the CRC before dispatch.
     if frame[:4] == b'\xc3\x3c\x07\x01':
         seq, age, captured_ms, half, flags = struct.unpack_from('<I H I BB',frame,4)
-        points = [list(struct.unpack_from('<HHB',frame,16+i*5)) for i in range(6)]
-        if half > 1 or flags & ~1 or age >= 400 or any(p[0] >= 36000 for p in points):
+        values = RAW_POINTS.unpack_from(frame, 16)
+        if half > 1 or flags & ~1 or age >= 400 or max(values[0::3]) >= 36000:
             raise ValueError('Invalid full-point stream packet')
         return 'lidar_raw',dict(packet_sequence=seq,half=half,captured_ms=captured_ms,
-            source_age_ms=age,discontinuity=bool(flags&1),points=[[a/100.,d,q] for a,d,q in points])
+            source_age_ms=age,discontinuity=bool(flags&1),
+            points=[[values[i]/100.,values[i+1],values[i+2]] for i in (0,3,6,9,12,15)])
     if frame[:4] == b'\xc3\x3c\x06\x03':
         names = ('device_ms','bytes','framing_errors','packets','crc_errors','format_errors',
                  'timeouts','forwarded_packets','dropped_packets')
