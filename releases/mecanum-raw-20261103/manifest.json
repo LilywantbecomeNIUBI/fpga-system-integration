@@ -1,0 +1,15 @@
+{
+  "file": "sensor.fs",
+  "size_bytes": 40982013,
+  "sha256": "a6c985da256170d09ab8c46de288c0465298cb4d9b6af44e0ce6ce2a079b5bd5",
+  "build": "20261103T013936Z",
+  "device": "GW5AT-LV138PG484AC1/I0",
+  "top": "system_mecanum_top",
+  "operation": "SRAM Program",
+  "timing_signoff": false,
+  "setup_violations": 0,
+  "hold_violations": 0,
+  "min_pulse_width_slack_ns": -0.849,
+  "source_commit": "ca47479",
+  "note": "Bitstream verified against final_sram_download.json; subsequent LiDAR viewer fixes do not change FPGA firmware."
+}
