@@ -1,0 +1,100 @@
+{
+  "profile_id": "unified_mecanum_v1",
+  "connected": true,
+  "running": false,
+  "operator": false,
+  "occupied": false,
+  "nano": {
+    "online": true,
+    "version": "nano-video-20261103",
+    "telemetry_fresh": false,
+    "restart_required": true,
+    "error": "FPGA复位：请重连网关以绑定新遥测序列"
+  },
+  "log": [
+    "IMU故障已记录：C:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\host\\runs\\imu_fault_20261103_113349_861414.json",
+    "操作员 STOP",
+    "停止指令已发送"
+  ],
+  "profile": {
+    "motor": "WHEELTEC MG513P30-12V",
+    "encoder": "GMR",
+    "rated_voltage_v": 12,
+    "gear_ratio": 30,
+    "encoder_ppr": 500,
+    "quadrature_equivalent_factor": 4,
+    "raw_counts_per_rev": 60000,
+    "control_shift": 6,
+    "initial_kp_q8": 2048,
+    "initial_ki_q8": 128,
+    "wheel_diameter_mm": 75,
+    "wheel_diameter_basis": "matching R550 mecanum reference; verify installed wheel",
+    "counts_basis": "manufacturer nominal, user confirmed motor and encoder type",
+    "measured_on_hardware": false,
+    "default_speed_limit": 6,
+    "commissioning_speed_limit": 2,
+    "max_distance_mm": 4000,
+    "max_turn_deg": 720,
+    "speed_loop_hz": 1000
+  },
+  "motor": {
+    "kind": "motor",
+    "armed": false,
+    "faults": 0,
+    "seq": 230,
+    "position": [
+      -428682,
+      428990,
+      -429680,
+      428972
+    ],
+    "velocity": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "pwm": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "bad": 0,
+    "rejected": 0,
+    "control_shift": 6,
+    "capabilities": 3,
+    "speed_loop_hz": 1000
+  },
+  "motor_age_ms": 22.243999999773223,
+  "pose": {
+    "kind": "pose",
+    "healthy": true,
+    "calibrated": true,
+    "arrived": false,
+    "mode": 0,
+    "imu_fault": false,
+    "faults": 0,
+    "seq": 230,
+    "imu_error": 0,
+    "x_counts": 0.2475433349609375,
+    "y_counts": 0.2471923828125,
+    "heading_deg": -0.058575702322029355,
+    "yaw_deg": -1.8438232268232821,
+    "bias": -29,
+    "gz": -32,
+    "sample_us": 1051044273,
+    "who": 112,
+    "control_shift": 6,
+    "raw_counts_per_rev": 60000,
+    "imu_diag_version": 1,
+    "imu_fault_count": 11,
+    "imu_bus_error": 1,
+    "imu_bus_lines": 3,
+    "imu_fault_armed": true,
+    "imu_fault_pwm": true,
+    "imu_fault_outer": true,
+    "imu_stale": false
+  },
+  "pose_age_ms": 22.23989999765763
+}
