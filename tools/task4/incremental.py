@@ -3,10 +3,19 @@ from pathlib import Path
 import hashlib
 import json
 import shutil
+import re
 
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def fallback_warning(log):
+    """Gowin can override inc_pnr and silently start a clean implementation."""
+    for line in log.splitlines():
+        if re.search(r'\bPA2136\b',line) or re.search(r'default placement and routing flow will be run',line,re.I):
+            return line.strip()
+    return None
 
 
 def attach(folder, baseline):

@@ -161,14 +161,22 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--system',action='store_true');parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--mecanum',action='store_true',help='Use teammate four-wheel pins and integrated Mecanum top (requires --system)')
     mode=parser.add_mutually_exclusive_group();mode.add_argument('--sector360',action='store_true');mode.add_argument('--raw-points',action='store_true',help='Explicit opt-in; the default is the restored 360-point mode')
-    parser.add_argument('--place',type=int,choices=(2,3,4),default=2);parser.add_argument('--route-option',type=int,choices=(0,1,2),default=0)
+    parser.add_argument('--place',type=int,choices=(0,1,2,3,4),default=2);parser.add_argument('--route-option',type=int,choices=(0,1,2),default=0)
     parser.add_argument('--replicate-resources',type=int,choices=(0,1),default=1)
     parser.add_argument('--clock-cleanup',action='store_true',help='Experimental: keep controls off clock trees and reserve real clocks')
-    parser.add_argument('--incremental-from',type=Path,help='Complete whole-system build directory or .pr; defaults to config/pnr.json')
+    implementation=parser.add_mutually_exclusive_group()
+    implementation.add_argument('--incremental-from',type=Path,help='Complete whole-system build directory or .pr; defaults to config/pnr.json')
+    implementation.add_argument('--full-rebuild',action='store_true',help='Explicit full rebuild; use only when authorized by the user')
     parser.add_argument('--auto-clock-routing',action='store_true');parser.add_argument('--timeout-seconds',type=int,default=5400);args=parser.parse_args()
     if not args.system and not args.prepare_only:parser.error('Use --system: board builds must use whole-system incremental PnR')
     out,record=prepare(args.system,raw=args.raw_points,place=args.place,route=args.route_option,auto_clock=args.auto_clock_routing,replicate=args.replicate_resources,clock_cleanup=args.clock_cleanup,mecanum=args.mecanum);print(out,flush=True)
-    if args.system:
+    if args.system and args.full_rebuild:
+        record['incremental_pnr']=dict(requested=False,explicit_full_rebuild=True)
+        (out/'manifest.json').write_text(json.dumps(record,indent=2)+'\n')
+        script=out/'build.tcl'
+        script.write_text(script.read_text().replace('run all','set_option -inc_place 0\nset_option -inc_pnr 0\nrun all',1))
+        print('Explicit whole-system full rebuild requested',flush=True)
+    elif args.system:
         from incremental import attach
         baseline=args.incremental_from
         if baseline is None:
@@ -186,9 +194,21 @@ def main():
     start=time.monotonic();finished=None;terminated=False
     with (out/'build.log').open('w',encoding='utf-8') as log:
         proc=subprocess.Popen([str(exe),str(out/'build.tcl')],cwd=out,stdout=log,stderr=subprocess.STDOUT)
+        def reject_incremental_fallback(text):
+            from incremental import fallback_warning
+            reason=fallback_warning(text) if args.system and not args.full_rebuild else None
+            if reason:
+                running=proc.poll() is None
+                if running:proc.terminate();proc.wait(timeout=15)
+                record.update(passed=False,incremental_fallback_detected=True,
+                    incremental_fallback_rejected=True,aborted_while_running=running,
+                    abort_reason=reason,elapsed_s=time.monotonic()-start,actual_exit_code=proc.returncode)
+                (out/'result.json').write_text(json.dumps(record,indent=2)+'\n')
+                raise RuntimeError('Gowin rejected incremental reuse; clean-build fallback is prohibited: '+reason)
         while proc.poll() is None:
             time.sleep(2)
             text=(out/'build.log').read_text(encoding='utf-8',errors='replace')
+            reject_incremental_fallback(text)
             complete='[100%] Power analysis completed' in text and 'sensor.tr" completed' in text and (out/'impl/pnr/sensor.fs').exists()
             if complete and finished is None:finished=time.monotonic()
             if finished is not None and time.monotonic()-finished>30:
@@ -198,6 +218,7 @@ def main():
                 record.update(passed=False,timed_out=True,elapsed_s=time.monotonic()-start)
                 (out/'result.json').write_text(json.dumps(record,indent=2))
                 raise TimeoutError('Build timeout; frozen sources, failure metadata and log preserved')
+        reject_incremental_fallback((out/'build.log').read_text(encoding='utf-8',errors='replace'))
     trace_path=out/'impl/pnr/sensor.tr';trace=trace_path.read_text(errors='replace') if trace_path.exists() else ''
     text=(out/'build.log').read_text(encoding='utf-8',errors='replace')
     violations={k.lower():int(m[1]) if (m:=re.search(r'<Numbers of '+k+r' Violated Endpoints>:(\d+)',trace)) else None for k in ('Setup','Hold')}
@@ -214,7 +235,7 @@ def main():
     bit=out/'impl/pnr/sensor.fs'
     if bit.exists():record['bitstream_sha256']=sha(bit)
     record['frozen_sources_unchanged']=all(sha(out/'source'/p)==h for p,h in record['source_sha256'].items())
-    if args.system:
+    if args.system and record['incremental_pnr']['requested']:
         reference=record['incremental_pnr']
         reference['reference_unchanged_after_run']=sha(out/reference['reference_path'])==reference['reference_sha256']
         if not reference['reference_unchanged_after_run']:raise RuntimeError('Incremental reference changed during PnR')

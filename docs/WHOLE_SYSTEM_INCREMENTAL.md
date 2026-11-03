@@ -21,7 +21,20 @@ PR1014及已接受的实验性MPW边界仍原样记录，`passed`不会被改写
 
 `--prepare-only`可先生成源码与增量参考快照，不运行综合、布局布线或下载。
 已用本机Gowin V1.9.12.04打开完整工程并通过 `saveto -all_options` 回读 `inc_pnr` 文件路径，
-确认选项已被当前安装版本接受。尚未测量新流程的实际加速幅度。
+确认选项已被当前安装版本接受。
+
+2026-11-03本机试跑发现Gowin会自行回退：旧基线匹配值为0.10、门槛80，报PA2136后进入全量流程。
+该轮已人工终止；构建器现会监测PA2136/全量回退提示，自动终止仍在运行的子进程并保存拒绝原因，
+即使进程已快速结束也会拒绝其结果。进程终止和记录行为已用模拟子进程回归。
+
+用户随后明确授权本轮优化版本全量、优先速度，入口为：
+
+```powershell
+python tools/task4/build_ethernet.py --system --mecanum --raw-points --clock-cleanup --full-rebuild --place 0 --route-option 2
+```
+
+`--full-rebuild`必须来自用户明确授权，与`--incremental-from`互斥；不会由增量失败自动启用。
+默认仍为整机增量，快速配置的位流也必须通过相同的Setup/Hold和整机审计。
 
 官方依据：本机SUG100-4.4.7E的“Incremental PnR”（42–43页），以及SUG1220-2.1E的 `-inc_pnr`（44页）。
 GW5AT-138B属于支持此功能的Arora V。`.pr`包含布局和布线；`.p`仅包含布局。

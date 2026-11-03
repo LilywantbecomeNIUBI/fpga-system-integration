@@ -1,0 +1,12 @@
+Reading netlist file: "C:\Users\leo\.codex\worktrees\mecanum-integration\fpga-system-integration\build\lidar_raw_ethernet_20261102\mecanum\20261103T002217Z\impl\gwsynthesis\sensor.vg"
+Parsing netlist file "C:\Users\leo\.codex\worktrees\mecanum-integration\fpga-system-integration\build\lidar_raw_ethernet_20261102\mecanum\20261103T002217Z\impl\gwsynthesis\sensor.vg" completed
+Processing netlist completed
+Reading constraint file: "C:\Users\leo\.codex\worktrees\mecanum-integration\fpga-system-integration\build\lidar_raw_ethernet_20261102\mecanum\20261103T002217Z\sensor.cst"
+Physical Constraint parsed completed
+Reading pr file: "C:/Users/leo/.codex/worktrees/mecanum-integration/fpga-system-integration/build/lidar_raw_ethernet_20261102/mecanum/20261103T002217Z/incremental_base/sensor.pr"
+WARN  (PA2136) : Placement and routing matching(0.10) is less than the threshold value(80) needed to run incremental flow, the default placement and routing flow will be run.
+Parsing file "C:/Users/leo/.codex/worktrees/mecanum-integration/fpga-system-integration/build/lidar_raw_ethernet_20261102/mecanum/20261103T002217Z/incremental_base/sensor.pr" completed
+Running placement......
+[10%] Placement Phase 0 completed
+[20%] Placement Phase 1 completed
+[30%] Placement Phase 2 completed
