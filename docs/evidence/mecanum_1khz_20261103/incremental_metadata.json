@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "speed_loop_hz": 1000,
+  "control_shift": 6,
+  "extended_turns": true,
+  "telemetry_frames_checked": 26,
+  "snapshot": "C:\\Users\\leo\\.codex\\worktrees\\mecanum-integration\\fpga-system-integration\\build\\lidar_raw_ethernet_20261102\\mecanum\\20261103T002217Z",
+  "pnr_started": false,
+  "hardware_programmed": false
+}

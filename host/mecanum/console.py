@@ -21,10 +21,10 @@ def mm_to_control_counts(distance_mm, raw_counts_per_rev, diameter_mm, shift):
 
 def polar_displacement(distance_mm, bearing_deg):
     """Local displacement: 0deg forward, +90deg left; body heading unchanged."""
-    if not math.isfinite(distance_mm) or not 0 < distance_mm <= 1000:
-        raise ValueError('移动距离应大于0且不超过1000毫米')
-    if not math.isfinite(bearing_deg) or not -180 <= bearing_deg <= 180:
-        raise ValueError('移动方向应在-180～180度之间')
+    if not math.isfinite(distance_mm) or not 0 < distance_mm <= 4000:
+        raise ValueError('移动距离应大于0且不超过4000毫米')
+    if not math.isfinite(bearing_deg) or not -360 <= bearing_deg <= 360:
+        raise ValueError('移动方向应在-360～360度之间')
     bearing=math.radians(bearing_deg)
     return distance_mm*math.cos(bearing), distance_mm*math.sin(bearing)
 
@@ -39,13 +39,13 @@ def crc16(data):
 
 
 def packet(op, seq, motor=0, encoder=0, x=0, y=0, z=0, kp=256, ki=0, limit=40, tolerance=4):
-    if op not in (0,1,3,6,7,8):
+    if op not in (0,1,3,6,7,8,9):
         raise ValueError('Unsupported opcode; manual, single-wheel and velocity-heading modes have been removed')
     if motor != 0 or encoder != 0:
         raise ValueError('Direction is fixed in FPGA; reserved mask fields must be zero')
-    if op == 6:
+    if op in (6,9):
         bound = 16000
-        if not (-bound <= x <= bound and -bound <= y <= bound and -18000 <= z <= 18000):
+        if not (-bound <= x <= bound and -bound <= y <= bound and -(7200 if op==9 else 18000) <= z <= (7200 if op==9 else 18000)):
             raise ValueError('Outer-loop targets out of range')
         if not 1 <= limit <= 128 or not 1 <= tolerance <= 1024:
             raise ValueError('limit=1..128, tolerance=1..1024 counts')
@@ -55,7 +55,7 @@ def packet(op, seq, motor=0, encoder=0, x=0, y=0, z=0, kp=256, ki=0, limit=40, t
         raise ValueError('kp=1..4096, ki=0..1024 (Q8)')
     body = struct.pack('<2s6B3h4H', b'\xa5\x5a', PROTOCOL_VERSION, op, seq & 255,
                        motor, encoder, 0, x, y, z, kp, ki,
-                       limit if op == 6 else 0, tolerance if op == 6 else 0)
+                       limit if op in (6,9) else 0, tolerance if op in (6,9) else 0)
     return body + struct.pack('<H', crc16(body))
 
 
@@ -94,7 +94,7 @@ class Stream:
                              velocity=struct.unpack_from('<4h', frame, 24),
                              pwm=struct.unpack_from('<4h', frame, 32),
                              bad=struct.unpack_from('<H', frame, 40)[0],
-                             rejected=struct.unpack_from('<H', frame, 42)[0],control_shift=frame[44]))
+                             rejected=struct.unpack_from('<H', frame, 42)[0],control_shift=frame[44],capabilities=frame[45],speed_loop_hz=1000 if frame[45]&1 else 100))
             del self.buffer[:48]
         return rows
 
@@ -110,17 +110,17 @@ def main():
     parser.add_argument('--action', choices=['monitor', 'stop', 'position', 'turn', 'vector'], default='monitor')
     parser.add_argument('--kp', type=int, default=profile['initial_kp_q8'])
     parser.add_argument('--ki', type=int, default=profile['initial_ki_q8'])
-    parser.add_argument('--seconds', type=float, default=3)
-    parser.add_argument('--distance',type=float,default=200,help='vector travel distance in mm, >0..1000')
-    parser.add_argument('--bearing',type=float,default=45,help='vector direction: 0 forward, 90 left, -90 right, +/-180 backward')
-    parser.add_argument('--angle',type=float,default=0,help='relative CCW target degrees, -180..180')
+    parser.add_argument('--seconds', type=float, default=60)
+    parser.add_argument('--distance',type=float,default=200,help='vector travel distance in mm, >0..4000')
+    parser.add_argument('--bearing',type=float,default=45,help='vector direction: 0 forward, 90 left, 270/-90 right, 180 backward; -360..360')
+    parser.add_argument('--angle',type=float,default=0,help='relative CCW target degrees, -720..720')
     parser.add_argument('--dx-counts',type=int,default=0,help='relative forward position in encoder counts')
     parser.add_argument('--dy-counts',type=int,default=0,help='relative left position in encoder counts')
     parser.add_argument('--dx',type=float,default=None,help='relative forward position in mm; requires counts-per-rev')
     parser.add_argument('--dy',type=float,default=None,help='relative left position in mm; requires counts-per-rev')
     parser.add_argument('--counts-per-rev',type=float,default=profile['raw_counts_per_rev'],help='raw output shaft x4-equivalent counts/revolution; MG513P30 GMR default=60000')
     parser.add_argument('--diameter-mm',type=float,default=profile['wheel_diameter_mm'])
-    parser.add_argument('--limit',type=int,default=40,help='outer-loop axis speed cap, counts/10ms')
+    parser.add_argument('--limit',type=int,default=profile['default_speed_limit'],help='outer-loop axis speed cap, counts/10ms')
     parser.add_argument('--tolerance',type=int,default=4,help='position tolerance, counts')
     args = parser.parse_args()
     if not 0 < args.seconds <= 3600:
@@ -145,6 +145,8 @@ def main():
         x=mm_to_control_counts(dx,args.counts_per_rev,args.diameter_mm,shift)
         y=mm_to_control_counts(dy,args.counts_per_rev,args.diameter_mm,shift)
         z=0
+    if outer and args.action!='vector' and (args.action=='turn' or abs(args.angle)>=180):
+        motion_op=9;z=round(args.angle*10)
     cfg = dict(motor=0, encoder=0, kp=args.kp, ki=args.ki)
     # Validate everything before opening a physical port.
     packet(motion_op, 0, x=x, y=y, z=z, limit=args.limit,tolerance=args.tolerance, **cfg)
@@ -185,6 +187,8 @@ def main():
             stopped=wait_state(lambda r: r['kind']=='motor' and not r['armed'])
             if stopped['control_shift']!=shift:
                 raise RuntimeError('Firmware/control-unit profile mismatch; load matching V3 firmware')
+            if motion_op==9 and not (stopped.get('capabilities',0)&2):
+                raise RuntimeError('Firmware does not support directed multi-turn motion')
             seq=stopped['seq']
             send(3)
             wait_state(lambda r: r['kind']=='motor' and not r['armed'] and r['faults'] == 0)

@@ -1,0 +1,14 @@
+{
+  "mecanum_core.sv": {
+    "reason": "1kHz speed-loop branch and extended-turn opcode 9; legacy defaults preserved",
+    "sha256": "77d6f3c26ea274179fc760911bf7f9d74ad835ba2175381d016ff307bca9fdd9"
+  },
+  "mecanum_pose_control.sv": {
+    "reason": "Continuous relative yaw plus tick-snapshot pairwise position pipeline",
+    "sha256": "19e969df4aaba43c257d8bd20164286901db08e8bbbf08c136dc932b49f5e30f"
+  },
+  "mecanum_protocol.sv": {
+    "reason": "Accept extended-turn opcode 9 options with unchanged V3 CRC framing",
+    "sha256": "5c0eec2a81a754989d5c586d39c2dbd3eb4a6fa255ca2740762ca1012d92431e"
+  }
+}

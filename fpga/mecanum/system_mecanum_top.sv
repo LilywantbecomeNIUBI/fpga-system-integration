@@ -26,7 +26,7 @@ module system_mecanum_top #(parameter integer CLK_HZ=50000000,BAUD=115200,LIDAR_
  mc_command_cdc command_bridge(.src_clk(motor_clk),.src_reset_n(motor_reset_n),
   .src_valid(motor_valid),.src_ready(motor_ready),.src_frame(motor_frame),
   .dst_clk(clk50m),.dst_reset_n(command_reset_n),.byte_valid(command_byte_valid),.byte_data(command_byte));
- mc_mecanum_top #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.TELEMETRY_ETHERNET(1),.COMMAND_ETHERNET(1)) chassis(
+ mc_mecanum_top #(.CLK_HZ(CLK_HZ),.BAUD(BAUD),.TELEMETRY_ETHERNET(1),.COMMAND_ETHERNET(1),.FAST_SPEED_LOOP(1),.CONTROL_SHIFT(6),.LATERAL_TAPER_COUNTS(40)) chassis(
   .command_error(!command_reset_n),.command_byte_valid(command_byte_valid),.command_byte(command_byte),
   .clk50m(clk50m),.reset_n(reset_n),.uart_rx(uart_rx),.uart_tx(uart_tx),
   .enc_a(enc_a),.enc_b(enc_b),.in1(in1),.in2(in2),.led(led),

@@ -44,8 +44,10 @@ module tb_router_commands;
  send("pose.hex",78);check(1,3,0);
  send("pose.hex",78);check(1,3,0);if(chassis.rejected!=1)$fatal(1,"duplicate pose accepted");
  send("keep.hex",78);check(1,4,0);
- send("stop.hex",78);check(0,4,0);
- send("arm.hex",78);check(0,4,0); // delayed old ARM cannot restart
+ send("turn360.hex",78);check(1,5,0);
+ if(chassis.core.goal_angle!==32'sd36000 || !chassis.core.continuous_turn)$fatal(1,"wire extended turn lost angle/flag");
+ send("stop.hex",78);check(0,5,0);
+ send("arm.hex",78);check(0,5,0); // delayed old ARM cannot restart
  send("arm6.hex",78);check(1,6,0); // legal IPv4 zero UDP checksum
  repeat(26000)@(negedge control);check(0,6,2);
  send("arm6.hex",78);check(0,6,2); // no automatic restart after link loss

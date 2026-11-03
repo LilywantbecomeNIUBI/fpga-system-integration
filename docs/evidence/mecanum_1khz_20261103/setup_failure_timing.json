@@ -1,0 +1,183 @@
+{
+  "setup_hold_passed": false,
+  "violations": {
+    "setup": 1,
+    "hold": 0
+  },
+  "clock_endpoints": {
+    "sys50": {
+      "setup": {
+        "tns_ns": 0.0,
+        "violated_endpoints": 0
+      },
+      "hold": {
+        "tns_ns": 0.0,
+        "violated_endpoints": 0
+      }
+    },
+    "cam_pclk": {
+      "setup": {
+        "tns_ns": 0.0,
+        "violated_endpoints": 0
+      },
+      "hold": {
+        "tns_ns": 0.0,
+        "violated_endpoints": 0
+      }
+    },
+    "eth_rx125": {
+      "setup": {
+        "tns_ns": 0.0,
+        "violated_endpoints": 0
+      },
+      "hold": {
+        "tns_ns": 0.0,
+        "violated_endpoints": 0
+      }
+    },
+    "control50": {
+      "setup": {
+        "tns_ns": 0.0,
+        "violated_endpoints": 0
+      },
+      "hold": {
+        "tns_ns": 0.0,
+        "violated_endpoints": 0
+      }
+    },
+    "eth125": {
+      "setup": {
+        "tns_ns": -0.039,
+        "violated_endpoints": 1
+      },
+      "hold": {
+        "tns_ns": 0.0,
+        "violated_endpoints": 0
+      }
+    }
+  },
+  "baseline_retry_margin_ns": 0.001,
+  "worst_retry_path": {
+    "number": 1,
+    "slack_ns": 0.921,
+    "source": "camera/runtime_network.net/action_3_s0/Q",
+    "sink": "camera/runtime_network.net/retry_count_1_s1/CE",
+    "source_clock": "eth125:[R]",
+    "destination_clock": "eth125:[R]",
+    "relation_ns": 8.0,
+    "skew_ns": 0.05,
+    "data_delay_ns": 6.749
+  },
+  "former_critical_sink_path": {
+    "number": 26,
+    "slack_ns": 1.732,
+    "source": "camera/runtime_network.net/action_1_s0/Q",
+    "sink": "camera/runtime_network.net/retry_count2_4_s1/CE",
+    "source_clock": "eth125:[R]",
+    "destination_clock": "eth125:[R]",
+    "relation_ns": 8.0,
+    "skew_ns": 0.027,
+    "data_delay_ns": 5.96
+  },
+  "worst_raw_readout_path": {
+    "number": 1,
+    "slack_ns": 15.792,
+    "source": "ethernet_raw.lidar_display/gowin_add_SDPB_packet_ram_packet_ram_0_0_s/DO[0]",
+    "sink": "ethernet_raw.lidar_display/active_points_464_s0/D",
+    "source_clock": "sys50:[R]",
+    "destination_clock": "sys50:[R]",
+    "relation_ns": 20.0,
+    "skew_ns": -0.066,
+    "data_delay_ns": 4.217
+  },
+  "retry_margin_hardened": true,
+  "advisory_100ps_guard_band_met": true,
+  "raw_readout_setup_passed": true,
+  "resources": {
+    "Logic": "41857/138240                        |  31%",
+    "Register": "35704/139095                        |  26%",
+    "BSRAM": "224/340                             | 66%",
+    "DSP": "133/298                             | 45%",
+    "PRIMARY": "5/8           | 63%",
+    "LW": "8/8           | 100%"
+  },
+  "clock_allocation": [
+    {
+      "net": "clk50m_d",
+      "tree": "PRIMARY",
+      "location": "PTR1 PTR2 PTR3 PBR1 PBR2 PBR3"
+    },
+    {
+      "net": "rgmii_rxc_d",
+      "tree": "PRIMARY",
+      "location": "PTR1 PTR2 PBR1 PBR2"
+    },
+    {
+      "net": "camera_pclk_d",
+      "tree": "PRIMARY",
+      "location": "PTR0 PTR1 PTR2 PBR0 PBR1 PBR2"
+    },
+    {
+      "net": "clk125",
+      "tree": "PRIMARY",
+      "location": "PTR0 PTR1 PTR2 PBR0 PBR1 PBR2"
+    },
+    {
+      "net": "camera/clk50",
+      "tree": "PRIMARY",
+      "location": "PTR0 PTR1 PBR0 PBR1 PBR2 PBR3"
+    },
+    {
+      "net": "reset_sync",
+      "tree": "LW",
+      "location": "-"
+    },
+    {
+      "net": "n534_5",
+      "tree": "LW",
+      "location": "-"
+    },
+    {
+      "net": "runtime_network.network_rst_n",
+      "tree": "LW",
+      "location": "-"
+    },
+    {
+      "net": "chassis/n1081_4",
+      "tree": "LW",
+      "location": "-"
+    },
+    {
+      "net": "chassis/rst_sync_2_11",
+      "tree": "LW",
+      "location": "-"
+    },
+    {
+      "net": "chassis/transmitter/active_383_8",
+      "tree": "LW",
+      "location": "-"
+    },
+    {
+      "net": "camera/sys_rst_n",
+      "tree": "LW",
+      "location": "-"
+    },
+    {
+      "net": "camera/release_pipe[2]",
+      "tree": "LW",
+      "location": "-"
+    }
+  ],
+  "minimum_pulse_width_slack_ns": -0.849,
+  "clock_route_warnings": [
+    "WARN  (PR1014) : Generic routing resource will be used to clock signal 'camera_pclk_d' by the specified constraint. And then it may lead to the excessive delay or skew"
+  ],
+  "full_system_signoff_passed": false,
+  "functional_source_match": true,
+  "raw_points_checked": 12000,
+  "frozen_sources_unchanged": true,
+  "programmed": false,
+  "hardware_tested": false,
+  "bitstream_sha256": "aed01008f0be810566f9e3ca58986db42b1122d2a92fe4718e5c516f29ae5e99",
+  "requested_setup_hold_and_margin_passed": false
+}

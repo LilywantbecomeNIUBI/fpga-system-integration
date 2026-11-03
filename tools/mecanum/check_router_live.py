@@ -2,15 +2,16 @@
 from pathlib import Path
 import argparse,json,sys,time
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
-from host.mecanum.console import packet,Stream
+from host.mecanum.console import packet,Stream,motor_profile
 from host.mecanum.transport import RouterLink
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--bind',default='192.168.50.10')
-    ap.add_argument('--motion',action='store_true');ap.add_argument('--wheels-raised',action='store_true')
+    ap.add_argument('--limit',type=int,default=2);ap.add_argument('--motion',action='store_true');ap.add_argument('--wheels-raised',action='store_true')
     ap.add_argument('--output',type=Path,required=True);args=ap.parse_args()
     if args.motion and not args.wheels_raised:ap.error('Motion requires confirmed --wheels-raised')
     args.output.mkdir(parents=True,exist_ok=False)
+    profile=motor_profile()
     latest={};received={};events=[];checks={};seq=0;last_packet=None;decoder=Stream()
     with RouterLink(bind=args.bind,timeout=.015) as link:
         def receive():
@@ -25,13 +26,15 @@ def main():
             raise RuntimeError('Fresh '+kind+' acknowledgment timeout')
         def send(op,x=0):
             nonlocal seq,last_packet
-            seq=(seq+1)&255;last_packet=packet(op,seq,x=x,kp=512,ki=32,limit=8,tolerance=4)
+            seq=(seq+1)&255;last_packet=packet(op,seq,x=x,kp=profile['initial_kp_q8'],ki=profile['initial_ki_q8'],limit=args.limit,tolerance=4)
             if link.write(last_packet)!=24:raise RuntimeError('Short UDP write')
-            events.append(dict(time=time.monotonic(),kind='command',op=op,seq=seq,x=x,limit=8))
+            events.append(dict(time=time.monotonic(),kind='command',op=op,seq=seq,x=x,limit=args.limit))
             return seq
         def stopped(r):return not r['armed'] and r['pwm']==(0,0,0,0)
         try:
             m=wait('motor',lambda r:True);seq=m['seq']
+            if m['control_shift']!=profile['control_shift']:raise RuntimeError('Firmware/control unit mismatch')
+            if m.get('speed_loop_hz')!=1000:raise RuntimeError('Expected 1kHz wheel-speed firmware')
             if not stopped(m):raise RuntimeError('Board unexpectedly armed before test')
             send(0);wait('motor',stopped)
             send(3);wait('motor',lambda r:stopped(r) and not r['faults']);checks['udp_clear_ack']=True
@@ -51,7 +54,9 @@ def main():
                 wait('pose',lambda r:r['healthy'] and r['calibrated'] and not r['imu_stale'] and not r['imu_fault'],5)
                 baseline=latest['motor']['position'];initial_imu_errors=latest['pose']['imu_fault_count']
                 arm=send(1);wait('motor',lambda r:r['armed'] and r['seq']==arm and not r['faults'],.3)
-                goal=send(6,512);wait('motor',lambda r:r['armed'] and r['seq']==goal and not r['faults'],.3)
+                # Keep the position loop at the requested speed cap for this
+                # timed raised-wheel probe; STOP ends it after 1.1 seconds.
+                goal=send(6,4096);wait('motor',lambda r:r['armed'] and r['seq']==goal and not r['faults'],.3)
                 start=time.monotonic();next_send=start
                 while time.monotonic()-start<1.1:
                     now=time.monotonic()
@@ -65,6 +70,12 @@ def main():
                 checks['position_delta_raw']=[v-b for v,b in zip(latest['motor']['position'],baseline)]
                 checks['four_feedback_positive']=all(v>0 for v in checks['position_delta_raw'])
                 checks['imu_errors_during_motion']=latest['pose']['imu_fault_count']-initial_imu_errors
+                steady=[e['data'] for e in events if e['kind']=='status' and e['data']['kind']=='motor'
+                        and start+.7<=e['time']<=time.monotonic() and e['data']['armed']]
+                if steady:
+                    checks['steady_mean_raw_velocity']=[round(sum(r['velocity'][i] for r in steady)/len(steady),2) for i in range(4)]
+                    checks['steady_mean_pwm']=[round(sum(r['pwm'][i] for r in steady)/len(steady),2) for i in range(4)]
+                checks['requested_raw_velocity']=args.limit*(1<<profile['control_shift'])
         except Exception as exc:checks['error']=str(exc)
         finally:
             for _ in range(3):

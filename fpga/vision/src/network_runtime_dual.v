@@ -119,7 +119,7 @@ module network_runtime_dual #(
     reg [7:0] cache_age0,cache_age1;
     reg cache_valid0,cache_valid1,lookup_valid,lookup2_valid,refresh_due,refresh2_due;
     reg clear_cache,clear_cache2;
-    (* syn_preserve=1, syn_keep=1 *) reg clear_cache2_disp,lookup2_valid_disp;
+    (* syn_preserve=1, syn_keep=1 *) reg clear_cache2_disp,lookup2_valid_disp,lookup_valid_disp;
     wire found2_disp=lookup2_valid_disp && !clear_cache2_disp;
     reg learn_pending,learn_match0,learn_match1;
     wire found=lookup_valid && !clear_cache;
@@ -140,6 +140,7 @@ module network_runtime_dual #(
     (* syn_preserve=1, syn_keep=1 *) reg retry_hit_clear0,retry_hit_clear1;
     (* syn_preserve=1, syn_keep=1 *) reg retry_hit_clear0_disp,retry_hit_clear1_disp;
     (* syn_preserve=1, syn_keep=1 *) reg clear_cache_retry,clear_cache2_retry,clear_cache_disp;
+    wire found_disp=lookup_valid_disp && !clear_cache_disp;
     wire arp_needed0_disp=!retry_hit_clear0_disp || clear_cache_disp;
     wire arp_needed1_disp=!retry_hit_clear1_disp || clear_cache2_disp;
     always @(posedge clk or negedge rst_n)begin
@@ -152,13 +153,13 @@ module network_runtime_dual #(
         end
     end
     always @(posedge clk or negedge rst_n)begin
-        if(!rst_n)begin lookup_valid<=0;lookup2_valid<=0;lookup2_valid_disp<=0;refresh_due<=0;refresh2_due<=0;found_mac<=0;found2_mac<=0;end
+        if(!rst_n)begin lookup_valid<=0;lookup_valid_disp<=0;lookup2_valid<=0;lookup2_valid_disp<=0;refresh_due<=0;refresh2_due<=0;found_mac<=0;found2_mac<=0;end
         else begin
-            lookup_valid<=found_comb;lookup2_valid<=found2_comb;lookup2_valid_disp<=found2_comb;
+            lookup_valid<=found_comb;lookup_valid_disp<=found_comb;lookup2_valid<=found2_comb;lookup2_valid_disp<=found2_comb;
             found_mac<=cache_mac0;found2_mac<=cache_mac1;
             refresh_due<=found_comb && cache_age0<=(CACHE_SECONDS>5?5:1);
             refresh2_due<=found2_comb && cache_age1<=(CACHE_SECONDS>5?5:1);
-            if(clear_cache || (parse_state==P_COMMAND && (memory[47]==2 || memory[47]==4)))lookup_valid<=0;
+            if(clear_cache || (parse_state==P_COMMAND && (memory[47]==2 || memory[47]==4)))begin lookup_valid<=0;lookup_valid_disp<=0;end
             if(clear_cache2 || (parse_state==P_COMMAND && (memory[47]==5 || memory[47]==8)))begin lookup2_valid<=0;lookup2_valid_disp<=0;end
         end
     end
@@ -325,7 +326,7 @@ module network_runtime_dual #(
     wire telemetry_primary_ready=TELEMETRY_MIRROR_PRIMARY && enabled && found;
     wire telemetry_secondary_ready=enabled2 && found2;
     wire select_primary_telemetry=telemetry_primary_pending && telemetry_primary_ready;
-    wire select_primary_telemetry_disp=telemetry_primary_pending && TELEMETRY_MIRROR_PRIMARY && enabled && found;
+    wire select_primary_telemetry_disp=telemetry_primary_pending && TELEMETRY_MIRROR_PRIMARY && enabled && found_disp;
     wire want_telemetry=TELEMETRY_ENABLE && ((telemetry_pending && telemetry_secondary_ready) || select_primary_telemetry);
     reg [3:0] stream_action;
     always @*begin
@@ -395,7 +396,10 @@ module network_runtime_dual #(
 
     reg telemetry_pending,telemetry_primary_pending,sending_telemetry;
     reg [511:0] telemetry_buffer,send_telemetry_payload;
-    assign telemetry_ready=TELEMETRY_ENABLE && rst_n && (telemetry_secondary_ready || telemetry_primary_ready) && !telemetry_pending && !telemetry_primary_pending;
+    // Keep reset gating at the interface; internal admission is already in
+    // the non-reset branch and must not feed reset through the pending D mux.
+    wire telemetry_slot_ready=TELEMETRY_ENABLE && (telemetry_secondary_ready || telemetry_primary_ready) && !telemetry_pending && !telemetry_primary_pending;
+    assign telemetry_ready=rst_n && telemetry_slot_ready;
     reg udp_start,sending_video;wire [47:0] send_mac;wire [31:0] send_ip;
     wire [15:0] send_port,send_source_port,send_length;
     reg [5:0] control_index;
@@ -490,7 +494,7 @@ module network_runtime_dual #(
             if(TELEMETRY_ENABLE && !telemetry_pending && !telemetry_primary_pending)telemetry_buffer<=telemetry_payload;
             if(TELEMETRY_MIRROR_PRIMARY && !telemetry_primary_ready)telemetry_primary_pending<=0;
             if(TELEMETRY_MIRROR_PRIMARY && !telemetry_secondary_ready)telemetry_pending<=0;
-            if(TELEMETRY_ENABLE && telemetry_valid && telemetry_ready)begin
+            if(telemetry_valid && telemetry_slot_ready)begin
                 telemetry_pending<=telemetry_secondary_ready;
                 telemetry_primary_pending<=telemetry_primary_ready;
             end
