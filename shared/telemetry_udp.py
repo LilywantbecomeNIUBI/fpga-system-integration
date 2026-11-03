@@ -27,7 +27,7 @@ class TelemetryUDP:
         magic, version, reserved, sequence, device_ms = HEADER.unpack_from(data)
         frame = data[16:]
         motor = frame[:2] == b'\xc3\x3c'
-        mecanum = frame[:3] in (b'M4\x03', b'P4\x03')
+        mecanum = frame[:3] in (b'M4\x03', b'P4\x03', b'N4\x01')
         if (magic != b'TLM1' or version != 1 or reserved != b'\x00'*3
                 or not (motor and frame[2] in range(1,8) or mecanum or frame[:3] == b'\xa5\x5a\x02')
                 or crc16(frame[:46]) != struct.unpack('<H' if motor or mecanum else '>H', frame[46:])[0]):

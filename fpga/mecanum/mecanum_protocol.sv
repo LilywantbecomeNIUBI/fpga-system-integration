@@ -1,6 +1,6 @@
 // 24 bytes: A5 5A 02 op seq motor_mask encoder_mask 00,
 // x/y/z int16, kp/ki uint16, four reserved zero bytes, CRC16 little endian.
-module mc_mecanum_protocol #(parameter CLK_HZ=50000000,VERSION=2)(
+module mc_mecanum_protocol #(parameter CLK_HZ=50000000,VERSION=2,NAVIGATION=0)(
  input wire clk,reset_n,byte_valid,framing_error,input wire [7:0] byte_data,
  output reg valid,output reg [175:0] body,output reg [31:0] bad_frames
 );
@@ -29,9 +29,9 @@ module mc_mecanum_protocol #(parameter CLK_HZ=50000000,VERSION=2)(
     else if(index==22)begin low<=byte_data;index<=23;end
     else begin
      index<=0;
-     if({byte_data,low}==crc && pending[23:16]==VERSION && pending[63:56]==0 &&
+     if({byte_data,low}==crc && ((NAVIGATION && pending[23:16]==4 && pending[63:40]==0) || (pending[23:16]==VERSION && pending[63:56]==0 &&
         (pending[175:144]==0 || pending[31:24]==5 || pending[31:24]==6 || pending[31:24]==9) &&
-        pending[47:44]==0 && pending[55:52]==0)begin body<=pending;valid<=1;end
+        pending[47:44]==0 && pending[55:52]==0)))begin body<=pending;valid<=1;end
      else bad_frames<=bad_frames+1;
     end
    end

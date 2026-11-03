@@ -1,7 +1,7 @@
 module mc_mecanum_top #(parameter CLK_HZ=50000000,BAUD=115200,CONTROL_HZ=100,IMU_ENABLED=1,IMU_ADDRESS=7'h68,IMU_REVERSE=0,IMU_CAL_LOG2=8,CONTROL_SHIFT=4,
  parameter [3:0] BASE_ENCODER_REVERSE=4'b0101,BASE_MOTOR_REVERSE=4'b0101,
  parameter LATERAL_START_PWM=150,LATERAL_TAPER_COUNTS=160,LATERAL_REVERSE=0,
- parameter TELEMETRY_ETHERNET=0,COMMAND_ETHERNET=0,FAST_SPEED_LOOP=0)(
+ parameter TELEMETRY_ETHERNET=0,COMMAND_ETHERNET=0,FAST_SPEED_LOOP=0,NAVIGATION=0)(
  input wire command_error,input wire command_byte_valid,input wire [7:0] command_byte,
  input wire clk50m,reset_n,uart_rx,input wire [3:0] enc_a,enc_b,
  inout wire imu_scl,imu_sda,
@@ -10,6 +10,11 @@ module mc_mecanum_top #(parameter CLK_HZ=50000000,BAUD=115200,CONTROL_HZ=100,IMU
  output wire [5:0] legacy_m1_pwm_disabled,legacy_m2_pwm_disabled,
  output wire [1:0] legacy_cal_disabled,
  input wire auxiliary_valid,input wire [383:0] auxiliary_frame,
+ input wire nav_active,nav_permit,nav_lease,input wire signed [15:0] nav_x,nav_y,nav_z,
+ output wire nav_command_valid,output wire [175:0] nav_command_body,
+ output wire nav_armed,nav_yaw_ok,nav_imu_stale,nav_imu_fault,
+ output wire signed [31:0] nav_yaw,output wire [31:0] nav_now_us,nav_sample_us,
+ output wire [127:0] nav_positions,nav_velocities,
  output wire auxiliary_ready,output wire [15:0] auxiliary_drops,
  output wire [383:0] telemetry_frame,output wire telemetry_valid,input wire telemetry_ready
 );
@@ -49,11 +54,14 @@ module mc_mecanum_top #(parameter CLK_HZ=50000000,BAUD=115200,CONTROL_HZ=100,IMU
  mc_uart_rx_byte #(.CLK_HZ(CLK_HZ),.BAUD(BAUD)) receiver(.clk(clk50m),.reset_n(rst),.rx(uart_rx),.data(rx_data),.valid(rx_valid),.framing_error(rx_error));
  // Keep the decoder reset until the network-domain reset has released.
  // A held reset must not be counted as a framing error on every clock.
- mc_mecanum_protocol #(.CLK_HZ(CLK_HZ),.VERSION(PROTOCOL_VERSION)) protocol(.clk(clk50m),.reset_n(COMMAND_ETHERNET ? (rst && !command_error) : rst),.byte_valid(COMMAND_ETHERNET ? command_byte_valid : rx_valid),.framing_error(COMMAND_ETHERNET ? 1'b0 : rx_error),.byte_data(COMMAND_ETHERNET ? command_byte : rx_data),.valid(command_valid),.body(body),.bad_frames(bad));
+ mc_mecanum_protocol #(.CLK_HZ(CLK_HZ),.VERSION(PROTOCOL_VERSION),.NAVIGATION(NAVIGATION)) protocol(.clk(clk50m),.reset_n(COMMAND_ETHERNET ? (rst && !command_error) : rst),.byte_valid(COMMAND_ETHERNET ? command_byte_valid : rx_valid),.framing_error(COMMAND_ETHERNET ? 1'b0 : rx_error),.byte_data(COMMAND_ETHERNET ? command_byte : rx_data),.valid(command_valid),.body(body),.bad_frames(bad));
+ assign nav_command_valid=command_valid,nav_command_body=body;
+ assign nav_armed=armed,nav_yaw_ok=yaw_ok,nav_imu_stale=imu_stale,nav_imu_fault=imu_fault;
+ assign nav_yaw=yaw,nav_now_us=now_us,nav_sample_us=sample_us,nav_positions=pos,nav_velocities=vel;
  // UDP ARM must also be newer than the last accepted session command.
  // A delayed duplicate ARM after STOP cannot re-arm the previous session.
  wire [7:0] arm_delta=body[39:32]-seq;
- wire core_command_valid=command_valid && (!COMMAND_ETHERNET || body[31:24]!=1 || (arm_delta!=0 && arm_delta<128));
+ wire core_command_valid=command_valid && body[23:16]==PROTOCOL_VERSION && (!COMMAND_ETHERNET || body[31:24]!=1 || (arm_delta!=0 && arm_delta<128));
  // Front feedback connectors are exchanged: physical left-front is input 1.
  // Physical right-front is input 0, verified by manual wheel feedback.
  wire [3:0] wheel_enc_a={enc_a[3:2],enc_a[0],enc_a[1]};
@@ -65,7 +73,8 @@ module mc_mecanum_top #(parameter CLK_HZ=50000000,BAUD=115200,CONTROL_HZ=100,IMU
  assign in2={wheel_in2[3:2],wheel_in2[0],wheel_in2[1]};
  // Physical calibration: left-front and left-rear feedback are reversed.
  // Host encoder masks are additional corrections; normally leave them zero.
- mc_mecanum_core #(.CLK_HZ(CLK_HZ),.FAST_SPEED_LOOP(FAST_SPEED_LOOP),.CONTROL_HZ(CONTROL_HZ),.CONTROL_SHIFT(CONTROL_SHIFT),.BASE_ENCODER_REVERSE(BASE_ENCODER_REVERSE),.BASE_MOTOR_REVERSE(BASE_MOTOR_REVERSE),.LATERAL_START_PWM(LATERAL_START_PWM),.LATERAL_TAPER_COUNTS(LATERAL_TAPER_COUNTS),.LATERAL_REVERSE(LATERAL_REVERSE)) core(.clk(clk50m),.reset_n(rst),.enc_a(wheel_enc_a),.enc_b(wheel_enc_b),.command_valid(core_command_valid),.command_body(body),
+ mc_mecanum_core #(.CLK_HZ(CLK_HZ),.FAST_SPEED_LOOP(FAST_SPEED_LOOP),.CONTROL_HZ(CONTROL_HZ),.CONTROL_SHIFT(CONTROL_SHIFT),.BASE_ENCODER_REVERSE(BASE_ENCODER_REVERSE),.BASE_MOTOR_REVERSE(BASE_MOTOR_REVERSE),.LATERAL_START_PWM(LATERAL_START_PWM),.LATERAL_TAPER_COUNTS(LATERAL_TAPER_COUNTS),.LATERAL_REVERSE(LATERAL_REVERSE),.NAVIGATION(NAVIGATION)) core(.clk(clk50m),.reset_n(rst),.enc_a(wheel_enc_a),.enc_b(wheel_enc_b),.command_valid(core_command_valid),.command_body(body),
+  .nav_active(nav_active),.nav_permit(nav_permit),.nav_lease(nav_lease),.nav_x(nav_x),.nav_y(nav_y),.nav_z(nav_z),
   .yaw_ok(yaw_ok),.yaw_q16(yaw),.control_mode(mode),.arrived(arrived),.imu_recalibrate(imu_recalibrate),.pose_x(pose_x),.pose_y(pose_y),.pose_heading(pose_heading),
   .in1(wheel_in1),.in2(wheel_in2),.armed(armed),.faults(faults),.last_sequence(seq),.rejected(rejected),.positions(pos),.velocities(vel),.applied(pwm),.targets(target));
  // 20 Hz atomic snapshot: M4, version2, armed, faults16, seq, reserved,

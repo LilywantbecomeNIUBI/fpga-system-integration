@@ -1,6 +1,7 @@
 """Mecanum V3 status codec, ported from the frozen team console. No IO."""
 import math, struct
 from host.motor_protocol import crc16
+from shared.navigation_protocol import decode as decode_navigation
 PROTOCOL_VERSION=3
 
 
@@ -12,12 +13,16 @@ class Stream:
         self.buffer.extend(data)
         rows = []
         while len(self.buffer) >= 48:
-            if self.buffer[:2] not in (b'M4', b'P4') or self.buffer[2] != PROTOCOL_VERSION:
+            if self.buffer[:3] not in (b'M4\x03', b'P4\x03', b'N4\x01'):
                 del self.buffer[0]
                 continue
             frame = self.buffer[:48]
             if crc16(frame[:46]) != struct.unpack_from('<H', frame, 46)[0]:
                 del self.buffer[0]
+                continue
+            if frame[:2] == b'N4':
+                rows.append(decode_navigation(frame))
+                del self.buffer[:48]
                 continue
             if frame[:2] == b'P4':
                 flags=frame[3]
@@ -45,7 +50,7 @@ class Stream:
 
 
 def decode_mecanum(frame):
-    if len(frame)!=48 or frame[:3] not in (b'M4\x03',b'P4\x03'):
+    if len(frame)!=48 or frame[:3] not in (b'M4\x03',b'P4\x03',b'N4\x01'):
         raise ValueError('Invalid Mecanum status identity')
     rows = Stream().feed(frame)
     if len(rows)!=1:

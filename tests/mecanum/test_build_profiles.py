@@ -7,6 +7,14 @@ from tools.task4.build_ethernet import prepare
 
 
 class BuildProfiles(unittest.TestCase):
+    def test_navigation_cdc_constraints_are_opt_in(self):
+        from tools.mecanum.build import constraints
+        plain=constraints()[2];navigation=constraints(navigation=True)[2]
+        self.assertNotIn('navigation_safety',plain)
+        self.assertIn('navigation_safety_cdc/held*/Q',navigation)
+        self.assertIn('10.0',navigation)
+        self.assertNotEqual(plain,navigation)
+
     def test_real_capture_network_and_teammate_pins_in_both_modes(self):
         for raw in (False,True):
             folder,meta=prepare(system=True,raw=raw,mecanum=True,clock_cleanup=True)

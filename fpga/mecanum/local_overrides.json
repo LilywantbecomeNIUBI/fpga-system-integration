@@ -1,14 +1,26 @@
 {
   "mecanum_core.sv": {
-    "reason": "1kHz speed-loop branch and extended-turn opcode 9; legacy defaults preserved",
-    "sha256": "77d6f3c26ea274179fc760911bf7f9d74ad835ba2175381d016ff307bca9fdd9"
+    "reason": "Optional navigation owner, Q8 velocity targets, independent immediate gate; V3 defaults preserved",
+    "sha256": "ef3d119cf2f133a6fdbbd160f58413277fccd2f20bfa2ab64261ce3e654c5bd3"
   },
   "mecanum_pose_control.sv": {
     "reason": "Continuous relative yaw plus tick-snapshot pairwise position pipeline",
     "sha256": "19e969df4aaba43c257d8bd20164286901db08e8bbbf08c136dc932b49f5e30f"
   },
   "mecanum_protocol.sv": {
-    "reason": "Accept extended-turn opcode 9 options with unchanged V3 CRC framing",
-    "sha256": "5c0eec2a81a754989d5c586d39c2dbd3eb4a6fa255ca2740762ca1012d92431e"
+    "reason": "Optional CRC-protected V4 navigation commands; existing V3 admission unchanged",
+    "sha256": "dd1e6f7a809987a31e0e02365a4e67d2ffdf769d5e63344472f238e319eeb7ee"
+  },
+  "mecanum_mixer.sv": {
+    "reason": "Parameterize shared proportional saturation for optional Q8 autonomous targets; default unchanged",
+    "sha256": "040dac54b9a10d0aa39a5f4eb8b6426cbe170a4cd9df7e8ab64eb6e0d760a51d"
+  },
+  "at8236_pwm.sv": {
+    "reason": "Bounded phase/wake/duty widths with cycle-exact PWM and immediate reset/enable GPIO gating",
+    "sha256": "0714e67ac9fada33061fc7e8c7a67af9959eb4048890a625a6c32a4afcf10d61"
+  },
+  "command_cdc.sv": {
+    "reason": "Keep reset gating externally; remove redundant src_reset_n from held capture inside its non-reset branch",
+    "sha256": "1c24bf06c71a16ea22bcba90e9a610f342134b81013fe521149442eff8a88038"
   }
 }

@@ -1,11 +1,13 @@
 module mc_mecanum_core #(
  parameter CLK_HZ=50000000,CONTROL_HZ=100,PWM_HZ=10000,FAST_SPEED_LOOP=0,
  WATCHDOG_MS=250,STALL_TICKS=50,REVERSE_TICKS=10,FILTER_CYCLES=8,CONTROL_SHIFT=0,LATERAL_START_PWM=0,LATERAL_TAPER_COUNTS=160,LATERAL_REVERSE=0,
- parameter [3:0] BASE_ENCODER_REVERSE=4'b0000,BASE_MOTOR_REVERSE=4'b0000
+ parameter [3:0] BASE_ENCODER_REVERSE=4'b0000,BASE_MOTOR_REVERSE=4'b0000,
+ parameter NAVIGATION=0
 )(
  input wire clk,reset_n,input wire [3:0] enc_a,enc_b,
  input wire command_valid,input wire [175:0] command_body,
  input wire yaw_ok,input wire signed [31:0] yaw_q16,
+ input wire nav_active,nav_permit,nav_lease,input wire signed [15:0] nav_x,nav_y,nav_z,
  output wire [3:0] in1,in2,output reg armed,output reg [15:0] faults,
  output reg [7:0] last_sequence,output reg [31:0] rejected,
  output wire [127:0] positions,velocities,output wire [63:0] applied,targets,
@@ -35,13 +37,19 @@ module mc_mecanum_core #(
  // before the pose pipeline observes its reset pulse on the next clock.
  assign arrived=pose_arrived && control_mode==2 && !new_goal && enable;
  wire signed [15:0] outer_mix[0:3];
+ wire signed [15:0] nav_mix[0:3];
+ mc_mecanum_mixer #(.TARGET_LIMIT(32767)) nav_mixer(.x(nav_x),.y(nav_y),.z(nav_z),.fl(nav_mix[0]),.fr(nav_mix[1]),.rl(nav_mix[2]),.rr(nav_mix[3]));
+ wire navigation_active=NAVIGATION && nav_active;
+ // Releasing autonomous ownership must clear the old PI/PWM before returning
+ // to manual mode, even if CANCEL/completion arrived between 1kHz ticks.
+ wire drive_enable=enable && (navigation_active ? nav_permit : control_mode!=3);
  wire outer_options=command_body[159:144]>=1 && command_body[159:144]<=128 && command_body[175:160]>=1 && command_body[175:160]<=1024;
  wire pose_bounds=x>=-16000 && x<=16000 && y>=-16000 && y<=16000 &&
   (op==9 ? (z>=-7200 && z<=7200) : (z>=-18000 && z<=18000));
  wire [127:0] control_positions,control_velocities;
  wire [15:0] lateral_compensation;
  mc_lateral_pwm_compensation #(.PWM_PERMILLE(LATERAL_START_PWM),.TAPER_COUNTS(LATERAL_TAPER_COUNTS)) lateral_assist(
-  .clk(clk),.reset_n(reset_n),.active(enable),.arrived(arrived),.mode(control_mode),.goal_x(goal_x),.goal_y(goal_y),.goal_angle(goal_angle==0 ? 16'sd0 : 16'sd1),
+  .clk(clk),.reset_n(reset_n),.active(enable && !navigation_active),.arrived(arrived),.mode(control_mode),.goal_x(goal_x),.goal_y(goal_y),.goal_angle(goal_angle==0 ? 16'sd0 : 16'sd1),
   .position_y(pose_y),.compensation(lateral_compensation));
  mc_mecanum_pose_control #(.LATERAL_REVERSE(LATERAL_REVERSE),.EXTENDED_TURNS(1),.ANGLE_SPEED_SHIFT(11+(CONTROL_SHIFT>4 ? CONTROL_SHIFT-4 : 0))) pose_loop(.clk(clk),.reset_n(reset_n),.tick(control_tick),.active(enable && control_mode!=0),.new_goal(new_goal),
   .mode(control_mode),.yaw_ok(yaw_ok),.yaw_q16(yaw_q16),.wheel_positions(control_positions),.wheel_velocities(control_velocities),
@@ -79,16 +87,16 @@ module mc_mecanum_core #(
    wheel_speed_hybrid #(.CLK_HZ(CLK_HZ)) observer(.clk(clk),.reset_n(reset_n),.clear(1'b0),
     .tick(fast_sample_tick),.position(position),.velocity_q8(raw_velocity_q8),
     .motion_recent(motion_recent),.fault(speed_fault[n]),.count_mode());
-   mc_wheel_control_1khz #(.PWM_LIMIT(300),.SLEW(2),.REVERSE_TICKS(REVERSE_TICKS*10)) controller(
-    .clk(clk),.reset_n(reset_n),.tick(fast_control_tick),.enable(enable),
-    .motor_reverse(BASE_MOTOR_REVERSE[n]),.feedback_stopped(!motion_recent),.target(requests[n]),
+   mc_wheel_control_1khz #(.PWM_LIMIT(300),.SLEW(2),.REVERSE_TICKS(REVERSE_TICKS*10),.FRACTIONAL_TARGET(NAVIGATION)) controller(
+    .clk(clk),.reset_n(reset_n),.tick(fast_control_tick),.enable(drive_enable),
+    .motor_reverse(BASE_MOTOR_REVERSE[n]),.feedback_stopped(!motion_recent),.target(requests[n]),.target_fractional(navigation_active),
     .velocity_q8(velocity_q8),.kp(kp),.ki(ki),.feedforward(lateral_compensation),.applied(pwm));
   end else begin:legacy
    assign speed_fault[n]=0;
   mc_wheel_control #(.PWM_LIMIT(300),.REVERSE_TICKS(REVERSE_TICKS)) controller(.clk(clk),.reset_n(reset_n),.tick(control_tick),
-   .enable(enable),.motor_reverse(BASE_MOTOR_REVERSE[n]),.target(requests[n]),.velocity(control_velocity),.kp(kp),.ki(ki),.feedforward(lateral_compensation),.applied(pwm));
+   .enable(drive_enable),.motor_reverse(BASE_MOTOR_REVERSE[n]),.target(requests[n]),.velocity(control_velocity),.kp(kp),.ki(ki),.feedforward(lateral_compensation),.applied(pwm));
   end
-  mc_at8236_pwm #(.CLK_HZ(CLK_HZ),.PWM_HZ(PWM_HZ)) driver(.clk(clk),.reset_n(reset_n),.enable(enable),.command(pwm),.in1(in1[n]),.in2(in2[n]));
+  mc_at8236_pwm #(.CLK_HZ(CLK_HZ),.PWM_HZ(PWM_HZ)) driver(.clk(clk),.reset_n(reset_n),.enable(drive_enable),.command(pwm),.in1(in1[n]),.in2(in2[n]));
   assign positions[n*32+:32]=position;assign velocities[n*32+:32]=velocity;
   assign control_positions[n*32+:32]=control_position;assign control_velocities[n*32+:32]=control_velocity;
   assign applied[n*16+:16]=pwm;assign targets[n*16+:16]=requests[n];
@@ -107,7 +115,7 @@ module mc_mecanum_core #(
    for(i=0;i<4;i=i+1)begin requests[i]<=0;stalls[i]<=0;end
   end else begin
    new_goal<=0;imu_recalibrate<=0;
-   if(outer_valid && enable && control_mode!=0 && !new_goal)
+   if(outer_valid && enable && control_mode==2 && !new_goal && !navigation_active)
     for(i=0;i<4;i=i+1)requests[i]<=outer_mix[i];
    if(armed && watchdog<WD)watchdog<=watchdog+1;
    if(!armed)for(i=0;i<4;i=i+1)stalls[i]<=0;
@@ -122,7 +130,7 @@ module mc_mecanum_core #(
      armed<=1;kp<=cmd_kp;ki<=cmd_ki;
      last_sequence<=seq;watchdog<=0;for(i=0;i<4;i=i+1)requests[i]<=0;
      control_mode<=0;
-    end else if((op==6 || op==9) && enable && fresh && config_same && yaw_ok && outer_options && pose_bounds)begin
+    end else if((op==6 || op==9) && !navigation_active && enable && fresh && config_same && yaw_ok && outer_options && pose_bounds)begin
      last_sequence<=seq;watchdog<=0;control_mode<=2;new_goal<=1;
      goal_x<=x;goal_y<=y;goal_angle<=op==9 ? $signed(z)*32'sd10 : $signed(z);continuous_turn<=op==9;outer_speed<=command_body[159:144];outer_tolerance<=command_body[175:160];
      for(i=0;i<4;i=i+1)requests[i]<=0;
@@ -130,11 +138,18 @@ module mc_mecanum_core #(
      last_sequence<=seq;watchdog<=0;
     end else rejected<=rejected+1;
    end
+   if(navigation_active)begin
+    control_mode<=3;
+    for(i=0;i<4;i=i+1)requests[i]<=nav_permit && enable?nav_mix[i]:16'sd0;
+    if(nav_lease && armed)watchdog<=0;
+   end else if(control_mode==3)begin control_mode<=0;for(i=0;i<4;i=i+1)requests[i]<=0;end
+   // Explicit STOP must beat autonomous ownership on the same edge.
+   if(command_valid && op==0)begin armed<=0;control_mode<=0;for(i=0;i<4;i=i+1)requests[i]<=0;end
    if(FAST_SPEED_LOOP && |speed_fault)begin faults[10]<=1;armed<=0;end
    // Faults have priority over commands and stop every wheel together.
    if(armed && watchdog>=WD-1)begin faults[1]<=1;armed<=0;end
    if(enable && control_mode!=0 && !yaw_ok)begin faults[8]<=1;armed<=0;end
-   if(enable && control_mode!=0 && pose_overflow)begin faults[9]<=1;armed<=0;end
+   if(enable && control_mode==2 && pose_overflow)begin faults[9]<=1;armed<=0;end
    if(control_tick && armed)for(i=0;i<4;i=i+1)begin
     if($signed(velocities[i*32+:32])>4096 || $signed(velocities[i*32+:32])< -4096)begin faults[3]<=1;armed<=0;end
     if(($signed(applied[i*16+:16])>=100 || $signed(applied[i*16+:16])<=-100) && $signed(velocities[i*32+:32])==0)begin

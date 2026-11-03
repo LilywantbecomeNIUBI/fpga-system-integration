@@ -10,8 +10,14 @@ module event_packet_mux(
     wire choose_b=b_valid && (!a_valid || prefer_b);
     assign a_ready=available && !choose_b;
     assign b_ready=available && choose_b;
-    always @(posedge clk)if(available && (a_valid || b_valid))
-        out_payload<=choose_b ? b_payload : a_payload;
+    // Local32-bit load cones; preserve the separate CE nets so endpoint-ready
+    // does not drive one256-bit capture cone across the device.
+    genvar group;
+    generate for(group=0;group<8;group=group+1)begin:payload_group
+        (* syn_keep=1,syn_maxfan=8 *) wire load=available && (a_valid || b_valid);
+        always @(posedge clk)if(load)
+            out_payload[group*32+:32]<=choose_b ? b_payload[group*32+:32] : a_payload[group*32+:32];
+    end endgenerate
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin out_valid<=0;prefer_b<=0;end
         else if(available)begin

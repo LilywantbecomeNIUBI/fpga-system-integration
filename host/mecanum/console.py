@@ -5,6 +5,9 @@ import time
 import math
 import json
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 PROTOCOL_VERSION=3
 
@@ -97,6 +100,9 @@ class Stream:
                              rejected=struct.unpack_from('<H', frame, 42)[0],control_shift=frame[44],capabilities=frame[45],speed_loop_hz=1000 if frame[45]&1 else 100))
             del self.buffer[:48]
         return rows
+
+
+from shared.mecanum_protocol import Stream  # one decoder for V3 and N4 telemetry
 
 
 def main():

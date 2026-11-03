@@ -26,6 +26,8 @@ def main():
             with opener.open(url + '/api/state', timeout=.5) as response:
                 existing = json.load(response)
             if existing.get('profile_id') == 'unified_mecanum_v1':
+                if existing.get('software_version') != 'unified-teach-20261103':
+                    raise RuntimeError('当前8874端口仍是旧版联合控制台。请先停止动作、关闭原启动窗口，再运行本启动器；不会强制终止控制进程。')
                 webbrowser.open(url)
                 return 0
         except (OSError, ValueError):

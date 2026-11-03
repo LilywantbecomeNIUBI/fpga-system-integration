@@ -37,7 +37,7 @@ class MixedStream:
         self.buffer.extend(data);rows=[]
         while len(self.buffer)>=3:
             header=bytes(self.buffer[:3])
-            mecanum=header in (b'M4\x03',b'P4\x03')
+            mecanum=header in (b'M4\x03',b'P4\x03',b'N4\x01')
             if header[:2]!=b'\xc3\x3c' and header!=b'\xa5\x5a\x02' and not mecanum:
                 del self.buffer[0];self.discarded+=1;continue
             if len(self.buffer)<48:break

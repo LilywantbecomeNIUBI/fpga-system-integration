@@ -19,8 +19,9 @@ from build import ROOT, m2_rows, base_constraints, sources as system_sources
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def prepare(system=False,raw=False,place=2,route=0,auto_clock=False,replicate=1,clock_cleanup=False,mecanum=False):
+def prepare(system=False,raw=False,place=2,route=0,auto_clock=False,replicate=1,clock_cleanup=False,mecanum=False,navigation=False):
     if mecanum and not system:raise ValueError('Mecanum requires --system')
+    if navigation and not (system and mecanum and raw):raise ValueError('Navigation requires --system --mecanum --raw-points')
     top='system_mecanum_top' if mecanum else 'system_task4_top' if system else 'm2_sensor_eth_diag_top'
     out=ROOT/('build/lidar_raw_ethernet_20261102' if raw else 'build/lidar_ethernet_20261102')/('mecanum' if mecanum else 'system' if system else 'diagnostic')/time.strftime('%Y%m%dT%H%M%SZ',time.gmtime())
     # Freeze-only checks and an actual build can start in the same second.
@@ -48,6 +49,8 @@ def prepare(system=False,raw=False,place=2,route=0,auto_clock=False,replicate=1,
     if any(sha(ROOT/p)!=h for p,h in hashes.items()):raise RuntimeError('Sources changed during snapshot')
     variant=out/'source'/('fpga/mecanum/system_mecanum_top.sv' if mecanum else 'fpga/navigation/system_task4_top.sv' if system else 'fpga/diagnostics/m2_sensor_eth_diag_top.sv')
     variant.write_text(re.sub(r'LIDAR_RAW=[01]','LIDAR_RAW='+str(int(raw)),variant.read_text()))
+    if mecanum:
+        variant.write_text(re.sub(r'NAVIGATION=[01]','NAVIGATION='+str(int(navigation)),variant.read_text()))
     hashes[variant.relative_to(out/'source').as_posix()]=sha(variant)
     with (ROOT/'hardware/pins.csv').open(encoding='utf-8-sig') as table:
         rows=m2_rows(list(csv.DictReader(table)))
@@ -55,7 +58,7 @@ def prepare(system=False,raw=False,place=2,route=0,auto_clock=False,replicate=1,
         import sys
         sys.path.insert(0,str(ROOT))
         from tools.mecanum.build import constraints
-        rows,cst,sdc=constraints()
+        rows,cst,sdc=constraints(navigation=navigation)
     elif system:cst,sdc=base_constraints(rows)
     else:
         names={'clk50m','reset_n','uart_tx','imu_i2c_scl','imu_i2c_sda','left_in1','left_in2','right_in1','right_in2',
@@ -151,7 +154,7 @@ set_input_delay -clock eth_rx125 -clock_fall -add_delay -min 1.8 [get_ports {rgm
                 lidar_mode='raw_points' if raw else 'nearest_return_per_sector',pin_profile='mecanum_p7' if mecanum else 'task4_m2',place_option=place,route_option=route,auto_clock_routing=auto_clock,
                 replicate_resources=replicate,clock_cleanup=clock_cleanup,
                 source_sha256=hashes,programmed=False,hardware_tested=False,system=system,
-                camera_enabled=system,navigation_enabled=system and not mecanum,mecanum_pose_enabled=mecanum,command_receiver_enabled=system,command_transport='udp6206_v3' if mecanum else 'uart')
+                camera_enabled=system,navigation_enabled=navigation or (system and not mecanum),mecanum_navigation=navigation,mecanum_pose_enabled=mecanum,command_receiver_enabled=system,command_transport='udp6206_v3_v4' if navigation else 'udp6206_v3' if mecanum else 'uart')
     (out/'pin_audit.json').write_text(json.dumps(dict(passed=True,pins=rows),indent=2))
     (out/'manifest.json').write_text(json.dumps(record,indent=2))
     return out,record
@@ -160,6 +163,7 @@ set_input_delay -clock eth_rx125 -clock_fall -add_delay -min 1.8 [get_ports {rgm
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--system',action='store_true');parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--mecanum',action='store_true',help='Use teammate four-wheel pins and integrated Mecanum top (requires --system)')
+    parser.add_argument('--navigation',action='store_true',help='Opt-in Mecanum navigation candidate; calibration still required before ARM/start')
     mode=parser.add_mutually_exclusive_group();mode.add_argument('--sector360',action='store_true');mode.add_argument('--raw-points',action='store_true',help='Explicit opt-in; the default is the restored 360-point mode')
     parser.add_argument('--place',type=int,choices=(0,1,2,3,4),default=2);parser.add_argument('--route-option',type=int,choices=(0,1,2),default=0)
     parser.add_argument('--replicate-resources',type=int,choices=(0,1),default=1)
@@ -169,7 +173,7 @@ def main():
     implementation.add_argument('--full-rebuild',action='store_true',help='Explicit full rebuild; use only when authorized by the user')
     parser.add_argument('--auto-clock-routing',action='store_true');parser.add_argument('--timeout-seconds',type=int,default=5400);args=parser.parse_args()
     if not args.system and not args.prepare_only:parser.error('Use --system: board builds must use whole-system incremental PnR')
-    out,record=prepare(args.system,raw=args.raw_points,place=args.place,route=args.route_option,auto_clock=args.auto_clock_routing,replicate=args.replicate_resources,clock_cleanup=args.clock_cleanup,mecanum=args.mecanum);print(out,flush=True)
+    out,record=prepare(args.system,raw=args.raw_points,place=args.place,route=args.route_option,auto_clock=args.auto_clock_routing,replicate=args.replicate_resources,clock_cleanup=args.clock_cleanup,mecanum=args.mecanum,navigation=args.navigation);print(out,flush=True)
     if args.system and args.full_rebuild:
         record['incremental_pnr']=dict(requested=False,explicit_full_rebuild=True)
         (out/'manifest.json').write_text(json.dumps(record,indent=2)+'\n')
@@ -258,6 +262,11 @@ def main():
         (out/'frame_read_timing_audit.log').write_text(checked.stdout+checked.stderr,encoding='utf-8')
         audit_path=out/'frame_read_timing_audit.json'
         audits['frame_read_setup']=checked.returncode==0 and audit_path.exists() and json.loads(audit_path.read_text()).get('passed') is True
+        if args.navigation:
+            checked=subprocess.run([os.sys.executable,str(ROOT/'tools/mecanum/audit_navigation_timing.py'),str(out)],cwd=ROOT,capture_output=True,text=True)
+            (out/'navigation_timing_audit.log').write_text(checked.stdout+checked.stderr,encoding='utf-8')
+            audit_path=out/'navigation_timing_audit.json'
+            audits['navigation_cdc']=checked.returncode==0 and audit_path.exists() and json.loads(audit_path.read_text()).get('passed') is True
         record['system_audits']=audits;record['passed']=record['passed'] and all(audits.values())
     (out/'result.json').write_text(json.dumps(record,indent=2))
     # Advance only to a complete whole-system route that passes setup/hold and

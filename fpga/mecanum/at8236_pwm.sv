@@ -4,11 +4,18 @@ module mc_at8236_pwm #(parameter integer CLK_HZ=50000000, PWM_HZ=10000)(
     output wire in1, in2
 );
     localparam integer PERIOD=CLK_HZ/PWM_HZ;
-    integer phase,wake_count;
+    localparam integer PHASE_BITS=PERIOD<2?1:$clog2(PERIOD);
+    localparam integer DUTY_BITS=PERIOD<1?1:$clog2(PERIOD+1);
+    localparam integer WAKE_LIMIT=CLK_HZ/1000+CLK_HZ/10000;
+    localparam integer WAKE_BITS=WAKE_LIMIT<2?1:$clog2(WAKE_LIMIT);
+    // Bounded counters only: retain every PWM/wake cycle and immediate raw
+    // safety gating, but do not route enable across32 unnecessary phase bits.
+    reg [PHASE_BITS-1:0] phase;
+    reg [WAKE_BITS-1:0] wake_count;
     reg [1:0] power_state;
     wire waking=power_state==1;
     reg direction;
-    integer duty;
+    reg [DUTY_BITS-1:0] duty;
     wire [15:0] magnitude=command[15] ? -command : command;
     // At 50MHz / 10kHz this is an exact x5, avoiding a divider chain.
     wire [31:0] scaled;

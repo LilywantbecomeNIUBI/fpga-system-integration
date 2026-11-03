@@ -4,7 +4,7 @@ module tb_histogram;
  reg[15:0] now_ms=0,angle=0,distancev=4000;reg[7:0] intensity=100;
  reg[6:0] index=0;reg[31:0] clear_seq=0;
  wire[15:0] range_out;wire known,hazard,overflow,ready;wire[31:0] seq,settled;
- nav_histogram dut(clk,rst,now_ms,pv,angle,distancev,intensity,16'sd0,1'b0,16'd200,16'd450,8'd1,index,range_out,known,clear,clear_seq,hazard,seq,settled,overflow,ready);
+ nav_histogram dut(clk,rst,now_ms,pv,angle,distancev,intensity,16'sd0,1'b0,16'd200,16'd450,8'd1,index,range_out,known,clear,clear_seq,hazard,seq,settled,overflow,ready,1'b0);
  task point(input[15:0] a,d,input[7:0] q);
  begin @(negedge clk);pv=1;angle=a;distancev=d;intensity=q;@(negedge clk);pv=0;repeat(80)@(negedge clk);end endtask
  task readbin(input[6:0] b);begin index=b;repeat(3)@(negedge clk);end endtask

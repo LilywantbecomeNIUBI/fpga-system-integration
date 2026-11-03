@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT/'tools/task4'))
 from build import sources, base_constraints
 
 
-def constraints():
+def constraints(navigation=False):
     profile = json.loads((ROOT/'hardware/mecanum.json').read_text())
     pins = profile['pins']
     rows = [dict(group='chassis', **p) for p in pins]
@@ -40,6 +40,14 @@ def constraints():
     sdc+='set_false_path -to [get_pins {command_reset/release_pipe*/CLEAR}]\n'
     sdc+='set_false_path -to [get_pins {command_bridge/ack_meta*/D command_bridge/req_meta*/D}]\n'
     sdc+='set_max_delay -from [get_pins {command_bridge/held*/Q}] -to [get_pins {command_bridge/shift*/D}] 10.0\n'
+    if navigation:
+        # Immutable flow snapshot; keep a real setup bound. Disabled builds
+        # preserve their exact original SDC and compatible whole-system .pr.
+        sdc+='set_max_delay -from [get_pins {camera/navigation_safety_cdc/held*/Q}] -to [get_pins {camera/navigation_safety_cdc/dst_data*/D}] 10.0\n'
+        sdc+='set_false_path -hold -from [get_pins {camera/navigation_safety_cdc/held*/Q}] -to [get_pins {camera/navigation_safety_cdc/dst_data*/D}]\n'
+        sdc+='set_false_path -to [get_pins {camera/navigation_safety_cdc/as0*/D camera/navigation_safety_cdc/qs0*/D}]\n'
+        sdc+='set_false_path -to [get_pins {camera/navigation_safety_source_reset/release_pipe*/CLEAR}]\n'
+        sdc+='report_exceptions -setup -from [get_pins {camera/navigation_safety_cdc/held*/Q}] -max_paths 128\n'
     sdc+='set_false_path -hold -from [get_pins {command_bridge/held*/Q}] -to [get_pins {command_bridge/shift*/D}]\n'
     for pin in ('chassis/receiver/rx_meta_s0',
                 'chassis/imu.reader/bus/scl_sync_0_s0',

@@ -62,6 +62,19 @@ module flow_lk_patch #(parameter WIDTH=160,HEIGHT=90,STEP_LIMIT=512,FLOW_LIMIT=2
     reg signed [23:0] axx,ayy,axy,axt,ayt;
     reg signed [47:0] d0,d1,nu0,nu1,nv0,nv1;
     reg signed [48:0] det,nu,nv;
+    reg [48:0] abs_num_q;reg numerator_negative;
+    // Separate16-bit carry segments avoid a49-bit fabric ripple negator.
+    function [48:0] magnitude49;
+        input signed [48:0] x;
+        reg [48:0] negated;
+        begin
+            negated[15:0]=~x[15:0]+16'd1;
+            negated[31:16]=~x[31:16]+{15'd0,(x[15:0]==0)};
+            negated[48:32]=~x[48:32]+{16'd0,(x[31:0]==0)};
+            magnitude49=x[48]?negated:x;
+        end
+    endfunction
+    localparam [4:0] PREP_U=5'd23,PREP_V=5'd22;
     reg [49:0] trace_square;
     wire [24:0] trace_value={1'b0,axx[23:0]}+{1'b0,ayy[23:0]};
     reg div_start;reg [63:0] dividend,divisor;
@@ -94,6 +107,8 @@ module flow_lk_patch #(parameter WIDTH=160,HEIGHT=90,STEP_LIMIT=512,FLOW_LIMIT=2
                 DIFFERENCES:phase_decode=32'd1<<DIFFERENCES;
                 QUALITY:phase_decode=32'd1<<QUALITY;
                 DIV_U:phase_decode=32'd1<<DIV_U;
+                PREP_U:phase_decode=32'd1<<PREP_U;
+                PREP_V:phase_decode=32'd1<<PREP_V;
                 WAIT_U:phase_decode=32'd1<<WAIT_U;
                 DIV_V:phase_decode=32'd1<<DIV_V;
                 WAIT_V:phase_decode=32'd1<<WAIT_V;
@@ -125,9 +140,11 @@ module flow_lk_patch #(parameter WIDTH=160,HEIGHT=90,STEP_LIMIT=512,FLOW_LIMIT=2
             ACCUMULATE:next_state=dx==2 && dy==2 ? MATRIX : REQUEST;
             MATRIX:next_state=DIFFERENCES;
             DIFFERENCES:next_state=QUALITY;
-            QUALITY:next_state=trace_value<512 || det<=4096 || $unsigned(det)<=(trace_square>>6) ? FINISH : DIV_U;
+            QUALITY:next_state=trace_value<512 || det<=4096 || $unsigned(det)<=(trace_square>>6) ? FINISH : PREP_U;
+            PREP_U:next_state=DIV_U;
+            PREP_V:next_state=DIV_V;
             DIV_U:next_state=WAIT_U;
-            WAIT_U:if(div_done)next_state=quotient>STEP_LIMIT ? FINISH : DIV_V;
+            WAIT_U:if(div_done)next_state=quotient>STEP_LIMIT ? FINISH : PREP_V;
             DIV_V:next_state=WAIT_V;
             WAIT_V:if(div_done)next_state=FINISH;
             FINISH:next_state=IDLE;
@@ -170,6 +187,7 @@ module flow_lk_patch #(parameter WIDTH=160,HEIGHT=90,STEP_LIMIT=512,FLOW_LIMIT=2
             mix_top<=0;mix_bottom<=0;mix_total<=0;gx<=0;gy<=0;gt<=0;xx<=0;yy<=0;xy<=0;xt<=0;yt<=0;
             axx<=0;ayy<=0;axy<=0;axt<=0;ayt<=0;d0<=0;d1<=0;nu0<=0;nu1<=0;nv0<=0;nv1<=0;
             det<=0;nu<=0;nv<=0;trace_square<=0;div_start<=0;dividend<=0;divisor<=0;du<=0;dv<=0;range_ok<=0;
+            abs_num_q<=0;numerator_negative<=0;
             debug_fault<=0;
         end else begin
             done<=0;read_enable<=0;div_start<=0;
@@ -280,21 +298,23 @@ module flow_lk_patch #(parameter WIDTH=160,HEIGHT=90,STEP_LIMIT=512,FLOW_LIMIT=2
                     if(trace_value<512 || det<=4096 || $unsigned(det)<=(trace_square>>6))begin range_ok<=0;end
                     else begin divisor<={15'd0,det};end
                 end
+                data_phase[PREP_U]:begin abs_num_q<=magnitude49(nu);numerator_negative<=nu[48];end
+                data_phase[PREP_V]:begin abs_num_q<=magnitude49(nv);numerator_negative<=nv[48];end
                 data_phase[DIV_U]:begin
-                    dividend<=nu<0 ? ((-$signed({{15{nu[48]}},nu}))<<7) : ({15'd0,nu}<<7);
+                    dividend<={8'd0,abs_num_q,7'd0};
                     div_start<=1;
                 end
                 data_phase[WAIT_U]:if(div_done)begin
                     if(quotient>STEP_LIMIT)begin range_ok<=0;end
-                    else begin du<=nu<0 ? -$signed({1'b0,quotient[15:0]}) : $signed({1'b0,quotient[15:0]});end
+                    else begin du<=numerator_negative ? -$signed({1'b0,quotient[15:0]}) : $signed({1'b0,quotient[15:0]});end
                 end
                 data_phase[DIV_V]:begin
-                    dividend<=nv<0 ? ((-$signed({{15{nv[48]}},nv}))<<7) : ({15'd0,nv}<<7);
+                    dividend<={8'd0,abs_num_q,7'd0};
                     div_start<=1;
                 end
                 data_phase[WAIT_V]:if(div_done)begin
                     if(quotient>STEP_LIMIT)range_ok<=0;
-                    dv<=nv<0 ? -$signed({1'b0,quotient[15:0]}) : $signed({1'b0,quotient[15:0]});
+                    dv<=numerator_negative ? -$signed({1'b0,quotient[15:0]}) : $signed({1'b0,quotient[15:0]});
                 end
                 data_phase[FINISH]:begin
                     done<=busy;busy<=0;

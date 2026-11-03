@@ -1,0 +1,960 @@
+{
+  "passed": true,
+  "navigation_cdc_passed": true,
+  "constraint_activation_passed": true,
+  "reset_release_passed": true,
+  "reset_path_tables": {
+    "recovery": {
+      "worst_slack_ns": 1.56,
+      "reported_paths": 25,
+      "negative_reported_paths": 0,
+      "worst_source": "camera/perception_reset/release_pipe_3_s1/Q",
+      "worst_sink": "camera/flow_bridge/ready_sample_5_s1/CLEAR",
+      "scope": "Unfiltered worst-path sample; sample count is not total endpoint coverage."
+    },
+    "removal": {
+      "worst_slack_ns": 0.303,
+      "reported_paths": 25,
+      "negative_reported_paths": 0,
+      "worst_source": "camera/runtime_network.receive_reset/release_pipe_2_s2/Q",
+      "worst_sink": "camera/runtime_network.net/write_mask_19_s0/CLEAR",
+      "scope": "Unfiltered worst-path sample; sample count is not total endpoint coverage."
+    }
+  },
+  "inactive_constraints": [],
+  "clock_inventory": {
+    "passed": true,
+    "clock_periods_ns": {
+      "sys50": 20.0,
+      "cam_pclk": 11.905,
+      "eth_rx125": 8.0,
+      "control50": 20.0,
+      "eth125": 8.0
+    },
+    "unexpected_clock_connections": {},
+    "module_clock_connections": {
+      "reset_sync": {
+        "clk50m_d": 3
+      },
+      "mc_command_cdc": {
+        "clk125": 195,
+        "clk50m_d": 210
+      },
+      "mc_imu_fast_i2c_master": {
+        "clk50m_d": 250
+      },
+      "mc_mpu6050_reader": {
+        "clk50m_d": 273
+      },
+      "mc_mpu6050_yaw": {
+        "clk50m_d": 345,
+        "{GND,GND}": 1,
+        "{GND,clk50m_d}": 3
+      },
+      "mc_uart_rx_byte": {
+        "clk50m_d": 2
+      },
+      "mc_mecanum_protocol": {
+        "clk50m_d": 466
+      },
+      "mc_lateral_pwm_compensation": {
+        "clk50m_d": 33,
+        "{GND,clk50m_d}": 1
+      },
+      "mc_cordic_sincos": {
+        "clk50m_d": 207
+      },
+      "mc_mecanum_pose_control": {
+        "clk50m_d": 1061,
+        "{GND,clk50m_d}": 17
+      },
+      "mc_encoder_ab": {
+        "clk50m_d": 135
+      },
+      "mc_encoder_control_scale": {
+        "clk50m_d": 129
+      },
+      "wheel_speed_hybrid": {
+        "clk50m_d": 837
+      },
+      "mc_wheel_control_1khz": {
+        "clk50m_d": 481,
+        "{GND,clk50m_d}": 3
+      },
+      "mc_at8236_pwm": {
+        "clk50m_d": 45,
+        "{GND,GND}": 1
+      },
+      "mc_encoder_ab_0": {
+        "clk50m_d": 135
+      },
+      "mc_encoder_control_scale_0": {
+        "clk50m_d": 129
+      },
+      "wheel_speed_hybrid_0": {
+        "clk50m_d": 837
+      },
+      "mc_wheel_control_1khz_0": {
+        "clk50m_d": 480,
+        "{GND,clk50m_d}": 3
+      },
+      "mc_at8236_pwm_0": {
+        "clk50m_d": 45,
+        "{GND,GND}": 1
+      },
+      "mc_encoder_ab_1": {
+        "clk50m_d": 135
+      },
+      "mc_encoder_control_scale_1": {
+        "clk50m_d": 129
+      },
+      "wheel_speed_hybrid_1": {
+        "clk50m_d": 837
+      },
+      "mc_wheel_control_1khz_1": {
+        "clk50m_d": 481,
+        "{GND,clk50m_d}": 3
+      },
+      "mc_at8236_pwm_1": {
+        "clk50m_d": 45,
+        "{GND,GND}": 1
+      },
+      "mc_encoder_ab_2": {
+        "clk50m_d": 135
+      },
+      "mc_encoder_control_scale_2": {
+        "clk50m_d": 129
+      },
+      "wheel_speed_hybrid_2": {
+        "clk50m_d": 837
+      },
+      "mc_wheel_control_1khz_2": {
+        "clk50m_d": 480,
+        "{GND,clk50m_d}": 3
+      },
+      "mc_at8236_pwm_2": {
+        "clk50m_d": 45,
+        "{GND,GND}": 1
+      },
+      "mc_mecanum_core": {
+        "clk50m_d": 528,
+        "{GND,clk50m_d}": 1
+      },
+      "mc_frame_crc": {
+        "clk50m_d": 643
+      },
+      "mc_frame_crc_0": {
+        "clk50m_d": 530
+      },
+      "frame_uart_mux": {
+        "clk50m_d": 1353
+      },
+      "mc_mecanum_top": {
+        "clk50m_d": 607
+      },
+      "reset_sync_0": {
+        "clk50m_d": 3
+      },
+      "telemetry_cdc": {
+        "clk50m_d": 534,
+        "clk125": 440
+      },
+      "reset_sync_1": {
+        "clk50": 3
+      },
+      "mdio_bit_shift": {
+        "clk50": 34
+      },
+      "phy_reg_config": {
+        "clk50": 32
+      },
+      "ov5640_init_table_rgb": {
+        "clk50": 1
+      },
+      "i2c_bit_shift": {
+        "clk50": 33
+      },
+      "i2c_control": {
+        "clk50": 52
+      },
+      "ov5640_config": {
+        "clk50": 56
+      },
+      "reset_sync_2": {
+        "camera_pclk_d": 3
+      },
+      "reset_sync_3": {
+        "clk125": 12
+      },
+      "reset_sync_4": {
+        "clk125": 3
+      },
+      "reset_sync_5": {
+        "camera_pclk_d": 3
+      },
+      "vision_dvp_capture": {
+        "camera_pclk_d": 120
+      },
+      "vision_pixel_pipeline": {
+        "camera_pclk_d": 247,
+        "{GND,camera_pclk_d}": 2
+      },
+      "vision_async_fifo": {
+        "camera_pclk_d": 37,
+        "clk50": 38
+      },
+      "vision_frame_cdc": {
+        "camera_pclk_d": 4,
+        "clk50": 166
+      },
+      "vision_feature_grid": {
+        "clk50": 109,
+        "{GND,clk50}": 1
+      },
+      "vision_frame_stream": {
+        "camera_pclk_d": 500,
+        "clk125": 476
+      },
+      "vision_mailbox": {
+        "clk125": 230,
+        "clk50": 117
+      },
+      "vision_divider": {
+        "clk50": 247
+      },
+      "flow_lk_patch": {
+        "clk50": 1022,
+        "{GND,clk50}": 12
+      },
+      "vision_divider_0": {
+        "clk50": 104
+      },
+      "vision_tracker": {
+        "clk50": 2560,
+        "{GND,clk50}": 3,
+        "{GND,GND}": 2
+      },
+      "vision_mailbox_0": {
+        "clk50": 372,
+        "clk125": 191
+      },
+      "vision_v23_bridge": {
+        "clk125": 1066
+      },
+      "reset_sync_6": {
+        "clk50": 3
+      },
+      "vision_mailbox_1": {
+        "clk50": 108,
+        "clk50m_d": 56
+      },
+      "frame_memory": {
+        "clk50": 50
+      },
+      "frame_memory_0": {
+        "clk50": 16
+      },
+      "flow_frame_store": {
+        "clk50": 191,
+        "{GND,clk50}": 1
+      },
+      "vision_divider_1": {
+        "clk50": 247
+      },
+      "flow_lk_patch_0": {
+        "clk50": 1052,
+        "{GND,clk50}": 12
+      },
+      "flow_grid_pyramid": {
+        "clk50": 204
+      },
+      "flow_pipeline": {
+        "clk50": 3
+      },
+      "flow_avoidance": {
+        "clk50": 359,
+        "{GND,clk50}": 4
+      },
+      "flow_event_source": {
+        "clk50": 223
+      },
+      "flow_observer": {
+        "clk50": 38
+      },
+      "vision_mailbox_2": {
+        "clk50": 420,
+        "clk125": 212
+      },
+      "flow_event_bridge": {
+        "clk125": 1574
+      },
+      "event_packet_mux": {
+        "clk125": 223
+      },
+      "rgmii_input": {
+        "rgmii_rxc_d": 5
+      },
+      "reset_sync_7": {
+        "clk125": 3
+      },
+      "reset_sync_8": {
+        "rgmii_rxc_d": 5
+      },
+      "ip_checksum": {
+        "clk125": 51
+      },
+      "crc32_d8": {
+        "clk125": 32
+      },
+      "eth_udp_tx_gmii": {
+        "clk125": 218
+      },
+      "network_dispatch_word": {
+        "clk125": 46
+      },
+      "network_dispatch_word_0": {
+        "clk125": 46
+      },
+      "network_dispatch_word_1": {
+        "clk125": 45
+      },
+      "network_dispatch_word_2": {
+        "clk125": 46
+      },
+      "network_dispatch_word_3": {
+        "clk125": 46
+      },
+      "network_dispatch_word_4": {
+        "clk125": 46
+      },
+      "network_dispatch_word_5": {
+        "clk125": 43
+      },
+      "network_dispatch_word_6": {
+        "clk125": 43
+      },
+      "network_dispatch_word_7": {
+        "clk125": 49
+      },
+      "network_dispatch_word_8": {
+        "clk125": 26
+      },
+      "network_dispatch_word_9": {
+        "clk125": 48
+      },
+      "network_dispatch_word_10": {
+        "clk125": 26
+      },
+      "network_dispatch_word_11": {
+        "clk125": 16
+      },
+      "network_dispatch_word_12": {
+        "clk125": 13
+      },
+      "network_dispatch_word_13": {
+        "clk125": 43
+      },
+      "network_dispatch_word_14": {
+        "clk125": 26
+      },
+      "network_dispatch_word_15": {
+        "clk125": 43
+      },
+      "network_dispatch_word_16": {
+        "clk125": 26
+      },
+      "network_runtime_dual": {
+        "rgmii_rxc_d": 818,
+        "clk125": 3860
+      },
+      "vision_result_core": {
+        "clk125": 572
+      },
+      "rgmii_output": {
+        "clk125": 6
+      },
+      "camera_perception": {
+        "clk50": 64,
+        "clk125": 1
+      },
+      "mc_nav_mission": {
+        "clk50m_d": 1679,
+        "{GND,clk50m_d}": 5
+      },
+      "mc_cordic_sincos_0": {
+        "clk50m_d": 208
+      },
+      "mc_nav_odometry": {
+        "clk50m_d": 1185,
+        "{GND,GND}": 2
+      },
+      "mc_cordic_sincos_1": {
+        "clk50m_d": 208
+      },
+      "mc_nav_cell_index": {
+        "clk50m_d": 84
+      },
+      "mc_nav_raymap": {
+        "clk50m_d": 1707,
+        "{GND,GND}": 2
+      },
+      "mc_nav_grid": {
+        "clk50m_d": 187
+      },
+      "nav_histogram": {
+        "clk50m_d": 294
+      },
+      "nav_vfh": {
+        "clk50m_d": 612,
+        "{GND,GND}": 6,
+        "{GND,clk50m_d}": 2
+      },
+      "nav_math": {
+        "clk50m_d": 459
+      },
+      "mc_nav_path_target": {
+        "clk50m_d": 469
+      },
+      "mc_cordic_sincos_2": {
+        "clk50m_d": 206
+      },
+      "mc_nav_cell_index_0": {
+        "clk50m_d": 64
+      },
+      "mc_nav_sweep": {
+        "clk50m_d": 846,
+        "{GND,GND}": 2
+      },
+      "mc_nav_planner": {
+        "clk50m_d": 2088,
+        "{GND,clk50m_d}": 8,
+        "{GND,GND}": 4
+      },
+      "mc_cordic_sincos_3": {
+        "clk50m_d": 207
+      },
+      "nav_math_0": {
+        "clk50m_d": 455
+      },
+      "mc_nav_direction_gate": {
+        "clk50m_d": 121
+      },
+      "mc_frame_crc_1": {
+        "clk50m_d": 663
+      },
+      "mc_nav_system": {
+        "clk50m_d": 2243,
+        "{GND,clk50m_d}": 2
+      },
+      "stl27l_uart_rx": {
+        "clk50m_d": 42
+      },
+      "stl27l_node_parser": {
+        "clk50m_d": 973
+      },
+      "frame_crc": {
+        "clk50m_d": 721
+      },
+      "lidar_points_source": {
+        "clk50m_d": 2574
+      },
+      "system_mecanum_top": {
+        "clk50m_d": 2
+      }
+    },
+    "scope": "Synthesized CLK/CLKA/CLKB/CLK0/CLK1 inventory plus active STA clock summary; constants on disabled primitive clock inputs are allowed. Not an external I/O timing contract."
+  },
+  "expected_dynamic_payload_bits": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63
+  ],
+  "expected_capture_registers": 52,
+  "covered_capture_registers": 52,
+  "reported_paths": 52,
+  "worst_cdc_data_delay_ns": 2.014,
+  "worst_cdc_slack_ns": 4.503,
+  "navigation_constraints": [
+    "TC_MAX_DELAY          Actived   set_max_delay -from [get_pins {camera/navigation_safety_cdc/held*/Q}] -to [get_pins {camera/navigation_safety_cdc/dst_data*/D}] 10.0",
+    "TC_FALSE_PATH         Actived   set_false_path -hold -from [get_pins {camera/navigation_safety_cdc/held*/Q}] -to [get_pins {camera/navigation_safety_cdc/dst_data*/D}]",
+    "TC_FALSE_PATH         Actived   set_false_path -to [get_pins {camera/navigation_safety_cdc/as0*/D camera/navigation_safety_cdc/qs0*/D}]",
+    "TC_FALSE_PATH         Actived   set_false_path -to [get_pins {camera/navigation_safety_source_reset/release_pipe*/CLEAR}]",
+    "TC_REPORT_EXCEPTION   Actived   report_exceptions -setup -from [get_pins {camera/navigation_safety_cdc/held*/Q}] -max_paths 128"
+  ],
+  "violations": {
+    "setup": 0,
+    "hold": 0
+  },
+  "high_fanout": [
+    {
+      "fanout": 32047,
+      "net": "clk50m_d",
+      "worst_slack_ns": 0.154,
+      "max_delay_ns": 3.372
+    },
+    {
+      "fanout": 13432,
+      "net": "release_pipe[2]",
+      "worst_slack_ns": 10.972,
+      "max_delay_ns": 4.006
+    },
+    {
+      "fanout": 11926,
+      "net": "chassis/rst_sync[2]",
+      "worst_slack_ns": 5.18,
+      "max_delay_ns": 3.822
+    },
+    {
+      "fanout": 10072,
+      "net": "clk125",
+      "worst_slack_ns": 0.005,
+      "max_delay_ns": 3.586
+    },
+    {
+      "fanout": 7989,
+      "net": "camera/clk50",
+      "worst_slack_ns": 2.157,
+      "max_delay_ns": 3.586
+    },
+    {
+      "fanout": 6253,
+      "net": "camera/sys_rst_n",
+      "worst_slack_ns": 7.637,
+      "max_delay_ns": 4.276
+    },
+    {
+      "fanout": 5591,
+      "net": "runtime_network.network_rst_n",
+      "worst_slack_ns": 1.712,
+      "max_delay_ns": 4.336
+    },
+    {
+      "fanout": 4326,
+      "net": "reset_sync",
+      "worst_slack_ns": 14.347,
+      "max_delay_ns": 3.586
+    },
+    {
+      "fanout": 918,
+      "net": "camera_pclk_d",
+      "worst_slack_ns": 2.764,
+      "max_delay_ns": 5.076
+    },
+    {
+      "fanout": 828,
+      "net": "rgmii_rxc_d",
+      "worst_slack_ns": 1.861,
+      "max_delay_ns": 3.586
+    }
+  ],
+  "congestion": [
+    {
+      "grid": "R79C5",
+      "occupancy": 0.903
+    },
+    {
+      "grid": "R9C72",
+      "occupancy": 0.875
+    },
+    {
+      "grid": "R9C71",
+      "occupancy": 0.861
+    },
+    {
+      "grid": "R27C145",
+      "occupancy": 0.861
+    },
+    {
+      "grid": "R92C75",
+      "occupancy": 0.847
+    },
+    {
+      "grid": "R8C72",
+      "occupancy": 0.847
+    },
+    {
+      "grid": "R71C107",
+      "occupancy": 0.847
+    },
+    {
+      "grid": "R90C132",
+      "occupancy": 0.833
+    },
+    {
+      "grid": "R45C56",
+      "occupancy": 0.833
+    },
+    {
+      "grid": "R68C110",
+      "occupancy": 0.833
+    }
+  ],
+  "cdc_paths": [
+    {
+      "source": "camera/navigation_safety_cdc/held_52_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_52_s0",
+      "slack_ns": 4.503,
+      "data_delay_ns": 2.014
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_14_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_14_s0",
+      "slack_ns": 4.829,
+      "data_delay_ns": 1.676
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_13_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_13_s0",
+      "slack_ns": 4.936,
+      "data_delay_ns": 1.569
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_7_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_7_s0",
+      "slack_ns": 4.993,
+      "data_delay_ns": 1.52
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_35_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_35_s0",
+      "slack_ns": 5.003,
+      "data_delay_ns": 1.492
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_47_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_47_s0",
+      "slack_ns": 5.017,
+      "data_delay_ns": 1.474
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_49_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_49_s0",
+      "slack_ns": 5.063,
+      "data_delay_ns": 1.42
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_19_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_19_s0",
+      "slack_ns": 5.117,
+      "data_delay_ns": 1.357
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_51_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_51_s0",
+      "slack_ns": 5.12,
+      "data_delay_ns": 1.353
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_48_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_48_s0",
+      "slack_ns": 5.126,
+      "data_delay_ns": 1.36
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_2_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_2_s0",
+      "slack_ns": 5.133,
+      "data_delay_ns": 1.337
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_54_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_54_s0",
+      "slack_ns": 5.17,
+      "data_delay_ns": 1.302
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_59_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_59_s0",
+      "slack_ns": 5.192,
+      "data_delay_ns": 1.286
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_62_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_62_s0",
+      "slack_ns": 5.196,
+      "data_delay_ns": 1.269
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_18_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_18_s0",
+      "slack_ns": 5.223,
+      "data_delay_ns": 1.251
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_57_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_57_s0",
+      "slack_ns": 5.229,
+      "data_delay_ns": 1.252
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_12_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_12_s0",
+      "slack_ns": 5.23,
+      "data_delay_ns": 1.253
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_42_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_42_s0",
+      "slack_ns": 5.233,
+      "data_delay_ns": 1.27
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_0_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_0_s0",
+      "slack_ns": 5.27,
+      "data_delay_ns": 1.216
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_55_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_55_s0",
+      "slack_ns": 5.319,
+      "data_delay_ns": 1.169
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_3_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_3_s0",
+      "slack_ns": 5.335,
+      "data_delay_ns": 1.135
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_44_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_44_s0",
+      "slack_ns": 5.356,
+      "data_delay_ns": 1.135
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_45_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_45_s0",
+      "slack_ns": 5.356,
+      "data_delay_ns": 1.135
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_43_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_43_s0",
+      "slack_ns": 5.359,
+      "data_delay_ns": 1.135
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_50_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_50_s0",
+      "slack_ns": 5.361,
+      "data_delay_ns": 1.135
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_46_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_46_s0",
+      "slack_ns": 5.375,
+      "data_delay_ns": 1.116
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_1_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_1_s0",
+      "slack_ns": 5.382,
+      "data_delay_ns": 1.098
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_32_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_32_s0",
+      "slack_ns": 5.435,
+      "data_delay_ns": 1.063
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_17_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_17_s0",
+      "slack_ns": 5.456,
+      "data_delay_ns": 1.016
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_60_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_60_s0",
+      "slack_ns": 5.463,
+      "data_delay_ns": 1.016
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_61_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_61_s0",
+      "slack_ns": 5.482,
+      "data_delay_ns": 0.982
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_8_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_8_s0",
+      "slack_ns": 5.491,
+      "data_delay_ns": 0.981
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_37_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_37_s0",
+      "slack_ns": 5.496,
+      "data_delay_ns": 0.981
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_36_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_36_s0",
+      "slack_ns": 5.502,
+      "data_delay_ns": 0.981
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_16_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_16_s0",
+      "slack_ns": 5.51,
+      "data_delay_ns": 0.962
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_53_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_53_s0",
+      "slack_ns": 5.532,
+      "data_delay_ns": 0.947
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_39_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_39_s0",
+      "slack_ns": 5.541,
+      "data_delay_ns": 0.928
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_41_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_41_s0",
+      "slack_ns": 5.541,
+      "data_delay_ns": 0.928
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_33_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_33_s0",
+      "slack_ns": 5.542,
+      "data_delay_ns": 0.949
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_34_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_34_s0",
+      "slack_ns": 5.542,
+      "data_delay_ns": 0.949
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_6_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_6_s0",
+      "slack_ns": 5.542,
+      "data_delay_ns": 0.93
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_10_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_10_s0",
+      "slack_ns": 5.542,
+      "data_delay_ns": 0.93
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_58_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_58_s0",
+      "slack_ns": 5.544,
+      "data_delay_ns": 0.93
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_5_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_5_s0",
+      "slack_ns": 5.544,
+      "data_delay_ns": 0.928
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_9_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_9_s0",
+      "slack_ns": 5.544,
+      "data_delay_ns": 0.928
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_4_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_4_s0",
+      "slack_ns": 5.678,
+      "data_delay_ns": 0.794
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_56_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_56_s0",
+      "slack_ns": 5.68,
+      "data_delay_ns": 0.794
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_38_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_38_s0",
+      "slack_ns": 5.709,
+      "data_delay_ns": 0.759
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_40_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_40_s0",
+      "slack_ns": 5.709,
+      "data_delay_ns": 0.759
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_63_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_63_s0",
+      "slack_ns": 5.709,
+      "data_delay_ns": 0.759
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_11_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_11_s0",
+      "slack_ns": 5.713,
+      "data_delay_ns": 0.759
+    },
+    {
+      "source": "camera/navigation_safety_cdc/held_15_s0",
+      "sink": "camera/navigation_safety_cdc/dst_data_15_s0",
+      "slack_ns": 5.738,
+      "data_delay_ns": 0.742
+    }
+  ],
+  "scope": "Physical bundled-data setup and actual exception coverage; no false-path or clock-period changes.",
+  "limitations": "Clocked internal setup/hold is checked globally; asynchronous motor/UART/LED outputs have no external synchronous I/O timing contract. This is not a claim that every physical I/O has an output delay.",
+  "netlist_sha256": "0d07e349075e89ff91f7511f4ed049e8178939fb2d66873dd7ac45e32ff4a819",
+  "full_sta_signoff": false,
+  "programmed": false
+}

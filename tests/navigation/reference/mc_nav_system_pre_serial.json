@@ -1,0 +1,5 @@
+{
+  "source": "build\\lidar_raw_ethernet_20261102\\mecanum\\20261103T102147Z\\source\\fpga\\navigation\\mc_nav_system.sv",
+  "source_sha256": "52600276d28c8b4ee78b963a2889af666a5974711863a902036a24755c50f233",
+  "adaptation": "Only module name changed to retain an immutable pre-serialization arithmetic oracle"
+}

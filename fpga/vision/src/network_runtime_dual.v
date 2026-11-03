@@ -23,7 +23,8 @@ module network_runtime_dual #(
     input [255:0] vision_status,input vision_status_valid,
     input event_valid,input [255:0] event_payload,output event_ready,
     input telemetry_valid,input [511:0] telemetry_payload,output telemetry_ready,
-    output reg motor_valid,output reg [191:0] motor_frame,input motor_ready);
+    output reg motor_valid,output reg [191:0] motor_frame,input motor_ready,
+    output telemetry_ready_local);
 
     function [31:0] crc_byte;
         input [31:0] crc;input [7:0] value;integer k;reg [31:0] c;
@@ -400,12 +401,18 @@ module network_runtime_dual #(
     // the non-reset branch and must not feed reset through the pending D mux.
     wire telemetry_slot_ready=TELEMETRY_ENABLE && (telemetry_secondary_ready || telemetry_primary_ready) && !telemetry_pending && !telemetry_primary_pending;
     assign telemetry_ready=rst_n && telemetry_slot_ready;
+    assign telemetry_ready_local=telemetry_slot_ready;
     reg udp_start,sending_video;wire [47:0] send_mac;wire [31:0] send_ip;
     wire [15:0] send_port,send_source_port,send_length;
     reg [5:0] control_index;
     wire udp_done,udp_read,udp_valid,udp_clock;wire [7:0] udp_data;
-    wire [7:0] udp_payload=sending_video?(using_replay?replay_word:video_data):
-        sending_telemetry ? send_telemetry_payload[511:504] : send_control_payload[255:248];
+    // One-hot data-class terms avoid cascading three byte multiplexers after
+    // the synchronous replay RAM. Selection semantics are unchanged for all
+    // combinations, including idle/header cycles.
+    wire [7:0] udp_payload=({8{sending_video && using_replay}}&replay_word) |
+        ({8{sending_video && !using_replay}}&video_data) |
+        ({8{!sending_video && sending_telemetry}}&send_telemetry_payload[511:504]) |
+        ({8{!sending_video && !sending_telemetry}}&send_control_payload[255:248]);
     eth_udp_tx_gmii udp(.clk125m(clk),.reset_p(network_reset),.tx_en_pulse(udp_start),.tx_done(udp_done),
         .dst_mac(send_mac),.src_mac(LOCAL_MAC),.dst_ip(send_ip),.src_ip(LOCAL_IP),
         .dst_port(send_port),.src_port(send_source_port),.data_length(send_length),

@@ -39,7 +39,8 @@ module lidar_scan_360_source #(parameter integer CLK_HZ=50000000)(
     wire [31:0] point_loss=point_record[103:72];
     wire [31:0] point_errors=point_record[71:40];
     wire [15:0] point_angle=point_record[39:24];
-    wire [15:0] point_bin=point_angle/16'd100;
+    wire [33:0] bin_product=point_angle*18'd167773;
+    wire [15:0] point_bin=bin_product>>24;
     reg [8:0] bin_idx;
     reg [15:0] point_distance;
     reg [7:0] point_intensity;
