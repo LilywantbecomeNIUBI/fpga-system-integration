@@ -1,6 +1,6 @@
 // Sequential VFH+ variant: min-range histogram, distance hysteresis, footprint
 // enlargement, minimum-radius circle mask, valleys, target/current/previous cost.
-module nav_vfh(input wire clk,rst_n,start,input wire [15:0] now_ms,
+module nav_vfh #(parameter SYNC_CLEAR=0)(input wire clk,rst_n,start,input wire [15:0] now_ms,
  input wire signed [15:0] target_heading,previous_heading,
  input wire [15:0] safe_radius,block_low,block_high,stop_mm,slow_mm,turn_radius,
  input wire [7:0] w_target,w_current,w_previous,valley_width,
@@ -8,11 +8,16 @@ module nav_vfh(input wire clk,rst_n,start,input wire [15:0] now_ms,
  input wire [31:0] hazard_sequence,output reg clear_hazard,output reg [31:0] clear_sequence,
  output reg busy,done,found,front_known,rotation_clear,output reg [15:0] front_min,
  output reg signed [15:0] safe_heading,output reg [71:0] blocked,
- output reg [23:0] best_cost);
- reg [15:0] ranges[0:71];reg [71:0] observed,binary;
+ output reg [23:0] best_cost,input wire sync_clear);
+ (* syn_ramstyle="block_ram" *) reg [15:0] ranges[0:71];reg [71:0] observed,binary;
+ reg [15:0] range_q;
  reg [4:0] state;reg [6:0] i,j,spread,step;
  reg [15:0] d;reg [32:0] product;
- reg signed [31:0] px,py;
+ reg signed [17:0] px,py,py_turn;
+ wire clearing=SYNC_CLEAR && sync_clear;
+ wire signed [32:0] next_px=($signed({1'b0,d})*costab(i))>>>15;
+ wire signed [32:0] next_py=($signed({1'b0,d})*sintab(i))>>>15;
+ wire signed [35:0] square_x=px*px,square_y=py_turn*py_turn;
  reg known_q,hit_q;reg [15:0] input_distance;reg input_known;
  (* syn_preserve=1 *) reg [6:0] candidate_q;
  reg [15:0] delta_t,delta_c,delta_p;
@@ -213,24 +218,34 @@ module nav_vfh(input wire clk,rst_n,start,input wire [15:0] now_ms,
   71:costab=16'sd32737;
   default:costab=0;endcase
  endfunction
+ // Separate synchronous SDP ports. GW5AT rejects the old inferred single-port
+ // read-first WRITE_MODE=10. Fill and read phases never overlap.
+ always @(posedge clk)begin
+  if(state==23 && !clearing)ranges[i]<=input_distance;
+  if(state==3)range_q<=ranges[i];
+ end
  always @(posedge clk or negedge rst_n)begin
   if(!rst_n)begin state<=0;busy<=0;done<=0;found<=0;front_known<=0;rotation_clear<=0;
    read_index<=0;clear_hazard<=0;clear_sequence<=0;front_min<=0;safe_heading<=0;
    blocked<={72{1'b1}};observed<=0;binary<={72{1'b1}};best_cost<=24'hffffff;
-   i<=0;j<=0;spread<=0;step<=0;d<=0;product<=0;px<=0;py<=0;xx<=0;yy<=0;
+   i<=0;j<=0;spread<=0;step<=0;d<=0;product<=0;px<=0;py<=0;py_turn<=0;xx<=0;yy<=0;
    circle_bound<=0;left_limit<=9000;right_limit<=-9000;cursor<=0;first<=0;last<=0;
    width<=0;candidate<=0;candidate_phase<=0;in_valley<=0;trial_cost<=0;candidate_heading<=0;captured_sequence<=0;known_q<=0;hit_q<=0;input_distance<=0;input_known<=0;candidate_q<=0;delta_t<=0;delta_c<=0;delta_p<=0;cost_t<=0;cost_c<=0;cost_p<=0;
    left_edge<=0;right_edge<=0;left_edge_heading<=0;right_edge_heading<=0;end
-  else begin
+  else if(clearing)begin
+   state<=0;busy<=0;done<=0;found<=0;front_known<=0;rotation_clear<=0;
+   clear_hazard<=0;blocked<={72{1'b1}};observed<=0;binary<={72{1'b1}};
+  end else begin
    done<=0;clear_hazard<=0;
    case(state)
     0:if(start)begin busy<=1;found<=0;front_known<=1;rotation_clear<=1;front_min<=65535;
      best_cost<=24'hffffff;i<=0;read_index<=0;captured_sequence<=hazard_sequence;
      left_limit<=9000;right_limit<=-9000;blocked<=0;state<=1;end
-    1:state<=2;
+    1:state<=31;
+    31:state<=2; // histogram RAM request -> tagged output -> capture
     2:begin input_distance<=read_distance;input_known<=read_known;state<=23;end
     23:begin
-     ranges[i]<=input_distance;observed[i]<=input_known;
+     observed[i]<=input_known;
      if(!input_known || input_distance<=block_low)binary[i]<=1;
      else if(input_distance>=block_high)binary[i]<=0;
      if(!input_known || input_distance<=safe_radius)rotation_clear<=0;
@@ -241,21 +256,20 @@ module nav_vfh(input wire clk,rst_n,start,input wire [15:0] now_ms,
      if(i==71)begin i<=0;state<=3;circle_bound<=(turn_radius+safe_radius)*(turn_radius+safe_radius);end
      else begin i<=i+1'b1;read_index<=i+1'b1;state<=1;end
     end
-    3:begin d<=ranges[i];known_q<=observed[i];hit_q<=binary[i];state<=24;end
+    3:begin known_q<=observed[i];hit_q<=binary[i];state<=30;end
+    30:begin d<=range_q;state<=24;end
     24:begin
      if(!known_q)begin blocked[i]<=1;blocked[i==0?71:i-1'b1]<=1;blocked[i==71?0:i+1'b1]<=1;state<=10;end
      else if(hit_q)begin
       if(d<=safe_radius)begin blocked<={72{1'b1}};rotation_clear<=0;state<=10;end
       else begin
-       px<=($signed({1'b0,d})*costab(i))>>>15;
-       py<=($signed({1'b0,d})*sintab(i))>>>15;state<=4;
+       px<=next_px;py<=next_py;
+       py_turn<=next_py>=0 ? next_py-$signed({1'b0,turn_radius}) : next_py+$signed({1'b0,turn_radius});state<=4;
       end
      end else state<=10;
     end
     4:begin
-     xx<=px*px;
-     yy<=(py>=0 ? py-$signed({1'b0,turn_radius}) : py+$signed({1'b0,turn_radius})) *
-         (py>=0 ? py-$signed({1'b0,turn_radius}) : py+$signed({1'b0,turn_radius}));
+     xx<=square_x;yy<=square_y;
      state<=5;
     end
     5:begin

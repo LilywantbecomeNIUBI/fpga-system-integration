@@ -1,0 +1,6 @@
+{
+  "source": "fpga/navigation/nav_math.sv before compile-time operation specialization",
+  "source_sha256": "6054f62a9cd2fdbdefce3a839304da0ab8cef33149042370ea27e2d5877ba07e",
+  "adaptation": "Only module name changed; immutable fully enabled oracle",
+  "license": "Existing user/team project"
+}

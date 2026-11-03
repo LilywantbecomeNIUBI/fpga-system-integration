@@ -92,6 +92,24 @@ class WebTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.action('motion', kind='定角', angle=90)
 
+    def test_navigation_needs_fresh_status_and_blocks_task2_while_owned(self):
+        self.action('acquire')
+        with self.assertRaises(ValueError):
+            self.action('mode', mode='navigation')
+        self.console.frames['navigation']=(self.now,dict(active=False, calibrated=False, mission_id=9))
+        self.action('mode', mode='navigation')
+        kind,spec=self.console.link.requests.get_nowait()
+        self.assertEqual((kind,spec['kind'],spec['action']), ('start','navigation','mode'))
+        self.console.pending=False
+        with self.assertRaises(ValueError):
+            self.action('motion', kind='定角', angle=90)
+        self.console.mode='task2'
+        self.console.frames['navigation']=(self.now,dict(active=True, calibrated=True, mission_id=9))
+        with self.assertRaises(ValueError):
+            self.action('calibrate')
+        with self.assertRaises(ValueError):
+            self.action('motion', kind='定角', angle=90)
+
     def test_firmware_reset_disconnect_does_not_reacquire(self):
         self.action('acquire')
         self.console.events.put(('disconnected', None))

@@ -3,11 +3,14 @@
 module flow_observer #(parameter STAGE=2,CLK_HZ=50000000)(
     input clk,rst_n,invalidate,ov,os,oe,og,
     input [15:0] ox,oy,ofid,input [7:0] luma,
-    output event_valid,output [255:0] event_payload
+    output event_valid,output [255:0] event_payload,
+    output safety_valid,output [31:0] safety_payload
 );
     wire busy,flow_done,sv,sg,lost,pair_begin,status_valid;wire [15:0] result_id,fx,fy,status_id;
     wire signed [15:0] fu,fv;wire [31:0] cycles,drops;wire [2:0] state,hazard;
     wire stop;wire signed [1:0] steer;wire [7:0] speed;wire [15:0] nl,nc,nr,rl,rc,rr;
+    assign safety_valid=status_valid;
+    assign safety_payload={8'd1,4'd0,status_id,hazard,(state!=0)};
     wire flow_pixel=ov && !ox[0] && !oy[0];
     wire [143:0] debug_status;
     flow_pipeline #(.PYRAMID(STAGE==2),.OUTPUT_DRAIN_CYCLES(STAGE>0 ? 4 : 0)) flow(.clk(clk),.rst_n(rst_n),.invalidate(invalidate),.frame_start(os),.frame_end(oe),.frame_good(og),

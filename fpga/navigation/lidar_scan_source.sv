@@ -25,21 +25,22 @@ module lidar_scan_source #(parameter integer CLK_HZ=50000000)(
     // Store arrival time and error/loss epochs with each point, so queueing
     // cannot move an error into the wrong revolution. No FIFO data reset.
     (* syn_ramstyle = "block_ram" *) reg [135:0] point_fifo [0:31];
-    reg [135:0] fifo_q;
+    reg [135:0] fifo_q,point_record;
     reg [4:0] fifo_wr,fifo_rd;
     reg [5:0] fifo_count;
     reg [31:0] input_loss_count,processed_loss,loss_base;
     wire input_point=point_valid && angle<16'd36000;
     wire fifo_push=input_point && fifo_count<6'd32;
 
-    localparam [2:0] P_IDLE=0,P_LATCH=1,P_WAIT_CLEAR=2,P_READ=3,P_WRITE=4;
+    localparam [2:0] P_IDLE=0,P_LATCH=1,P_WAIT_CLEAR=2,P_READ=3,P_WRITE=4,P_BUFFER=5;
     reg [2:0] point_state;
     wire fifo_pop=point_state==P_IDLE && !clear_active && fifo_count!=0;
-    wire [31:0] point_ms=fifo_q[135:104];
-    wire [31:0] point_loss=fifo_q[103:72];
-    wire [31:0] point_errors=fifo_q[71:40];
-    wire [15:0] point_angle=fifo_q[39:24];
-    wire [15:0] point_bin=point_angle/16'd500;
+    wire [31:0] point_ms=point_record[135:104];
+    wire [31:0] point_loss=point_record[103:72];
+    wire [31:0] point_errors=point_record[71:40];
+    wire [15:0] point_angle=point_record[39:24];
+    wire [33:0] bin_product=point_angle*18'd33555;
+    wire [15:0] point_bin=bin_product>>24;
     reg [6:0] bin_idx;
     reg [15:0] point_distance;
     reg [7:0] point_intensity;
@@ -91,6 +92,7 @@ module lidar_scan_source #(parameter integer CLK_HZ=50000000)(
             if(ram_re)ram_q<=scan_ram[ram_raddr];
             if(fifo_push)point_fifo[fifo_wr]<={now_ms,input_loss_count,errors,angle,distance,intensity};
             if(fifo_pop)fifo_q<=point_fifo[fifo_rd];
+            if(point_state==P_BUFFER)point_record<=fifo_q;
         end
     end
 
@@ -162,12 +164,13 @@ module lidar_scan_source #(parameter integer CLK_HZ=50000000)(
             end
 
             case(point_state)
-                P_IDLE:if(fifo_pop)point_state<=P_LATCH;
+                P_IDLE:if(fifo_pop)point_state<=P_BUFFER;
+                P_BUFFER:point_state<=P_LATCH;
                 P_LATCH:begin
                     // Stage 1: divide only into a register; no RAM mux or
                     // nearest-return comparator follows the divider this cycle.
                     bin_idx<=point_bin[6:0];
-                    point_distance<=fifo_q[23:8];point_intensity<=fifo_q[7:0];
+                    point_distance<=point_record[23:8];point_intensity<=point_record[7:0];
                     previous_angle<=point_angle;have_previous<=1;
                     last_point_ms<=point_ms;processed_loss<=point_loss;
                     if(wrap)begin

@@ -1,0 +1,551 @@
+{
+  "synthesis_gate_passed": true,
+  "release_to_hardware": false,
+  "source_frozen_unchanged": true,
+  "current_sources_match": true,
+  "intentional_top_overrides": {
+    "LIDAR_RAW": 1,
+    "NAVIGATION": 1
+  },
+  "netlist_sha256": "0d07e349075e89ff91f7511f4ed049e8178939fb2d66873dd7ac45e32ff4a819",
+  "usage": {
+    "Logic": "73244(55751 LUT, 17493 ALU) / 138240",
+    "Register": "51138 / 139095",
+    "BSRAM": "234 / 340"
+  },
+  "dsp_macros_not_routed_block_count": {
+    "MULTALU27X18": "45",
+    "MULT12X12": "9",
+    "MULT27X36": "50",
+    "MULTADDALU12X12": "5"
+  },
+  "primitive_mapping": {
+    "vision_frame_stream": {
+      "SDPB": 129
+    },
+    "mc_nav_grid": {
+      "SDPB": 4
+    },
+    "mc_nav_raymap": {
+      "SDPX9B": 5,
+      "MULT27X36": 2
+    },
+    "mc_nav_sweep": {
+      "MULT27X36": 2
+    },
+    "nav_histogram": {
+      "SDPB": 4
+    }
+  },
+  "math_specialization": {
+    "mc_nav_path_target": {
+      "module": "nav_math",
+      "operation_mask": "00111",
+      "registers": 459,
+      "unused_registers": []
+    },
+    "mc_nav_system": {
+      "module": "nav_math_0",
+      "operation_mask": "11010",
+      "registers": 455,
+      "unused_registers": []
+    }
+  },
+  "module_connection_count_not_routed_fanout": {
+    "mc_nav_mission": [
+      [
+        "clk50m_d",
+        1679
+      ],
+      [
+        "n404_6",
+        911
+      ],
+      [
+        "sequence_seen_6",
+        179
+      ],
+      [
+        "crc_shift_79_20",
+        67
+      ],
+      [
+        "n15985_3",
+        63
+      ],
+      [
+        "ws_395",
+        49
+      ],
+      [
+        "ws_411",
+        49
+      ],
+      [
+        "ws_421",
+        49
+      ],
+      [
+        "ws_423",
+        49
+      ],
+      [
+        "ws_425",
+        49
+      ]
+    ],
+    "mc_nav_odometry": [
+      [
+        "clk50m_d",
+        1185
+      ],
+      [
+        "n404_6",
+        1185
+      ],
+      [
+        "n9267_10",
+        157
+      ],
+      [
+        "n8743_6",
+        127
+      ],
+      [
+        "n8328_3",
+        125
+      ],
+      [
+        "n10227_6",
+        99
+      ],
+      [
+        "n380_3",
+        67
+      ],
+      [
+        "n9715_7",
+        65
+      ],
+      [
+        "n9843_7",
+        65
+      ],
+      [
+        "n10099_6",
+        65
+      ],
+      [
+        "n9971_7",
+        65
+      ]
+    ],
+    "mc_nav_cell_index": [
+      [
+        "clk50m_d",
+        84
+      ],
+      [
+        "n404_6",
+        84
+      ],
+      [
+        "numerator_32_29",
+        41
+      ],
+      [
+        "shifted[32]",
+        32
+      ],
+      [
+        "n100_9",
+        28
+      ],
+      [
+        "n513_5",
+        24
+      ],
+      [
+        "index_busy",
+        22
+      ],
+      [
+        "negative",
+        21
+      ],
+      [
+        "index_busy_6",
+        20
+      ],
+      [
+        "index_start_8",
+        20
+      ],
+      [
+        "index_start",
+        19
+      ]
+    ],
+    "mc_nav_raymap": [
+      [
+        "clk50m_d",
+        1707
+      ],
+      [
+        "n404_6",
+        1697
+      ],
+      [
+        "n7789_12",
+        169
+      ],
+      [
+        "n7571_11",
+        130
+      ],
+      [
+        "n6613_10",
+        72
+      ],
+      [
+        "n6805_10",
+        72
+      ],
+      [
+        "n6917_11",
+        68
+      ],
+      [
+        "n7312_10",
+        65
+      ],
+      [
+        "n7248_10",
+        65
+      ],
+      [
+        "n6293_11",
+        65
+      ]
+    ],
+    "mc_nav_grid": [
+      [
+        "clk50m_d",
+        187
+      ],
+      [
+        "n404_6",
+        179
+      ],
+      [
+        "map_ms_0_58",
+        45
+      ],
+      [
+        "n1194_3",
+        35
+      ],
+      [
+        "slot[1]",
+        33
+      ],
+      [
+        "n1158_5",
+        33
+      ],
+      [
+        "state_0[1]",
+        32
+      ],
+      [
+        "state_0[3]",
+        32
+      ],
+      [
+        "map_enable_q_49",
+        32
+      ],
+      [
+        "map_enable_q_47",
+        32
+      ],
+      [
+        "map_enable_q_45",
+        32
+      ]
+    ],
+    "mc_nav_path_target": [
+      [
+        "clk50m_d",
+        469
+      ],
+      [
+        "n404_6",
+        469
+      ],
+      [
+        "n3646_11",
+        108
+      ],
+      [
+        "hold_63_8",
+        65
+      ],
+      [
+        "a_63_12",
+        65
+      ],
+      [
+        "n2454_3",
+        49
+      ],
+      [
+        "b_31_14",
+        34
+      ],
+      [
+        "sx_31_6",
+        33
+      ],
+      [
+        "state_1_19",
+        33
+      ],
+      [
+        "state_1_18",
+        33
+      ],
+      [
+        "state_0_21",
+        33
+      ]
+    ],
+    "mc_nav_cell_index_0": [
+      [
+        "clk50m_d",
+        64
+      ],
+      [
+        "n404_6",
+        64
+      ],
+      [
+        "numerator_32_22",
+        42
+      ],
+      [
+        "index_busy",
+        33
+      ],
+      [
+        "n101_143",
+        32
+      ],
+      [
+        "index_start",
+        31
+      ],
+      [
+        "n100_9",
+        29
+      ],
+      [
+        "n513_5",
+        10
+      ],
+      [
+        "n379_8",
+        8
+      ],
+      [
+        "above",
+        8
+      ],
+      [
+        "below",
+        8
+      ]
+    ],
+    "mc_nav_sweep": [
+      [
+        "clk50m_d",
+        846
+      ],
+      [
+        "n404_6",
+        846
+      ],
+      [
+        "px_31_10",
+        70
+      ],
+      [
+        "n3291_13",
+        65
+      ],
+      [
+        "n3418_12",
+        65
+      ],
+      [
+        "n3003_9",
+        51
+      ],
+      [
+        "n3227_9",
+        51
+      ],
+      [
+        "n3163_11",
+        50
+      ],
+      [
+        "n3067_10",
+        49
+      ],
+      [
+        "n2857_10",
+        36
+      ]
+    ],
+    "mc_nav_planner": [
+      [
+        "clk50m_d",
+        2088
+      ],
+      [
+        "n404_6",
+        2088
+      ],
+      [
+        "n9807_8",
+        125
+      ],
+      [
+        "n12000_10",
+        120
+      ],
+      [
+        "n11837_10",
+        91
+      ],
+      [
+        "n11598_9",
+        67
+      ],
+      [
+        "n9810_48",
+        66
+      ],
+      [
+        "rank_valid_6_8",
+        66
+      ],
+      [
+        "rank_valid_5_8",
+        66
+      ],
+      [
+        "rank_valid_4_8",
+        66
+      ]
+    ],
+    "mc_nav_direction_gate": [
+      [
+        "clk50m_d",
+        121
+      ],
+      [
+        "n404_6",
+        121
+      ],
+      [
+        "mask_7_6",
+        81
+      ],
+      [
+        "target_dot_18_6",
+        36
+      ],
+      [
+        "nx[1]",
+        33
+      ],
+      [
+        "ny[1]",
+        33
+      ],
+      [
+        "target_dy_16_5",
+        33
+      ],
+      [
+        "index[1]",
+        28
+      ],
+      [
+        "target_dx_16_5",
+        27
+      ],
+      [
+        "index[2]",
+        26
+      ]
+    ],
+    "mc_nav_system": [
+      [
+        "clk50m_d",
+        2243
+      ],
+      [
+        "n404_6",
+        2243
+      ],
+      [
+        "checked_valid",
+        339
+      ],
+      [
+        "n12655_4",
+        312
+      ],
+      [
+        "math_a_23_11",
+        100
+      ],
+      [
+        "n9808_11",
+        97
+      ],
+      [
+        "n9711_9",
+        82
+      ],
+      [
+        "n9334_8",
+        65
+      ],
+      [
+        "n9487_9",
+        65
+      ],
+      [
+        "n8918_8",
+        65
+      ]
+    ]
+  },
+  "implementation_blocker": null,
+  "unsupported_sp_write_modes": [],
+  "pending": [
+    "routed DSP/BSRAM resource audit",
+    "congestion and placement hotspots",
+    "CDC setup/hold and exception matching",
+    "unconstrained paths",
+    "final setup/hold/MPW",
+    "SRAM candidate and physical calibration/acceptance"
+  ],
+  "programmed": false,
+  "flash_written": false,
+  "hardware_tested": false
+}

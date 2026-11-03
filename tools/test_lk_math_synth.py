@@ -1,9 +1,11 @@
 """Compare actual target LK netlist with RTL through its image RAM interface."""
 from pathlib import Path
-import subprocess,json,hashlib,math,re
+import argparse,subprocess,json,hashlib,math,re
 
 def main():
-    out=Path('build/tests');vg=Path('build/system/impl/gwsynthesis/system.vg')
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--netlist',type=Path,default=Path('build/system/impl/gwsynthesis/system.vg'))
+    args=parser.parse_args();out=Path('build/tests');vg=args.netlist
     source=Path('fpga/vision/src/optical_flow/flow_lk_patch.v')
     (out/'lk_reference.v').write_text(source.read_text().replace('module flow_lk_patch','module flow_lk_patch_ref').replace('vision_divider #','vision_divider_ref #'))
     (out/'divider_reference.v').write_text(Path('fpga/vision/src/vision/vision_divider.v').read_text().replace('module vision_divider','module vision_divider_ref'))

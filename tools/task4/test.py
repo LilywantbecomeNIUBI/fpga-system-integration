@@ -74,7 +74,10 @@ def full_top():
     files=[str(p) for p in sources() if p.name!='ethernet_pll.v']
     command(['iverilog','-g2012','-s','tb_task4_system','-s','GSR','-o',str(OUT/'system.vvp'),
       'tests/navigation/tb_task4_system.sv','tests/imu/mpu6050_model.sv','tests/ethernet_pll_model.v',str(prim)]+files,'full_compile')
-    text=command(['vvp',str(OUT/'system.vvp')],'full_top',600);assert 'PASS' in text;print(text.strip().splitlines()[-2:],flush=True)
+    # Host wall limit only: the bench's simulated clocks/timeouts stay intact.
+    # Gate-level/physical builds running concurrently can consume CPU time.
+    wall_limit=int(os.environ.get('TASK4_FULL_SIM_TIMEOUT_S','600'))
+    text=command(['vvp',str(OUT/'system.vvp')],'full_top',wall_limit);assert 'PASS' in text;print(text.strip().splitlines()[-2:],flush=True)
     parser=StatusStream();nav=parser.feed((OUT/'full_system_uart.bin').read_bytes())
     assert nav and not parser.bad_crc and all(not r['running'] and not r['permit'] for r in nav)
     sys.path.insert(0,str(ROOT));from shared.streams import MixedStream
@@ -87,7 +90,7 @@ def full_top():
     assert all(p==[i*5+2.5,1000+i,100] for i,p in enumerate(display.scan['points']))
     assert display.diagnostic and display.diagnostic['packets']==108 and display.diagnostic['crc_errors']==1
     assert all(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()==h for p,h in full_hashes.items())
-    return dict(nav_records=len(nav),other_records=len(rows),bad_crc=0,source_sha256=full_hashes)
+    return dict(nav_records=len(nav),other_records=len(rows),bad_crc=0,source_sha256=full_hashes,host_wall_timeout_s=wall_limit)
 def main():
     OUT.mkdir(parents=True,exist_ok=True);result=dict(hardware_tested=False,programmed=False)
     paths=list((ROOT/'fpga/navigation').rglob('*'))+list((ROOT/'tests/navigation').rglob('*.sv'))+list((ROOT/'tools/task4').glob('*.py'))

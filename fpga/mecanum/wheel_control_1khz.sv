@@ -3,10 +3,11 @@
 // factor ten in its accumulator, so small Ki is not rounded away each tick.
 // Output conversion is bounded restoring division (32 clocks), not a wide /.
 module mc_wheel_control_1khz #(
-    parameter integer PWM_LIMIT=300, SLEW=2, REVERSE_TICKS=100
+    parameter integer PWM_LIMIT=300, SLEW=2, REVERSE_TICKS=100,FRACTIONAL_TARGET=0
 )(
     input wire clk,reset_n,tick,enable,motor_reverse,feedback_stopped,
     input wire signed [15:0] target,
+    input wire target_fractional,
     input wire signed [31:0] velocity_q8,
     input wire [15:0] kp,ki,feedforward,
     output reg signed [15:0] applied
@@ -31,7 +32,9 @@ module mc_wheel_control_1khz #(
     integer quiet_ticks;
     wire signed [31:0] bounded_velocity=velocity_q8>8388352 ? 32'sd8388352 :
                                                 velocity_q8< -8388352 ? -32'sd8388352 : velocity_q8;
-    wire signed [31:0] target_q8=$signed(target)*32'sd256;
+    wire signed [31:0] integer_target_q8=$signed(target)*32'sd256;
+    wire signed [31:0] target_q8=FRACTIONAL_TARGET && target_fractional ?
+        $signed({{16{target[15]}},target}) : integer_target_q8;
     wire signed [15:0] electrical_demand=reverse_q ? -demand : demand;
     reg [31:0] shift_value;reg [20:0] remainder_value;
     reg [5:0] bits_left;reg divide_negative;

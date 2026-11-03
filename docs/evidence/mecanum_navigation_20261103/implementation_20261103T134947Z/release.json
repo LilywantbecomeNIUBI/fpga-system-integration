@@ -1,0 +1,32 @@
+{
+  "functional_tests_passed": true,
+  "synthesis_gate_passed": true,
+  "hardware_release": false,
+  "candidate_ready": true,
+  "full_sta_signoff": false,
+  "new_navigation_sram_candidate": "build\\mecanum_navigation\\delivery\\mecanum_navigation_20261103T134947Z.fs",
+  "flash_written": false,
+  "programmed": false,
+  "frozen_build": "build\\lidar_raw_ethernet_20261102\\mecanum\\20261103T134947Z",
+  "kernel_benches": 18,
+  "mecanum_benches": 35,
+  "integrated_raw_points": 12000,
+  "synthesis": {
+    "Logic": "73244(55751 LUT, 17493 ALU) / 138240",
+    "Register": "51138 / 139095",
+    "BSRAM": "234 / 340"
+  },
+  "routed_resources": {
+    "Logic": "73663/138240                        |  54%",
+    "Register": "51265/139095                        |  37%",
+    "BSRAM": "247/340                             | 73%",
+    "DSP": "154.5/298                           | 52%",
+    "PRIMARY": "5/8           | 63%",
+    "LW": "8/8           | 100%"
+  },
+  "blocked_by": null,
+  "pending": [
+    "recorded clock routing / minimum pulse width experimental boundary; full STA signoff is false",
+    "physical calibration and vehicle acceptance"
+  ]
+}

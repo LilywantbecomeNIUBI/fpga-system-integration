@@ -1,0 +1,96 @@
+{
+  "review_date": "2026-11-03",
+  "project_revision": "05f109c7f1c6b8dae0dad17290546670c0ae3fe9",
+  "project_reuse": {
+    "version": "whole-system 20261103T013936Z",
+    "license": "Existing user/team project; no new external redistribution license inferred",
+    "modules": [
+      "nav_math",
+      "nav_histogram",
+      "nav_vfh",
+      "mc_cordic_sincos",
+      "mc_mecanum_pose_control",
+      "wheel_speed_hybrid",
+      "mc_wheel_control_1khz",
+      "vision_mailbox"
+    ],
+    "baseline_source_sha256": {
+      "fpga/mecanum/cordic_sincos.sv": "939b1f216f0db4c90f945c9801629592e55a1d5bacaa5b5837022777ff910c9b",
+      "fpga/mecanum/mecanum_pose_control.sv": "19e969df4aaba43c257d8bd20164286901db08e8bbbf08c136dc932b49f5e30f",
+      "fpga/mecanum/wheel_control_1khz.sv": "fbafbbbdb44e4e444836b74676c8942e528ab8fb23007c7d7c06c2384a5fb7fc",
+      "fpga/motor/wheel_control_1khz.sv": "ff157c685719be3297f87e61d31dc642721efdfcc380deb76ac711489148414e",
+      "fpga/motor/wheel_speed_hybrid.sv": "19283e12804068861501570742be29356ccf006a0e29ae7316e97ed43ab0f537",
+      "fpga/navigation/nav_histogram.sv": "0348690d9b22573b214ce9b2d3534395cf38143bb5a6d875d815b1b0751ff484",
+      "fpga/navigation/nav_math.sv": "6054f62a9cd2fdbdefce3a839304da0ab8cef33149042370ea27e2d5877ba07e",
+      "fpga/navigation/nav_vfh.sv": "0a89ac572a630be8f10b3401fb4c82dbe40eaf95fcc3140ed3571f0960dbf9cb",
+      "fpga/vision/src/vision/vision_mailbox.v": "edd55f16c5e30a0a1b2794e0bc244562c3f01558d2de4857807511a1a1f3a6a6"
+    },
+    "verification": [
+      "build/task4/validation.json",
+      "build/mecanum/tests/result.json"
+    ],
+    "changes": "New holonomic planner/map/sweep; optional Q8 targets and independent output gate. nav_vfh range storage changed to explicit synchronous SDP after GW5AT PA2122; one read-wait state added, all 226 reference cases and primitive-model cases unchanged. Coordinate service shares one registered multiply datapath and reuses nav_math division; immutable pre-serialization oracle verifies signed products and angle bins. Map reset predicate is registered to remove timestamp bus-skew glitches."
+  },
+  "team_import": {
+    "manifest": "vendor/mecanum_team/manifest.json",
+    "sha256": "8cd0dcda3687e83d83fecdde93dbd744688f94594ededbeefc7816105214f72c",
+    "license": "User-provided private team source; no separate public license found"
+  },
+  "gowin_template": {
+    "version": "Gowin V1.9.12.04 / SUG550-2.4E",
+    "source": "C:/Gowin/Gowin_V1.9.12.04_x64/IDE/doc/EN/SUG550-2.4E_GowinSynthesis User Guide.pdf",
+    "usage": "Synchronous SDP inference pattern; no vendor source copied; simulator IP license unchanged"
+  },
+  "nav2": {
+    "repository": "https://github.com/ros-navigation/navigation2",
+    "commit": "2d3d1cc569b411b2b5f477be620c35796edb75c6",
+    "path": "nav2_costmap_2d/src/footprint_collision_checker.cpp",
+    "sha256": "a63309653951a36c9e4b4742050b2696951af1b5ed2123750e5f51472b6c9bf4",
+    "license": "Apache-2.0",
+    "usage": "Algorithm reference only; no source copied into RTL"
+  },
+  "new_reference_model": {
+    "path": "tools/mecanum/navigation_model.py",
+    "implementation": "Independent SAT and dense-time geometry, no Nav2 source copied",
+    "verification": "100 vectors including filled interior/translation/rotation; no missed model collisions"
+  },
+  "service_equivalence_oracle": {
+    "manifest": "tests/navigation/reference/mc_nav_system_pre_serial.json",
+    "version": "20261103T102147Z frozen project service; only module renamed",
+    "license": "Existing user/team project; same terms as project_reuse",
+    "verification": "1536 checkpoints / 5376 signed products; 217 bearing-bin boundaries; abort and reset bus-skew regression"
+  },
+  "math_specialization_oracle": {
+    "manifest": "tests/navigation/reference/nav_math_full_reference.json",
+    "license": "Existing user/team project; same terms as project_reuse",
+    "usage": "Compile-time OP_MASK defaults to all operations; path enables 0/1/2, scalar enables 1/3/4; no enabled-operation latency change",
+    "verification": "1734 cases / 58248 cycle-exact checks against pre-change unit, disabled operations, reset, invalid busy mode exit"
+  },
+  "sta_revision_20261103": {
+    "reused_math": "Same project nav_math, exact enabled-operation cycle contract; signed accumulation, parallel final divide sign, disjoint sqrt OR and segmented negation",
+    "histogram_reference": {
+      "path": "tests/navigation/reference/nav_histogram_reference.sv",
+      "sha256": "19b9bcdc9c745dc68570a07822ee162093bb6d6cb9a0c31221f3fc5d1a96f2a9",
+      "license": "Existing user/team project",
+      "usage": "Immutable settled-behavior oracle for synchronous mirrored SDP replacement"
+    },
+    "verification": [
+      "1734 math cases /58248 cycle checks",
+      "111289 signed reciprocal datapath inputs plus all65536 accel values",
+      "2560 histogram reference reads in RTL and synthesized SDPB primitive simulation",
+      "226 VFH model and synthesized primitive cases",
+      "13 pyramid optical-flow oracle scenes; frame/UDP exact-payload tests"
+    ],
+    "vendor_attributes": "Gowin synchronous SDP inference; syn_maxfan/syn_preserve local address/data/control registers; no vendor RTL copied",
+    "external_source_changes": "No added third-party algorithm; project modules and local official simulator templates reused"
+  },
+  "control_timing_revision": {
+    "version": "134947Z",
+    "license": "Existing project/team code; no new external source",
+    "pwm_reference": "tests/mecanum/reference/mc_at8236_pwm_before_width.sv",
+    "event_reference": "tests/navigation/reference/event_packet_mux_reference.v",
+    "verification": "277000 cycle-exact PWM checks, 5000 cycle-exact mux checks,35 Mecanum benches, full wire and camera packet regressions",
+    "protocol_change": "None; additional telemetry_ready_local is an internal same-reset-domain unqualified slot signal; external reset-qualified ready remains",
+    "safety_change": "No output-gate or watchdog delay; PWM counters merely narrowed to proven bounded widths"
+  }
+}

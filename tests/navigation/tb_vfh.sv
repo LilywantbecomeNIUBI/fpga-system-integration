@@ -4,7 +4,7 @@ module tb_vfh;
  reg signed[15:0] target,previous;reg[15:0] rad,lo=1200,hi=1400,stop=450,slow=1000,turn;
  wire[6:0] index;reg[15:0] distancev;reg known;reg[15:0] ranges[0:71];reg[71:0] observed;
  wire busy,done,found,fk,rc,clear;wire[31:0] seq;wire[15:0] fm;wire signed[15:0] safe;wire[71:0] blocked;wire[23:0] cost;
- nav_vfh dut(clk,rst,start,16'd0,target,previous,rad,lo,hi,stop,slow,turn,8'd5,8'd1,8'd3,8'd8,index,distancev,known,32'd0,clear,seq,busy,done,found,fk,rc,fm,safe,blocked,cost);
+ nav_vfh dut(clk,rst,start,16'd0,target,previous,rad,lo,hi,stop,slow,turn,8'd5,8'd1,8'd3,8'd8,index,distancev,known,32'd0,clear,seq,busy,done,found,fk,rc,fm,safe,blocked,cost,1'b0);
  always @(posedge clk)begin distancev<=ranges[index];known<=observed[index];end
  integer f,o,r,j,n,id;
  initial begin f=$fopen("build/task4/vfh_input.txt","r");o=$fopen("build/task4/vfh_output.txt","w");repeat(3)@(negedge clk);rst=1;

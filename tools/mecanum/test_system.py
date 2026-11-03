@@ -13,7 +13,9 @@ from test_display import packet
 
 
 def main():
+    global OUT
     folder=Path(sys.argv[1]).resolve()
+    OUT=folder/'simulation_io'
     meta=json.loads((folder/'manifest.json').read_text())
     assert meta['top']=='system_mecanum_top'
     raw=meta.get('lidar_mode')=='raw_points'
@@ -55,6 +57,7 @@ def main():
         source=source.replace('dut.ethernet_raw.lidar_display.forwarded!=1000 || dut.ethernet_raw.lidar_display.dropped!=0',
             'dut.ethernet_scan.lidar_display.completed==0 || dut.ethernet_scan.lidar_display.input_loss_count!=0')
     source=source.replace('system_raw_top_tx.hex','system_mecanum_tx.hex')
+    source=source.replace('build/lidar_raw_ethernet_20261102/', OUT.as_posix()+'/')
     # Avoid a same-timestep logger write after the final descriptor is closed.
     source=source.replace('if(dut.camera.tx_valid)$fwrite(log','if(log && dut.camera.tx_valid)$fwrite(log')
     source=source.replace('else if(was_tx)$fwrite(log','else if(log && was_tx)$fwrite(log')
@@ -72,6 +75,9 @@ def main():
         print(p.stdout,end='',flush=True)
     rows,scans,video,frames=audit_packets(OUT/'system_mecanum_tx.hex')
     counts=collections.Counter(k for k,r in rows)
+    if meta.get('mecanum_navigation'):
+        navigation=[r for k,r in rows if k=='mecanum_navigation']
+        assert navigation and all(not r['active'] and not r['permit'] and not r['calibrated'] for r in navigation)
     assert {'mecanum_motor','mecanum_pose','lidar_raw' if raw else 'lidar_scan','lidar_diagnostic'}<=set(counts)
     assert counts['motor']==0 and video==1 and scans
     motors=[r for k,r in rows if k=='mecanum_motor']

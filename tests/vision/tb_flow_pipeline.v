@@ -4,7 +4,7 @@ module tb_flow_pipeline #(parameter WIDTH=64,HEIGHT=48,PYRAMID=0);
     reg rst_n=0,fs=0,fe=0,fg=0,pv=0;reg [15:0] fid=0,x=0,y=0;reg [7:0] luma=0;
     wire busy,done,sv,good,lost,pair_begin;wire [15:0] rid,fx,fy;wire signed [15:0] u,v;wire [31:0] cycles,drops;
     localparam TOTAL=WIDTH*HEIGHT,POINTS=((WIDTH-16)/8+1)*((HEIGHT-16)/8+1);
-    reg [7:0] a[0:TOTAL-1],b[0:TOTAL-1];reg [1023:0] base,filename;
+    reg [7:0] a[0:TOTAL-1],b[0:TOTAL-1];reg [4095:0] base,filename;
     integer out,status_log,ix,iy,count=0;
     flow_pipeline #(.WIDTH(WIDTH),.HEIGHT(HEIGHT),.PYRAMID(PYRAMID)) dut(.clk(clk),.rst_n(rst_n),.invalidate(1'b0),.frame_start(fs),.frame_end(fe),.frame_good(fg),
         .pixel_valid(pv),.frame_id(fid),.x(x),.y(y),.luma(luma),.busy(busy),.frame_done(done),
@@ -39,6 +39,7 @@ module tb_flow_pipeline #(parameter WIDTH=64,HEIGHT=48,PYRAMID=0);
         filename={base,"/a.mem"};$readmemh(filename,a);filename={base,"/b.mem"};$readmemh(filename,b);
         filename={base,"/pipeline.txt"};out=$fopen(filename,"w");
         filename={base,"/status.txt"};status_log=$fopen(filename,"w");
+        if(!out || !status_log)$fatal(1,"cannot open oracle output path");
         repeat(5)@(negedge clk);rst_n=1;
         send_frame(16'hfffe,0,1);repeat(5)@(negedge clk);if(busy || count!=0)$fatal(1,"first frame used uninitialized history");
         send_frame(16'hffff,1,1);wait(done);@(negedge clk);

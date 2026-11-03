@@ -7,18 +7,21 @@ module camera_perception #(parameter TELEMETRY_ENABLE=0,MOTOR_ENABLE=0)(
     output eth_mdc,inout eth_mdio,output eth_rst_n,output [7:0] led,output [31:0] network_debug,
     output m1_drv_en,m2_drv_en,lidar_moto_pwm,
     input telemetry_clk,input [383:0] telemetry_frame,input telemetry_valid,output telemetry_ready,
-    output motor_valid,output [191:0] motor_frame,input motor_ready,output motor_clk,motor_reset_n
+    output motor_valid,output [191:0] motor_frame,input motor_ready,output motor_clk,motor_reset_n,
+    output flow_safety_valid,output [63:0] flow_safety_snapshot
 );
     wire clk50,clk125,unused_xclk,pll_lock,phy_init,cam_done,cam_id_ok,cam_error;
     (* syn_keep=1 *) wire sys_rst_n;
     wire [15:0] phy_status;
     wire telemetry_src_reset_n,telemetry_network_reset_n;
-    wire telemetry_net_valid,telemetry_net_ready;wire [511:0] telemetry_net_payload;
+    wire telemetry_net_valid,telemetry_net_ready,telemetry_net_slot_ready;wire [511:0] telemetry_net_payload;
     generate if(TELEMETRY_ENABLE)begin:telemetry_enabled
     reset_sync telemetry_reset(.clk(telemetry_clk),.arst_n(reset_n && pll_lock && phy_init),.rst_n(telemetry_src_reset_n));
     telemetry_cdc telemetry_bridge(.src_clk(telemetry_clk),.src_rst_n(telemetry_src_reset_n),
         .src_valid(TELEMETRY_ENABLE && telemetry_valid),.src_frame(telemetry_frame),.src_ready(telemetry_ready),
-        .dst_clk(clk125),.dst_rst_n(telemetry_network_reset_n),.dst_ready(telemetry_net_ready),
+        // Both blocks share this reset. Inside the non-reset CDC branch,
+        // use slot readiness without a redundant long reset-to-CE cone.
+        .dst_clk(clk125),.dst_rst_n(telemetry_network_reset_n),.dst_ready(telemetry_net_slot_ready),
         .dst_valid(telemetry_net_valid),.dst_payload(telemetry_net_payload));
     end else begin:telemetry_disabled
         assign telemetry_ready=0,telemetry_net_valid=0,telemetry_net_payload=0;
@@ -87,9 +90,24 @@ module camera_perception #(parameter TELEMETRY_ENABLE=0,MOTOR_ENABLE=0)(
     // One camera/feature pipeline fans out to ROI LK and environment flow.
     wire flow_obs_valid,flow_observation_valid,flow_event_valid,flow_event_ready;
     wire [255:0] flow_obs,flow_observation,flow_event_payload;
+    wire flow_safety_source_valid;wire [31:0] flow_safety_source;
+    wire navigation_safety_source_reset_n;
+    // The mailbox requires common async assertion, independent synchronous
+    // release. Source must not run ahead while destination waits for PHY init.
+    reset_sync navigation_safety_source_reset(.clk(clk50),.arst_n(reset_n && pll_lock && phy_init),.rst_n(navigation_safety_source_reset_n));
+    reg [31:0] safety_source_ms;integer safety_source_div;
+    always @(posedge clk50 or negedge navigation_safety_source_reset_n)begin
+     if(!navigation_safety_source_reset_n)begin safety_source_ms<=0;safety_source_div<=0;end
+     else if(safety_source_div==49999)begin safety_source_div<=0;safety_source_ms<=safety_source_ms+1'b1;end
+     else safety_source_div<=safety_source_div+1;
+    end
+    vision_mailbox #(.WIDTH(64)) navigation_safety_cdc(.src_clk(clk50),.src_rst_n(navigation_safety_source_reset_n),
+     .src_valid(flow_safety_source_valid),.src_data({safety_source_ms,flow_safety_source}),
+     .dst_clk(telemetry_clk),.dst_rst_n(telemetry_src_reset_n),.dst_valid(flow_safety_valid),.dst_data(flow_safety_snapshot),
+     .src_reset_bank(4'd0),.dst_reset_bank(2'd0));
     flow_observer flow_sensor(.clk(clk50),.rst_n(sys_rst_n),.invalidate(proc_invalidate),
         .ov(proc_pv),.os(proc_fs),.oe(proc_fe),.og(proc_fg),.ox(proc_x),.oy(proc_y),.ofid(proc_fid),.luma(proc_luma),
-        .event_valid(flow_obs_valid),.event_payload(flow_obs));
+        .event_valid(flow_obs_valid),.event_payload(flow_obs),.safety_valid(flow_safety_source_valid),.safety_payload(flow_safety_source));
     vision_mailbox #(.SPLIT_RESET(1)) flow_mailbox(.src_clk(clk50),.src_rst_n(sys_rst_n),
         .src_valid(flow_obs_valid),.src_data(flow_obs),.dst_clk(clk125),.dst_rst_n(eth_rst_stream),
         .dst_valid(flow_observation_valid),.dst_data(flow_observation),
@@ -119,7 +137,7 @@ module camera_perception #(parameter TELEMETRY_ENABLE=0,MOTOR_ENABLE=0)(
             .target2_ip(),.target2_port(),.enabled2(enabled2),.cache2_hit(cache2),.target2_mac(),
             .vision_valid(result_valid),.vision_payload(result_payload),.vision_status(status),.vision_status_valid(result_done),
             .event_valid(event_valid),.event_payload(event_payload),.event_ready(event_ready),
-            .telemetry_valid(telemetry_net_valid),.telemetry_payload(telemetry_net_payload),.telemetry_ready(telemetry_net_ready),
+            .telemetry_valid(telemetry_net_valid),.telemetry_payload(telemetry_net_payload),.telemetry_ready(telemetry_net_ready),.telemetry_ready_local(telemetry_net_slot_ready),
             .motor_valid(motor_valid),.motor_frame(motor_frame),.motor_ready(motor_ready));
         vision_result_core #(.MAX_AGE_FRAMES(14)) semantics(.clk(clk125),.rst_n(network_rst_n),.stream_ready(endpoint_ready),
             .frame_tick(start && first),.frame_id(packet_fid),.result_valid(result_valid),.result_payload(result_payload),

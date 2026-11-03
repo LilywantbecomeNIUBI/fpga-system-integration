@@ -14,7 +14,9 @@ module mc_command_cdc(
   if(!src_reset_n)begin request<=0;ack_meta<=0;ack_sync<=0;held<=0;end
   else begin
    ack_meta<=ack;ack_sync<=ack_meta;
-   if(src_valid && src_ready)begin held<=src_frame;request<=!request;end
+   // src_ready keeps reset gating externally. Reset already dominates this
+   // branch; avoid routing that same reset back through the192-bit held CE.
+   if(src_valid && request==ack_sync)begin held<=src_frame;request<=!request;end
   end
  end
  always @(posedge dst_clk or negedge dst_reset_n)begin

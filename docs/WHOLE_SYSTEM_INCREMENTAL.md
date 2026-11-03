@@ -41,3 +41,12 @@ GW5AT-138B属于支持此功能的Arora V。`.pr`包含布局和布线；`.p`仅
 
 给队友传递冻结工程时，必须同时传递 `incremental_base/sensor.pr`。本轮参考约187MB，不能直接作为普通GitHub大文件提交；
 应通过压缩包或合适的大文件传递方式携带，并在接收端核对清单SHA256。
+
+2026-11-03，用户又明确授权本轮新增麦轮导航全量整机布局布线，生成SRAM候选；
+若布线缓慢，检查并修复RTL关键路径、扇出和拥塞，再跑受影响检查。入口为：
+
+```powershell
+python tools/task4/build_ethernet.py --system --mecanum --navigation --raw-points --clock-cleanup --full-rebuild --place 2 --route-option 1
+```
+
+此授权仅覆盖本轮导航及其修正，不改后续默认增量策略；不包含下载SRAM或写Flash。

@@ -1,0 +1,19 @@
+{
+  "confirmed": false,
+  "front_mm": null,
+  "back_mm": null,
+  "half_width_mm": null,
+  "radius_mm": null,
+  "pad_mm": null,
+  "forward_mm_per_raw_count": null,
+  "lateral_mm_per_raw_count": null,
+  "rotation_lever_mm": null,
+  "laser_x_mm": null,
+  "laser_y_mm": null,
+  "laser_yaw_deg": null,
+  "max_speed_mm_s": 50,
+  "accel_mm_s2": 100,
+  "measured_stop_mm": null,
+  "deceleration_mm_s2": null,
+  "self_masks": []
+}

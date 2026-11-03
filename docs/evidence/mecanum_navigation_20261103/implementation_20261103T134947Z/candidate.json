@@ -1,0 +1,19 @@
+{
+  "path": "build\\mecanum_navigation\\delivery\\mecanum_navigation_20261103T134947Z.fs",
+  "sha256": "0e1bb14baf1601a90f15944a7c9593541dc1b4b9994c123d9b433a492f240fb1",
+  "complete_pr_reference": "build\\lidar_raw_ethernet_20261102\\mecanum\\20261103T134947Z\\impl\\pnr\\sensor.pr",
+  "complete_pr_sha256": "5a1207476a9142aa4a96603503ce48ef638263c4c344eb66434bffdbc1e50707",
+  "setup_hold": {
+    "setup": 0,
+    "hold": 0
+  },
+  "min_pulse_width_slack_ns": -0.849,
+  "clock_route_warnings": [
+    "WARN  (PR1014) : Generic routing resource will be used to clock signal 'camera_pclk_d' by the specified constraint. And then it may lead to the excessive delay or skew"
+  ],
+  "full_sta_signoff": false,
+  "experimental_boundary": true,
+  "calibration_required": true,
+  "programmed": false,
+  "flash_written": false
+}
